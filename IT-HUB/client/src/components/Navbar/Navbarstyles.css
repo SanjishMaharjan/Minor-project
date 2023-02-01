@@ -1,0 +1,103 @@
+/* :root {
+  --bg-color: purple;
+  --shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+  --font-color-primary: white;
+  --font-color-secondary: pink;
+  --hover-color: #0c9f51;
+
+  --font-weight: 600;
+  --font-size: 1.3rem;
+} */
+
+.menuIcon {
+  background: rgb(23, 25, 31);
+  padding-block: 10px;
+  padding: 0 30px;
+  height: 60px;
+  border-radius: 8px;
+  width: 99%;
+  margin-inline: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.Logo {
+  color: white;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  gap: 5rem;
+}
+
+a {
+  text-decoration: none;
+  /* color: var(--font-color-primary); */
+  color: white;
+}
+
+
+.navbar li {
+  list-style: none;
+  font-weight: var(--font-weight);
+  color: #0c9f51;
+  font-size: var(--font-size);
+  text-decoration: none !important;
+}
+
+.navbar li ::after {
+
+  content: "";
+  display: block;
+  position: relative;
+  height: 3px;
+  width: 100%;
+  background: var(--hover-color);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 400ms ease-out;
+}
+
+.navbar li:hover li::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.navbar li .active::after {
+  transform: scaleX(1);
+  transform-origin: initial;
+}
+
+button {
+  background: transparent;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #0c9f51;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
+/* @media screen and (max—width: 850px) {
+
+  .nav—menu {
+    display: flex;
+    flex—direction: column;
+    justify—content: flex—start;
+    O green;
+    background: width: 160%;
+    height: auto;
+    position: absolute;
+    top: O;
+    left: O;
+    opacity:
+  } */

@@ -1,0 +1,26 @@
+:root {
+    --bg-color: purple;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    --font-color-primary: rgb(255, 255, 255);
+    --font-color-secondary: rgb(23, 25, 31);
+    --hover-color: #0c9f51;
+    --margin-block: 3rem;
+    --font-weight: 600;
+    --font-size: 1.3rem;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    color: var(--font-color-primary);
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
