@@ -1,16 +1,5 @@
-/* :root {
-  --bg-color: purple;
-  --shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-  --font-color-primary: white;
-  --font-color-secondary: pink;
-  --hover-color: #0c9f51;
-
-  --font-weight: 600;
-  --font-size: 1.3rem;
-} */
-
 .menuIcon {
-  background: rgb(23, 25, 31);
+  background: var(--font-color-secondary);
   padding-block: 10px;
   padding: 0 30px;
   height: 60px;
@@ -24,7 +13,7 @@
 }
 
 .Logo {
-  color: white;
+  color: var(--font-color-primary);
   font-size: 1.6rem;
   cursor: pointer;
 }
@@ -33,19 +22,20 @@
   display: flex;
   justify-content: space-around;
   gap: 5rem;
+
 }
 
 a {
   text-decoration: none;
   /* color: var(--font-color-primary); */
-  color: white;
+  color: var(--font-color-primary);
 }
 
 
 .navbar li {
   list-style: none;
   font-weight: var(--font-weight);
-  color: #0c9f51;
+  color: var(--hover-color);
   font-size: var(--font-size);
   text-decoration: none !important;
 }
@@ -80,12 +70,28 @@ button {
   border: none;
   outline: none;
   color: #fff;
-  background: #0c9f51;
+  background: var(--hover-color);
   border-radius: 20px;
   font-size: 14px;
   cursor: pointer;
 }
 
+#themeIcon {
+  width: 2rem;
+  top: 2rem;
+  height: auto;
+  cursor: pointer;
+  /* display: flex; */
+
+}
+
+.icons {
+  flex: 1;
+  text-align: right;
+  gap: 2rem;
+
+  /* display: flex; */
+}
 
 /* @media screen and (max—width: 850px) {
 

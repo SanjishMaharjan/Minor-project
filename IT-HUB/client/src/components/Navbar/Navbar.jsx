@@ -1,11 +1,32 @@
 import './Navbarstyles.css'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 const Navbar = () => {
-  // const getlogin = () => {
-  //   <a href='/login'>signup</a>
+
+  const [theme, setTheme] = useState("dark-theme");
+  const toggleTheme = () => {
+    if (theme === "dark-theme") {
+      setTheme("light-theme");
+    }
+    else {
+      setTheme("dark-theme");
+    }
+  };
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
+
+
+
+
+  // let icon = document.getElementById("themeIcon");
+
+  // icon.onclick = function () {
+  //   toggleTheme();
   // }
+
   return (
     <div>
       <div className="menuIcon">
@@ -29,10 +50,12 @@ const Navbar = () => {
           <li>
             <NavLink to="/about">About</NavLink>
           </li>
+          <li>
+            <img id="themeIcon" onClick={toggleTheme} src={theme === "dark-theme" ? "../../src/assets/images/sun.png" : "../../src/assets/images/moon.png"} alt="dark" srcset="" />
+            {/* <img id="profileImg" src="../../src/assets/images/user.png " alt="profile" srcset="" /> */}
+          </li>
+          <NavLink to="/login"><button>Log in</button></NavLink>
         </ul>
-        <li>
-          <NavLink to="/login"><button>Sign up</button></NavLink>
-        </li>
       </div>
     </div>
   )

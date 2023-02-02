@@ -1,12 +1,27 @@
 :root {
     --bg-color: purple;
-    --shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-    --font-color-primary: rgb(255, 255, 255);
+    /* --font-color-primary: rgb(255, 255, 255);
     --font-color-secondary: rgb(23, 25, 31);
+    --font-color-ternary: rgb(14, 18, 23); */
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
     --hover-color: #0c9f51;
     --margin-block: 3rem;
     --font-weight: 600;
     --font-size: 1.3rem;
+}
+
+.dark-theme {
+    --font-color-primary: rgb(255, 255, 255);
+    --font-color-secondary: rgb(43, 44, 55);
+    --font-color-ternary: rgb(32, 33, 44);
+    --font-color-login: rgb(255, 255, 255);
+}
+
+.light-theme {
+    --font-color-primary: rgb(14, 18, 23);
+    --font-color-secondary: rgb(184, 207, 230);
+    --font-color-ternary: rgb(255, 255, 255);
+    --font-color-login: rgb(141, 188, 235);
 }
 
 * {
@@ -23,4 +38,3 @@ li {
 a {
     text-decoration: none;
 }
-

@@ -15,10 +15,10 @@ const Home = () => {
       <img className="Landing_image" src="../../src/assets/Images/shahadat-rahman-BfrQnKBulYQ-unsplash.jpg" alt="image" srcset="" />
       <p>Want to learn and grow together computer Enthusiast?<br></br>
         Then join us and enroll in our courses
-        <div className='getstarted'>
-          <NavLink to="/courses"><button type="submit">Get Started</button></NavLink>
-        </div>
       </p>
+      <div className='getstarted'>
+        <NavLink to="/courses"><button className='btn-getstarted' type="submit">Get Started</button></NavLink>
+      </div>
     </>
 
   )
