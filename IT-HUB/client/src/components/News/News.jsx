@@ -5,8 +5,8 @@ import './NewsStyles.css'
 
 const News = () => {
 
-  const [description, setDescription] = useState([]);
   // Fetch from api
+  // const [description, setDescription] = useState([]);
   // const getdata = async () => {
   //   url = "./news.json"
   //   const response = await fetch(url);
@@ -26,7 +26,7 @@ const News = () => {
 
           <div className="card">
             <div className="card_body">
-              <img className="card_image" src={item.image} alt="" srcset="" />
+              <img className="card_image" src={item.image} alt="" />
               <h2 className="card_title">{item.title}</h2>
               {/* <p className="card__descript">{props.descript}</p> */}
             </div>

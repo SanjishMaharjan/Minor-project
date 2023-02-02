@@ -5,6 +5,7 @@ const QA = () => {
     <div>
       Q/A
     </div>
+
   )
 }
 

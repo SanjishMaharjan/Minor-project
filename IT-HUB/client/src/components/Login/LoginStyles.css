@@ -67,11 +67,13 @@
   background: transparent;
   border: none;
   outline: none;
+  margin-top: 2rem;
+  display: block;
+  margin-inline: auto;
   color: var(--font-color-login);
   font-size: 14px;
 }
 
 .btn-register:hover {
-  text-underline-position: below;
   color: gray;
 }

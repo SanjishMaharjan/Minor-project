@@ -5,20 +5,21 @@
 .wrapper {
     display: grid;
     margin-block: 3rem;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 25rem));
-    gap: 5rem;
+    grid-template-columns: repeat(auto-fit, minmax(22rem, 28rem));
+    gap: 3rem;
     justify-content: center;
 }
 
 .card {
     overflow: hidden;
     /* box-shadow: 4px 23px 34px 0px rgba(54, 41, 41, 0.1); */
-    /* box-shadow: 4px 1px 34px 0px var(--font-color-login); */
+    box-shadow: 4px 1px 34px 0px var(--font-color-login);
     box-shadow: 0 2px 10px var(--font-color-login);
     border-radius: 0.6rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
     cursor: pointer;
     transition: transform 200ms ease-in;
 }

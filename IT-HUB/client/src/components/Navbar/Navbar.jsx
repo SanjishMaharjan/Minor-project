@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 
 const Navbar = () => {
 
+  // To create dark and bright theme
   const [theme, setTheme] = useState("dark-theme");
   const toggleTheme = () => {
     if (theme === "dark-theme") {
@@ -51,11 +52,16 @@ const Navbar = () => {
             <NavLink to="/about">About</NavLink>
           </li>
           <li>
-            <img id="themeIcon" onClick={toggleTheme} src={theme === "dark-theme" ? "../../src/assets/images/sun.png" : "../../src/assets/images/moon.png"} alt="dark" srcset="" />
+            <img id="themeIcon" onClick={toggleTheme} src={theme === "dark-theme" ? "../../src/assets/images/sun.png" : "../../src/assets/images/moon.png"} alt="dark" />
             {/* <img id="profileImg" src="../../src/assets/images/user.png " alt="profile" srcset="" /> */}
           </li>
           <NavLink to="/login"><button>Log in</button></NavLink>
         </ul>
+        {/* To create a hamburger menu using icons pack */}
+        {/* <div id="mobile">
+          <i className="fas fa-bars"></i>
+          <i className="fas fa-times"></i>
+        </div> */}
       </div>
     </div>
   )

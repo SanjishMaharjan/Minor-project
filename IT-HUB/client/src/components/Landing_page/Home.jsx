@@ -7,12 +7,12 @@ const Home = () => {
   return (
     <>
       <div className='Tagline'>
-        <body>
-          <h1>Exploring the boundless possibilities of technology.</h1>
-          <h2>Where imagination meets creativity</h2>
-        </body>
+
+        <h1>Exploring the boundless possibilities of technology.</h1>
+        <h2>Where imagination meets creativity</h2>
+
       </div >
-      <img className="Landing_image" src="../../src/assets/Images/shahadat-rahman-BfrQnKBulYQ-unsplash.jpg" alt="image" srcset="" />
+      <img className="Landing_image" src="../../src/assets/Images/shahadat-rahman-BfrQnKBulYQ-unsplash.jpg" alt="image" />
       <p>Want to learn and grow together computer Enthusiast?<br></br>
         Then join us and enroll in our courses
       </p>

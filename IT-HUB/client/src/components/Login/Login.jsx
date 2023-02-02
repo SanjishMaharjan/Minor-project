@@ -46,7 +46,7 @@ const Login = () => {
               />
             </div>
             <button type="submit">Login</button>
-            <NavLink to="/register"><button className='btn-register' type="submit">Don't have a account? Register here</button></NavLink>
+            <NavLink to="/register"><a className='btn-register' >Don't have a account? Register here</a></NavLink>
           </form>
 
           <div>

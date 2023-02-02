@@ -1,5 +1,5 @@
 import React from 'react'
-import About from './About'
+import About from './components/About/About'
 import Courses from './Courses'
 import Gallery from './Gallery'
 import Home from './components/Landing_page/Home'

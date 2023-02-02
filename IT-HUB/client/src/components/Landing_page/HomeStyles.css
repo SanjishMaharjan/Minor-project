@@ -27,11 +27,23 @@ body {
     border-radius: 15px;
 }
 
+
 .btn-getstarted {
     display: block;
     margin-inline: auto;
 }
 
-/* .getstarted {
-    text-align: center;
-} */
+/* Css for About section */
+#clubLogo {
+    margin-top: 2rem;
+    width: 10%;
+    height: auto;
+    margin-inline: auto;
+    display: block;
+}
+
+.intro {
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: justify;
+}

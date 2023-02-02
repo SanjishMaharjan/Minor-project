@@ -21,7 +21,7 @@
     --font-color-primary: rgb(14, 18, 23);
     --font-color-secondary: rgb(184, 207, 230);
     --font-color-ternary: rgb(255, 255, 255);
-    --font-color-login: rgb(141, 188, 235);
+    --font-color-login: rgb(0, 0, 0);
 }
 
 * {
