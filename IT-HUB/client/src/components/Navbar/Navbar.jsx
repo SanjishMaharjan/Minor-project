@@ -20,14 +20,6 @@ const Navbar = () => {
   }, [theme]);
 
 
-
-
-  // let icon = document.getElementById("themeIcon");
-
-  // icon.onclick = function () {
-  //   toggleTheme();
-  // }
-
   return (
     <div>
       <div className="menuIcon">
@@ -52,8 +44,11 @@ const Navbar = () => {
             <NavLink to="/about">About</NavLink>
           </li>
           <li>
+            {/* <img id="themeIcon" alt="dark" /> */}
             <img id="themeIcon" onClick={toggleTheme} src={theme === "dark-theme" ? "../../src/assets/images/sun.png" : "../../src/assets/images/moon.png"} alt="dark" />
+            {/* <i onClick={toggleTheme} className={theme === "dark-theme" ? "fa-regular fa-brightness-low" : "fa-regular fa-moon"}></i> */}
             {/* <img id="profileImg" src="../../src/assets/images/user.png " alt="profile" srcset="" /> */}
+            {/* <i class="fa-thin fa-sun"></i> */}
           </li>
           <NavLink to="/login"><button>Log in</button></NavLink>
         </ul>

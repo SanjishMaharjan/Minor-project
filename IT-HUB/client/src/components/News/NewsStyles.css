@@ -2,18 +2,21 @@
     margin: 2rem;
 }
 
+
 .wrapper {
     display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
     margin-block: 3rem;
-    grid-template-columns: repeat(auto-fit, minmax(22rem, 28rem));
     gap: 3rem;
-    justify-content: center;
+    justify-content: space-around;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 .card {
     overflow: hidden;
     /* box-shadow: 4px 23px 34px 0px rgba(54, 41, 41, 0.1); */
-    box-shadow: 4px 1px 34px 0px var(--font-color-login);
+    /* box-shadow: 4px 1px 34px 0px var(--font-color-login); */
     box-shadow: 0 2px 10px var(--font-color-login);
     border-radius: 0.6rem;
     display: flex;
@@ -36,11 +39,38 @@
     scale: 1.2;
 }
 
-.card_title {
-    font-size: 1.2rem;
-    padding: 1rem;
+.wrapper :hover .card_title {
+    margin-top: 2rem;
 }
 
+.card_title {
+    font-size: 1.1rem;
+    margin-top: 2rem;
+    /* padding: 1rem; */
+}
+
+.card_description {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    font-weight: 200;
+}
+
+.card_author {
+    margin-top: 1rem;
+    /* text-align: left; */
+    font-size: 0.85rem;
+    font-weight: 400;
+}
+
+.card_publishedAt {
+    font-size: 0.7rem;
+    font-weight: 200;
+}
+
+.card_sourcename {
+    font-size: 0.7rem;
+    font-weight: 200;
+}
 
 
 .card_btn {

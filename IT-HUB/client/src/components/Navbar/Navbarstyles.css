@@ -101,6 +101,13 @@ button:hover {
   color: #fff;
 }
 
+.navbar li i {
+  border: 2px solid red;
+  font-size: 24px;
+  cursor: pointer;
+  color: #fff;
+}
+
 @media screen and (max—width: 850px) {
 
   .menuIcon {

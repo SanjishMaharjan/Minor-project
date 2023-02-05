@@ -32,18 +32,3 @@ body {
     display: block;
     margin-inline: auto;
 }
-
-/* Css for About section */
-#clubLogo {
-    margin-top: 2rem;
-    width: 10%;
-    height: auto;
-    margin-inline: auto;
-    display: block;
-}
-
-.intro {
-    padding-left: 10%;
-    padding-right: 10%;
-    text-align: justify;
-}

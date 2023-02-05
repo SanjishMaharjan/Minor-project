@@ -1,0 +1,51 @@
+.faq-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* .hr-line {
+    color: red;
+    width: 60%;
+    margin: auto;
+
+} */
+
+/* Style the buttons that are used to open and close the faq-page body */
+.faq-page {
+    color: var(--font-color-login);
+    cursor: pointer;
+    padding: 30px 20px;
+    width: 60%;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    margin: auto;
+}
+
+.faq-body {
+    margin: auto;
+    width: 50%;
+    padding: auto;
+
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+
+.faq-page:hover {
+    background-color: var(--font-color-secondary);
+}
+
+/* Style the faq-page panel. Note: hidden by default */
+.faq-body {
+    padding: 0 18px;
+    /* background-color: white; */
+    display: block;
+    overflow: hidden;
+}
+
+.faq-page:after {
+    font-size: 13px;
+    float: right;
+    margin-left: 5px;
+}

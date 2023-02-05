@@ -1,0 +1,57 @@
+/* .aboutwrapper {
+    display: grid;
+    margin-block: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(22rem, 28rem));
+    gap: 3rem;
+    justify-content: center;
+    border: 2px, solid, red;
+}
+
+.aboutcard {
+    display: grid;
+    margin-block: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fit, minmax(22rem, 28rem));
+    gap: 1rem;
+    justify-content: space-around;
+} */
+
+.socialMedia {
+    display: flex;
+    gap: 3rem;
+    margin-top: 2rem;
+    align-items: center;
+    /* text-size-adjust: 1.2rem; */
+}
+
+/* Css for About section */
+#clubLogo {
+    margin-top: 2rem;
+    width: 10%;
+    height: auto;
+    margin-inline: auto;
+    display: block;
+}
+
+.header-about {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 3.4rem;
+}
+
+.intro {
+    margin-inline: auto;
+    width: 110ch;
+}
+
+.intro p {
+    text-align: justify;
+
+}
+
+.intro h3 {
+    margin-top: 2rem;
+    text-align: center;
+}
