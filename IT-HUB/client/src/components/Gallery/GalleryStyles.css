@@ -18,14 +18,16 @@ h1.welcome {
 }
 
 p.welcome {
-
-    /* 		font-family:Copperplate;
- */
     font-size: 25px;
     color: white;
     position: relative;
     justify-content: center;
     animation: move-left 2.5s forwards;
+}
+
+.gallery_detail {
+    font-size: 1.1rem;
+    margin-top: 2rem;
 }
 
 @keyframes move-left {
@@ -40,11 +42,9 @@ p.welcome {
 
 
 .header {
-
-    /* margin: auto;
-    position: relative; */
+    margin: auto;
+    position: relative;
     justify-content: center;
-    /* height: 100%; */
     width: 100%;
     border-bottom-right-radius: 70px;
     border-top-left-radius: 70px;
@@ -52,23 +52,34 @@ p.welcome {
     background-repeat: no-repeat;
     background-position: right;
     background-color: #0A3871;
+    padding-block: 10rem;
 
 }
 
 .gallery {
-    column-gap: 40px;
-    row-gap: 20px;
-    display: grid;
+    /* display: grid;
     padding: 20px;
-    margin: 50px auto 80px;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     width: 100%;
     height: auto;
     position: relative;
     justify-content: center;
     align-items: center;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2; */
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 10px;
+
 
 }
+
+.gallery_item {
+    margin: 2rem;
+    text-align: center;
+}
+
 
 .gallery img {
     border-radius: 8px;
@@ -76,8 +87,8 @@ p.welcome {
     margin: 10px;
     width: clamp(50%, 500px, 100%);
     cursor: pointer;
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     object-fit: cover;
     transition: 0.3s ease-in-out;
     filter: brightness(100%);

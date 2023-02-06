@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Questions from './Questions';
 
 const QA = () => {
 
@@ -6,7 +7,7 @@ const QA = () => {
 
   const getdata = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/question/63dca0ee772afaf3da3c9298/report");
+      const response = await fetch("http://localhost:5000/api/question");
       const data = await response.json();
       console.log(data);
       setChat(data);
@@ -22,21 +23,28 @@ const QA = () => {
 
   return (
     <div>
-      Q/A
-      {/* {chat} */}
-      {/* {data} */}
+
+      <h1 style={{ textAlign: "center", marginTop: "2rem" }}>
+        Questions previously Asked
+      </h1>
+
       {chat.map((talk) => {
         return (
-          <div>
-            {talk.question}
-            {/* {talk.createdAt}
-            {talk.question} */}
+          <div className="containeer">
+            <div style={{ textAlign: "center", marginTop: "2rem" }}>
+              Questioneer: {talk.questioner.name}<br />
+              email: {talk.email}<br />
+              createdAt: {talk.createdAt}<br />
+              isReported: {talk.isReported}<br />
+              upvote: {talk.upvote}<br />
+              Question: {talk.question}
+            </div>
           </div>
 
         );
       })}
-    </div>
-
+      <Questions />
+    </div >
   )
 }
 
