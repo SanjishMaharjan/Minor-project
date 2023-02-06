@@ -18,6 +18,12 @@
   cursor: pointer;
 }
 
+.logo_image {
+  margin-top: 1.2rem;
+  max-width: 60%;
+  min-width: 60%;
+}
+
 .navbar {
   display: flex;
   justify-content: space-around;
@@ -80,12 +86,13 @@ button:hover {
   color: rgba(255, 255, 255, 0.9);
 }
 
+
 #themeIcon {
   width: 2rem;
   top: 2rem;
   height: auto;
   cursor: pointer;
-  /* display: flex; */
+  /* display: flex;*/
 
 }
 
@@ -93,38 +100,26 @@ button:hover {
   flex: 1;
   text-align: right;
   gap: 2rem;
-
-  /* display: flex; */
 }
 
-#mobile i {
-  color: #fff;
-}
-
-.navbar li i {
-  border: 2px solid red;
-  font-size: 24px;
+.menu-toggle {
+  font-size: 1.5rem;
   cursor: pointer;
-  color: #fff;
+  display: none;
 }
 
-@media screen and (max—width: 850px) {
 
-  .menuIcon {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex—start;
-    background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-    width: 100%;
-    height: auto;
-    position: absolute;
-    top: 0;
-    left: 0%;
-    align-items: stretch;
-    padding: 80px 0 30px 0;
-    margin: 0;
-
+@media (max-width: 767px) {
+  .navbar {
+    display: none;
   }
 
+  .logo_image {
+    margin-top: 1.2rem;
+    align-items: center;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
 }

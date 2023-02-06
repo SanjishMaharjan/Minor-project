@@ -2,7 +2,7 @@ import React from 'react'
 import members from "./Club_Members.json"
 import "./AboutStyles.css"
 import FAQ from './FAQ/FAQ'
-import FAW from './FAQ/FAW'
+
 const About = () => {
   return (
     <div>
@@ -36,7 +36,7 @@ const About = () => {
           })}
         </div>
       </section >
-      <FAW />
+      <FAQ />
     </div >
   )
 }

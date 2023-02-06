@@ -11,7 +11,7 @@ import Header from './components/Navbar/Header'
 import Login from './components/Login/Login'
 import Register from './components/Login/Register'
 import About from './components/About/About'
-import Profile from './Profile'
+import StudentProfile from './components/StudentProfile/StudentProfile'
 
 const App = () => {
   return (
@@ -26,7 +26,7 @@ const App = () => {
         <Route path="/about" element={<About />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
-        <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/profile" element={<StudentProfile />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>

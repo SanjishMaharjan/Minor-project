@@ -1,27 +1,121 @@
-.gallery-container {
-    margin-top: 3rem;
-    width: 100%;
-    height: auto;
-    overflow: hidden;
+/* body {
+    font-family: sans-serif;
+    overflow-x: hidden;
+    background-color: white;
+    padding-top: 10px;
+    padding-left: 4px;
+    margin: 0px;
+} */
+
+
+h1.welcome {
+    font-size: 5rem;
+    color: white;
     position: relative;
+    margin-inline: auto;
+    justify-content: center;
+    animation: move-left 1.8s forwards;
 }
 
-.gallery-scroll {
+p.welcome {
+
+    /* 		font-family:Copperplate;
+ */
+    font-size: 25px;
+    color: white;
+    position: relative;
+    justify-content: center;
+    animation: move-left 2.5s forwards;
+}
+
+@keyframes move-left {
+    from {
+        transform: translateX(35%);
+    }
+
+    to {
+        transform: translateX(5%);
+    }
+}
+
+
+.header {
+
+    /* margin: auto;
+    position: relative; */
+    justify-content: center;
+    /* height: 100%; */
     width: 100%;
-    height: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
+    border-bottom-right-radius: 70px;
+    border-top-left-radius: 70px;
+    background-image: url("../../src/assets/Images/brain.png");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-color: #0A3871;
+
 }
 
-.gallery-item {
-    display: inline-block;
-    width: 30%;
-    text-align: center;
-    margin-right: 10px;
-}
-
-.gallery-item img {
+.gallery {
+    column-gap: 40px;
+    row-gap: 20px;
+    display: grid;
+    padding: 20px;
+    margin: 50px auto 80px;
+    grid-template-columns: auto auto auto auto;
     width: 100%;
     height: auto;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.gallery img {
+    border-radius: 8px;
+    position: relative;
+    margin: 10px;
+    width: clamp(50%, 500px, 100%);
+    cursor: pointer;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    transition: 0.3s ease-in-out;
+    filter: brightness(100%);
+}
+
+.gallery img:hover {
+    transform: scale(1.2);
+    filter: brightness(100%);
+    border-radius: 12px;
+    box-shadow: 0 0 12px;
+}
+
+.full-img {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    z-index: 100;
+
+}
+
+.full-img img {
+    width: 90%;
+    max-width: 500px;
+
+}
+
+.full-img span {
+    font-family: Courier;
+    position: fixed;
+    top: 5%;
+    right: 5%;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
 }

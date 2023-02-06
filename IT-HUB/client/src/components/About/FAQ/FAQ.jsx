@@ -1,54 +1,43 @@
-import React from 'react'
-import './FAQStyles.css'
-import { useState, useEffect } from 'react';
-
+import React, { useState } from 'react';
+import "./FAQStyles.css"
 const FAQ = () => {
+    const [activeIndex, setActiveIndex] = useState(-1);
 
-    // const [seen, setSeen] = useState("none");
-    // setSeen(block);
-    // // const showContent = () => {
-    // //     if (seen === "none") {
-    // //         setSeen("block");
-    // //     }
-    // //     else {
-    // //         setSeen("none");
-    // //     }
-    // // };
-    // useEffect(() => {
-    // }, []);
-    // const showContent = () => {
-    //     { { } }
-    // }
+    const handleClick = (index) => {
+        setActiveIndex(index === activeIndex ? -1 : index);
+    };
 
+    const questions = [
+        {
+            question: 'What is IT HUB ?',
+            answer: 'IT Hub platform is dedicated to providing the latest information, resources, and support for students pursuing careers in Information Technology. Whether you are a beginner or an advanced learner, you will find valuable information to help you grow and succeed in your IT journey. Explore our vast library of articles, tutorials, and online courses to stay up-to-date with the latest developments in technology. Connect with like-minded individuals in our community and exchange ideas and insights. With IT Hub Student Website, your path to a successful career in IT starts here.',
+        },
+        {
+            question: 'What are the Objectives of IT HUB ?',
+            answer: 'To provide the space for students to come together and learn about computer technology and increase connectivity between them by providing helpful resources.',
+        },
+        {
+            question: 'How do I get started with IT HUB?',
+            answer: 'You can start learning Programming concepts by joining discussion portal and browsing tutorials, and joining events.',
+        },
+    ];
 
     return (
         <div>
-            <h1 className='header-about'>FAQ</h1>
+            <h2 className='header-about'>FAQ</h2>
             <section className="faq-container">
-                <div className="faq-one">
-                    <h3 className='faq-page'>What is IT HUB ?</h3>
-                    <div className="faq-body">
-                        <p> IT Hub platform is dedicated to providing the latest information, resources, and support for students pursuing careers in Information Technology. Whether you are a beginner or an advanced learner, you will find valuable information to help you grow and succeed in your IT journey. Explore our vast library of articles, tutorials, and online courses to stay up-to-date with the latest developments in technology. Connect with like-minded individuals in our community and exchange ideas and insights. With IT Hub Student Website, your path to a successful career in IT starts here.</p>
+                {questions.map((question, index) => (
+                    <div key={index}>
+                        <h3 className='faq-page' onClick={() => handleClick(index)}>{question.question}</h3>
+                        {activeIndex === index && (
+                            <p className="faq-body">{question.answer}</p>
+                        )}
                     </div>
-                    <hr class="hr-line" />
-                </div>
-                <div className="faq-one">
-                    <h3 className='faq-page'>What are the Objectives of IT HUB ?</h3>
-                    <div className="faq-body">
-                        <p> •	To provide the space for students to come together and learn about computer technology.
-                            <br /> •	To increase connectivity between them by providing helpful resources.
-                        </p>
-                    </div>
-                    <hr class="hr-line" />
-                </div>
-            </section >
-
-
-
+                ))
+                }
+            </section>
         </div >
-
-
-    )
+    );
 }
 
-export default FAQ
+export default FAQ;

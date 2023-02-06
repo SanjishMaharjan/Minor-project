@@ -25,24 +25,16 @@
 
 .faq-body {
     margin: auto;
-    width: 50%;
+    width: 60%;
+    text-align: justify;
     padding: auto;
 
 }
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 
 .faq-page:hover {
     background-color: var(--font-color-secondary);
 }
 
-/* Style the faq-page panel. Note: hidden by default */
-.faq-body {
-    padding: 0 18px;
-    /* background-color: white; */
-    display: block;
-    overflow: hidden;
-}
 
 .faq-page:after {
     font-size: 13px;

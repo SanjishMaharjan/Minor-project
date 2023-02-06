@@ -19,7 +19,7 @@
 
 .light-theme {
     --font-color-primary: rgb(14, 18, 23);
-    --font-color-secondary: rgb(184, 207, 230);
+    --font-color-secondary: rgb(132, 181, 230);
     --font-color-ternary: rgb(255, 255, 255);
     --font-color-login: rgb(0, 0, 0);
 }
@@ -37,4 +37,19 @@ li {
 
 a {
     text-decoration: none;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--font-color-ternary);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--font-color-primary);
+    border-radius: 10px;
 }
