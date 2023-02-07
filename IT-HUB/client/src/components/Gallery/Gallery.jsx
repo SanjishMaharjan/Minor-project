@@ -57,7 +57,7 @@ const Gallery = () => {
     <>
       <div className="header">
         <h1 className="welcome">WELCOME TO THE GALLERY !!</h1>
-        <p className="welcome">FOR TOMORROWS MEMORY</p>
+        <p className="welcome">FOR TOMORROW'S MEMORYS</p>
       </div>
       <div className="wrapper">
         {imgCollection.map((img) => {

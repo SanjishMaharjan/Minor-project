@@ -21,6 +21,7 @@ p.welcome {
     font-size: 25px;
     color: white;
     position: relative;
+    text-align: left;
     justify-content: center;
     animation: move-left 2.5s forwards;
 }
@@ -51,7 +52,7 @@ p.welcome {
     background-image: url("../../src/assets/Images/brain.png");
     background-repeat: no-repeat;
     background-position: right;
-    background-color: #0A3871;
+    background-color: #023776;
     padding-block: 10rem;
 
 }
