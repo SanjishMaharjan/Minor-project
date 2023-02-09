@@ -1,0 +1,53 @@
+.card-body {
+    margin: 2rem;
+}
+
+
+.wrapper-courses {
+    display: flex;
+    margin-block: 2rem;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    height: auto;
+    width: 100%;
+    overflow-x: auto;
+}
+
+
+.course-card {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 1px 5px var(--font-color-login);
+    border-radius: 0.6rem;
+    cursor: pointer;
+    height: 600px;
+    width: 100%;
+    transition: transform 200ms ease-in;
+}
+
+.course-image {
+    height: 11rem;
+    width: 100%;
+    object-fit: cover;
+    scale: 1;
+    transition: scale 200ms ease-in;
+}
+
+.wrapper-courses :hover .course-image {
+    scale: 1.2;
+}
+
+.wrapper-courses :hover .course-title {
+    margin-top: 2rem;
+}
+
+.course-title {
+    font-size: 1.1rem;
+    margin-top: 2rem;
+    /* padding: 1rem; */
+}

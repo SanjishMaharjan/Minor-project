@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import "./QAStyles.css"
-import StudentProfile from '../StudentProfile/StudentProfile';
 import { useNavigate } from 'react-router-dom';
 
 const Questions = () => {
@@ -23,19 +22,24 @@ const Questions = () => {
     return (
         <div>
             {/* <h1>Post Your Question</h1> */}
+            {/* It is the question bar to post questions */}
             <div className='question-bar'>
-                <img className='chat-img' onClick={() => navigate("/profile")} src='https://marketplace.canva.com/EAE6OJ2qP8U/1/0/1600w/canva-gamer-with-glasses-character-twitch-profile-picture-CVfgWIJGgRo.jpg'></img>
+                <img className='question-img' onClick={() => navigate("/profile")} src='https://marketplace.canva.com/EAE6OJ2qP8U/1/0/1600w/canva-gamer-with-glasses-character-twitch-profile-picture-CVfgWIJGgRo.jpg'></img>
                 <form onSubmit={handleSubmit}>
                     <input className='post-question' type="text" placeholder='Post Your Question' value={newQuestion} onChange={(e) => setNewQuestion(e.target.value)} />
                     <button style={{ marginLeft: "1rem" }} type="submit">Post</button>
                 </form>
             </div>
-            <h2>Questions</h2>
+
+            {/*     
+            // To test the posted question's output         
+            <h2 style={{ textAlign: "center" }}>Questions</h2>
             <ul>
                 {questions.map((question, index) => (
                     <li key={index}>{question}</li>
                 ))}
-            </ul>
+            </ul> */}
+
         </div>
     )
 }

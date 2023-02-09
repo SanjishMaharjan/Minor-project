@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css'
-import Courses from './Courses'
+import Courses from './components/Courses/Courses'
 import Gallery from './components/Gallery/Gallery'
 import Home from './components/Landing_page/Home'
 import News from './components/News/News'

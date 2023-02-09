@@ -23,7 +23,7 @@ const Navbar = () => {
   return (
     <div>
       <div className="menu-icon">
-        <a href="/home" className='logo'><img className="logo-image" src="../../src/assets/Images/Itlogo2.png" alt="image" /></a>
+        <a href="/" className='logo'><img className="logo-image" src="../../src/assets/Images/Itlogo2.png" alt="image" /></a>
         <ul className="navbar">
           <li>
             <NavLink to="/">Home</NavLink>
