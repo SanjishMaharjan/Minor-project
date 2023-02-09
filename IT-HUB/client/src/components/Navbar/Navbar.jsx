@@ -22,11 +22,11 @@ const Navbar = () => {
 
   return (
     <div>
-      <div className="menuIcon">
-        <a href="/home" className='Logo'><img className="logo_image" src="../../src/assets/Images/Itlogo2.png" alt="image" /></a>
+      <div className="menu-icon">
+        <a href="/home" className='logo'><img className="logo-image" src="../../src/assets/Images/Itlogo2.png" alt="image" /></a>
         <ul className="navbar">
           <li>
-            <NavLink to="/home">Home</NavLink>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li>
             <NavLink to="/courses">Courses</NavLink>
@@ -44,13 +44,13 @@ const Navbar = () => {
             <NavLink to="/about">About</NavLink>
           </li>
           <li>
-            <img id="themeIcon" onClick={toggleTheme} src={theme === "dark-theme" ? "../../src/assets/images/sun.png" : "../../src/assets/images/moon.png"} alt="dark" />
+            <img id="theme-icon" onClick={toggleTheme} src={theme === "dark-theme" ? "../../src/assets/images/sun.png" : "../../src/assets/images/moon.png"} alt="dark" />
             {/* <i onClick={toggleTheme} className={theme === "dark-theme" ? "fa-regular fa-brightness-low" : "fa-regular fa-moon"}></i> */}
             {/* <img id="profileImg" src="../../src/assets/images/user.png " alt="profile" srcset="" /> */}
           </li>
           <NavLink to="/login"><button>Log in</button></NavLink>
           {/* To create a hamburger menu using icons pack */}
-          <i class="fa fa-bars menu-toggle"></i>
+          <i className="fa fa-bars menu-toggle"></i>
         </ul>
         {/* <div id="mobile">
           <i className="fas fa-times"></i>

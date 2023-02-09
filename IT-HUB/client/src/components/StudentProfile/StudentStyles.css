@@ -1,0 +1,39 @@
+.student-wrapper {
+    margin-top: 3rem;
+    margin-left: 2rem;
+    /* text-align: center; */
+}
+
+.student-details {
+    overflow: hidden;
+    margin-top: 1rem;
+    box-shadow: 0 1px 5px var(--font-color-login);
+    border-radius: 0.6rem;
+    display: flex;
+    text-align: justify;
+    width: 50%;
+    background-color: var(--font-color-secondary);
+    padding: 3rem;
+}
+
+.fa-regular {
+    margin-top: 1rem;
+    font-size: 4rem;
+}
+
+.student-info {
+    margin-top: 1rem;
+    margin-left: 2rem;
+}
+
+.social-handles {
+    display: flex;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.profile-pic {
+    width: 50%;
+    border-radius: 30%;
+
+}

@@ -26,7 +26,7 @@ p.welcome {
     animation: move-left 2.5s forwards;
 }
 
-.gallery_detail {
+.gallery-detail {
     font-size: 1.1rem;
     margin-top: 2rem;
 }
@@ -76,7 +76,7 @@ p.welcome {
 
 }
 
-.gallery_item {
+.gallery-item {
     margin: 2rem;
     text-align: center;
 }

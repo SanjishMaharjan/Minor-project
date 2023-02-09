@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css'
 import Courses from './Courses'
@@ -12,13 +13,16 @@ import Login from './components/Login/Login'
 import Register from './components/Login/Register'
 import About from './components/About/About'
 import StudentProfile from './components/StudentProfile/StudentProfile'
+import ForgotPassword from './components/Login/ForgotPassword';
+
+axios.defaults.withCredentials = true;
 
 const App = () => {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/home" element={<Home />}></Route>
+        <Route path="/" element={<Home />}></Route>
         <Route path="/courses" element={<Courses />}></Route>
         <Route path="/news" element={<News />}></Route>
         <Route path="/qa" element={<QA />}></Route>
@@ -27,6 +31,7 @@ const App = () => {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/profile" element={<StudentProfile />}></Route>
+        <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -12,7 +12,7 @@ const Home = () => {
         <h2>Where imagination meets creativity</h2>
 
       </div >
-      <img className="Landing_image" src="../../src/assets/Images/shahadat-rahman-BfrQnKBulYQ-unsplash.jpg" alt="image" />
+      <img className="Landing-image" src="../../src/assets/Images/shahadat-rahman-BfrQnKBulYQ-unsplash.jpg" alt="image" />
       <p>Want to learn and grow together computer Enthusiast?<br></br>
         Then join us and enroll in our courses
       </p>

@@ -68,9 +68,9 @@ const Gallery = () => {
               <span onclick="close()">x</span>
             </div> */}
               <div className="gallery">
-                <div className="gallery_item">
+                <div className="gallery-item">
                   <img src={img.image} onClick={openImg} />
-                  <p className='gallery_detail'>{img.details}</p>
+                  <p className='gallery-detail'>{img.details}</p>
                 </div>
               </div>
             </>

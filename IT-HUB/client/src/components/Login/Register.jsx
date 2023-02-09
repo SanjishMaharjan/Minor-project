@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 
 
 
@@ -6,26 +7,65 @@ const Register = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [firstname, setFirstname] = useState('')
-    const [lastname, setLastname] = useState('')
+    const [password2, setPassword2] = useState('')
+    // const [firstname, setFirstname] = useState('')
+    const [name, setName] = useState('')
+    const [level, setLevel] = useState('')
     const [DOB, setDOB] = useState('')
-    const [allEntry, setAllentry] = useState([])
+    // const [allEntry, setAllentry] = useState([])
 
-    const submitForm = (e) => {
-        e.preventDefault()
-        const newEntry = { email: email, password: password, firstname: firstname, lastname: lastname, DOB: DOB };
+    // const submitForm = (e) => {
+    //     e.preventDefault()
+    //     const newEntry = { email: email, password: password, password2: password2, firstname: firstname, lastname: lastname, DOB: DOB };
 
-        setAllentry([...allEntry, newEntry]);
-        console.log(allEntry);
+    //     setAllentry([...allEntry, newEntry]);
+    //     // console.log(allEntry);
+
+    //     if (!email || !password || !DOB || !firstname || !lastname) {
+    //         return toast.error("All fields are required");
+    //     }
+    // }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('http://localhost:5000/api/users/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password, name, DOB, level }),
+            });
+            const data = await response.json();
+
+            // const newEntry = { email: email, password: password, name: name, DOB: DOB };
+            console.log(data)
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
+
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         const response = await axios.post('http://localhost:5000/api/users/register',{ email, password, name, DOB, level }
+    //         );
+
+
+    //         // const newEntry = { email: email, password: password, name: name, DOB: DOB };
+    //         console.log(response)
+    //     }
+    //     catch (e) {
+    //         console.log(e);
+    //     }
+    // }
 
     return (
         <>
             <div className="main_div">
                 <div className="box">
                     <h1>Sign Up</h1>
-                    <form action="" onSubmit={submitForm}>
-                        <div className='input-box'>
+                    <form action="" onSubmit={handleSubmit}>
+                        {/* <div className='input-box'>
                             <label htmlFor="firstname">First Name</label>
                             <input
                                 type="text"
@@ -36,18 +76,18 @@ const Register = () => {
                                 value={firstname}
                                 onChange={(e) => setFirstname(e.target.value)}
                             />
-                        </div>
+                        </div> */}
 
                         <div className='input-box'>
-                            <label htmlFor="firstname">Last Name</label>
+                            <label htmlFor="firstname">Name</label>
                             <input
                                 type="text"
-                                placeholder='Last name'
-                                name="Lastname"
-                                id="Lastname"
+                                placeholder='Name'
+                                name="name"
+                                id="name"
                                 autoComplete="off"
-                                value={lastname}
-                                onChange={(e) => setLastname(e.target.value)}
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                             />
                         </div>
 
@@ -88,10 +128,34 @@ const Register = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
+
+                        <div className='input-box'>
+                            <label htmlFor="Confirm password">Retype Password</label>
+                            <input
+                                type="password"
+                                placeholder='Confirm password'
+                                id="password2"
+                                autoComplete="off"
+                                value={password2}
+                                onChange={(e) => setPassword2(e.target.value)}
+                            />
+                        </div>
+
+                        <div className='input-box'>
+                            <label htmlFor="Confirm password">Level</label>
+                            <input
+                                type="name"
+                                placeholder='level'
+                                id="level"
+                                autoComplete="off"
+                                value={level}
+                                onChange={(e) => setLevel(e.target.value)}
+                            />
+                        </div>
                         <button type="submit">Sign Up</button>
                     </form>
 
-                    <div>
+                    {/* <div>
                         {
                             allEntry.map((temp) => {
                                 return (
@@ -101,6 +165,7 @@ const Register = () => {
                                         <p>DOB: {temp.DOB}</p>
                                         <p>Email: {temp.email}</p>
                                         <p>Password: {temp.password}</p>
+                                        <p>Password2: {temp.password2}</p>
                                     </div>
                                 )
                             }
@@ -108,7 +173,7 @@ const Register = () => {
 
                         }
 
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>

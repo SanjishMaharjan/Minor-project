@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Questions from './Questions';
 
 const QA = () => {
 
   const [chat, setChat] = useState([]);
+  const [comments, setComments] = useState([]);
 
+  const commentId = useRef() // To get the comment id to map the comments
   const getdata = async () => {
     try {
       const response = await fetch("http://localhost:5000/api/question");
@@ -16,6 +18,23 @@ const QA = () => {
     }
 
   };
+
+  const getComment = async () => {
+
+    console.log(commentId.current.getAttribute("value"));
+    const value = commentId.current.getAttribute("value");
+    try {
+      const response = await fetch(`http://localhost:5000/api/${value}/comment`);
+      const data = await response.json();
+      console.log(data);
+      setComments(data);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const showComment = (e) => {
+    getComment();
+  }
 
   useEffect(() => {
     getdata();
@@ -37,7 +56,18 @@ const QA = () => {
               createdAt: {talk.createdAt}<br />
               isReported: {talk.isReported}<br />
               upvote: {talk.upvote}<br />
-              Question: {talk.question}
+              <a href="#" ref={commentId} value={talk._id} onClick={showComment}>Question: {talk.question}</a>
+            </div>
+          </div>
+
+        );
+      })}
+
+      {comments.map((talk) => {
+        return (
+          <div className="containeer">
+            <div style={{ textAlign: "center", marginTop: "2rem" }}>
+              answer: {talk.answer}
             </div>
           </div>
 

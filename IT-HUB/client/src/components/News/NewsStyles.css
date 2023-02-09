@@ -1,4 +1,4 @@
-.card_body {
+.card-body {
     margin: 2rem;
 }
 
@@ -27,7 +27,7 @@
     transition: transform 200ms ease-in;
 }
 
-.card_image {
+.card-image {
     height: 11rem;
     width: 100%;
     object-fit: cover;
@@ -35,45 +35,45 @@
     transition: scale 200ms ease-in;
 }
 
-.wrapper :hover .card_image {
+.wrapper :hover .card-image {
     scale: 1.2;
 }
 
-.wrapper :hover .card_title {
+.wrapper :hover .card-title {
     margin-top: 2rem;
 }
 
-.card_title {
+.card-title {
     font-size: 1.1rem;
     margin-top: 2rem;
     /* padding: 1rem; */
 }
 
-.card_description {
+.card-description {
     font-size: 0.9rem;
     margin-top: 0.5rem;
     font-weight: 200;
 }
 
-.card_author {
+.card-author {
     margin-top: 1rem;
     /* text-align: left; */
     font-size: 0.85rem;
     font-weight: 400;
 }
 
-.card_publishedAt {
+.card-publishedAt {
     font-size: 0.7rem;
     font-weight: 200;
 }
 
-.card_sourcename {
+.card-sourcename {
     font-size: 0.7rem;
     font-weight: 200;
 }
 
 
-.card_btn {
+.card-btn {
     padding: 1rem;
     font-weight: bold;
     font-size: 1rem;
@@ -85,7 +85,7 @@
     transition: 200ms ease-in, color 200ms ease-in;
 }
 
-.card_btn:hover {
+.card-btn:hover {
     background: var(--hover-color);
     color: rgba(255, 255, 255, 0.9);
 }

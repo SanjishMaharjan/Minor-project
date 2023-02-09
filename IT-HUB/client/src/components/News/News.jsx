@@ -37,15 +37,15 @@ const News = () => {
         return (
 
           <div className="card">
-            <div className="card_body">
-              <img className="card_image" src={item.urlToImage} alt="" />
-              <h2 className="card_title">{item.title}</h2>
-              <h3 className="card_description">{item.description}</h3>
-              <h4 className="card_author">{item.author}</h4>
-              <h4 className="card_publishedAt">{item.publishedAt}</h4>
-              <h4 className="card_sourcename">{item.source.name}</h4>
+            <div className="card-body">
+              <img className="card-image" src={item.urlToImage} alt="" />
+              <h2 className="card-title">{item.title}</h2>
+              <h3 className="card-description">{item.description}</h3>
+              <h4 className="card-author">{item.author}</h4>
+              <h4 className="card-publishedAt">{item.publishedAt}</h4>
+              <h4 className="card-sourcename">{item.source.name}</h4>
             </div>
-            <a href={item.url}><button className="card_btn" type="button">Read more</button></a>
+            <a href={item.url}><button className="card-btn" type="button">Read more</button></a>
           </div>
 
         );

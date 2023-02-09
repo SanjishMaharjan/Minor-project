@@ -10,7 +10,7 @@
   box-sizing: border-box;
 }
 
-.main_div {
+.main-div {
   width: 100%;
 
 
@@ -25,6 +25,7 @@
   margin-inline: auto;
   margin-top: 3rem;
   background: var(--font-color-secondary);
+  box-shadow: 0 1px 2px var(--font-color-login);
   border-radius: 20px;
 }
 
@@ -76,4 +77,14 @@
 
 .btn-register:hover {
   color: gray;
+}
+
+.forget-navigation {
+  margin-top: 2rem;
+  display: flex;
+  gap: 24rem;
+}
+
+.fa-solid:hover {
+  scale: 1.4;
 }

@@ -1,13 +1,11 @@
 [
 {
-    "name": "John Doe",
-    "age": 25,
-    "address": {
-        "street": "1234 Main St.",
-        "city": "San Francisco",
-        "state": "California",
-        "zip": "94102"
-    }
+    "name": "Rabindra Adhikari",
+    "email": "rabindra.adhikari@lec.edu.np",
+    "role": "Student",
+    "level": "First Semester",
+    "img": "https://marketplace.canva.com/EAE6OJ2qP8U/1/0/1600w/canva-gamer-with-glasses-character-twitch-profile-picture-CVfgWIJGgRo.jpg"
 }
+   
 ]
     
