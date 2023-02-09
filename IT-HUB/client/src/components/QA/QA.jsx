@@ -42,7 +42,7 @@ const QA = () => {
 
   return (
     <div>
-
+      <Questions />
       <h1 style={{ textAlign: "center", marginTop: "2rem" }}>
         Questions previously Asked
       </h1>
@@ -73,7 +73,7 @@ const QA = () => {
 
         );
       })}
-      <Questions />
+
     </div >
   )
 }
