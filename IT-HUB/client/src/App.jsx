@@ -6,7 +6,7 @@ import Courses from './components/Courses/Courses'
 import Gallery from './components/Gallery/Gallery'
 import Home from './components/Landing_page/Home'
 import News from './components/News/News'
-import QA from './components/QA/QA'
+import MainQA from './components/QA/MainQA'
 import Footer from './components/Navbar/Footer'
 import Header from './components/Navbar/Header'
 import Login from './components/Login/Login'
@@ -25,7 +25,7 @@ const App = () => {
         <Route path="/" element={<Home />}></Route>
         <Route path="/courses" element={<Courses />}></Route>
         <Route path="/news" element={<News />}></Route>
-        <Route path="/qa" element={<QA />}></Route>
+        <Route path="/qa" element={<MainQA />}></Route>
         <Route path="/gallery" element={<Gallery />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/login" element={<Login />}></Route>

@@ -21,9 +21,8 @@ const Courses = () => {
       <div className='course-container'>
         <div className='container-content'>
           <div className="category">
-            <button >python</button>
-            <button >UI</button>
-            <button >Programming</button>
+            <button >Recommended</button>
+            <button >ALL</button>
           </div>
           {course.map((learn) => {
             return (

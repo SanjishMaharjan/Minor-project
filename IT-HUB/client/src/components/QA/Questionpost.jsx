@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
-import Questions from './Questions';
 import { useNavigate } from 'react-router-dom';
 // import moment from 'moment'
 
-const QA = () => {
+const Questionpost = () => {
 
   // const currentDate = moment().format();
   // console.log(currentDate);
@@ -55,7 +54,6 @@ const QA = () => {
 
   return (
     <div>
-      <Questions />
       <h1 style={{ textAlign: "center", marginTop: "2rem" }}>
         Questions
       </h1>
@@ -113,4 +111,4 @@ const QA = () => {
   )
 }
 
-export default QA
+export default Questionpost
