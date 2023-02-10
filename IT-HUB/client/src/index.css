@@ -15,14 +15,14 @@
     --font-color-secondary: rgb(43, 44, 55);
     --font-color-ternary: rgb(32, 33, 44);
     --font-color-login: rgb(255, 255, 255);
-    --box-shadow: 4px 23px 34px 0px rgba(222, 211, 211, 0.1);
+    --box-shadow: 0px 5px 10px rgba(14, 18, 23, 0.5);
 
 }
 
 .light-theme {
     --font-color-primary: rgb(14, 18, 23);
-    --font-color-secondary: rgb(160, 194, 235);
-    --font-color-ternary: rgb(255, 255, 255);
+    --font-color-secondary: #c5d3f7;
+    --font-color-ternary: #e1e9ff;
     --font-color-login: rgb(0, 0, 0);
     --box-shadow: 4px 23px 34px 0px rgba(54, 41, 41, 0.1);
 }
@@ -48,7 +48,7 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--font-color-ternary);
+    background: var(--font-color-secondary);
     border-radius: 10px;
 }
 

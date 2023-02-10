@@ -16,6 +16,11 @@
     font-size: 16px;
 }
 
+.question-bar .post-question-button {
+    width: 6.5rem;
+    margin-left: 1rem;
+}
+
 .post-question {
     width: 50rem;
 }
@@ -40,6 +45,7 @@
     overflow: hidden;
     margin-bottom: 2rem;
     margin-top: 1rem;
+
 }
 
 .message-sender {
@@ -48,6 +54,12 @@
     padding: 10px;
     background-color: var(--font-color-secondary);
     border-bottom: 1px solid gray;
+    padding-inline: 2rem;
+    cursor: pointer;
+}
+
+.message-sender h5 {
+    margin-left: auto;
 }
 
 .message-content {
@@ -58,7 +70,7 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    gap: 20rem;
+    gap: 14.5rem;
     cursor: pointer;
     /* background-color: rgb(105, 237, 244); */
     border-top: 1px solid gray;

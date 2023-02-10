@@ -14,6 +14,8 @@ import Register from './components/Login/Register'
 import About from './components/About/About'
 import StudentProfile from './components/StudentProfile/StudentProfile'
 import ForgotPassword from './components/Login/ForgotPassword';
+import Checklogin from './components/Login/Checklogin';
+import Comment from './components/QA/Comment';
 
 axios.defaults.withCredentials = true;
 
@@ -25,13 +27,18 @@ const App = () => {
         <Route path="/" element={<Home />}></Route>
         <Route path="/courses" element={<Courses />}></Route>
         <Route path="/news" element={<News />}></Route>
-        <Route path="/qa" element={<MainQA />}></Route>
+        <Route path="/qa" element={<MainQA />}>
+          <Route path=":id" element={<Comment />}></Route>
+          {/* // To create a nested params route */}
+        </Route>
+
         <Route path="/gallery" element={<Gallery />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/profile" element={<StudentProfile />}></Route>
         <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
+        <Route path="/checklogin" element={<Checklogin />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>

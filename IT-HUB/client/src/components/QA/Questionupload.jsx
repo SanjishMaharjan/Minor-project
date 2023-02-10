@@ -22,7 +22,7 @@ const Questionupload = () => {
                 <img className='question-img' onClick={() => navigate("/profile")} src='https://marketplace.canva.com/EAE6OJ2qP8U/1/0/1600w/canva-gamer-with-glasses-character-twitch-profile-picture-CVfgWIJGgRo.jpg'></img>
                 <form onSubmit={handleSubmit}>
                     <input className='post-question' type="text" placeholder='Post Your Question' value={question} onChange={(e) => setQuestions(e.target.value)} />
-                    <button style={{ marginLeft: "1rem" }} type="submit">Post</button>
+                    <button className='post-question-button' type="submit">Post</button>
                 </form>
             </div>
 
