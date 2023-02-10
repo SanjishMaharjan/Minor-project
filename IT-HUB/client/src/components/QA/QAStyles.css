@@ -35,7 +35,7 @@
     width: 800px;
     height: auto;
     border-radius: 10px;
-    box-shadow: 1px 1px 5px gray;
+    box-shadow: var(--box-shadow);
     margin: auto;
     overflow: hidden;
     margin-bottom: 2rem;
@@ -58,7 +58,7 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    gap: 10rem;
+    gap: 20rem;
     cursor: pointer;
     /* background-color: rgb(105, 237, 244); */
     border-top: 1px solid gray;

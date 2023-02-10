@@ -7,6 +7,13 @@ const QA = () => {
 
   // const currentDate = moment().format();
   // console.log(currentDate);
+
+  // To change the toggle button of upvote and down vote
+  const [isActive, setActive] = useState(false);
+  const toggleClass = () => {
+    setActive(!isActive);
+  };
+
   const navigate = useNavigate();
   const [chat, setChat] = useState([]);
   const [comments, setComments] = useState([]);
@@ -68,14 +75,11 @@ const QA = () => {
                 <a href="#" ref={commentId} value={talk._id} onClick={showComment}>{talk.question}</a>
               </div>
               <div class="message-footer">
-                <i class="fa-solid fa-angle-up" style={{ fontSize: "0.8rem" }}> upvote [ {talk.upvote} ]</i>
-                <i class="fa-solid fa-angle-down" style={{ fontSize: "0.8rem" }}>downvote</i>
-                <i class="fa-solid fa-comment" ref={commentId} value={talk._id} onClick={showComment}></i>
-                <i class="fa-solid fa-font-awesome"></i>
+                <i className={isActive ? "fa-solid fa-angle-down" : "fa-solid fa-angle-up"} onClick={toggleClass} style={{ fontSize: "0.8rem" }}> [ {talk.upvote} ]</i>
+                {/* <i class="fa-solid fa-angle-down" style={{ fontSize: "0.8rem" }}>downvote</i> */}
+                <i className="fa-solid fa-comment" ref={commentId} value={talk._id} onClick={showComment}></i>
+                <i className="fa-solid fa-font-awesome"></i>
 
-                {/* <button>Like</button> */}
-                {/* <button>Comment</button> */}
-                {/* <button>report</button> */}
               </div>
             </div>
 
@@ -110,37 +114,3 @@ const QA = () => {
 }
 
 export default QA
-
-// comments
-// :
-// [{…}]
-// createdAt
-// :
-// "2023-02-03T05:51:42.438Z"
-// isReported
-// :
-// true
-// question
-// :
-// "how is rabi"
-// questioner
-// :
-// {_id: '63dbd9834e86c518c4414dd3', name: 'Admin Rabi', email: 'rabindra.adhikari@lec.edu.np'}
-// tag
-// :
-// []
-// updatedAt
-// :
-// "2023-02-03T05:57:11.228Z"
-// upvote
-// :
-// 0
-// __v
-// :
-// 1
-// _id
-// :
-// "63dca0ee772afaf3da3c9298"
-// [[Prototype]]
-// :
-// Object

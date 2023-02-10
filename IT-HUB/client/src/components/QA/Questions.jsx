@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "./QAStyles.css"
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 const Questions = () => {
     const [questions, setQuestions] = useState([]);
@@ -9,12 +10,8 @@ const Questions = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch('http://localhost:5000/api/question', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ question: newQuestion }),
-        });
-        const data = await response.json();
+        const data = await axios.post('http://localhost:5000/api/question', { question: "where are you" });
+        console.log(data);
         setQuestions([...questions, data.question]);
         setNewQuestion('');
     }
@@ -26,7 +23,7 @@ const Questions = () => {
             <div className='question-bar'>
                 <img className='question-img' onClick={() => navigate("/profile")} src='https://marketplace.canva.com/EAE6OJ2qP8U/1/0/1600w/canva-gamer-with-glasses-character-twitch-profile-picture-CVfgWIJGgRo.jpg'></img>
                 <form onSubmit={handleSubmit}>
-                    <input className='post-question' type="text" placeholder='Post Your Question' value={newQuestion} onChange={(e) => setNewQuestion(e.target.value)} />
+                    <input className='post-question' type="text" placeholder='Post Your Question' value={question} onChange={(e) => setNewQuestion(e.target.value)} />
                     <button style={{ marginLeft: "1rem" }} type="submit">Post</button>
                 </form>
             </div>

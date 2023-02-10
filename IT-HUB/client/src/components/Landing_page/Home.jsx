@@ -1,6 +1,7 @@
 import React from 'react'
 import "./HomeStyles.css"
 import { NavLink } from 'react-router-dom'
+import FAQ from '../About/FAQ/FAQ'
 
 const Home = () => {
 
@@ -19,6 +20,7 @@ const Home = () => {
       <div className='getstarted'>
         <NavLink to="/courses"><button className='btn-getstarted' type="submit">Get Started</button></NavLink>
       </div>
+      <FAQ />
     </>
 
   )

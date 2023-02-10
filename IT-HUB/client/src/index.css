@@ -15,6 +15,8 @@
     --font-color-secondary: rgb(43, 44, 55);
     --font-color-ternary: rgb(32, 33, 44);
     --font-color-login: rgb(255, 255, 255);
+    --box-shadow: 4px 23px 34px 0px rgba(54, 41, 41, 0.1);
+
 }
 
 .light-theme {
@@ -22,6 +24,7 @@
     --font-color-secondary: rgb(160, 194, 235);
     --font-color-ternary: rgb(255, 255, 255);
     --font-color-login: rgb(0, 0, 0);
+    --box-shadow: 4px 23px 34px 0px rgba(54, 41, 41, 0.1);
 }
 
 * {

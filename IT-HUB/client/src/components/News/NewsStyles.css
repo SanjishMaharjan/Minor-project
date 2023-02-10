@@ -15,9 +15,10 @@
 
 .card {
     overflow: hidden;
-    /* box-shadow: 4px 23px 34px 0px rgba(54, 41, 41, 0.1); */
+    box-shadow: var(--box-shadow);
     /* box-shadow: 4px 1px 34px 0px var(--font-color-login); */
-    box-shadow: 0 1px 5px var(--font-color-login);
+    /* box-shadow: 7px 10px 8px -7px rgba(0, 0, 0, 0.77); */
+    /* box-shadow: 0 1px 5px var(--font-color-login); */
     border-radius: 0.6rem;
     display: flex;
     flex-direction: column;
