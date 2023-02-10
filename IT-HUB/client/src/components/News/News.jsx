@@ -1,14 +1,15 @@
-import React from 'react'
+import React from "react";
 import { useState, useEffect } from "react";
 // import news from "./news.json"
-import './NewsStyles.css'
+import "./NewsStyles.css";
 
 const News = () => {
-
   // Fetch from api
   const [news, setNews] = useState([]);
   const getdata = async () => {
-    const response = await fetch("https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=865e883c8ad24ef887af1e71b6feef2d");
+    const response = await fetch(
+      "https://newsapi.org/v2/everything?sources=techcrunch&apiKey=865e883c8ad24ef887af1e71b6feef2d"
+    );
     const data = await response.json();
     console.log(data.articles);
     setNews(data.articles);
@@ -32,10 +33,9 @@ const News = () => {
     //         <a href={item.href}><button className="card_btn" type="button">Read more</button></a>
     //       </div>
 
-    <div className='wrapper'>
+    <div className="wrapper">
       {news.map((item) => {
         return (
-
           <div className="card">
             <div className="card-body">
               <img className="card-image" src={item.urlToImage} alt="" />
@@ -45,17 +45,16 @@ const News = () => {
               <h4 className="card-publishedAt">{item.publishedAt}</h4>
               <h4 className="card-sourcename">{item.source.name}</h4>
             </div>
-            <a href={item.url}><button className="card-btn" type="button">Read more</button></a>
+            <a href={item.url}>
+              <button className="card-btn" type="button">
+                Read more
+              </button>
+            </a>
           </div>
-
         );
       })}
-
     </div>
+  );
+};
 
-
-
-  )
-}
-
-export default News
+export default News;
