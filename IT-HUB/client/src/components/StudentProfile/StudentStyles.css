@@ -7,12 +7,12 @@
 .student-details {
     overflow: hidden;
     margin-top: 1rem;
-    box-shadow: 0 1px 5px var(--font-color-login);
+    box-shadow: var(--box-shadow);
     border-radius: 0.6rem;
     display: flex;
     text-align: justify;
     width: 50%;
-    background-color: var(--font-color-secondary);
+    background-color: var(--navbar-color);
     padding: 3rem;
 }
 

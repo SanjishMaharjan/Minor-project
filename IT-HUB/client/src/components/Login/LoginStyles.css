@@ -1,9 +1,3 @@
-/* :root {
-  --bg-color: black;
-  --font-color-primary: rgb(96, 86, 86);
-  --font-color-secondary: pink;
-} */
-
 * {
   margin: 0;
   padding: 0;
@@ -24,14 +18,14 @@
   padding: 50px;
   margin-inline: auto;
   margin-top: 3rem;
-  background: var(--font-color-secondary);
-  box-shadow: 0 1px 2px var(--font-color-login);
+  background: var(--navbar-color);
+  box-shadow: var(--box-shadow);
   border-radius: 20px;
 }
 
 .box h1 {
   margin-bottom: 25px;
-  color: var(--font-color-login);
+  color: var(--alternate-color);
   text-align: center;
   text-transform: capitalize;
 }
@@ -45,10 +39,10 @@
   padding: 10px;
   font-size: 16px;
   letter-spacing: 1px;
-  color: var(--font-color-login);
+  color: var(--alternate-color);
   margin-bottom: 30px;
   border: none;
-  border-bottom: 1px solid var(--font-color-login);
+  border-bottom: 1px solid var(--alternate-color);
   background: transparent;
   outline: none;
 }
@@ -60,7 +54,7 @@
   letter-spacing: 1px;
   padding: 10px 0;
   font-size: 16px;
-  color: var(--font-color-login);
+  color: var(--alternate-color);
   transition: 0.5s;
 }
 
@@ -71,7 +65,7 @@
   margin-top: 2rem;
   display: block;
   margin-inline: auto;
-  color: var(--font-color-login);
+  color: var(--alternate-color);
   font-size: 14px;
 }
 

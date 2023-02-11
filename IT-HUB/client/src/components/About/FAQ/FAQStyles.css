@@ -13,7 +13,7 @@
 
 /* Style the buttons that are used to open and close the faq-page body */
 .faq-page {
-    color: var(--font-color-login);
+    color: var(--alternate-color);
     cursor: pointer;
     padding: 30px 20px;
     width: 60%;
@@ -32,7 +32,7 @@
 }
 
 .faq-page:hover {
-    background-color: var(--font-color-secondary);
+    background-color: var(--navbar-color);
 }
 
 

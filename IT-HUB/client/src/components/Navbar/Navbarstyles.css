@@ -1,5 +1,5 @@
 .menu-icon {
-  background: var(--font-color-secondary);
+  background: var(--navbar-color);
   padding-block: 10px;
   padding: 0 30px;
   height: 60px;
@@ -12,11 +12,11 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
 }
 
-.logo {
+/* .logo {
   color: var(--font-color-primary);
   font-size: 1.6rem;
   cursor: pointer;
-}
+} */
 
 .logo-image {
   margin-top: 1.2rem;

@@ -8,10 +8,10 @@
 
 .question-bar input[type="text"] {
     flex: 1;
-    color: var(--font-color-login);
+    color: var(--alternate-color);
     background: transparent;
     padding: 10px;
-    border: 1px solid var(--font-color-login);
+    border: 1px solid var(--alternate-color);
     border-radius: 0.8rem;
     font-size: 16px;
 }
@@ -52,7 +52,7 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    background-color: var(--font-color-secondary);
+    background-color: var(--navbar-color);
     border-bottom: 1px solid gray;
     padding-inline: 2rem;
     cursor: pointer;
