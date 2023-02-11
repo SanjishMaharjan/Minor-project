@@ -57,7 +57,7 @@ const Navbar = () => {
             <NavLink to="/about">About</NavLink>
           </li>
           <li>
-            <img
+            {/* <img
               id="theme-icon"
               onClick={toggleTheme}
               src={
@@ -66,8 +66,8 @@ const Navbar = () => {
                   : "../../src/assets/images/moon.png"
               }
               alt="dark"
-            />
-            {/* <i onClick={toggleTheme} className={theme === "dark-theme" ? "fa-regular fa-brightness-low" : "fa-regular fa-moon"}></i> */}
+            /> */}
+            <i onClick={toggleTheme} className={theme === "dark-theme" ? "fa-solid fa-toggle-on" : "fa-solid fa-toggle-off"}></i>
             {/* <img id="profileImg" src="../../src/assets/images/user.png " alt="profile" srcset="" /> */}
           </li>
           <NavLink to="/login">

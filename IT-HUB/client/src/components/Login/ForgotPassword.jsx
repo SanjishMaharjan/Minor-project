@@ -1,17 +1,28 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import axios from 'axios'
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('')
-    const [allEntry, setAllentry] = useState([])
+    // const [allEntry, setAllentry] = useState([])
 
-    const submitForm = (e) => {
-        e.preventDefault()
-        const newEntry = { email: email };
-
-        setAllentry([...allEntry, newEntry]);
-        console.log(allEntry);
+    const submitForm = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:5000/api/users/forgotpassword', { email });
+            const data = await response;
+            console.log(data)
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
+
+    useEffect(() => {
+
+    }, [])
+
+
 
     return (
         <>
@@ -34,12 +45,12 @@ const ForgotPassword = () => {
 
                         <button type="submit">Get Reset Email</button>
                         <div className='forget-navigation'>
-                            <NavLink to="/"><a ><i className="fa-solid fa-house"></i></a></NavLink>
-                            <NavLink to="/login"><a><i className="fa-solid fa-arrow-right-to-bracket"></i></a></NavLink>
+                            <NavLink to="/"><i className="fa-solid fa-house"></i></NavLink>
+                            <NavLink to="/login"><i className="fa-solid fa-arrow-right-to-bracket"></i></NavLink>
                         </div>
                     </form>
 
-                    <div>
+                    {/* <div>
                         {
                             allEntry.map((temp) => {
                                 return (
@@ -52,7 +63,7 @@ const ForgotPassword = () => {
 
                         }
 
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>

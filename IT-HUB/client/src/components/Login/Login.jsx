@@ -1,20 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import './LoginStyles.css'
+
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  // const [allEntry, setAllentry] = useState([])
-
-  //   const submitForm = (e) => {
-  //     e.preventDefault()
-  //     const newEntry = { email: email, password: password };
-
-  //     setAllentry([...allEntry, newEntry]);
-  //     console.log(allEntry);
-  //   }
+  const redirect = useNavigate();
 
   const handlelogin = async (e) => {
     e.preventDefault();
@@ -25,6 +18,8 @@ const Login = () => {
       );
       const data = response;
       console.log(data)
+      if (data.status == 200) redirect("/")
+
 
     }
     catch (e) {
@@ -64,25 +59,13 @@ const Login = () => {
               />
             </div>
             <button type="submit">Login</button>
+            {/* to generate error message */}
+            {/* <p>{data.response.data.msg}</p> */}
             <NavLink to="/forgotpassword"><a className='btn-register' >Forgot Password?</a></NavLink>
             <NavLink to="/register"><a className='btn-register' >Don't have a account? Register here</a></NavLink>
           </form>
 
-          {/* <div>
-          {
-            allEntry.map((temp) => {
-              return (
-                <div>
-                  <p>Email: {temp.email}</p>
-                  <p>Password: {temp.password}</p>
-                </div>
-              )
-            }
-            )
 
-          }
-
-        </div> */}
         </div>
       </div>
     </>

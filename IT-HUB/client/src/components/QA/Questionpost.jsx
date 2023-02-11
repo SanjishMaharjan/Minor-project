@@ -64,21 +64,22 @@ const Questionpost = () => {
             <>
 
               {/* To display the question */}
-              <div className="chat-message">
+              <div key={talk.questioner.name} className="chat-message">
                 <div className="message-sender" onClick={() => navigate("/profile")}>
                   <img className='chat-img' onClick={() => navigate("/profile")} src='https://marketplace.canva.com/EAE6OJ2qP8U/1/0/1600w/canva-gamer-with-glasses-character-twitch-profile-picture-CVfgWIJGgRo.jpg'></img>
                   <h3>{talk.questioner.name}</h3>
                   <h5>{convertToYDHMS(talk.createdAt)} ago</h5>
                 </div>
                 <div className="message-content">
-                  <a href="#" ref={commentId} value={talk._id} onClick={showComment}>{talk.question}</a>
+                  {talk.question}
+                  {/* <a href="#" ref={commentId} value={talk._id} onClick={showComment}>{talk.question}</a> */}
                 </div>
                 <div className="message-footer">
-                  <i className={isActive ? "fa-solid fa-angle-down" : "fa-solid fa-angle-up"} onClick={toggleClass} style={{ fontSize: "0.8rem" }}> {talk.upvote} </i>
+                  <i className={isActive ? "fa-solid fa-angle-down" : "fa-solid fa-angle-up"} onClick={toggleClass} style={{ fontSize: "0.8rem" }}> {talk.upvote.count} </i>
                   {/* <i class="fa-solid fa-angle-down" style={{ fontSize: "0.8rem" }}>downvote</i> */}
                   <Link to={`/QA/${talk._id}`}><i className="fa-solid fa-comment"></i></Link>
                   <i className="fa-solid fa-font-awesome"></i>
-                  <i className="fa-solid fa-info"></i>
+                  <i class="fa-solid fa-pen-to-square"></i>
                   <span>
                     <i className="fa-solid fa-trash"></i>
                   </span>

@@ -69,11 +69,16 @@
 .message-footer {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     padding: 10px;
-    gap: 14.5rem;
+    gap: 2rem;
     cursor: pointer;
     /* background-color: rgb(105, 237, 244); */
     border-top: 1px solid gray;
+}
+
+.message-footer a {
+    margin-right: auto;
 }
 
 .question-img {

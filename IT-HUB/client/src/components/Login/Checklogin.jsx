@@ -9,8 +9,8 @@ const Checklogin = () => {
         try {
             const response = await axios.get("http://localhost:5000/api/users/loggedin");
             const data = await response;
-            console.log(data);
-            setStatus(data);
+            console.log(typeof data.data);
+            setStatus(data.data);
         } catch (error) {
             console.log(error)
         }
@@ -22,8 +22,7 @@ const Checklogin = () => {
     }, [])
     return (
         <div>
-
-            Maa status
+            <h1>Are you logged in then ? {String(checkstatus)}</h1>
         </div>
     )
 }

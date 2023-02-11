@@ -44,9 +44,9 @@ const userSchema = mongoose.Schema(
         "Vice-Secretary",
         "Treasurer",
         "Member",
-        "404",
+        "Student"
       ],
-      default: "404",
+      default: "Student",
     },
     level: {
       type: String,

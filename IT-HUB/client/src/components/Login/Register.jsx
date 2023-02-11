@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import axios from 'axios'
 
 
 
@@ -12,6 +14,7 @@ const Register = () => {
     const [name, setName] = useState('')
     const [level, setLevel] = useState('')
     const [DOB, setDOB] = useState('')
+    const redirect = useNavigate();
     // const [allEntry, setAllentry] = useState([])
 
     // const submitForm = (e) => {
@@ -29,12 +32,9 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:5000/api/users/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password, name, DOB, level }),
-            });
-            const data = await response.json();
+            const response = await axios.post('http://localhost:5000/api/users/register', { email, password, name, DOB, level });
+            const data = await response;
+            if (data.status == 200) redirect("/")
 
             // const newEntry = { email: email, password: password, name: name, DOB: DOB };
             console.log(data)

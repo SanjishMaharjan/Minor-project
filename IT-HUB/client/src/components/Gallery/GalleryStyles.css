@@ -44,16 +44,16 @@ p.welcome {
 
 .header {
     margin: auto;
-    position: relative;
+    /* position: relative; */
     justify-content: center;
-    width: 100%;
+    width: 90%;
     border-bottom-right-radius: 70px;
     border-top-left-radius: 70px;
     background-image: url("../../src/assets/Images/brain.png");
     background-repeat: no-repeat;
     background-position: right;
     background-color: #023776;
-    padding-block: 10rem;
+    padding-block: 7rem;
 
 }
 

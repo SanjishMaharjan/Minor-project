@@ -16,6 +16,7 @@ import StudentProfile from './components/StudentProfile/StudentProfile'
 import ForgotPassword from './components/Login/ForgotPassword';
 import Checklogin from './components/Login/Checklogin';
 import Comment from './components/QA/Comment';
+import ChangePassword from './components/Login/ChangePassword';
 
 axios.defaults.withCredentials = true;
 
@@ -38,6 +39,7 @@ const App = () => {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/profile" element={<StudentProfile />}></Route>
         <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
+        <Route path="/changepassword" element={<ChangePassword />}></Route>
         <Route path="/checklogin" element={<Checklogin />}></Route>
       </Routes>
       <Footer />

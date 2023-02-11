@@ -7,15 +7,16 @@ import { convertToYDHMS } from "../../Utils/dateConverter"
 
 const StudentProfile = () => {
 
-    const [profile, setProfile] = useState({});
+    const [profiles, setProfile] = useState([]);
     const getDetails = async () => {
         try {
             const response = await axios.get("http://localhost:5000/api/users/getuser");
             console.log(response);
+            console.log(response.data.image.imagePath);
             console.log(response.data.name);
             const date = convertToYDHMS(response.data.DOB);
             response.data.DOB = date;
-            setProfile(response.data);
+            setProfile([response.data]);
 
         } catch (error) {
             console.log(error)
@@ -31,24 +32,28 @@ const StudentProfile = () => {
             <h1>Profile</h1>
             {
 
-                <div className="student-details">
-                    {/* <i class="fa-regular fa-id-badge"></i> */}
-                    {/* <img className='profile-pic' src={profile.image.imagePath} /> */}
-                    <div className="student-info">
-                        <div>Name: {profile.name}</div>
-                        <div>Role: {profile.membership}</div>
-                        <div>Semester: {profile.level}</div>
-                        {/* <div>DOB:{profile.DOB}</div> */}
-                        <div>Age:{profile.DOB}</div>
-                        <div>Email: {profile.email}</div>
-                        <div className="social-handles">
-                            <a href='#'><i className="fa-brands fa-facebook-f"></i></a>
-                            <a href='#'><i className="fa-brands fa-twitter"></i></a>
-                            <a href='#'><i className="fa-brands fa-instagram"></i></a>
+                profiles.map((profile) => {
+                    return (
+                        <div className="student-details">
+                            {/* <i class="fa-regular fa-id-badge"></i> */}
+                            <img className='profile-pic' src={profile.image.imagePath} />
+                            <div className="student-info">
+                                <div>Name: {profile.name}</div>
+                                <div>Role: {profile.membership}</div>
+                                <div>Semester: {profile.level}</div>
+                                {/* <div>DOB:{profile.DOB}</div> */}
+                                <div>Age:{profile.DOB}</div>
+                                <div>Email: {profile.email}</div>
+                                <div className="social-handles">
+                                    <a href='#'><i className="fa-brands fa-facebook-f"></i></a>
+                                    <a href='#'><i className="fa-brands fa-twitter"></i></a>
+                                    <a href='#'><i className="fa-brands fa-instagram"></i></a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
+                    )
+                })
 
             }
 
