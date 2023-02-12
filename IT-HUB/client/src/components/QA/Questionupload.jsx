@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "./QAStyles.css"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, redirect } from 'react-router-dom';
 import axios from "axios";
 
 const Questionupload = () => {
@@ -12,6 +12,7 @@ const Questionupload = () => {
         e.preventDefault();
         const data = await axios.post('http://localhost:5000/api/question', { question: question });
         console.log(data);
+        return redirect("/qa");
     }
 
     return (
@@ -25,15 +26,6 @@ const Questionupload = () => {
                     <button className='post-question-button' type="submit">Post</button>
                 </form>
             </div>
-
-            {/*     
-            // To test the posted question's output         
-            <h2 style={{ textAlign: "center" }}>Questions</h2>
-            <ul>
-                {questions.map((question, index) => (
-                    <li key={index}>{question}</li>
-                ))}
-            </ul> */}
 
         </div>
     )

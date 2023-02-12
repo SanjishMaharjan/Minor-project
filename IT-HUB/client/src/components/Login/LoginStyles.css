@@ -25,7 +25,7 @@
 
 .box h1 {
   margin-bottom: 25px;
-  color: var(--alternate-color);
+  /* color: var(--alternate-color); */
   text-align: center;
   text-transform: capitalize;
 }
@@ -39,7 +39,7 @@
   padding: 10px;
   font-size: 16px;
   letter-spacing: 1px;
-  color: var(--alternate-color);
+  /* color: var(--alternate-color); */
   margin-bottom: 30px;
   border: none;
   border-bottom: 1px solid var(--alternate-color);
@@ -54,7 +54,7 @@
   letter-spacing: 1px;
   padding: 10px 0;
   font-size: 16px;
-  color: var(--alternate-color);
+  /* color: var(--alternate-color); */
   transition: 0.5s;
 }
 
@@ -65,7 +65,7 @@
   margin-top: 2rem;
   display: block;
   margin-inline: auto;
-  color: var(--alternate-color);
+  /* color: var(--alternate-color); */
   font-size: 14px;
 }
 

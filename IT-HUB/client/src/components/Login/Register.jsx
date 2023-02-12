@@ -15,19 +15,7 @@ const Register = () => {
     const [level, setLevel] = useState('')
     const [DOB, setDOB] = useState('')
     const redirect = useNavigate();
-    // const [allEntry, setAllentry] = useState([])
 
-    // const submitForm = (e) => {
-    //     e.preventDefault()
-    //     const newEntry = { email: email, password: password, password2: password2, firstname: firstname, lastname: lastname, DOB: DOB };
-
-    //     setAllentry([...allEntry, newEntry]);
-    //     // console.log(allEntry);
-
-    //     if (!email || !password || !DOB || !firstname || !lastname) {
-    //         return toast.error("All fields are required");
-    //     }
-    // }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -44,20 +32,7 @@ const Register = () => {
         }
     }
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         const response = await axios.post('http://localhost:5000/api/users/register',{ email, password, name, DOB, level }
-    //         );
 
-
-    //         // const newEntry = { email: email, password: password, name: name, DOB: DOB };
-    //         console.log(response)
-    //     }
-    //     catch (e) {
-    //         console.log(e);
-    //     }
-    // }
 
     return (
         <>

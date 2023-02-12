@@ -3,7 +3,7 @@ import axios from 'axios'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css'
 import Courses from './components/Courses/Courses'
-import Gallery from './components/Gallery/Gallery'
+// import Gallery from './components/Gallery/Gallery'
 import Home from './components/Landing_page/Home'
 import News from './components/News/News'
 import MainQA from './components/QA/MainQA'
@@ -17,6 +17,7 @@ import ForgotPassword from './components/Login/ForgotPassword';
 import Checklogin from './components/Login/Checklogin';
 import Comment from './components/QA/Comment';
 import ChangePassword from './components/Login/ChangePassword';
+import Events from './components/Eventss/Events';
 
 axios.defaults.withCredentials = true;
 
@@ -33,7 +34,7 @@ const App = () => {
           {/* // To create a nested params route */}
         </Route>
 
-        <Route path="/gallery" element={<Gallery />}></Route>
+        <Route path="/events" element={<Events />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>

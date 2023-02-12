@@ -70,7 +70,7 @@ const Gallery = () => {
               <div className="gallery">
                 <div className="gallery-item">
                   <img src={img.image} onClick={openImg} />
-                  <p className='gallery-detail'>{img.details}</p>
+                  {/* <p className='gallery-detail'>{img.details}</p> */}
                 </div>
               </div>
             </>

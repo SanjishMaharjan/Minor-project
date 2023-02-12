@@ -142,11 +142,11 @@ const reportQuestion = asyncHandler(async (req, res) => {
     throw new Error(`no question by id:${questionId}`);
   }
 
-  const { reason } = req.body;
-  if (!reason) {
-    res.status(400);
-    throw new Error("reason cannot be empty");
-  }
+  // const { reason } = req.body;
+  // if (!reason) {
+  //   res.status(400);
+  //   throw new Error("reason cannot be empty");
+  // }
 
   //* check if it has already been reported or not
   //todo: If it hasn't been reported create new report and also set the isReported flag of question
@@ -154,7 +154,7 @@ const reportQuestion = asyncHandler(async (req, res) => {
     await Report.create(
       {
         reportedOn: questionId,
-        reasons: reason,
+        reasons: "vandina afai her admine",
         reportedUser: question.questioner,
         count: 1,
       },

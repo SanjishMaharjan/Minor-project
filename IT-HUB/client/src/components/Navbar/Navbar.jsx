@@ -2,8 +2,12 @@ import "./Navbarstyles.css";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { checkLogin } from "../../Utils/loginChecker";
 
 const Navbar = () => {
+
+  const [isLogin, setLogin] = useState(false);
+
   // To create dark and bright theme and store it in local storage according to preference of user
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") || "dark-theme"
@@ -16,16 +20,23 @@ const Navbar = () => {
     }
   };
 
+  const Checker = async () => {
+    const value = await checkLogin()
+    setLogin(value);
+    console.log(value);
+  }
+
+  useEffect(() => {
+    Checker();
+
+  }, []);
+
   useEffect(() => {
     document.body.className = theme;
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  // TO check login
-  const checkLogin = () => {
-    loginButton.style.display = "none";
-    profileButton.style.display = "inline-block";
-  }
+
 
   return (
     <div>
@@ -51,28 +62,28 @@ const Navbar = () => {
             <NavLink to="/qa">Q/A</NavLink>
           </li>
           <li>
-            <NavLink to="/gallery">Gallery</NavLink>
+            <NavLink to="/events">Events</NavLink>
           </li>
           <li>
             <NavLink to="/about">About</NavLink>
           </li>
           <li>
-            {/* <img
-              id="theme-icon"
-              onClick={toggleTheme}
-              src={
-                theme === "dark-theme"
-                  ? "../../src/assets/images/sun.png"
-                  : "../../src/assets/images/moon.png"
-              }
-              alt="dark"
-            /> */}
+
             <i onClick={toggleTheme} className={theme === "dark-theme" ? "fa-solid fa-toggle-on" : "fa-solid fa-toggle-off"}></i>
-            {/* <img id="profileImg" src="../../src/assets/images/user.png " alt="profile" srcset="" /> */}
+
           </li>
-          <NavLink to="/login">
-            <button onClick={checkLogin}>Log in</button>
-          </NavLink>
+          {
+            isLogin ? (<NavLink to="/profile">
+              <i style={{ marginTop: "0.6rem" }}
+                className="fa-solid fa-user"></i>
+            </NavLink>) : (<NavLink to="/login">
+              <button style={{ border: "2px solid var(--hover-color)" }}>Log in</button>
+            </NavLink>)
+          }
+
+          {/* <NavLink to="/login">
+            <button>Log in</button>
+          </NavLink> */}
           {/* <NavLink to="/profile">
             <i style={{ display: "none" }} class="fa-regular fa-user"></i>
           </NavLink> */}

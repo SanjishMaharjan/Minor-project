@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, redirect } from 'react-router-dom';
 // import moment from 'moment'
 import axios from 'axios';
 import { convertToYDHMS } from "../../Utils/dateConverter"
@@ -18,8 +18,9 @@ const Questionpost = () => {
   const navigate = useNavigate();
   const [chat, setChat] = useState([]);
   const [comments, setComments] = useState([]);
+  // const commentId = useRef() // To get the comment id to map the comments
 
-  const commentId = useRef() // To get the comment id to map the comments
+
   const getdata = async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/question");
@@ -31,22 +32,44 @@ const Questionpost = () => {
 
   };
 
-  const getComment = async () => {
-
-    // To get the comment id and hit comment api to fetch comment
-    // console.log(commentId.current.getAttribute("value"));
-    const value = commentId.current.getAttribute("value");
+  const deleteQuestion = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/${value}/comment`);
-      console.log(response.data);
-      setComments(response.data);
+      const response = await axios.delete(`http://localhost:5000/api/question/${id}`);
+      console.log(response);
+      if (response.status == 200) redirect("/qa")
     } catch (error) {
       console.log(error)
     }
-  }
-  const showComment = (e) => {
-    getComment();
-  }
+
+  };
+
+  const reportQuestion = async (id) => {
+    try {
+      const response = await axios.post(`http://localhost:5000/api/question/${id}/report`);
+      console.log(response);
+      if (response.status == 200) redirect("/qa")
+    } catch (error) {
+      console.log(error)
+    }
+
+  };
+
+  // const getComment = async () => {
+
+  //   // To get the comment id and hit comment api to fetch comment
+  //   // console.log(commentId.current.getAttribute("value"));
+  //   const value = commentId.current.getAttribute("value");
+  //   try {
+  //     const response = await axios.get(`http://localhost:5000/api/${value}/comment`);
+  //     console.log(response.data);
+  //     setComments(response.data);
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+  // const showComment = (e) => {
+  //   getComment();
+  // }
 
   useEffect(() => {
     getdata();
@@ -72,24 +95,20 @@ const Questionpost = () => {
                 </div>
                 <div className="message-content">
                   {talk.question}
-                  {/* <a href="#" ref={commentId} value={talk._id} onClick={showComment}>{talk.question}</a> */}
+
                 </div>
                 <div className="message-footer">
                   <i className={isActive ? "fa-solid fa-angle-down" : "fa-solid fa-angle-up"} onClick={toggleClass} style={{ fontSize: "0.8rem" }}> {talk.upvote.count} </i>
-                  {/* <i class="fa-solid fa-angle-down" style={{ fontSize: "0.8rem" }}>downvote</i> */}
+
                   <Link to={`/QA/${talk._id}`}><i className="fa-solid fa-comment"></i></Link>
-                  <i className="fa-solid fa-font-awesome"></i>
+                  <i onClick={() => reportQuestion(talk._id)} className="fa-solid fa-font-awesome"></i>
                   <i class="fa-solid fa-pen-to-square"></i>
                   <span>
-                    <i className="fa-solid fa-trash"></i>
+                    <i onClick={() => deleteQuestion(talk._id)} className="fa-solid fa-trash"></i>
                   </span>
                 </div>
               </div>
 
-              {/* email: {talk.questioner.email}<br />
-                          createdAt: {talk.createdAt}<br />
-                          isReported: {talk.isReported}<br />
-                          upvote: {talk.upvote}<br /> */}
             </>
 
           );

@@ -3,8 +3,8 @@
   padding-block: 10px;
   padding: 0 30px;
   height: 60px;
-  border-radius: 8px;
-  width: 99%;
+  /* border-radius: 8px; */
+  width: 100%;
   margin-inline: auto;
   display: flex;
   justify-content: space-between;
@@ -70,20 +70,22 @@ a {
 }
 
 button {
+
   background: transparent;
   padding: 0.5rem 1rem;
   white-space: nowrap;
   border: none;
-  border: 2px solid var(--hover-color);
   color: var(--hover-color);
-  border-radius: 2rem;
+  border: 2px solid var(--alternate-color);
+  border-radius: 1.5rem;
   font-size: 14px;
   cursor: pointer;
+  transition: all ease-in 0.25s;
 }
 
 button:hover {
   background: var(--hover-color);
-  color: rgba(255, 255, 255, 0.9);
+  color: white;
 }
 
 

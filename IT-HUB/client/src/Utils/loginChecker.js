@@ -1,12 +1,10 @@
 import axios from 'axios'
 
-export const Checklogin = () => {
-
-    const checkLogin = async () => {
+export  const checkLogin = async () => {
         try {
             const response = await axios.get("http://localhost:5000/api/users/loggedin");
-            const data = await response;
-            console.log(data);
+            // console.log(response);
+            return response;
             
         } catch (error) {
             console.log(error)
@@ -14,6 +12,4 @@ export const Checklogin = () => {
 
     };
 
-    checkLogin();
-}
-Checklogin();
+    

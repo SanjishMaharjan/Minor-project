@@ -37,7 +37,7 @@ const Courses = () => {
                   {/* <h4 className="card-sourcename">{learn.source.name}</h4> */}
                 </div>
                 <div className="course-tag" style={{ marginLeft: "2rem", display: "flex", justifyContent: "left", gap: "2rem" }}>
-                  <h3>4<i className="fa-solid fa-star"></i></h3>
+                  <h3>4 {"     "}<i className="fa-solid fa-star"></i></h3>
                   <button >{learn.tags}</button>
                 </div>
                 <a href={learn.href}><button className="card-btn" type="button">Read more</button></a>
