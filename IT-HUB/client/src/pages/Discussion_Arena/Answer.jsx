@@ -1,25 +1,38 @@
-import { useLoaderData, useNavigation, Form } from "react-router-dom";
+import { useLoaderData, useNavigation, Form, Link } from "react-router-dom";
 import Loader from "../../components/Loader";
+import { useContext } from "react";
+import { context } from "../../context/Context";
 
 const Answer = () => {
+  const { isLoggedIn } = useContext(context);
   // const answer = useLoaderData();
 
   const [answer, question] = useLoaderData();
-  console.log(answer, question);
-  console.log(question._id);
+
+  console.log(answer);
   if (useNavigation().state === "loading") return <Loader />;
-  console.log(answer)
+  console.log(answer);
 
   return (
     <>
       <div className="comment-section">
-        <h1>{question.question}</h1>
+        <h1 className="answer-title">{question.question}</h1>
         {answer.map((c) => {
           return (
             <>
               <div className="chat-message">
                 <div className="message-content">
-                  <div className="message-sender"><i class="fa-solid fa-reply"></i><br /> {c.answer}</div>
+                  <div className="message-sender">
+                    <Link to={`/profile/${"scs"}`}>
+                      <i className="commentor-name">{c.commenter.name}</i>
+                    </Link>
+                    <span>{c.answer}</span>
+                    <Form method="delete">
+                      <button type="submit" className="delete-comment">
+                        <i className="fa-solid fa-trash delete-comment"></i>
+                      </button>
+                    </Form>
+                  </div>
                 </div>
               </div>
             </>
@@ -27,29 +40,31 @@ const Answer = () => {
         })}
 
         {/* to comment on any post */}
-        <Form method="post" action={`/${question._id}/comment/new`}>
-          <input
-            className="post-question"
-            type="text"
-            placeholder="Post Your Opinion"
-            name="answer"
-          />
-          <br />
-          <br />
-          <label htmlFor="file-input">
-            <i style={{ fontSize: "2rem", cursor: "pointer" }} class="fa-solid fa-images"></i>
+
+        {isLoggedIn && (
+          <Form method="post" action={`/${question._id}/comment/new`} className="answer-form">
             <input
-              style={{ display: "none" }}
-              type="file"
-              name="photo"
-              id="file-input"
-              accept=".png,.jpg"
+              className="post-question"
+              type="text"
+              placeholder="Post Your Opinion"
+              name="answer"
             />
-          </label>
-          <button style={{ marginLeft: "41.5rem" }} className="post-question-button" type="submit">
-            Post
-          </button>
-        </Form>
+
+            <label htmlFor="file-input">
+              <i class="fa-solid fa-images"></i>
+              <input
+                style={{ display: "none" }}
+                type="file"
+                name="photo"
+                id="file-input"
+                accept=".png,.jpg"
+              />
+            </label>
+            <button className="post-question-button" type="submit">
+              Post
+            </button>
+          </Form>
+        )}
       </div>
     </>
   );

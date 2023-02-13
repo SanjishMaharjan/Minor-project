@@ -10,15 +10,7 @@ const PostQuestion = () => {
   return (
     <>
       <div>
-        <div style={{ marginLeft: "2rem" }} className="question-bar">
-          {/* <img
-            className="question-img"
-            onClick={() => navigate("/profile")}
-            src={user?.image?.imagePath}
-          ></img> */}
-
-
-
+        <div className="question-bar">
           <Form method="post" action="/question/new">
             <textarea
               className="post-question"
@@ -39,12 +31,14 @@ const PostQuestion = () => {
                 accept=".png,.jpg"
               />
             </label>
-            <button style={{ marginLeft: "41.5rem" }} className="post-question-button" type="submit">
+            <button
+              style={{ marginLeft: "41.5rem" }}
+              className="post-question-button"
+              type="submit"
+            >
               Post
             </button>
           </Form>
-
-
         </div>
       </div>
     </>

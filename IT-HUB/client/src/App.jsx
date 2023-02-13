@@ -76,6 +76,7 @@ const router = createBrowserRouter(
       <Route path="/logout" element={<LogOut />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<StudentProfile />} />
+      <Route path="/profile/:id" element={<StudentProfile />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
 
       <Route path="*" element={<h1>Not found</h1>} />

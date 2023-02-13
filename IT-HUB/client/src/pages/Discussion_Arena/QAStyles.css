@@ -1,47 +1,45 @@
 /* To post questions */
 .question-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
 }
 
 .question-bar :is(input[type="text"], textarea) {
-    flex: 1;
-    color: var(--hover-color);
-    background: transparent;
-    padding: 10px;
-    border: 1px solid var(--navbar-color);
-    border-radius: 0.8rem;
-    font-size: 16px;
-    outline: none;
-    resize: none;
+  flex: 1;
+  color: var(--hover-color);
+  background: transparent;
+  padding: 10px;
+  border: 1px solid var(--navbar-color);
+  border-radius: 0.8rem;
+  font-size: 16px;
+  outline: none;
+  resize: none;
 }
 
 .question-bar :is(input[type="text"], textarea):hover {
-    border: 1px solid var(--hover-color);
-
+  border: 1px solid var(--hover-color);
 }
 
 .question-bar input[type="text"]:focus {
-    border: 1px solid var(--hover-color);
-
+  border: 1px solid var(--hover-color);
 }
 
 .question-bar .post-question-button {
-    width: 6.5rem;
-    margin-left: 1rem;
+  width: 6.5rem;
+  margin-left: 1rem;
 }
 
 .post-question {
-    width: 50rem;
+  width: 50rem;
 }
 
 .chat-img {
-    width: 3.5%;
-    border-radius: 50%;
-    margin-right: 1rem;
-    cursor: pointer;
+  width: 3.5%;
+  border-radius: 50%;
+  margin-right: 1rem;
+  cursor: pointer;
 }
 
 /* ------------------------------------------------------ */
@@ -49,57 +47,102 @@
 /* To browse questions */
 
 .chat-message {
-    width: 800px;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: var(--box-shadow);
-    margin: auto;
-    overflow: hidden;
-    margin-bottom: 2rem;
-    margin-top: 1rem;
-
+  width: 60%;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  margin: auto;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 
 .message-sender {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background-color: var(--navbar-color);
-    border-bottom: 1px solid gray;
-    padding-inline: 2rem;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--navbar-color);
+  padding-inline: 2rem;
+  cursor: pointer;
 }
 
 .message-sender h5 {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 .message-content {
-    padding: 10px;
+  padding: 10px;
 }
 
 .message-footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 10px;
-    gap: 2rem;
-    cursor: pointer;
-    /* background-color: rgb(105, 237, 244); */
-    border-top: 1px solid gray;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+  gap: 2rem;
+  cursor: pointer;
+  /* background-color: rgb(105, 237, 244); */
+  /* border-top: 1px solid gray; */
 }
 
 .message-footer a {
-    margin-right: auto;
+  margin-right: auto;
 }
 
 .question-img {
-    width: 3.5%;
-    border-radius: 40%;
-    margin-right: 1rem;
-    cursor: pointer;
+  width: 3.5%;
+  border-radius: 40%;
+  margin-right: 1rem;
+  cursor: pointer;
 }
 
-.fa-solid .fa-trash:hover {
-    color: red;
+/* answer  */
+
+.answer-form {
+  margin-top: 5rem;
+  margin-inline: auto;
+  width: 60%;
+}
+
+.answer-form input {
+  background: var(--navbar-color);
+  width: 100%;
+  min-height: 5rem;
+  margin-bottom: 2rem;
+}
+.answer-form > * {
+  display: block;
+  margin-inline: auto;
+}
+
+.answer-form label {
+  width: 10%;
+  cursor: pointer;
+  font-size: 3.2rem;
+  text-align: center;
+  margin-block: 3rem;
+}
+
+.answer-form input:focus {
+  outline: 1px solid var(--hover-color);
+}
+
+.post-question-button {
+  font-size: 1.2rem;
+  padding: 0.7em 1.25em;
+}
+
+.answer-title {
+  margin-block: 2rem;
+  text-align: center;
+}
+
+.commentor-name {
+  font-style: normal;
+  font-weight: 600;
+  margin-right: 2rem;
+  font-size: 1.3rem;
+}
+
+.delete-comment {
+  margin-left: 20rem;
 }
