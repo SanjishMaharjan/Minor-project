@@ -117,6 +117,13 @@ button:hover {
 
 }
 
+/* navbar dropdown */
+
+.profile-dropdown {
+  cursor: pointer;
+}
+
+/* navbar dropdown */
 
 @media (max-width: 767px) {
   .navbar {

@@ -2,9 +2,23 @@ import React from 'react'
 import members from "./Club_Members.json"
 import "./AboutStyles.css"
 import FAQ from './FAQ/FAQ'
+import { useContext } from "react";
+import ProfileDropDown from "../StudentProfile/ProfileDropDown";
+import { useNavigation } from "react-router-dom";
+import HashLoader from "react-spinners/HashLoader";
 
 
 const About = () => {
+  const navigation = useNavigation();
+  if (navigation.state === "loading") {
+    return (
+      <>
+        <div className="loader">
+          <HashLoader color="#36d7b7" />
+        </div>
+      </>
+    );
+  }
   return (
     <div>
       <h1 className='header-about'>About SOCE</h1>

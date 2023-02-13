@@ -1,9 +1,20 @@
 import React from 'react'
 import "./HomeStyles.css"
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigation } from 'react-router-dom'
 import FAQ from '../About/FAQ/FAQ'
+import HashLoader from "react-spinners/HashLoader";
 
 const Home = () => {
+  const navigation = useNavigation();
+  if (navigation.state === "loading") {
+    return (
+      <>
+        <div className="loader">
+          <HashLoader color="#36d7b7" />
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
