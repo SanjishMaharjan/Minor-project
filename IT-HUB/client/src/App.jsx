@@ -6,33 +6,35 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 
-import { ContextProvider } from "./Context";
+import { ContextProvider } from "./context/Context";
 
 import "./App.css";
 
-import Courses from "./components/Courses/Courses";
-import Gallery from "./components/Gallery/Gallery";
-import Home from "./components/Landing_page/Home";
-import News from "./components/News/News";
-import Login from "./components/Login/Login";
-import Register from "./components/Login/Register";
-import About from "./components/About/About";
-import StudentProfile from "./components/StudentProfile/StudentProfile";
-import ForgotPassword from "./components/Login/ForgotPassword";
-import Checklogin from "./components/Login/Checklogin";
-import Layout from "./components/Navbar/Layout";
-import PostQuestion from "./components/QA/PostQuestion";
-import Questions from "./components/QA/Questions";
-import Answer from "./components/QA/Answer";
-import ErrorHandler from "./components/Error/ErrorHandler";
+import Layout from "./pages/Navbar/Layout";
 
-import { getQuestion } from "./components/QA/Questions";
-import { fetchNews } from "./components/News/News";
-import { getAnswer } from "./components/QA/Answer";
-import { postQuestion } from "./components/QA/PostQuestion";
-import { deleteQuestion } from "./components/QA/Questions";
-import { logOut } from "./components/Login/logout";
-import { handleLogin } from "./components/Login/Login";
+import Courses from "./pages/Courses/Courses";
+import Gallery from "./pages/Gallery/Gallery";
+import Home from "./pages/Landing_page/Home";
+import News from "./pages/News/News";
+import About from "./pages/About/About";
+
+import Login from "./pages/Login/Login";
+import LogOut from "./pages/Login/logout";
+import Register from "./pages/Login/Register";
+import StudentProfile from "./pages/StudentProfile/StudentProfile";
+import ForgotPassword from "./pages/Login/ForgotPassword";
+
+import PostQuestion from "./pages/Discussion_Arena/PostQuestion";
+import Questions from "./pages/Discussion_Arena/Questions";
+import Answer from "./pages/Discussion_Arena/Answer";
+
+import ErrorHandler from "./pages/Error/ErrorHandler";
+
+import { getQuestion } from "./Api/discussion_utils";
+import { fetchNews } from "./Api/news_utils";
+import { getAnswer } from "./Api/discussion_utils";
+import { postQuestion } from "./Api/discussion_utils";
+import { deleteQuestion } from "./Api/discussion_utils";
 
 axios.defaults.withCredentials = true;
 
@@ -41,13 +43,13 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
       <Route path="/courses" element={<Courses />} />
-      <Route path="/news" element={<News />} loader={fetchNews} />
+      <Route path="/news" loader={fetchNews} element={<News />} errorElement={<ErrorHandler />} />
 
-      <Route path="/question" element={<Questions />} loader={getQuestion} />
+      <Route path="/question" loader={getQuestion} element={<Questions />} />
       <Route
         path="/question/new"
-        element={<PostQuestion />}
         action={postQuestion}
+        element={<PostQuestion />}
         errorElement={<ErrorHandler />}
       />
       <Route
@@ -65,12 +67,10 @@ const router = createBrowserRouter(
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/about" element={<About />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/login/submit" action={handleLogin} />
-      <Route path="/logout" loader={logOut} />
+      <Route path="/logout" element={<LogOut />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<StudentProfile />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
-      <Route path="/checklogin" element={<Checklogin />} />
 
       <Route path="*" element={<h1>Not found</h1>} />
     </Route>

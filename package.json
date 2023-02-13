@@ -1,0 +1,24 @@
+{
+  "name": "minor-project",
+  "version": "1.0.0",
+  "description": "minor project config",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client",
+    "server": "cd IT-HUB/server && npm install  && npm run server",
+    "client": "cd IT-HUB/client && npm install && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SanjishMaharjan/Minor-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SanjishMaharjan/Minor-project/issues"
+  },
+  "homepage": "https://github.com/SanjishMaharjan/Minor-project#readme",
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
