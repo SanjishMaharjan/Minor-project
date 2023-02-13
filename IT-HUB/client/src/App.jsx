@@ -39,6 +39,7 @@ import { commentQuestion } from "./Api/discussion_utils";
 import { validateLogin } from "./Api/login_utils";
 
 axios.defaults.withCredentials = true;
+axios.defaults.baseURL = "http://localhost:5000";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

@@ -5,13 +5,10 @@ import { context } from "../../context/Context";
 
 const Answer = () => {
   const { isLoggedIn } = useContext(context);
-  // const answer = useLoaderData();
 
   const [answer, question] = useLoaderData();
 
-  console.log(answer);
   if (useNavigation().state === "loading") return <Loader />;
-  console.log(answer);
 
   return (
     <>

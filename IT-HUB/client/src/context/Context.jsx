@@ -9,17 +9,16 @@ export const ContextProvider = (props) => {
   const [user, setUser] = useState({});
 
   const checkLogin = async () => {
-    const res = await axios.get("http://localhost:5000/api/users/loggedin");
+    const res = await axios.get("/api/users/loggedin");
     setLoggedIn(res.data);
     if (res.data) {
-      const user = await axios.get("http://localhost:5000/api/users/getuser");
-      // console.log(user);
+      const user = await axios.get("/api/users/getuser");
       setUser(user.data);
     }
   };
 
   const logOut = async () => {
-    const res = await axios.get("http://localhost:5000/api/users/logout");
+    const res = await axios.get("/api/users/logout");
     setLoggedIn(false);
   };
 

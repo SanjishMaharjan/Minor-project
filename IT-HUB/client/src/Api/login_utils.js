@@ -9,7 +9,7 @@ export const validateLogin = async ({ request }) => {
   };
 
   try {
-    const response = await axios.post("http://localhost:5000/api/users/login", data);
+    const response = await axios.post("/api/users/login", data);
     return response;
   } catch (error) {
     return error.response;
