@@ -16,7 +16,7 @@ const createComment = asyncHandler(async (req, res) => {
     commenter: req.user._id,
     questionId,
   });
-  res.status(201).json(comment);
+  return res.status(201).json(comment);
 });
 
 //*             get comments on specific question

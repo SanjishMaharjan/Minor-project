@@ -13,7 +13,7 @@ export const ContextProvider = (props) => {
     setLoggedIn(res.data);
     if (res.data) {
       const user = await axios.get("http://localhost:5000/api/users/getuser");
-      console.log(user);
+      // console.log(user);
       setUser(user.data);
     }
   };
@@ -28,7 +28,7 @@ export const ContextProvider = (props) => {
   }, [isLoggedIn]);
 
   return (
-    <context.Provider value={{ isLoggedIn, setLoggedIn, logOut, user, setUser }}>
+    <context.Provider value={{ isLoggedIn, setLoggedIn, logOut, user, setUser, isAdmin, setAdmin }}>
       {props.children}
     </context.Provider>
   );

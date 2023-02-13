@@ -31,6 +31,22 @@ export const getAnswer = async ({ params }) => {
   const { id } = params;
   const response = await axios.get(`http://localhost:5000/api/${id}/comment`);
   if (response.status != 200) throw new Response("Not Found", { status: 404 });
+  const particularQuestion = await axios.get(`http://localhost:5000/api/question/${id}`)
+  console.log(particularQuestion.data.question);
+  
+  return [response.data ,particularQuestion.data];
+};
 
-  return response.data;
+export const commentQuestion = async ({ params,request }) => {
+  const { questionId } = params;
+  const formData = await request.formData();
+  const data = {
+    answer:formData.get("answer")
+  }
+console.log(questionId);
+console.log(data);
+  const response = await axios.post(`http://localhost:5000/api/${questionId}/comment`,data);
+  if (response.status != 201) throw new Response("Not Found", { status: 404 });
+ 
+  return redirect(`/question/${questionId}`);
 };

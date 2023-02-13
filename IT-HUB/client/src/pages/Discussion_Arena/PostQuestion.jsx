@@ -10,24 +10,41 @@ const PostQuestion = () => {
   return (
     <>
       <div>
-        <div className="question-bar">
-          <img
+        <div style={{ marginLeft: "2rem" }} className="question-bar">
+          {/* <img
             className="question-img"
             onClick={() => navigate("/profile")}
             src={user?.image?.imagePath}
-          ></img>
+          ></img> */}
+
+
 
           <Form method="post" action="/question/new">
-            <input
+            <textarea
               className="post-question"
               type="text"
+              rows="15"
               placeholder="Post Your Question"
               name="question"
             />
-            <button className="post-question-button" type="submit">
+            <br />
+            <br />
+            <label htmlFor="file-input">
+              <i style={{ fontSize: "2rem", cursor: "pointer" }} class="fa-solid fa-images"></i>
+              <input
+                style={{ display: "none" }}
+                type="file"
+                name="question"
+                id="file-input"
+                accept=".png,.jpg"
+              />
+            </label>
+            <button style={{ marginLeft: "41.5rem" }} className="post-question-button" type="submit">
               Post
             </button>
           </Form>
+
+
         </div>
       </div>
     </>

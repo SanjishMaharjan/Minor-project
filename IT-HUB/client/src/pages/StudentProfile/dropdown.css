@@ -4,13 +4,13 @@
   z-index: 10000;
   top: 5rem;
   width: auto;
-  background-color: var(--font-color-secondary);
+  background-color: var(--navbar-color);
   border-radius: 0 0 1.2rem 0.8rem;
   padding-inline: 2rem;
   box-shadow: var(--box-shadow);
 }
 
-.dropdown > * {
+.dropdown>* {
   margin-bottom: 2rem;
 }
 
@@ -28,7 +28,7 @@
   font-weight: 600;
 }
 
-.dropdown > h2:first-child {
+.dropdown>h2:first-child {
   margin-top: 1rem;
   margin-bottom: 1.8rem;
 }

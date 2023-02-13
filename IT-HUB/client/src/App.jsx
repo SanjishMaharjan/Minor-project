@@ -35,6 +35,7 @@ import { fetchNews } from "./Api/news_utils";
 import { getAnswer } from "./Api/discussion_utils";
 import { postQuestion } from "./Api/discussion_utils";
 import { deleteQuestion } from "./Api/discussion_utils";
+import { commentQuestion } from "./Api/discussion_utils";
 
 axios.defaults.withCredentials = true;
 
@@ -62,6 +63,11 @@ const router = createBrowserRouter(
         path="/question/:id/delete"
         action={deleteQuestion}
         errorElement={<h1>Cannot delete</h1>}
+      />
+      <Route
+        path="/:questionId/comment/new"
+        action={commentQuestion}
+        errorElement={<ErrorHandler />}
       />
 
       <Route path="/gallery" element={<Gallery />} />
