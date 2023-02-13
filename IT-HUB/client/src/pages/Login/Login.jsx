@@ -1,39 +1,28 @@
-import { Form, useNavigate, useNavigation, NavLink } from "react-router-dom";
+import { Form, useNavigate, useNavigation, NavLink, useActionData } from "react-router-dom";
 import { useContext } from "react";
 import "./LoginStyles.css";
 import { context } from "../../context/Context";
 import Loader from "../../components/Loader";
-import { validateLogin } from "../../Api/login_utils";
 
 const Login = () => {
   const { setLoggedIn } = useContext(context);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    const formdata = new FormData(e.target);
-    const data = {
-      email: formdata.get("email"),
-      password: formdata.get("password"),
-    };
-
-    try {
-      await validateLogin(data);
-      setLoggedIn(true);
-      navigate("/");
-    } catch {
-      navigate("/login");
-    }
-  };
+  const res = useActionData();
+  if (res && res.status === 200) {
+    setLoggedIn(true);
+    return navigate("/");
+  }
 
   if (useNavigation().state === "loading") return <Loader />;
 
   return (
     <>
+      {res && res.status === 400 && <h1> {res.data.msg} </h1>}
       <div className="main-div">
         <div className="box">
           <h1>Login</h1>
-          <Form method="post" onSubmit={handleLogin}>
+          <Form method="post" action="/login">
             <div className="input-box">
               <label htmlFor="email">Email</label>
               <input type="text" placeholder="Email" name="email" id="email" autoComplete="off" />
@@ -49,7 +38,9 @@ const Login = () => {
                 autoComplete="off"
               />
             </div>
-            <button style={{ border: "0.05rem solid var(--background-color)" }} type="submit">Login</button>
+            <button style={{ border: "0.05rem solid var(--background-color)" }} type="submit">
+              Login
+            </button>
             <NavLink to="/forgotpassword">
               <a className="btn-register">Forgot Password?</a>
             </NavLink>

@@ -36,6 +36,7 @@ import { getAnswer } from "./Api/discussion_utils";
 import { postQuestion } from "./Api/discussion_utils";
 import { deleteQuestion } from "./Api/discussion_utils";
 import { commentQuestion } from "./Api/discussion_utils";
+import { validateLogin } from "./Api/login_utils";
 
 axios.defaults.withCredentials = true;
 
@@ -72,7 +73,12 @@ const router = createBrowserRouter(
 
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/about" element={<About />} />
-      <Route path="/login" element={<Login />} />
+      <Route
+        path="/login"
+        element={<Login />}
+        action={validateLogin}
+        errorElement={<ErrorHandler />}
+      />
       <Route path="/logout" element={<LogOut />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<StudentProfile />} />
