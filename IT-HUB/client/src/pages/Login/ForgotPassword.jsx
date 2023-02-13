@@ -43,7 +43,7 @@ const ForgotPassword = () => {
                             />
                         </div>
 
-                        <button type="submit">Get Reset Email</button>
+                        <button style={{ border: "0.05rem solid var(--background-color)" }} type="submit">Get Reset Email</button>
                         <div className='forget-navigation'>
                             <NavLink to="/"><i className="fa-solid fa-house"></i></NavLink>
                             <NavLink to="/login"><i className="fa-solid fa-arrow-right-to-bracket"></i></NavLink>

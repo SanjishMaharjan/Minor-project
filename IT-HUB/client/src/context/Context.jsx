@@ -20,7 +20,7 @@ export const ContextProvider = (props) => {
 
   const logOut = async () => {
     const res = await axios.get("http://localhost:5000/api/users/logout");
-    setLoggedIn(res);
+    setLoggedIn(false);
   };
 
   useEffect(() => {

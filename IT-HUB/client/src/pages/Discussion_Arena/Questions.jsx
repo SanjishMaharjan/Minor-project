@@ -21,10 +21,15 @@ const Questions = () => {
 
   return (
     <div>
-      <h1 style={{ marginTop: "2rem" }}>Questions</h1>
-      <Link to="/question/new" style={{ marginLeft: "50%" }}>
-        <button>Post Question</button>
-      </Link>
+      <div style={{ textAlign: "center", marginTop: "2rem" }}>
+        <h1 >The IT hub where solutions meet expertise</h1>
+        <br />
+        <h1 >Ask your Queries</h1>
+        <br />
+        <Link to="/question/new" >
+          <button>Post Question</button>
+        </Link>
+      </div>
 
       {chat.map((talk) => {
         return (

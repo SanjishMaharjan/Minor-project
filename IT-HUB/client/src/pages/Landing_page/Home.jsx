@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useNavigation } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
 import FAQ from "../About/FAQ/FAQ";
 import Loader from "../../components/Loader";
 import "./HomeStyles.css";
@@ -22,11 +22,11 @@ const Home = () => {
         Then join us and enroll in our courses
       </p>
       <div className="getstarted">
-        <NavLink to="/courses">
+        <Link to="/courses">
           <button className="btn-getstarted" type="submit">
             Get Started
           </button>
-        </NavLink>
+        </Link>
       </div>
       <FAQ />
     </>

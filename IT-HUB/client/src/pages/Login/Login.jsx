@@ -49,7 +49,7 @@ const Login = () => {
                 autoComplete="off"
               />
             </div>
-            <button type="submit">Login</button>
+            <button style={{ border: "0.05rem solid var(--background-color)" }} type="submit">Login</button>
             <NavLink to="/forgotpassword">
               <a className="btn-register">Forgot Password?</a>
             </NavLink>

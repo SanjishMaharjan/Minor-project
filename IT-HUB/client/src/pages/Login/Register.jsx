@@ -127,28 +127,9 @@ const Register = () => {
                                 onChange={(e) => setLevel(e.target.value)}
                             />
                         </div>
-                        <button type="submit">Sign Up</button>
+                        <button style={{ border: "0.05rem solid var(--background-color)" }} type="submit">Sign Up</button>
                     </form>
 
-                    {/* <div>
-                        {
-                            allEntry.map((temp) => {
-                                return (
-                                    <div>
-                                        <p>firstname: {temp.firstname}</p>
-                                        <p>lastname: {temp.lastname}</p>
-                                        <p>DOB: {temp.DOB}</p>
-                                        <p>Email: {temp.email}</p>
-                                        <p>Password: {temp.password}</p>
-                                        <p>Password2: {temp.password2}</p>
-                                    </div>
-                                )
-                            }
-                            )
-
-                        }
-
-                    </div> */}
                 </div>
             </div>
         </>

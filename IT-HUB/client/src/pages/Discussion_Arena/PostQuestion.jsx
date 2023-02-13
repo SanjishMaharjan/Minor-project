@@ -1,8 +1,11 @@
 import { useNavigate, Form, useNavigation } from "react-router-dom";
 import Loader from "../../components/Loader";
+import { useContext } from "react";
+import { context } from "../../context/Context";
 
 const PostQuestion = () => {
   const navigate = useNavigate();
+  const { user } = useContext(context);
   if (useNavigation().state === "loading") return <Loader />;
   return (
     <>
@@ -11,7 +14,7 @@ const PostQuestion = () => {
           <img
             className="question-img"
             onClick={() => navigate("/profile")}
-            src="https://marketplace.canva.com/EAE6OJ2qP8U/1/0/1600w/canva-gamer-with-glasses-character-twitch-profile-picture-CVfgWIJGgRo.jpg"
+            src={user?.image?.imagePath}
           ></img>
 
           <Form method="post" action="/question/new">
