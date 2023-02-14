@@ -11,6 +11,11 @@ const PostQuestion = () => {
     <>
       <div>
         <div className="question-bar">
+          <img
+            className="chat-img"
+            onClick={() => navigate("/profile")}
+            src={user?.image?.imagePath}
+          ></img>
           <Form method="post" action="/question/new">
             <textarea
               className="post-question"
@@ -19,25 +24,25 @@ const PostQuestion = () => {
               placeholder="Post Your Question"
               name="question"
             />
-            <br />
-            <br />
-            <label htmlFor="file-input">
-              <i style={{ fontSize: "2rem", cursor: "pointer" }} class="fa-solid fa-images"></i>
-              <input
-                style={{ display: "none" }}
-                type="file"
-                name="question"
-                id="file-input"
-                accept=".png,.jpg"
-              />
-            </label>
-            <button
-              style={{ marginLeft: "41.5rem" }}
-              className="post-question-button"
-              type="submit"
-            >
-              Post
-            </button>
+            <div className="post-question-footer">
+              <button onClick={() => navigate(-1)}>Go back</button>
+              <label htmlFor="file-input">
+                <i style={{ fontSize: "2rem", cursor: "pointer" }} class="fa-solid fa-images"></i>
+                <input
+                  style={{ display: "none" }}
+                  type="file"
+                  name="question"
+                  id="file-input"
+                  accept=".png,.jpg"
+                />
+              </label>
+              <button
+                className="post-question-button"
+                type="submit"
+              >
+                Post
+              </button>
+            </div>
           </Form>
         </div>
       </div>

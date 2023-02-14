@@ -23,6 +23,10 @@ import LogOut from "./pages/Login/logout";
 import Register from "./pages/Login/Register";
 import StudentProfile from "./pages/StudentProfile/StudentProfile";
 import ForgotPassword from "./pages/Login/ForgotPassword";
+import MainAdmin from "./pages/Admin_pannel/MainAdmin";
+import CreatePoll from "./pages/Admin_pannel/CreatePoll";
+import EditContent from "./pages/Admin_pannel/EditContent";
+import Notification from "./pages/Admin_pannel/Notification";
 
 import PostQuestion from "./pages/Discussion_Arena/PostQuestion";
 import Questions from "./pages/Discussion_Arena/Questions";
@@ -38,6 +42,7 @@ import { postQuestion } from "./Api/discussion_utils";
 import { deleteQuestion } from "./Api/discussion_utils";
 import { commentQuestion } from "./Api/discussion_utils";
 import { validateLogin } from "./Api/login_utils";
+import ManageEvents from "./pages/Admin_pannel/ManageEvents";
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:5000";
@@ -86,6 +91,12 @@ const router = createBrowserRouter(
       <Route path="/profile" element={<StudentProfile />} />
       <Route path="/profile/:id" element={<StudentProfile />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
+
+      <Route path="/admin" element={<MainAdmin />} />
+      <Route path="/admin/createpoll" element={<CreatePoll />} />
+      <Route path="/admin/editcontent" element={<EditContent />} />
+      <Route path="/admin/notification" element={<Notification />} />
+      <Route path="/admin/manageevents" element={<ManageEvents />} />
 
       <Route path="*" element={<Handle404 />} />
     </Route>
