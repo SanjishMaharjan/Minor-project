@@ -41,7 +41,6 @@ a {
   font-weight: var(--font-weight);
   color: var(--hover-color);
   font-size: var(--font-size);
-  text-decoration: none !important;
 }
 
 .navbar li ::after {

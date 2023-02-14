@@ -1,10 +1,11 @@
 import React from 'react'
-import SideBar from './SideBar'
+import { MdOutlineEventNote } from 'react-icons/md'
 
 const ManageEvents = () => {
     return (
-        <div>
-            <SideBar />
+        <div className="main-container">
+            <h1><MdOutlineEventNote style={{ fontSize: "7rem" }} /><br />
+                Manage Events</h1>
         </div>
     )
 }

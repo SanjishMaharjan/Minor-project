@@ -1,10 +1,12 @@
 import React from 'react'
-import SideBar from './SideBar'
+import { MdOutlineNotificationsActive } from 'react-icons/md'
+
 
 const Notification = () => {
     return (
-        <div>
-            <SideBar />
+        <div className="main-container">
+            <h1><MdOutlineNotificationsActive style={{ fontSize: "7rem" }} /><br />
+                Here are all your Notifications</h1>
         </div>
     )
 }

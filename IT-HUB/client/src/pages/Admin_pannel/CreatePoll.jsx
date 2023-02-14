@@ -1,11 +1,14 @@
 import React from 'react'
-import SideBar from './SideBar'
+import { MdOutlinePoll } from 'react-icons/md'
 
 const CreatePoll = () => {
     return (
-        <div>
-            <SideBar />
+
+        <div className="main-container">
+            <h1><MdOutlinePoll style={{ fontSize: "7rem" }} /><br />
+                Create Polls</h1>
         </div>
+
     )
 }
 

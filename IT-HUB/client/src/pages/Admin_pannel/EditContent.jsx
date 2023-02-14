@@ -1,10 +1,11 @@
 import React from 'react'
-import SideBar from './SideBar'
+import { HiOutlineWrenchScrewdriver } from 'react-icons/hi2'
 
 const EditContent = () => {
     return (
-        <div>
-            <SideBar />
+        <div className="main-container">
+            <h1><HiOutlineWrenchScrewdriver style={{ fontSize: "7rem" }} /><br />
+                Edit Content</h1>
         </div>
     )
 }

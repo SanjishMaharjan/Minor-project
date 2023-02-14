@@ -1,5 +1,5 @@
 .main-sidebar {
-    display: block;
+    display: flex;
     width: 20%;
 
 }
@@ -20,7 +20,7 @@
 .sidebar {
     display: flex;
     justify-content: space-around;
-    margin-block: 2rem;
+    margin-block: 3rem;
     align-items: flex-start;
     flex-direction: column;
     gap: 5rem;
@@ -39,11 +39,11 @@ a {
     font-size: var(--font-size);
 }
 
-.sidebar li :hover {
+/* .sidebar li :hover {
     background-color: var(--background-color);
     font-size: 1.35rem;
     border-radius: 1.5rem;
-}
+} */
 
 
 .sidebar li ::after {
@@ -53,17 +53,36 @@ a {
     height: 3px;
     width: 100%;
     background: var(--hover-color);
-    transform: scaleX(0);
+    scale: 0;
     transform-origin: right;
     transition: transform 400ms ease-out;
 }
 
-.sidebar li:hover li::after {
-    transform: scaleX(1);
-    transform-origin: right;
+.sidebar li .active::after {
+    scale: 1;
+    transform-origin: initial;
 }
 
-.sidebar li .active::after {
-    transform: scaleX(1);
-    transform-origin: initial;
+.sidebar li:hover li::after {
+    scale: 1;
+    color: var(--hover-color);
+    transform-origin: top;
+}
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++ for side view */
+.admin-container {
+    display: flex;
+
+}
+
+.main-sidebar {
+    flex-basis: 20%;
+}
+
+.main-container {
+    flex-basis: 80%;
+    text-align: center;
+    margin-top: 15rem;
+
 }

@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import { context } from "../../context/Context";
 import { useContext } from "react";
 import "./dropdown.css";
+import { RiAdminLine } from 'react-icons/ri'
 
 import React, { useState, useRef, useEffect } from "react";
 
@@ -42,6 +43,10 @@ const ProfileDropDown = () => {
           <div className="btn_container">
             <Link to="/profile">
               <i className="fa-solid fa-user"></i> <span>Profile</span>
+            </Link>
+            <br />
+            <Link to="/admin">
+              <RiAdminLine style={{ fontSize: "1.2rem" }} /> <span>Admin</span>
             </Link>
             <br />
             <Link to="/logout">
