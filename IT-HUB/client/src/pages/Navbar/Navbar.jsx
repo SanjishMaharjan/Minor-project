@@ -3,6 +3,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ProfileDropDown from "../StudentProfile/ProfileDropDown";
+import { MdOutlineLightMode } from "react-icons/md";
+import { BiMoon } from "react-icons/bi";
 
 const Navbar = () => {
   // To create dark and bright theme and store it in local storage according to preference of user
@@ -46,13 +48,19 @@ const Navbar = () => {
             <NavLink to="/about">About</NavLink>
           </li>
           <li>
-            <i
+            {theme === "dark-theme" ? (
+              <MdOutlineLightMode className="icon sun" onClick={toggleTheme} />
+            ) : (
+              <BiMoon className="icon " onClick={toggleTheme} />
+            )}
+            {/* <i
               onClick={toggleTheme}
               className={
                 theme === "dark-theme" ? "fa-solid fa-toggle-on" : "fa-solid fa-toggle-off"
               }
-            ></i>
+            ></i> */}
           </li>
+
           <ProfileDropDown />
         </ul>
       </div>

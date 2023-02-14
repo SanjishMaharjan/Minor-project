@@ -1,11 +1,15 @@
-import { useRouteError, Link } from "react-router-dom";
+import { useRouteError, Link, useNavigate } from "react-router-dom";
+import "./errorhandler.css";
 
 const ErrorHandler = () => {
+  const navigate = useNavigate();
   const error = useRouteError();
   return (
     <>
-      <h1>{error.message}</h1>
-      <Link to={"/question"}>Go back </Link>
+      <div className="error-container">
+        <h1>{error.message || "error occured"}</h1>
+        <button onClick={() => navigate(-1)}>Go back</button>
+      </div>
     </>
   );
 };

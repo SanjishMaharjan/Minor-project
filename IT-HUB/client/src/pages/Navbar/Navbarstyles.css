@@ -28,7 +28,6 @@
   display: flex;
   justify-content: space-around;
   gap: 5rem;
-
 }
 
 a {
@@ -36,7 +35,6 @@ a {
   /* color: var(--font-color-primary); */
   color: var(--font-color-primary);
 }
-
 
 .navbar li {
   list-style: none;
@@ -47,7 +45,6 @@ a {
 }
 
 .navbar li ::after {
-
   content: "";
   display: block;
   position: relative;
@@ -70,7 +67,6 @@ a {
 }
 
 button {
-
   background: transparent;
   padding: 0.5rem 1rem;
   white-space: nowrap;
@@ -88,14 +84,12 @@ button:hover {
   color: white;
 }
 
-
 #theme-icon {
   width: 2rem;
   top: 2rem;
   height: auto;
   cursor: pointer;
   /* display: flex;*/
-
 }
 
 .icons {
@@ -114,7 +108,6 @@ button:hover {
 .fa-toggle-on {
   font-size: 1.5rem;
   margin-top: 0.3rem;
-
 }
 
 /* navbar dropdown */
@@ -138,4 +131,8 @@ button:hover {
   .menu-toggle {
     display: block;
   }
+}
+
+.icon {
+  font-size: 1.7rem;
 }

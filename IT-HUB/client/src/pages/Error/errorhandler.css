@@ -1,0 +1,10 @@
+.error-container {
+  width: 60%;
+  margin-inline: auto;
+  text-align: center;
+  margin-block: 10rem;
+}
+
+.error-container > * {
+  margin-bottom: 3rem;
+}

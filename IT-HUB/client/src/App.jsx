@@ -29,6 +29,7 @@ import Questions from "./pages/Discussion_Arena/Questions";
 import Answer from "./pages/Discussion_Arena/Answer";
 
 import ErrorHandler from "./pages/Error/ErrorHandler";
+import Handle404 from "./pages/Error/Handle404";
 
 import { getQuestion } from "./Api/discussion_utils";
 import { fetchNews } from "./Api/news_utils";
@@ -86,7 +87,7 @@ const router = createBrowserRouter(
       <Route path="/profile/:id" element={<StudentProfile />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
 
-      <Route path="*" element={<h1>Not found</h1>} />
+      <Route path="*" element={<Handle404 />} />
     </Route>
   )
 );
