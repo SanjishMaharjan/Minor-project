@@ -1,12 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import "./dropdown.css";
-import { RiAdminLine } from 'react-icons/ri'
+import { RiAdminLine } from "react-icons/ri";
 
 import { useState, useRef, useEffect } from "react";
 
 const ProfileDropDown = () => {
-  const { isLoggedIn, user } = useAuth();
+  const { isLoggedIn, user, isAdmin } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
@@ -44,9 +44,11 @@ const ProfileDropDown = () => {
               <i className="fa-solid fa-user"></i> <span>Profile</span>
             </Link>
             <br />
-            <Link to="/admin">
-              <RiAdminLine style={{ fontSize: "1.2rem" }} /> <span>Admin</span>
-            </Link>
+            {isAdmin && (
+              <Link to="/admin">
+                <RiAdminLine style={{ fontSize: "1.2rem" }} /> <span>Admin</span>
+              </Link>
+            )}
             <br />
             <Link to="/logout">
               <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>
