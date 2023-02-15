@@ -23,6 +23,10 @@ import LogOut from "./pages/Login/logout";
 import Register from "./pages/Login/Register";
 import StudentProfile from "./pages/StudentProfile/StudentProfile";
 import ForgotPassword from "./pages/Login/ForgotPassword";
+import MainAdmin from "./pages/Admin_pannel/MainAdmin";
+import CreatePoll from "./pages/Admin_pannel/CreatePoll";
+import EditContent from "./pages/Admin_pannel/EditContent";
+import Notification from "./pages/Admin_pannel/Notification";
 
 import PostQuestion from "./pages/Discussion_Arena/PostQuestion";
 import Questions from "./pages/Discussion_Arena/Questions";
@@ -38,6 +42,8 @@ import { postQuestion } from "./Api/discussion_utils";
 import { deleteQuestion } from "./Api/discussion_utils";
 import { commentQuestion } from "./Api/discussion_utils";
 import { validateLogin } from "./Api/login_utils";
+import ManageEvents from "./pages/Admin_pannel/ManageEvents";
+import SideBar from "./pages/Admin_pannel/SideBar";
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:5000";
@@ -86,6 +92,16 @@ const router = createBrowserRouter(
       <Route path="/profile" element={<StudentProfile />} />
       <Route path="/profile/:id" element={<StudentProfile />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
+
+      <Route
+        // Here sidebar is the parent component who is child of navbar
+        path="/admin" element={<SideBar />} >
+        <Route index element={<MainAdmin />} />
+        <Route path="createpoll" element={<CreatePoll />} />
+        <Route path="editcontent" element={<EditContent />} />
+        <Route path="notification" element={<Notification />} />
+        <Route path="manageevents" element={<ManageEvents />} />
+      </Route>
 
       <Route path="*" element={<Handle404 />} />
     </Route>

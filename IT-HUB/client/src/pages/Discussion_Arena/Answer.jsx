@@ -1,34 +1,49 @@
 import { useLoaderData, useNavigation, Form, Link } from "react-router-dom";
 import Loader from "../../components/Loader";
-import useAuth from "../../hooks/useAuth";
+import { useContext } from "react";
+import { context } from "../../context/Context";
 
 const Answer = () => {
   const { isLoggedIn } = useAuth();
 
-  const { answer, question } = useLoaderData();
+  const [answer, question] = useLoaderData();
 
   if (useNavigation().state === "loading") return <Loader />;
 
   return (
     <>
       <div className="comment-section">
-        <h1 className="answer-title">{question.question}</h1>
+        <div className="comment-header">
+          <h1>
+            <i class="fa-brands fa-rocketchat"></i> {question.question}
+          </h1>
+        </div>
         {answer.map((c) => {
           return (
             <>
               <div className="chat-message">
-                <div className="message-content">
-                  <div className="message-sender">
-                    <Link to={`/profile/${"scs"}`}>
-                      <i className="commentor-name">{c.commenter.name}</i>
-                    </Link>
-                    <span>{c.answer}</span>
-                    <Form method="delete">
-                      <button type="submit" className="delete-comment">
-                        <i className="fa-solid fa-trash delete-comment"></i>
+                <div className="message-sender" onClick={() => navigate("/profile")}>
+                  <Link to={`/profile/${"scs"}`}>
+                    <h3>{c?.commenter?.name}</h3>
+                  </Link>
+                  <h5>{convertToYDHMS(c?.createdAt) || `1 second`} ago</h5>
+                </div>
+                <div className="message-content">{c.answer}</div>
+
+                <div className="message-footer">
+                  <i style={{}} className="fa-solid fa-angle-up"></i>
+
+                  {isLoggedIn && <i className="fa-solid fa-font-awesome"></i>}
+
+                  {<i class="fa-solid fa-pen-to-square"></i>}
+
+                  {
+                    <Form method="delete" action={`/question/${c._id}/delete`}>
+                      <button type="submit">
+                        <i className="fa-solid fa-trash"></i>
                       </button>
                     </Form>
-                  </div>
+                  }
                 </div>
               </div>
             </>

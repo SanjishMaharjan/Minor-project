@@ -1,0 +1,88 @@
+.main-sidebar {
+    display: flex;
+    width: 20%;
+
+}
+
+.sidebar-icon {
+    width: 100%;
+    background: var(--navbar-color);
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0rem 0rem 1.5rem;
+    box-shadow: var(--box-shadow);
+}
+
+
+.sidebar {
+    display: flex;
+    justify-content: space-around;
+    margin-block: 3rem;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5rem;
+}
+
+a {
+    text-decoration: none;
+    /* color: var(--font-color-primary); */
+    color: var(--font-color-primary);
+}
+
+.sidebar li {
+    list-style: none;
+    font-weight: var(--font-weight);
+    color: var(--hover-color);
+    font-size: var(--font-size);
+}
+
+/* .sidebar li :hover {
+    background-color: var(--background-color);
+    font-size: 1.35rem;
+    border-radius: 1.5rem;
+} */
+
+
+.sidebar li ::after {
+    content: "";
+    display: block;
+    position: relative;
+    height: 3px;
+    width: 100%;
+    background: var(--hover-color);
+    scale: 0;
+    transform-origin: right;
+    transition: transform 400ms ease-out;
+}
+
+.sidebar li .active::after {
+    scale: 1;
+    transform-origin: initial;
+}
+
+.sidebar li:hover li::after {
+    scale: 1;
+    color: var(--hover-color);
+    transform-origin: top;
+}
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++ for side view */
+.admin-container {
+    display: flex;
+
+}
+
+.main-sidebar {
+    flex-basis: 20%;
+}
+
+.main-container {
+    flex-basis: 80%;
+    text-align: center;
+    margin-top: 15rem;
+
+}
