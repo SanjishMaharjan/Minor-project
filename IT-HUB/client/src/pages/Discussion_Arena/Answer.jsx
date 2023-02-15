@@ -1,12 +1,11 @@
 import { useLoaderData, useNavigation, Form, Link } from "react-router-dom";
 import Loader from "../../components/Loader";
-import { useContext } from "react";
-import { context } from "../../context/Context";
+import useAuth from "../../hooks/useAuth";
 
 const Answer = () => {
   const { isLoggedIn } = useAuth();
 
-  const [answer, question] = useLoaderData();
+  const { answer, question } = useLoaderData();
 
   if (useNavigation().state === "loading") return <Loader />;
 
