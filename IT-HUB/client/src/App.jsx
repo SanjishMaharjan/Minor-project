@@ -46,7 +46,7 @@ import { commentQuestion } from "./Api/discussion_utils";
 import { validateLogin } from "./Api/login_utils";
 import { validateRegister } from "./Api/login_utils";
 import { forgotPassword } from "./Api/login_utils";
-import ManageEvents from "./pages/Admin_pannel/ManageEvents";
+import ManageEvents from "./pages/Admin_pannel/ManageEvents/ManageEvents";
 import SideBar from "./pages/Admin_pannel/SideBar";
 
 axios.defaults.withCredentials = true;

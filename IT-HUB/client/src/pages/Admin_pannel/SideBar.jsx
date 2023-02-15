@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import "./Sidebar.css";
-import { GrUserAdmin } from "react-icons/gr";
+import { RiUserSettingsLine } from "react-icons/ri";
 import {
   MdOutlineNotificationsActive,
   MdOutlineEventNote,
@@ -23,7 +23,7 @@ const SideBar = () => {
             <div className="sidebar-icon">
               <NavLink to="/admin">
                 <h1 style={{ marginTop: "2rem" }}>
-                  <GrUserAdmin /> DashBoard
+                  <RiUserSettingsLine /> DashBoard
                 </h1>
               </NavLink>
               <ul className="sidebar">

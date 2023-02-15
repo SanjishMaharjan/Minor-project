@@ -43,13 +43,13 @@ const ProfileDropDown = () => {
             <Link to="/profile">
               <i className="fa-solid fa-user"></i> <span>Profile</span>
             </Link>
-            <br />
+
             {isAdmin && (
               <Link to="/admin">
                 <RiAdminLine style={{ fontSize: "1.2rem" }} /> <span>Admin</span>
               </Link>
             )}
-            <br />
+
             <Link to="/logout">
               <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>
             </Link>
