@@ -1,27 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import axios from 'axios'
+import {
+    Form,
+    useNavigate,
+    useNavigation,
+    useActionData,
+    NavLink
+} from "react-router-dom";
+
 
 const ForgotPassword = () => {
-    const [email, setEmail] = useState('')
-    // const [allEntry, setAllentry] = useState([])
 
-    const submitForm = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:5000/api/users/forgotpassword', { email });
-            const data = await response;
-            console.log(data)
-        }
-        catch (e) {
-            console.log(e);
-        }
-    }
+    if (useNavigation().state === "loading") return <Loader />;
 
-    useEffect(() => {
-
-    }, [])
-
+    const navigate = useNavigate();
+    const res = useActionData();
+    // if (res && res.status === 200) {
+    //     console.log(res);
+    //     return navigate("/login", { replace: true });
+    // }
 
 
     return (
@@ -29,7 +24,9 @@ const ForgotPassword = () => {
             <div className="main-div">
                 <div className="box">
                     <h1>Forgot Password</h1>
-                    <form action="" onSubmit={submitForm}>
+                    <Form method="post" action="/forgotpassword" >
+                        {res && res.status === 404 && <p className="input-box"> {res.data.msg} </p>}
+                        {res && res.status === 200 && <p className="input-box"> {res.data.message} </p>}
                         <div className='input-box'>
                             <label htmlFor="email">Email</label>
                             <input
@@ -38,8 +35,6 @@ const ForgotPassword = () => {
                                 name="email"
                                 id="email"
                                 autoComplete="off"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </div>
 
@@ -48,22 +43,8 @@ const ForgotPassword = () => {
                             <NavLink to="/"><i className="fa-solid fa-house"></i></NavLink>
                             <NavLink to="/login"><i className="fa-solid fa-arrow-right-to-bracket"></i></NavLink>
                         </div>
-                    </form>
+                    </Form>
 
-                    {/* <div>
-                        {
-                            allEntry.map((temp) => {
-                                return (
-                                    <div>
-                                        <p>Email: {temp.email}</p>
-                                    </div>
-                                )
-                            }
-                            )
-
-                        }
-
-                    </div> */}
                 </div>
             </div>
         </>

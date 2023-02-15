@@ -81,3 +81,14 @@
 .fa-solid:hover {
   scale: 1.2;
 }
+
+/* +++++++++++++++++++++++++++++++++ Sign up ++++++++++++++++++++ */
+.signup-button {
+  margin-top: 2rem;
+  border: 2px solid var(--background-color);
+}
+
+.input-box select {
+  padding: 0.6rem 1.2rem;
+  border-radius: 1rem;
+}

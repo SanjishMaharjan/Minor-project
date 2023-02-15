@@ -44,6 +44,8 @@ import { postQuestion } from "./Api/discussion_utils";
 import { deleteQuestion } from "./Api/discussion_utils";
 import { commentQuestion } from "./Api/discussion_utils";
 import { validateLogin } from "./Api/login_utils";
+import { validateRegister } from "./Api/login_utils";
+import { forgotPassword } from "./Api/login_utils";
 import ManageEvents from "./pages/Admin_pannel/ManageEvents";
 import SideBar from "./pages/Admin_pannel/SideBar";
 
@@ -86,6 +88,7 @@ const router = createBrowserRouter(
 
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/about" element={<About />} />
+
       <Route
         path="/login"
         element={<Login />}
@@ -93,10 +96,17 @@ const router = createBrowserRouter(
         errorElement={<ErrorHandler />}
       />
       <Route path="/logout" element={<LogOut />} />
-      <Route path="/register" element={<Register />} />
+      <Route
+        path="/register" element={<Register />}
+        action={validateRegister}
+        errorElement={<ErrorHandler />}
+      />
       <Route path="/profile" element={<StudentProfile />} />
       <Route path="/profile/:id" element={<StudentProfile />} />
-      <Route path="/forgotpassword" element={<ForgotPassword />} />
+      <Route path="/forgotpassword" element={<ForgotPassword />}
+        action={forgotPassword}
+        errorElement={<ErrorHandler />}
+      />
 
       <Route element={<RequireAdmin />}>
         <Route

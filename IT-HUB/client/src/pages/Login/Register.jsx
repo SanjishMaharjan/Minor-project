@@ -1,135 +1,67 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import axios from 'axios'
-
+import {
+    Form,
+    useNavigate,
+    useNavigation,
+    useActionData,
+} from "react-router-dom";
+import Loader from "../../components/Loader";
 
 
 const Register = () => {
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [password2, setPassword2] = useState('')
-    // const [firstname, setFirstname] = useState('')
-    const [name, setName] = useState('')
-    const [level, setLevel] = useState('')
-    const [DOB, setDOB] = useState('')
-    const redirect = useNavigate();
+    if (useNavigation().state === "loading") return <Loader />;
 
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:5000/api/users/register', { email, password, name, DOB, level });
-            const data = await response;
-            if (data.status == 200) redirect("/")
-
-            // const newEntry = { email: email, password: password, name: name, DOB: DOB };
-            console.log(data)
-        }
-        catch (e) {
-            console.log(e);
-        }
+    const navigate = useNavigate();
+    const res = useActionData();
+    if (res && res.status === 200) {
+        return navigate("/", { replace: true });
     }
-
-
+    console.log(res);
 
     return (
         <>
-            <div className="main_div">
+            <div className="main-div">
                 <div className="box">
-                    <h1>Sign Up</h1>
-                    <form action="" onSubmit={handleSubmit}>
-                        {/* <div className='input-box'>
-                            <label htmlFor="firstname">First Name</label>
-                            <input
-                                type="text"
-                                placeholder='First name'
-                                name="Firstname"
-                                id="Firstname"
-                                autoComplete="off"
-                                value={firstname}
-                                onChange={(e) => setFirstname(e.target.value)}
-                            />
-                        </div> */}
-
-                        <div className='input-box'>
-                            <label htmlFor="firstname">Name</label>
-                            <input
-                                type="text"
-                                placeholder='Name'
-                                name="name"
-                                id="name"
-                                autoComplete="off"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            />
-                        </div>
-
-                        <div className='input-box'>
-                            <label htmlFor="DOB">Date of Birth</label>
-                            <input
-                                type="date"
-                                placeholder='DOB'
-                                name="DOB"
-                                id="DOB"
-                                autoComplete="off"
-                                value={DOB}
-                                onChange={(e) => setDOB(e.target.value)}
-                            />
-                        </div>
-
-                        <div className='input-box'>
+                    <h1>Sign up</h1>
+                    <Form method="post" action="/register">
+                        <div className="input-box">
+                            {res && res.status === 400 && <p className="input-box"> {res.data.msg} </p>}
                             <label htmlFor="email">Email</label>
-                            <input
-                                type="text"
-                                placeholder='Email'
-                                name="email"
-                                id="email"
-                                autoComplete="off"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
+                            <input type="text" placeholder="Email" name="email" id="email" autoComplete="off" />
                         </div>
-
-                        <div className='input-box'>
+                        <div className="input-box">
+                            <label htmlFor="name">Name</label>
+                            <input type="text" placeholder="Name" name="name" id="name" autoComplete="off" />
+                        </div>
+                        <div className="input-box">
+                            <label htmlFor="DOB">DOB</label>
+                            <input type="date" placeholder="Date of Birth" name="DOB" id="DOB" autoComplete="off" />
+                        </div>
+                        <div className="input-box">
                             <label htmlFor="password">Password</label>
                             <input
                                 type="password"
-                                placeholder='password'
+                                placeholder="password"
+                                name="password"
                                 id="password"
                                 autoComplete="off"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
-
-                        <div className='input-box'>
-                            <label htmlFor="Confirm password">Retype Password</label>
-                            <input
-                                type="password"
-                                placeholder='Confirm password'
-                                id="password2"
-                                autoComplete="off"
-                                value={password2}
-                                onChange={(e) => setPassword2(e.target.value)}
-                            />
+                        <div className="input-box">
+                            <select name="level" id="level">
+                                <option value="First Semester">First Semester</option>
+                                <option value="Second Semester">Second Semester</option>
+                                <option value="Third Semester">Third Semester</option>
+                                <option value="Fourth Semester">Fourth Semester</option>
+                                <option value="Fifth Semester">Fifth Semester</option>
+                                <option selected value="Sixth Semester">Sixth Semester</option>
+                                <option value="Seventh Semester">Seventh Semester</option>
+                                <option value="Eighth Semester">Eighth Semester</option>
+                            </select>
                         </div>
 
-                        <div className='input-box'>
-                            <label htmlFor="Confirm password">Level</label>
-                            <input
-                                type="name"
-                                placeholder='level'
-                                id="level"
-                                autoComplete="off"
-                                value={level}
-                                onChange={(e) => setLevel(e.target.value)}
-                            />
-                        </div>
-                        <button style={{ border: "0.05rem solid var(--background-color)" }} type="submit">Sign Up</button>
-                    </form>
-
+                        <button className="signup-button" type="submit">Sign Up</button>
+                    </Form>
                 </div>
             </div>
         </>

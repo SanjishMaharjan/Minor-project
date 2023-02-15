@@ -27,12 +27,12 @@ const Login = () => {
 
   return (
     <>
-      {res && res.status === 400 && <h1> {res.data.msg} </h1>}
       <div className="main-div">
         <div className="box">
           <h1>Login</h1>
           <Form method="post" action="/login">
             <div className="input-box">
+              {res && res.status === 400 && <p className="input-box"> {res.data.msg} </p>}
               <label htmlFor="email">Email</label>
               <input type="text" placeholder="Email" name="email" id="email" autoComplete="off" />
             </div>
