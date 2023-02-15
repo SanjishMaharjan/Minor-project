@@ -58,14 +58,14 @@ const router = createBrowserRouter(
       <Route path="/news" loader={fetchNews} element={<News />} errorElement={<ErrorHandler />} />
 
       <Route path="/question" loader={getQuestion} element={<Questions />} />
-      <Route
-        path="/question/new"
-        action={postQuestion}
-        element={<PostQuestion />}
-        errorElement={<ErrorHandler />}
-      />
 
       <Route element={<RequireLogin />}>
+        <Route
+          path="/question/new"
+          action={postQuestion}
+          element={<PostQuestion />}
+          errorElement={<ErrorHandler />}
+        />
         <Route
           path="/question/:id"
           loader={getAnswer}

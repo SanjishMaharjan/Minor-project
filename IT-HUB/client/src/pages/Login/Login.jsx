@@ -20,7 +20,8 @@ const Login = () => {
   const res = useActionData();
   if (res && res.status === 200) {
     setLoggedIn(true);
-    return navigate(prev, { replace: true });
+    // return navigate(prev, { replace: true });
+    return navigate(-1, { replace: true });
   }
 
   if (useNavigation().state === "loading") return <Loader />;

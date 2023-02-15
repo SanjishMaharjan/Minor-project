@@ -4,7 +4,11 @@ import useAuth from "../hooks/useAuth";
 const RequireLogin = () => {
   const { isAdmin } = useAuth();
   const location = useLocation();
-  return isAdmin ? <Outlet /> : <Navigate to="/login" state={{ from: location }} replace />;
+  return isAdmin ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/login" state={{ prev: location.pathname }} replace />
+  );
 };
 
 export default RequireLogin;
