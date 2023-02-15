@@ -5,7 +5,7 @@ export const context = createContext(null);
 
 export const ContextProvider = (props) => {
   const [isLoggedIn, setLoggedIn] = useState(false);
-  const [isAdmin, setAdmin] = useState(false);
+  const [isAdmin, setAdmin] = useState(true);
   const [user, setUser] = useState({});
 
   const checkLogin = async () => {
@@ -14,7 +14,6 @@ export const ContextProvider = (props) => {
     if (res.data) {
       const user = await axios.get("/api/users/getuser");
       setUser(user.data);
-      setAdmin(user.data.isAdmin);
     }
   };
 
