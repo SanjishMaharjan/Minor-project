@@ -14,6 +14,7 @@ export const ContextProvider = (props) => {
     if (res.data) {
       const user = await axios.get("/api/users/getuser");
       setUser(user.data);
+      setAdmin(user.data.isAdmin);
     }
   };
 
