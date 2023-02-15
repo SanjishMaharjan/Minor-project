@@ -5,6 +5,8 @@ import {
   Route,
   createRoutesFromElements,
 } from "react-router-dom";
+import RequireLogin from "./components/RequireLogin";
+import RequireAdmin from "./components/RequireAdmin";
 
 import { ContextProvider } from "./context/Context";
 
@@ -62,22 +64,25 @@ const router = createBrowserRouter(
         element={<PostQuestion />}
         errorElement={<ErrorHandler />}
       />
-      <Route
-        path="/question/:id"
-        loader={getAnswer}
-        element={<Answer />}
-        errorElement={<ErrorHandler />}
-      />
-      <Route
-        path="/question/:id/delete"
-        action={deleteQuestion}
-        errorElement={<h1>Cannot delete</h1>}
-      />
-      <Route
-        path="/:questionId/comment/new"
-        action={commentQuestion}
-        errorElement={<ErrorHandler />}
-      />
+
+      <Route element={<RequireLogin />}>
+        <Route
+          path="/question/:id"
+          loader={getAnswer}
+          element={<Answer />}
+          errorElement={<ErrorHandler />}
+        />
+        <Route
+          path="/question/:id/delete"
+          action={deleteQuestion}
+          errorElement={<h1>Cannot delete</h1>}
+        />
+        <Route
+          path="/:questionId/comment/new"
+          action={commentQuestion}
+          errorElement={<ErrorHandler />}
+        />
+      </Route>
 
       <Route path="/gallery" element={<Gallery />} />
       <Route path="/about" element={<About />} />
@@ -93,14 +98,18 @@ const router = createBrowserRouter(
       <Route path="/profile/:id" element={<StudentProfile />} />
       <Route path="/forgotpassword" element={<ForgotPassword />} />
 
-      <Route
-        // Here sidebar is the parent component who is child of navbar
-        path="/admin" element={<SideBar />} >
-        <Route index element={<MainAdmin />} />
-        <Route path="createpoll" element={<CreatePoll />} />
-        <Route path="editcontent" element={<EditContent />} />
-        <Route path="notification" element={<Notification />} />
-        <Route path="manageevents" element={<ManageEvents />} />
+      <Route element={<RequireAdmin />}>
+        <Route
+          // Here sidebar is the parent component who is child of navbar
+          path="/admin"
+          element={<SideBar />}
+        >
+          <Route index element={<MainAdmin />} />
+          <Route path="createpoll" element={<CreatePoll />} />
+          <Route path="editcontent" element={<EditContent />} />
+          <Route path="notification" element={<Notification />} />
+          <Route path="manageevents" element={<ManageEvents />} />
+        </Route>
       </Route>
 
       <Route path="*" element={<Handle404 />} />

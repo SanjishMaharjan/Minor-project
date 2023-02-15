@@ -1,4 +1,11 @@
-import { Form, useNavigate, useNavigation, NavLink, useActionData } from "react-router-dom";
+import {
+  useLocation,
+  Form,
+  useNavigate,
+  useNavigation,
+  NavLink,
+  useActionData,
+} from "react-router-dom";
 import "./LoginStyles.css";
 import Loader from "../../components/Loader";
 import useAuth from "../../hooks/useAuth";
@@ -6,11 +13,14 @@ import useAuth from "../../hooks/useAuth";
 const Login = () => {
   const { setLoggedIn } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const prev = location.state?.prev || "/";
+  console.log(prev);
 
   const res = useActionData();
   if (res && res.status === 200) {
     setLoggedIn(true);
-    return navigate("/");
+    return navigate(prev, { replace: true });
   }
 
   if (useNavigation().state === "loading") return <Loader />;

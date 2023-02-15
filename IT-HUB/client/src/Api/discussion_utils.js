@@ -30,8 +30,6 @@ export const postQuestion = async ({ request }) => {
 export const getAnswer = async ({ params }) => {
   const { id } = params;
   const response = await axios.get(`/api/${id}/comment`);
-  console.log(response);
-  console.log(response.status);
   if (response.status != 200) {
     throw new Error("Not Found", { status: 404 });
   }
