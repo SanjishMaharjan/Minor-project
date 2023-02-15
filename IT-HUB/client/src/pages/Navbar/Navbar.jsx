@@ -1,5 +1,4 @@
 import "./Navbarstyles.css";
-import React from "react";
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ProfileDropDown from "../StudentProfile/ProfileDropDown";
@@ -53,12 +52,6 @@ const Navbar = () => {
             ) : (
               <BiMoon className="icon " onClick={toggleTheme} />
             )}
-            {/* <i
-              onClick={toggleTheme}
-              className={
-                theme === "dark-theme" ? "fa-solid fa-toggle-on" : "fa-solid fa-toggle-off"
-              }
-            ></i> */}
           </li>
 
           <ProfileDropDown />

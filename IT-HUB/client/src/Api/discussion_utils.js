@@ -38,7 +38,7 @@ export const getAnswer = async ({ params }) => {
 
   const particularQuestion = await axios.get(`/api/question/${id}`);
 
-  return [response.data, particularQuestion.data];
+  return { answer: response.data, question: particularQuestion.data };
 };
 
 export const commentQuestion = async ({ params, request }) => {

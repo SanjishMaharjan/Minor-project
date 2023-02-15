@@ -1,12 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
-import { context } from "../../context/Context";
-import { useContext } from "react";
+import useAuth from "../../hooks/useAuth";
 import "./dropdown.css";
 
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const ProfileDropDown = () => {
-  const { isLoggedIn, user } = useContext(context);
+  const { isLoggedIn, user } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
