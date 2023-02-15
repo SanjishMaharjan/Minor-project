@@ -1,14 +1,11 @@
-import React, { useContext } from "react";
-import { Navigate, useNavigation, useParams } from "react-router-dom";
+import { Navigate, useNavigation } from "react-router-dom";
 import { convertToYDHMS } from "../../Utils/dateConverter";
-import { context } from "../../context/Context";
 import Loader from "../../components/Loader";
+import useAuth from "../../hooks/useAuth";
 import "./StudentStyles.css";
 
 const StudentProfile = () => {
-  // const { id } = useParams();
-
-  const { isLoggedIn, user } = useContext(context);
+  const { isLoggedIn, user } = useAuth();
   // if not logged in moved and wants to access profile navigate to login
   if (!isLoggedIn) return <Navigate to="/login" />;
   // if(!id) profile= user

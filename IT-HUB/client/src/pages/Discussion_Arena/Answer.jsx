@@ -1,14 +1,12 @@
 import { useLoaderData, useNavigation, Form, Link } from "react-router-dom";
 import Loader from "../../components/Loader";
-import { useContext } from "react";
-import { context } from "../../context/Context";
+import useAuth from "../../hooks/useAuth";
 import { convertToYDHMS } from "../../Utils/dateConverter";
 
 const Answer = () => {
-  const { isLoggedIn } = useContext(context);
+  const { isLoggedIn } = useAuth();
 
-  const [answer, question] = useLoaderData();
-  const { user } = useContext(context);
+  const { answer, question } = useLoaderData();
 
   if (useNavigation().state === "loading") return <Loader />;
 
@@ -16,7 +14,9 @@ const Answer = () => {
     <>
       <div className="comment-section">
         <div className="comment-header">
-          <h1><i class="fa-brands fa-rocketchat"></i>   {question.question}</h1>
+          <h1>
+            <i class="fa-brands fa-rocketchat"></i> {question.question}
+          </h1>
         </div>
         {answer.map((c) => {
           return (
@@ -44,7 +44,6 @@ const Answer = () => {
                       </button>
                     </Form>
                   }
-
                 </div>
               </div>
             </>
@@ -53,33 +52,31 @@ const Answer = () => {
 
         {/* to comment on any post */}
 
-        {
-          isLoggedIn && (
-            <Form method="post" action={`/${question._id}/comment/new`} className="answer-form">
-              <input
-                className="post-question"
-                type="text"
-                placeholder="Post Your Opinion"
-                name="answer"
-              />
+        {isLoggedIn && (
+          <Form method="post" action={`/${question._id}/comment/new`} className="answer-form">
+            <input
+              className="post-question"
+              type="text"
+              placeholder="Post Your Opinion"
+              name="answer"
+            />
 
-              <label htmlFor="file-input">
-                <i class="fa-solid fa-images"></i>
-                <input
-                  style={{ display: "none" }}
-                  type="file"
-                  name="photo"
-                  id="file-input"
-                  accept=".png,.jpg"
-                />
-              </label>
-              <button className="post-question-button" type="submit">
-                Post
-              </button>
-            </Form>
-          )
-        }
-      </div >
+            <label htmlFor="file-input">
+              <i class="fa-solid fa-images"></i>
+              <input
+                style={{ display: "none" }}
+                type="file"
+                name="photo"
+                id="file-input"
+                accept=".png,.jpg"
+              />
+            </label>
+            <button className="post-question-button" type="submit">
+              Post
+            </button>
+          </Form>
+        )}
+      </div>
     </>
   );
 };

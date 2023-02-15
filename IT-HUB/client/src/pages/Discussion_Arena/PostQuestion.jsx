@@ -1,11 +1,10 @@
 import { useNavigate, Form, useNavigation } from "react-router-dom";
 import Loader from "../../components/Loader";
-import { useContext } from "react";
-import { context } from "../../context/Context";
+import useAuth from "../../hooks/useAuth";
 
 const PostQuestion = () => {
   const navigate = useNavigate();
-  const { user } = useContext(context);
+  const { user } = useAuth();
   if (useNavigation().state === "loading") return <Loader />;
   return (
     <>

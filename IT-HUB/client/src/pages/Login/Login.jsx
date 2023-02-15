@@ -1,11 +1,10 @@
 import { Form, useNavigate, useNavigation, NavLink, useActionData } from "react-router-dom";
-import { useContext } from "react";
 import "./LoginStyles.css";
-import { context } from "../../context/Context";
 import Loader from "../../components/Loader";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
-  const { setLoggedIn } = useContext(context);
+  const { setLoggedIn } = useAuth();
   const navigate = useNavigate();
 
   const res = useActionData();

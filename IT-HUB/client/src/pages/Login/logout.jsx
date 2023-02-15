@@ -1,11 +1,10 @@
 import { useNavigation, Navigate } from "react-router-dom";
-import { context } from "../../context/Context";
-import { useContext } from "react";
 import Loader from "../../components/Loader";
+import useAuth from "../../hooks/useAuth";
 
 const LogOut = () => {
   if (useNavigation().state === "loading") return <Loader />;
-  const { logOut } = useContext(context);
+  const { logOut } = useAuth();
 
   logOut();
   return <Navigate to="/" />;
