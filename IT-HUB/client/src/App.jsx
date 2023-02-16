@@ -8,7 +8,8 @@ import {
 import RequireLogin from "./components/RequireLogin";
 import RequireAdmin from "./components/RequireAdmin";
 
-import { ContextProvider } from "./context/Context";
+import { AuthContextProvider } from "./context/AuthContext";
+import { ThemeContextProvider } from "./context/ThemeContext";
 
 import "./App.css";
 
@@ -97,13 +98,16 @@ const router = createBrowserRouter(
       />
       <Route path="/logout" element={<LogOut />} />
       <Route
-        path="/register" element={<Register />}
+        path="/register"
+        element={<Register />}
         action={validateRegister}
         errorElement={<ErrorHandler />}
       />
       <Route path="/profile" element={<StudentProfile />} />
       <Route path="/profile/:id" element={<StudentProfile />} />
-      <Route path="/forgotpassword" element={<ForgotPassword />}
+      <Route
+        path="/forgotpassword"
+        element={<ForgotPassword />}
         action={forgotPassword}
         errorElement={<ErrorHandler />}
       />
@@ -129,9 +133,11 @@ const router = createBrowserRouter(
 
 const App = () => {
   return (
-    <ContextProvider>
-      <RouterProvider router={router} />
-    </ContextProvider>
+    <ThemeContextProvider>
+      <AuthContextProvider>
+        <RouterProvider router={router} />
+      </AuthContextProvider>
+    </ThemeContextProvider>
   );
 };
 

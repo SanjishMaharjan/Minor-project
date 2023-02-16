@@ -1,25 +1,12 @@
 import "./Navbarstyles.css";
 import { NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
 import ProfileDropDown from "../StudentProfile/ProfileDropDown";
 import { MdOutlineLightMode } from "react-icons/md";
 import { BiMoon } from "react-icons/bi";
+import useToggleTheme from "../../context/ThemeContext";
 
 const Navbar = () => {
-  // To create dark and bright theme and store it in local storage according to preference of user
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark-theme");
-  const toggleTheme = () => {
-    if (theme === "dark-theme") {
-      setTheme("light-theme");
-    } else {
-      setTheme("dark-theme");
-    }
-  };
-
-  useEffect(() => {
-    document.body.className = theme;
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+  const { toggleTheme, theme } = useToggleTheme();
 
   return (
     <div className="main-nav">
@@ -53,7 +40,6 @@ const Navbar = () => {
               <BiMoon className="icon " onClick={toggleTheme} />
             )}
           </li>
-
           <ProfileDropDown />
         </ul>
       </div>
