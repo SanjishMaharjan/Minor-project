@@ -2,6 +2,7 @@ import course from "./Courses.json";
 import { useNavigation } from "react-router-dom";
 import Loader from "../../components/Loader";
 import "./CoursesStyles.css";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai"
 
 const Courses = () => {
   if (useNavigation().state === "loading") return <Loader />;
@@ -51,8 +52,11 @@ const Courses = () => {
                   }}
                 >
                   <h3>
-                    4 {"     "}
-                    <i className="fa-solid fa-star"></i>
+                    <AiFillStar />
+                    <AiFillStar />
+                    <AiFillStar />
+                    <AiFillStar />
+                    <AiOutlineStar />
                   </h3>
                   <button>{learn.tags}</button>
                 </div>
