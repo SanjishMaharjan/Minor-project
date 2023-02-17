@@ -9,11 +9,10 @@ import {
   MdOutlineLogout,
 } from "react-icons/md";
 import { HiOutlineWrenchScrewdriver } from "react-icons/hi2";
-import { context } from "../../context/Context";
-import { useContext } from "react";
+import useAuth from "../../hooks/useAuth";
 
 const SideBar = () => {
-  const { isAdmin } = useContext(context);
+  const { isAdmin } = useAuth();
 
   return (
     <>
