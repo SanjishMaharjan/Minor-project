@@ -12,11 +12,6 @@ const fs = require("fs");
 const createComment = asyncHandler(async (req, res) => {
   const { questionId } = req.params;
   const { answer } = req.body;
-  const question = await Question.findById(questionId);
-  if (!question) {
-    res.status(400);
-    throw new Error(`no question with id: ${questionId}`);
-  }
   if (!answer) {
     res.status(400).json({ msg: "answer field cannot be empty" });
   }
