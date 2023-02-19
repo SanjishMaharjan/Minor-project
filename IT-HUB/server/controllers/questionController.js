@@ -1,5 +1,7 @@
 const Question = require("../models/questionModel");
 const asyncHandler = require("express-async-handler");
+const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
 const Report = require("../models/reportModel");
 const Comment = require("../models/commentModel");
 
@@ -14,10 +16,33 @@ const createQuestion = asyncHandler(async (req, res) => {
     throw new Error("question field cannot be empty!");
   }
 
+  imageData = {};
+  if (req.file) {
+    try {
+      uploadedFile = await cloudinary.uploader.upload(req.file.path, {
+        folder: "IT-Hub/Question",
+        resource_type: "image",
+      });
+    } catch (error) {
+      res.status(500);
+      throw new Error("Some error occured while uplaoding image");
+    }
+
+    imageData = {
+      imageId: uploadedFile.public_id,
+      imageName: req.file.originalname,
+      imagePath: uploadedFile.secure_url,
+    };
+    await fs.unlink(req.file.path, (err) => {
+      if (err) console.log("error while deleting image");
+    });
+  }
+
   const savedQuestion = await Question.create({
     question: question,
     tag: tag,
     questioner: req.user._id,
+    image: imageData,
   });
   res.status(200).json(savedQuestion);
 });

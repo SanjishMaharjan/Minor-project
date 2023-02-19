@@ -2,6 +2,9 @@ const asyncHandler = require("express-async-handler");
 const Comment = require("../models/commentModel");
 const Report = require("../models/reportModel");
 const mongoose = require("mongoose");
+const Question = require("../models/questionModel");
+const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
 ///////////////////////////////////////////////////////
 
 //*               creating a comment
@@ -9,13 +12,42 @@ const mongoose = require("mongoose");
 const createComment = asyncHandler(async (req, res) => {
   const { questionId } = req.params;
   const { answer } = req.body;
+  const question = await Question.findById(questionId);
+  if (!question) {
+    res.status(400);
+    throw new Error(`no question with id: ${questionId}`);
+  }
   if (!answer) {
     res.status(400).json({ msg: "answer field cannot be empty" });
   }
+
+  imageData = {};
+  if (req.file) {
+    try {
+      uploadedFile = await cloudinary.uploader.upload(req.file.path, {
+        folder: "IT-Hub/Comment",
+        resource_type: "image",
+      });
+    } catch (error) {
+      res.status(500);
+      throw new Error("Some error occured while uplaoding image");
+    }
+
+    imageData = {
+      imageId: uploadedFile.public_id,
+      imageName: req.file.originalname,
+      imagePath: uploadedFile.secure_url,
+    };
+    await fs.unlink(req.file.path, (err) => {
+      if (err) console.log("error while deleting image");
+    });
+  }
+
   const comment = await Comment.create({
     answer,
     commenter: req.user._id,
     questionId,
+    image: imageData,
   });
   return res.status(201).json(comment);
 });
@@ -89,17 +121,23 @@ const updateComment = asyncHandler(async (req, res) => {
   if (!comment) return res.status(404).json(`no comment with id: ${id}`);
   if (questionId != comment.questionId.toString()) {
     res.status(400);
-    throw new Error("questionId in param and questionId in comment didn't match");
+    throw new Error(
+      "questionId in param and questionId in comment didn't match"
+    );
   }
   const { answer } = req.body;
   if (!answer) {
     res.status(400).json({ msg: "answer field cannot be empty" });
   }
   if (req.user._id.toString() === comment.commenter.toString()) {
-    const Updatedcomment = await Comment.findByIdAndUpdate(commentId, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const Updatedcomment = await Comment.findByIdAndUpdate(
+      commentId,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
     return res.status(200).json(Updatedcomment);
   } else {
     return res.status(400).json({ msg: "not authorized to delete comment" });
@@ -136,7 +174,9 @@ const reportComment = asyncHandler(async (req, res) => {
 
   if (questionId !== comment.questionId.toString()) {
     res.status(400);
-    throw new Error("question Id in param and questionId in comment.questionId didn't match");
+    throw new Error(
+      "question Id in param and questionId in comment.questionId didn't match"
+    );
   }
 
   const { reason } = req.body;
@@ -187,10 +227,14 @@ const upvoteComment = asyncHandler(async (req, res) => {
   }
   if (questionId !== comment.questionId.toString()) {
     res.status(400);
-    throw new Error("question Id in params and questionId in comment.questionId didn't match");
+    throw new Error(
+      "question Id in params and questionId in comment.questionId didn't match"
+    );
   }
   const alreadyUpvoted =
-    comment.upvote.upvoters.filter((e) => e.toString() === req.user._id.toString()).length > 0;
+    comment.upvote.upvoters.filter(
+      (e) => e.toString() === req.user._id.toString()
+    ).length > 0;
   const operation = alreadyUpvoted ? "$pull" : "$push";
   comment = await Comment.findOneAndUpdate(
     { _id: commentId },
@@ -216,7 +260,9 @@ const getUpvotes = asyncHandler(async (req, res) => {
   }
   if (questionId !== comment.questionId.toString()) {
     res.status(400);
-    throw new Error("question Id in params and questionId in comment.questionId didn't match");
+    throw new Error(
+      "question Id in params and questionId in comment.questionId didn't match"
+    );
   }
   res.status(200).json({ upvote: comment.upvote.count });
 });

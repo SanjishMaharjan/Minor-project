@@ -35,6 +35,7 @@ const questionSchema = mongoose.Schema(
       ref: "User",
       required: [true, "there should be user who posts the question"],
     },
+    image: {},
   },
   {
     timestamps: true,

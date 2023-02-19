@@ -34,6 +34,7 @@ const commentSchema = mongoose.Schema(
       ref: "Question",
       required: [true, "Comment is done on the question!"],
     },
+    image: {},
   },
   {
     timestamps: true,

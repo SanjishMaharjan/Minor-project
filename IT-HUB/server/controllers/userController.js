@@ -306,7 +306,7 @@ const updateUser = asyncHandler(async (req, res) => {
     let uploadedFile;
     try {
       uploadedFile = await cloudinary.uploader.upload(req.file.path, {
-        folder: "IT-Hub",
+        folder: "IT-Hub/Profile",
         resource_type: "image",
       });
     } catch (error) {

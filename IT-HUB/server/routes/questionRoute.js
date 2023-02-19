@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { upload } = require("../utils/fileUpload");
 const { protect } = require("../middleWare/authMiddleware");
 
 const {
@@ -13,7 +14,7 @@ const {
   getupvotes,
 } = require("../controllers/questionController");
 
-router.post("/", protect, createQuestion);
+router.post("/", protect, upload.single("image"), createQuestion);
 router.get("/", getQuestions);
 router.get("/liked", getLikedQuestions);
 router.get("/:questionId", getQuestion);
