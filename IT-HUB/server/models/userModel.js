@@ -24,7 +24,7 @@ const userSchema = mongoose.Schema(
         imagePath:
           "https://res.cloudinary.com/drvdtsntb/image/upload/v1674920269/IT-Hub/wc3fobpjk4bxhlscgmnr.png",
         imageName: "Default Image",
-        imageId: "",
+        imageId: "nan",
       },
     },
     DOB: {
@@ -44,7 +44,7 @@ const userSchema = mongoose.Schema(
         "Vice-Secretary",
         "Treasurer",
         "Member",
-        "Student"
+        "Student",
       ],
       default: "Student",
     },

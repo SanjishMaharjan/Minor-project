@@ -6,6 +6,7 @@ const Token = require("../models/tokenModel");
 const crypto = require("crypto");
 const { sendEmail, validateEmail } = require("../utils/sendEmail");
 const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
 
 //* token to store on cookie
 const generateToken = (id) => {
@@ -298,10 +299,9 @@ const updateUser = asyncHandler(async (req, res) => {
   imageData = {};
   if (req.file) {
     //* delete old image form cloudinary(not for default image)
-    if (user.image.imageId != "") {
+    if (user.image.imageId !== "nan") {
       const deleted = await cloudinary.uploader.destroy(user.image.imageId);
     }
-
     //* save new image to cloudinary
     let uploadedFile;
     try {
@@ -320,6 +320,10 @@ const updateUser = asyncHandler(async (req, res) => {
       imagePath: uploadedFile.secure_url,
     };
   }
+
+  await fs.unlink(req.file.path, (err) => {
+    if (err) console.log("error while deleting image");
+  });
   // update new value
   user.name = req.body.name || user.name;
   user.DOB = req.body.DOB || user.DOB;
