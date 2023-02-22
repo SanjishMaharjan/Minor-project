@@ -8,14 +8,12 @@ import useAuth from "../../hooks/useAuth";
 
 const Questions = () => {
   const chat = useLoaderData();
+  console.log(chat);
   const { isLoggedIn, user } = useAuth();
 
   const navigate = useNavigate();
 
-  const [isActive, setActive] = useState(false);
-  const toggleClass = () => {
-    setActive(!isActive);
-  };
+
 
   if (useNavigation().state === "loading") return <Loader />;
 
@@ -63,11 +61,17 @@ const Questions = () => {
               <div className="message-content">{talk.question}</div>
               <div className="message-footer">
                 {isLoggedIn && (
-                  <i
-                    className={isActive ? "fa-solid fa-angle-down" : "fa-solid fa-angle-up"}
-                    onClick={toggleClass}
-                    style={{ fontSize: "0.8rem" }}
-                  ></i>
+                  <>
+                    <Form method="post" action={`/question/${talk._id}/upvote`}>
+                      <button type="submit">
+                        <i
+                          className={(talk.upvote.count && user._id === talk.questioner._id) ? "fa-solid fa-angle-down" : "fa-solid fa-angle-up"}
+                          style={{ fontSize: "0.8rem" }}
+                        ></i>
+                      </button>
+                    </Form>
+                    <h3>{talk.upvote.count}</h3>
+                  </>
                 )}
                 <Link to={`/question/${talk._id}`}>
                   <i className="fa-solid fa-comment"></i>
