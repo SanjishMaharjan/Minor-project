@@ -34,7 +34,6 @@ const commentSchema = mongoose.Schema(
       ref: "Question",
       required: [true, "Comment is done on the question!"],
     },
-    image: {},
   },
   {
     timestamps: true,
@@ -43,9 +42,6 @@ const commentSchema = mongoose.Schema(
 
 //* deleting comment should remove it from question's comments array
 commentSchema.post("findOneAndDelete", async function (comment) {
-  if (Object.keys(comment.image).length !== 0) {
-    const deleted = await cloudinary.uploader.destroy(comment.image.imageId);
-  }
   await Question.findByIdAndUpdate(
     comment.questionId,
     {

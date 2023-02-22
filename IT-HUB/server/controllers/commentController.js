@@ -16,33 +16,10 @@ const createComment = asyncHandler(async (req, res) => {
     res.status(400).json({ msg: "answer field cannot be empty" });
   }
 
-  imageData = {};
-  if (req.file) {
-    try {
-      uploadedFile = await cloudinary.uploader.upload(req.file.path, {
-        folder: "IT-Hub/Comment",
-        resource_type: "image",
-      });
-    } catch (error) {
-      res.status(500);
-      throw new Error("Some error occured while uplaoding image");
-    }
-
-    imageData = {
-      imageId: uploadedFile.public_id,
-      imageName: req.file.originalname,
-      imagePath: uploadedFile.secure_url,
-    };
-    await fs.unlink(req.file.path, (err) => {
-      if (err) console.log("error while deleting image");
-    });
-  }
-
   const comment = await Comment.create({
     answer,
     commenter: req.user._id,
     questionId,
-    image: imageData,
   });
   return res.status(201).json(comment);
 });
