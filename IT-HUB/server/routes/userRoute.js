@@ -4,6 +4,7 @@ const {
   loginUser,
   logout,
   getUser,
+  getProfile,
   loginStatus,
   updateUser,
   changePassword,
@@ -15,6 +16,7 @@ const { protect } = require("../middleWare/authMiddleware");
 const { upload } = require("../utils/fileUpload");
 
 router.post("/register", registerUser);
+router.get("/profile/:id", getProfile);
 router.get("/verification/:verifyToken", verifyUser);
 router.post("/login", loginUser);
 router.get("/logout", protect, logout);

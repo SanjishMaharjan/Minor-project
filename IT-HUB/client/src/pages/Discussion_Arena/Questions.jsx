@@ -50,13 +50,14 @@ const Questions = () => {
         return (
           <>
             <div key={talk.questioner.name} className="chat-message">
-              <div className="message-sender" onClick={() => navigate("/profile")}>
-                <img
-                  className="chat-img"
-                  onClick={() => navigate("/profile")}
-                  src={talk.questioner.image.imagePath}
-                ></img>
-                <h3>{talk.questioner.name}</h3>
+              <div className="message-sender">
+                <Link to={`/profile/${talk.questioner._id}`}>
+                  <img
+                    className="chat-img"
+                    src={talk.questioner.image.imagePath}
+                  ></img>
+                  <h3>{talk.questioner.name}</h3>
+                </Link>
                 <h5>{convertToYDHMS(talk.createdAt) || `1 second`} ago</h5>
               </div>
               <div className="message-content">{talk.question}</div>

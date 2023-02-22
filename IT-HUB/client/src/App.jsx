@@ -47,6 +47,7 @@ import { commentQuestion } from "./Api/discussion_utils";
 import { validateLogin } from "./Api/login_utils";
 import { validateRegister } from "./Api/login_utils";
 import { forgotPassword } from "./Api/login_utils";
+import { fetchProfile } from "./Api/profile";
 import ManageEvents from "./pages/Admin_pannel/ManageEvents/ManageEvents";
 import SideBar from "./pages/Admin_pannel/SideBar";
 
@@ -104,7 +105,7 @@ const router = createBrowserRouter(
         errorElement={<ErrorHandler />}
       />
       <Route path="/profile" element={<StudentProfile />} />
-      <Route path="/profile/:id" element={<StudentProfile />} />
+      <Route path="/profile/:id" loader={fetchProfile} element={<StudentProfile />} />
       <Route
         path="/forgotpassword"
         element={<ForgotPassword />}
