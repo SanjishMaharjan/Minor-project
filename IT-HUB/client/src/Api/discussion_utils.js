@@ -14,6 +14,13 @@ export const deleteQuestion = async ({ params }) => {
   return redirect("/question");
 };
 
+export const upvoteQuestion = async ({ params }) => {
+  const res = await axios.post(`/api/question/${params.id}/upvote`);
+  console.log(res.status);
+  if (!res.status === 200) throw new Error("Error occured while upvoting");
+  return redirect("/question");
+};
+
 export const postQuestion = async ({ request }) => {
   const formData = await request.formData();
   const post = {
