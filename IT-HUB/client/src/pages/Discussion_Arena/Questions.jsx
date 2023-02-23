@@ -12,7 +12,7 @@ const Questions = () => {
   const { isLoggedIn, user } = useAuth();
 
   const navigate = useNavigate();
-
+  console.log(user._id)
 
 
   if (useNavigation().state === "loading") return <Loader />;
@@ -65,9 +65,11 @@ const Questions = () => {
                     <Form method="post" action={`/question/${talk._id}/upvote`}>
                       <button type="submit">
                         <i
-                          className={(talk.upvote.count && user._id === talk.questioner._id) ? "fa-solid fa-angle-down" : "fa-solid fa-angle-up"}
+                          className={(talk.upvote.upvoters.includes(user._id)) ? "fa-solid fa-angle-down" : "fa-solid fa-angle-up"}
                           style={{ fontSize: "0.8rem" }}
                         ></i>
+                        {console.log(user._id in talk.upvote.upvoters)}
+
                       </button>
                     </Form>
                     <h3>{talk.upvote.count}</h3>
