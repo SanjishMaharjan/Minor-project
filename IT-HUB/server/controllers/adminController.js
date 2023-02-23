@@ -3,8 +3,11 @@ const User = require("../models/userModel");
 const Question = require("../models/questionModel");
 const Comment = require("../models/commentModel");
 const Report = require("../models/reportModel");
+const Gallery = require("../models/galleryModel");
 const { Poll, Candidate } = require("../models/pollModel");
 const { sendEmail } = require("../utils/sendEmail");
+const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
 
 //* Admin can view all the users of the site!
 ///////////////////////////////////////////////////////////
@@ -195,6 +198,43 @@ const getPollCompleted = asyncHandler(async (req, res) => {
   res.status(200).json(polls);
 });
 
+//* admin uploads the image
+/////////////////////////////////////////////////////////////
+const uploadImages = asyncHandler(async (req, res) => {
+  const { title, description } = req.body;
+  if (!title || !description) {
+    res.status(400);
+    throw new Error("title and description cannot be empty");
+  }
+  if (req.files.length === 0) {
+    res.status(400);
+    throw new Error("no file is uploaded");
+  }
+
+  imageData = [{}];
+  for (i = 0; i < req.files.length; i++) {
+    uploadedFile = await cloudinary.uploader.upload(req.files[i].path, {
+      folder: `IT-Hub/Gallery/${title}`,
+      resource_type: "image",
+    });
+    imageData[i] = {
+      imageId: uploadedFile.public_id,
+      imageName: req.files[i].originalname,
+      imagePath: uploadedFile.secure_url,
+    };
+    fs.unlink(req.files[i].path, (err) => {
+      if (err) console.log("error while deleting image");
+    });
+  }
+  const images = await Gallery.create({
+    title,
+    description,
+    images: imageData,
+  });
+
+  res.status(200).json(images);
+});
+
 module.exports = {
   createPoll,
   updateForVoting,
@@ -207,4 +247,5 @@ module.exports = {
   deleteUser,
   getReportedPosts,
   deleteReportedPost,
+  uploadImages,
 };

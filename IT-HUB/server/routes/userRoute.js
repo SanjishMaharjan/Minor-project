@@ -11,12 +11,14 @@ const {
   forgotPassword,
   resetPassword,
   verifyUser,
+  getImages,
+  getAllImages,
 } = require("../controllers/userController");
 const { protect } = require("../middleWare/authMiddleware");
 const { upload } = require("../utils/fileUpload");
 
 router.post("/register", registerUser);
-router.get("/profile/:id", getProfile);
+router.get("/profile/:id", protect, getProfile);
 router.get("/verification/:verifyToken", verifyUser);
 router.post("/login", loginUser);
 router.get("/logout", protect, logout);
@@ -26,5 +28,7 @@ router.patch("/updateuser", protect, upload.single("image"), updateUser);
 router.patch("/changepassword", protect, changePassword);
 router.post("/forgotpassword", forgotPassword);
 router.put("/resetpassword/:resetToken", resetPassword);
+router.get("/getimages", getAllImages);
+router.get("/getimages/:imagesId", getImages);
 
 module.exports = router;

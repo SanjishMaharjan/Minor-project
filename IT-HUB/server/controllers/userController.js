@@ -7,6 +7,7 @@ const crypto = require("crypto");
 const { sendEmail, validateEmail } = require("../utils/sendEmail");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
+const Gallery = require("../models/galleryModel");
 
 //* token to store on cookie
 const generateToken = (id) => {
@@ -454,7 +455,6 @@ const resetPassword = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Password reset successful, please login" });
 });
 
-
 //*                                                  Profile Modules
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const getProfile = asyncHandler(async (req, res) => {
@@ -495,6 +495,25 @@ const getProfile = asyncHandler(async (req, res) => {
   });
 });
 
+//*                                  image of Event
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const getAllImages = asyncHandler(async (req, res) => {
+  const images = await Gallery.find();
+  res.status(200).json(images);
+});
+
+//*                                get image of particular event
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const getImages = asyncHandler(async (req, res) => {
+  const { imagesId } = req.params;
+  const images = await Gallery.findById(imagesId);
+  if (!images) {
+    res.status(404);
+    throw new Error(`no images with id: ${imagesId}`);
+  }
+  res.status(200).json(images);
+});
+
 //*                                                  Export Modules
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 module.exports = {
@@ -509,5 +528,6 @@ module.exports = {
   forgotPassword,
   resetPassword,
   getProfile,
+  getAllImages,
+  getImages,
 };
-
