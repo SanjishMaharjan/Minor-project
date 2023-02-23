@@ -26,7 +26,7 @@ function fileFilter(req, file, cb) {
   }
 }
 
-const upload = multer({ storage, fileFilter });
+const upload = multer({ storage, fileFilter, limits: { fileSize: 4000000 } });
 
 //* file size formatter
 
