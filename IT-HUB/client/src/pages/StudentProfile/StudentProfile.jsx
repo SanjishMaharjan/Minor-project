@@ -1,15 +1,19 @@
-import { Navigate, useNavigation } from "react-router-dom";
+import { Navigate, useLoaderData, useNavigation, useParams } from "react-router-dom";
 import { convertToYDHMS } from "../../Utils/dateConverter";
 import Loader from "../../components/Loader";
 import useAuth from "../../hooks/useAuth";
 import "./StudentStyles.css";
 
 const StudentProfile = () => {
-  const { isLoggedIn, user } = useAuth();
+  let { isLoggedIn, user } = useAuth();
   // if not logged in moved and wants to access profile navigate to login
-  if (!isLoggedIn) return <Navigate to="/login" />;
+  // if (!isLoggedIn) return <Navigate to="/login" />;
   // if(!id) profile= user
   // profile =
+  const profile = useLoaderData();
+  console.log(profile);
+  const { id } = useParams();
+  if (id) user = profile;
 
   if (useNavigation().state === "loading") return <Loader />;
 

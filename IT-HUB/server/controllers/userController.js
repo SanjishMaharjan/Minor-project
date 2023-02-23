@@ -454,6 +454,47 @@ const resetPassword = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Password reset successful, please login" });
 });
 
+
+//*                                                  Profile Modules
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const getProfile = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("no user found");
+  }
+  const {
+    _id,
+    name,
+    email,
+    DOB,
+    level,
+    membership,
+    image,
+    isAdmin,
+    facebook,
+    instagram,
+    twitter,
+    linkedin,
+  } = user;
+  res.status(200).json({
+    _id,
+    name,
+    email,
+    DOB,
+    level,
+    membership,
+    image,
+    isAdmin,
+    instagram,
+    facebook,
+    twitter,
+    linkedin,
+  });
+});
+
 //*                                                  Export Modules
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 module.exports = {
@@ -467,4 +508,6 @@ module.exports = {
   changePassword,
   forgotPassword,
   resetPassword,
+  getProfile,
 };
+

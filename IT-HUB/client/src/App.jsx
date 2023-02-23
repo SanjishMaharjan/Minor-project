@@ -38,15 +38,12 @@ import Answer from "./pages/Discussion_Arena/Answer";
 import ErrorHandler from "./pages/Error/ErrorHandler";
 import Handle404 from "./pages/Error/Handle404";
 
-import { getQuestion } from "./Api/discussion_utils";
 import { fetchNews } from "./Api/news_utils";
-import { getAnswer } from "./Api/discussion_utils";
-import { postQuestion } from "./Api/discussion_utils";
-import { deleteQuestion } from "./Api/discussion_utils";
-import { commentQuestion } from "./Api/discussion_utils";
+import { getQuestion, getAnswer, postQuestion, deleteQuestion, commentQuestion, upvoteQuestion } from "./Api/discussion_utils";
 import { validateLogin } from "./Api/login_utils";
 import { validateRegister } from "./Api/login_utils";
 import { forgotPassword } from "./Api/login_utils";
+import { fetchProfile } from "./Api/profile";
 import ManageEvents from "./pages/Admin_pannel/ManageEvents/ManageEvents";
 import SideBar from "./pages/Admin_pannel/SideBar";
 
@@ -81,6 +78,11 @@ const router = createBrowserRouter(
           errorElement={<h1>Cannot delete</h1>}
         />
         <Route
+          path="/question/:id/upvote"
+          action={upvoteQuestion}
+          errorElement={<h1>Cannot upvote</h1>}
+        />
+        <Route
           path="/:questionId/comment/new"
           action={commentQuestion}
           errorElement={<ErrorHandler />}
@@ -104,7 +106,7 @@ const router = createBrowserRouter(
         errorElement={<ErrorHandler />}
       />
       <Route path="/profile" element={<StudentProfile />} />
-      <Route path="/profile/:id" element={<StudentProfile />} />
+      <Route path="/profile/:id" loader={fetchProfile} element={<StudentProfile />} />
       <Route
         path="/forgotpassword"
         element={<ForgotPassword />}
