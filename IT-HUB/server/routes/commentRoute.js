@@ -1,6 +1,5 @@
 const router = require("express").Router({ mergeParams: true });
 const { protect } = require("../middleWare/authMiddleware");
-const { upload } = require("../utils/fileUpload");
 const {
   createComment,
   getComments,
@@ -12,7 +11,7 @@ const {
   getUpvotes,
 } = require("../controllers/commentController");
 
-router.post("/comment", protect, upload.single("image"), createComment);
+router.post("/comment", protect, createComment);
 router.get("/comment", getComments);
 router.delete("/comment/:commentId", protect, deleteComment);
 router.patch("/comment/:commentId", protect, updateComment);
