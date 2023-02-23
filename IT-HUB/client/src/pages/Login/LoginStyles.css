@@ -91,4 +91,11 @@
 .input-box select {
   padding: 0.6rem 1.2rem;
   border-radius: 1rem;
+  color: var(--alternate-color);
+  background-color: transparent;
+}
+
+.input-box select option {
+  color: var(--alternate-color);
+  background-color: var(--navbar-color);
 }

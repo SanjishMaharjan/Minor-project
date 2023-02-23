@@ -11,7 +11,7 @@ const StudentProfile = () => {
   // if(!id) profile= user
   // profile =
   const profile = useLoaderData();
-  console.log(profile);
+  console.log(user);
   const { id } = useParams();
   if (id) user = profile;
 

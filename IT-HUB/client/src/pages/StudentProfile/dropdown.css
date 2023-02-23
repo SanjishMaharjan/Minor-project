@@ -38,3 +38,7 @@
   font-size: 1.1rem;
   margin-left: 1rem;
 }
+
+.line {
+  color: var(--alternate-color);
+}

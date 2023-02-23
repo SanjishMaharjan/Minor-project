@@ -23,11 +23,12 @@ const Questions = () => {
         <h1>Code Cafe : A Space where solutions meet expertise</h1>
         <br />
         <div className="question-bar">
-          <img
-            className="question-img"
-            onClick={() => navigate("/profile")}
-            src={user?.image?.imagePath}
-          ></img>
+          <Link to="/profile">
+            <img
+              className="question-img"
+              src={user?.image?.imagePath}
+            ></img>
+          </Link>
 
           <Link to="/question/new">
             <Form method="post">
@@ -52,7 +53,7 @@ const Questions = () => {
                 <Link to={`/profile/${talk.questioner._id}`}>
                   <img
                     className="chat-img"
-                    src={talk.questioner.image.imagePath}
+                    src={talk.questioner.image.thumb}
                   ></img>
                   <h3>{talk.questioner.name}</h3>
                 </Link>

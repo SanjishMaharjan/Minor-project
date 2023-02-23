@@ -38,7 +38,6 @@ const ProfileDropDown = () => {
       {isOpen && isLoggedIn && (
         <div className="dropdown">
           <h2> {(user?.name).toUpperCase()}</h2>
-
           <div className="btn_container">
             <Link to="/profile">
               <i className="fa-solid fa-user"></i> <span>Profile</span>

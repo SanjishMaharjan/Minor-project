@@ -1,16 +1,6 @@
-/* body {
-    font-family: sans-serif;
-    overflow-x: hidden;
-    background-color: white;
-    padding-top: 10px;
-    padding-left: 4px;
-    margin: 0px;
-} */
-
-
 h1.welcome {
     font-size: 5rem;
-    color: white;
+    color: var(--alternate-color);
     position: relative;
     margin-inline: auto;
     justify-content: center;
@@ -19,8 +9,8 @@ h1.welcome {
 
 p.welcome {
     font-size: 25px;
-    color: white;
-    position: relative;
+    color: var(--alternate-color);
+    /* position: relative; */
     text-align: left;
     justify-content: center;
     animation: move-left 2.5s forwards;
@@ -30,6 +20,7 @@ p.welcome {
     font-size: 1.1rem;
     margin-top: 2rem;
 }
+
 
 @keyframes move-left {
     from {
@@ -46,14 +37,14 @@ p.welcome {
     margin: auto;
     /* position: relative; */
     justify-content: center;
-    width: 90%;
+    /* width: 99%; */
     border-bottom-right-radius: 70px;
     border-top-left-radius: 70px;
     background-image: url("../../src/assets/Images/brain.png");
     background-repeat: no-repeat;
     background-position: right;
-    background-color: #023776;
-    padding-block: 7rem;
+    /* background-color: #023776; */
+    padding-block: 10rem;
 
 }
 

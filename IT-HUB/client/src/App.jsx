@@ -17,6 +17,7 @@ import Layout from "./pages/Navbar/Layout";
 
 import Courses from "./pages/Courses/Courses";
 import Gallery from "./pages/Gallery/Gallery";
+import Events from "./pages/Eventss/Events"
 import Home from "./pages/Landing_page/Home";
 import News from "./pages/News/News";
 import About from "./pages/About/About";
@@ -90,6 +91,7 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path="/gallery" element={<Gallery />} />
+      <Route path="/events" element={<Events />} />
       <Route path="/about" element={<About />} />
 
       <Route

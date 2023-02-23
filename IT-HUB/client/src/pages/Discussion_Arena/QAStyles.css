@@ -41,8 +41,8 @@
 }
 
 .chat-img {
-  width: 4%;
-  height: 2rem;
+  /* width: 4%; */
+  /* height: 2rem; */
   border: 2px solid var(--background-color);
   border-radius: 20px;
   margin-right: 1rem;
@@ -80,6 +80,10 @@
 
 .message-sender h5 {
   margin-left: auto;
+}
+
+.message-sender a {
+  display: flex;
 }
 
 .message-content {
