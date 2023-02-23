@@ -319,11 +319,12 @@ const updateUser = asyncHandler(async (req, res) => {
       imageName: req.file.originalname,
       imagePath: uploadedFile.secure_url,
     };
+
+    await fs.unlink(req.file.path, (err) => {
+      if (err) console.log("error while deleting image");
+    });
   }
 
-  await fs.unlink(req.file.path, (err) => {
-    if (err) console.log("error while deleting image");
-  });
   // update new value
   user.name = req.body.name || user.name;
   user.DOB = req.body.DOB || user.DOB;
