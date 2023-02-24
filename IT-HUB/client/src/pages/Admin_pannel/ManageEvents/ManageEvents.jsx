@@ -19,17 +19,20 @@ const ManageEvents = () => {
         <MdOutlineEventNote />
         Manage Events
       </h1>
-      <div className="events-handler">
-        <h3>
-          <BiAddToQueue className="admin-icons" />
-          Add{" "}
-        </h3>
-        <h3>
-          <HiOutlineDocumentRemove className="admin-icons" />
-          Remove{" "}
-        </h3>
+      <div className="box-admin">
+
+        <div className="events-handler">
+          <h3>
+            <BiAddToQueue className="admin-icons" />
+            Add{" "}
+          </h3>
+          <h3>
+            <HiOutlineDocumentRemove className="admin-icons" />
+            Remove{" "}
+          </h3>
+        </div>
+        <AddEventForm />
       </div>
-      <AddEventForm />
     </div>
   );
 };

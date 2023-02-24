@@ -7,7 +7,6 @@ const AddEventForm = () => {
     <div>
       <Form method="POST" action="">
         <div className="events-details">
-          {/* <label htmlFor="title">Title</label> */}
           <input
             className="event-title-box"
             type="text"
@@ -16,7 +15,6 @@ const AddEventForm = () => {
             id="title"
             autoComplete="off"
           />
-          {/* <label htmlFor="description">Description</label> */}
           <textarea
             className="event-desc-box"
             type="text-area"
@@ -48,6 +46,7 @@ const AddEventForm = () => {
             />
           </label>
         </div>
+        <button type="submit">Post</button>
       </Form>
     </div>
   );

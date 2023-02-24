@@ -88,9 +88,9 @@ p.welcome {
 
 .gallery img:hover {
     transform: scale(1.2);
-    filter: brightness(100%);
+    // filter: brightness(100%);
     border-radius: 12px;
-    box-shadow: 0 0 12px;
+    box-shadow: var(--box-shadow);
 }
 
 .full-img {
