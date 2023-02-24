@@ -1,6 +1,6 @@
 import { useLoaderData, Link, useNavigation } from "react-router-dom";
 import Loader from "../../components/Loader";
-import "./NewsStyles.css";
+import "./NewsStyles.scss";
 import { convertToYDHMS } from "../../Utils/dateConverter";
 import { shuffle } from "../../Utils/suffle";
 
@@ -9,7 +9,6 @@ const News = () => {
   news1 = news1.articles;
   news2 = news2.articles;
   const news = news2.concat(news1);
-
 
   if (useNavigation().state === "loading") return <Loader />;
   return (

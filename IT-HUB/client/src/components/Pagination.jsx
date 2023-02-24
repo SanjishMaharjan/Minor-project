@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./pagination.css";
+import "./pagination.scss";
 
 const Pagination = ({ currentPage, totalPages }) => {
   const pageNumbers = [];

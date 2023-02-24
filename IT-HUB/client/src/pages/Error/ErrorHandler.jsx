@@ -1,5 +1,5 @@
 import { useRouteError, Link, useNavigate } from "react-router-dom";
-import "./errorhandler.css";
+import "./errorhandler.scss";
 
 const ErrorHandler = () => {
   const navigate = useNavigate();

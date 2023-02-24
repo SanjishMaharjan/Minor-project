@@ -11,7 +11,7 @@ import RequireAdmin from "./components/RequireAdmin";
 import { AuthContextProvider } from "./context/AuthContext";
 import { ThemeContextProvider } from "./context/ThemeContext";
 
-import "./App.css";
+import "./App.scss";
 
 import Layout from "./pages/Navbar/Layout";
 

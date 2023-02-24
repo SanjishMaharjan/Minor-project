@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import "./Sidebar.css";
+import "./Sidebar.scss";
 import { RiUserSettingsLine } from "react-icons/ri";
 import {
   MdOutlineNotificationsActive,

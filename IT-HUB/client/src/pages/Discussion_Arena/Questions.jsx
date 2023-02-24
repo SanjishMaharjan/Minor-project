@@ -1,6 +1,6 @@
 import { useNavigate, Link, useLoaderData, Form, useNavigation } from "react-router-dom";
 import { useState } from "react";
-import "./QAStyles.css";
+import "./QAStyles.scss";
 import { convertToYDHMS } from "../../Utils/dateConverter";
 
 import Loader from "../../components/Loader";
@@ -12,8 +12,7 @@ const Questions = () => {
   const { isLoggedIn, user } = useAuth();
 
   const navigate = useNavigate();
-  console.log(user._id)
-
+  console.log(user._id);
 
   if (useNavigation().state === "loading") return <Loader />;
 
@@ -24,10 +23,7 @@ const Questions = () => {
         <br />
         <div className="question-bar">
           <Link to="/profile">
-            <img
-              className="question-img"
-              src={user?.image?.imagePath}
-            ></img>
+            <img className="question-img" src={user?.image?.imagePath}></img>
           </Link>
 
           <Link to="/question/new">
@@ -51,10 +47,7 @@ const Questions = () => {
             <div key={talk.questioner.name} className="chat-message">
               <div className="message-sender">
                 <Link to={`/profile/${talk.questioner._id}`}>
-                  <img
-                    className="chat-img"
-                    src={talk.questioner.image.thumb}
-                  ></img>
+                  <img className="chat-img" src={talk.questioner.image.thumb}></img>
                   <h3>{talk.questioner.name}</h3>
                 </Link>
                 <h5>{convertToYDHMS(talk.createdAt) || `1 second`} ago</h5>
@@ -66,11 +59,14 @@ const Questions = () => {
                     <Form method="post" action={`/question/${talk._id}/upvote`}>
                       <button type="submit">
                         <i
-                          className={(talk.upvote.upvoters.includes(user._id)) ? "fa-solid fa-angle-down" : "fa-solid fa-angle-up"}
+                          className={
+                            talk.upvote.upvoters.includes(user._id)
+                              ? "fa-solid fa-angle-down"
+                              : "fa-solid fa-angle-up"
+                          }
                           style={{ fontSize: "0.8rem" }}
                         ></i>
                         {console.log(user._id in talk.upvote.upvoters)}
-
                       </button>
                     </Form>
                     <h3>{talk.upvote.count}</h3>

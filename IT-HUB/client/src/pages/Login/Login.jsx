@@ -6,7 +6,7 @@ import {
   NavLink,
   useActionData,
 } from "react-router-dom";
-import "./LoginStyles.css";
+import "./LoginStyles.scss";
 import Loader from "../../components/Loader";
 import useAuth from "../../hooks/useAuth";
 

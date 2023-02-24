@@ -20,7 +20,8 @@
     "react-router-dom": "^6.8.0",
     "react-spinners": "^0.13.8",
     "react-toastify": "^9.1.1",
-    "redux": "^4.2.1"
+    "redux": "^4.2.1",
+    "sass": "^1.58.3"
   },
   "devDependencies": {
     "@types/react": "^18.0.24",

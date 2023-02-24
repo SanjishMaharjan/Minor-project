@@ -2,7 +2,7 @@ import { Navigate, useLoaderData, useNavigation, useParams } from "react-router-
 import { convertToYDHMS } from "../../Utils/dateConverter";
 import Loader from "../../components/Loader";
 import useAuth from "../../hooks/useAuth";
-import "./StudentStyles.css";
+import "./StudentStyles.scss";
 
 const StudentProfile = () => {
   let { isLoggedIn, user } = useAuth();

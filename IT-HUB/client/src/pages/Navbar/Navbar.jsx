@@ -1,4 +1,4 @@
-import "./Navbarstyles.css";
+import "./Navbarstyles.scss";
 import { NavLink } from "react-router-dom";
 import ProfileDropDown from "../StudentProfile/ProfileDropDown";
 import { MdOutlineLightMode } from "react-icons/md";

@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigation } from "react-router-dom";
 import FAQ from "../About/FAQ/FAQ";
 import Loader from "../../components/Loader";
-import "./HomeStyles.css";
+import "./HomeStyles.scss";
 
 const Home = () => {
   if (useNavigation().state === "loading") return <Loader />;

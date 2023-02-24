@@ -1,6 +1,6 @@
 import { useNavigation } from "react-router-dom";
 import Loader from "../../components/Loader";
-import "./GalleryStyles.css";
+import "./GalleryStyles.scss";
 
 const Gallery = () => {
   const openImg = (pic) => {

@@ -1,5 +1,5 @@
 import HashLoader from "react-spinners/HashLoader";
-import "./loader.css";
+import "./loader.scss";
 const Loader = () => {
   return (
     <>

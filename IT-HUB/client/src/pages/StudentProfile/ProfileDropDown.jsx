@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import "./dropdown.css";
+import "./dropdown.scss";
 import { RiAdminLine } from "react-icons/ri";
 
 import { useState, useRef, useEffect } from "react";

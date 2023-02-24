@@ -3,7 +3,7 @@ import { useNavigation, useLoaderData, Link, useParams, Form } from "react-route
 import Loader from "../../components/Loader";
 import Pagination from "../../components/pagination";
 
-import "./CoursesStyles.css";
+import "./CoursesStyles.scss";
 
 import { customAxios } from "../../App";
 import Star from "../../components/Star";
