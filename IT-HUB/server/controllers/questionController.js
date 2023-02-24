@@ -186,7 +186,7 @@ const reportQuestion = asyncHandler(async (req, res) => {
     await Report.create(
       {
         reportedOn: questionId,
-        reasons: "vandina afai her admine",
+        reasons: reason,
         reportedUser: question.questioner,
         count: 1,
       },

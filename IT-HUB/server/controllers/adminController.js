@@ -44,10 +44,10 @@ const getReportedPosts = asyncHandler(async (req, res) => {
 //////////////////////////////////////////////////////////////
 const deleteReportedPost = async (req, res) => {
   const { postId } = req.params;
-
+  console.log(postId);
   try {
     const post = await findPostById(postId);
-
+    console.log(post);
     if (!post) {
       return res
         .status(404)
@@ -68,18 +68,21 @@ const deleteReportedPost = async (req, res) => {
   }
 };
 
-const findPostById = async (postId) => {
-  const post = await Promise.any([
-    Comment.findById(postId).populate("commenter", "name email"),
-    Question.findById(postId).populate("questioner", "name email"),
-  ]);
+const findPostById = asyncHandler(async (postId) => {
+  let post;
+  if (await Comment.findById(postId)) {
+    post = await Comment.findById(postId).populate("commenter", "name email");
+  }
+  if (await Question.findById(postId)) {
+    post = await Question.findById(postId).populate("questioner", "name email");
+  }
 
   if (!post?.isReported) {
     return null;
   }
 
   return post;
-};
+});
 
 const deletePost = async (post) => {
   if (post instanceof Comment) {
