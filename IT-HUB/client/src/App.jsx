@@ -11,6 +11,8 @@ import RequireAdmin from "./components/RequireAdmin";
 import { AuthContextProvider } from "./context/AuthContext";
 import { ThemeContextProvider } from "./context/ThemeContext";
 
+import "./App.scss";
+
 import Layout from "./pages/Navbar/Layout";
 
 import Courses from "./pages/Courses/Courses";
@@ -27,7 +29,7 @@ import StudentProfile from "./pages/StudentProfile/StudentProfile";
 import ForgotPassword from "./pages/Login/ForgotPassword";
 import MainAdmin from "./pages/Admin_pannel/MainAdmin";
 import CreatePoll from "./pages/Admin_pannel/CreatePoll";
-import EditContent from "./pages/Admin_pannel/EditContent";
+import EditContent from "./pages/Admin_pannel/EditContent/EditContent";
 import Notification from "./pages/Admin_pannel/Notification";
 
 import PostQuestion from "./pages/Discussion_Arena/PostQuestion";
@@ -50,10 +52,12 @@ import { validateLogin } from "./Api/login_utils";
 import { validateRegister } from "./Api/login_utils";
 import { forgotPassword } from "./Api/login_utils";
 import { fetchProfile } from "./Api/profile";
+import { getImages, postImages } from "./Api/gallery";
 
 import { getCourse, getRecommend, getPage, searchCourse } from "./Api/course_utils";
 import ManageEvents from "./pages/Admin_pannel/ManageEvents/ManageEvents";
 import SideBar from "./pages/Admin_pannel/SideBar";
+
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:5000";
@@ -68,25 +72,10 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
 
-      <Route
-        path="/course"
-        loader={getRecommend}
-        element={<Courses />}
-        errorElement={<ErrorHandler />}
-      />
-      <Route
-        path="/search"
-        loader={searchCourse}
-        element={<Courses />}
-        errorElement={<ErrorHandler />}
-      />
+      <Route path="/course" loader={getRecommend} element={<Courses />} />
+      <Route path="/search" loader={searchCourse} element={<Courses />} />
 
-      <Route
-        path="/course/pages/:id"
-        loader={getPage}
-        element={<Courses />}
-        errorElement={<ErrorHandler />}
-      />
+      <Route path="/course/pages/:id" loader={getPage} element={<Courses />} />
       <Route path="/news" loader={fetchNews} element={<News />} errorElement={<ErrorHandler />} />
 
       <Route path="/question" loader={getQuestion} element={<Questions />} />
@@ -121,7 +110,7 @@ const router = createBrowserRouter(
         />
       </Route>
 
-      <Route path="/gallery" element={<Gallery />} />
+      <Route path="/events" loader={getImages} element={<Events />} />
       <Route path="/events" element={<Events />} />
       <Route path="/about" element={<About />} />
 
@@ -155,7 +144,15 @@ const router = createBrowserRouter(
         >
           <Route index element={<MainAdmin />} />
           <Route path="createpoll" element={<CreatePoll />} />
-          <Route path="editcontent" element={<EditContent />} />
+
+          {/* <Route path="editcontent" element={<EditContent />} /> */}
+          <Route
+            path="editcontent"
+            action={postImages}
+            element={<EditContent />}
+            errorElement={<ErrorHandler />}
+          />
+
           <Route path="notification" element={<Notification />} />
           <Route path="manageevents" element={<ManageEvents />} />
         </Route>
