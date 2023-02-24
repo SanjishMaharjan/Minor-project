@@ -315,10 +315,20 @@ const updateUser = asyncHandler(async (req, res) => {
       throw new Error("Some error occured while uplaoding image");
     }
 
+    const profilePath = cloudinary.url(uploadedFile.public_id, {
+      width: 300,
+      height: 300,
+    });
+    const thumbPath = cloudinary.url(uploadedFile.public_id, {
+      width: 30,
+      height: 30,
+    });
     imageData = {
       imageId: uploadedFile.public_id,
       imageName: req.file.originalname,
       imagePath: uploadedFile.secure_url,
+      profile: profilePath,
+      thumb: thumbPath,
     };
 
     await fs.unlink(req.file.path, (err) => {

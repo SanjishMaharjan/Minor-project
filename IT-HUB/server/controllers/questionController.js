@@ -53,7 +53,7 @@ const createQuestion = asyncHandler(async (req, res) => {
 const getQuestions = asyncHandler(async (req, res) => {
   const questions = await Question.find().populate(
     "questioner",
-    "name email image.imagePath _id"
+    "name email image.imagePath image.thumb image.profile _id"
   );
   res.status(200).json(questions);
 });

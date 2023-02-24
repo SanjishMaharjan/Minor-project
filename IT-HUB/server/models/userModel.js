@@ -25,6 +25,8 @@ const userSchema = mongoose.Schema(
           "https://res.cloudinary.com/drvdtsntb/image/upload/v1674920269/IT-Hub/wc3fobpjk4bxhlscgmnr.png",
         imageName: "Default Image",
         imageId: "nan",
+        profile: "",
+        thumb: "",
       },
     },
     DOB: {
