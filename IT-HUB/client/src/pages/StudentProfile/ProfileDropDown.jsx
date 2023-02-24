@@ -1,7 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import "./dropdown.scss";
 import { RiAdminLine } from "react-icons/ri";
+import { MdOutlineLogout } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
+import "./dropdown.scss";
 
 import { useState, useRef, useEffect } from "react";
 
@@ -38,19 +40,19 @@ const ProfileDropDown = () => {
       {isOpen && isLoggedIn && (
         <div className="dropdown">
           <h2> {(user?.name).toUpperCase()}</h2>
-          <div className="btn_container">
+          <div>
             <Link to="/profile">
-              <i className="fa-solid fa-user"></i> <span>Profile</span>
+              <CgProfile /> <span>Profile</span>
             </Link>
 
             {isAdmin && (
               <Link to="/admin">
-                <RiAdminLine style={{ fontSize: "1.2rem" }} /> <span>Admin</span>
+                <RiAdminLine /> <span>Admin</span>
               </Link>
             )}
 
             <Link to="/logout">
-              <i class="fa-solid fa-right-from-bracket"></i> <span>Logout</span>
+              <MdOutlineLogout /> <span>Logout</span>
             </Link>
           </div>
         </div>

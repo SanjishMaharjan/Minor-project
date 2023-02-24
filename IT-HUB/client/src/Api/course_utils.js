@@ -28,7 +28,7 @@ export const getPage = async ({ params }) => {
     const data = await customAxios.get(`/course/pages/${id}`);
     return data.data;
   } catch (error) {
-    return error.response;
+    throw new Error(error.response.data.detail);
   }
 };
 

@@ -11,8 +11,6 @@ import RequireAdmin from "./components/RequireAdmin";
 import { AuthContextProvider } from "./context/AuthContext";
 import { ThemeContextProvider } from "./context/ThemeContext";
 
-import "./App.scss";
-
 import Layout from "./pages/Navbar/Layout";
 
 import Courses from "./pages/Courses/Courses";
@@ -70,10 +68,25 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
 
-      <Route path="/course" loader={getRecommend} element={<Courses />} />
-      <Route path="/search" loader={searchCourse} element={<Courses />} />
+      <Route
+        path="/course"
+        loader={getRecommend}
+        element={<Courses />}
+        errorElement={<ErrorHandler />}
+      />
+      <Route
+        path="/search"
+        loader={searchCourse}
+        element={<Courses />}
+        errorElement={<ErrorHandler />}
+      />
 
-      <Route path="/course/pages/:id" loader={getPage} element={<Courses />} />
+      <Route
+        path="/course/pages/:id"
+        loader={getPage}
+        element={<Courses />}
+        errorElement={<ErrorHandler />}
+      />
       <Route path="/news" loader={fetchNews} element={<News />} errorElement={<ErrorHandler />} />
 
       <Route path="/question" loader={getQuestion} element={<Questions />} />

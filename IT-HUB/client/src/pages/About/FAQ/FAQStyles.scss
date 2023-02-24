@@ -1,19 +1,15 @@
 .faq-container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 
-/* .hr-line {
-    color: red;
-    width: 60%;
-    margin: auto;
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-block: 2rem;
+  }
 
-} */
-
-/* Style the buttons that are used to open and close the faq-page body */
-.faq-page {
-    /* color: var(--alternate-color); */
+  h3 {
     cursor: pointer;
     padding: 30px 20px;
     width: 60%;
@@ -21,23 +17,22 @@
     outline: none;
     transition: 0.4s;
     margin: auto;
-}
+  }
 
-.faq-body {
+  h3:hover {
+    background-color: var(--navbar-color);
+  }
+
+  h3:after {
+    font-size: 13px;
+    float: right;
+    margin-left: 5px;
+  }
+
+  p {
     margin: auto;
     width: 60%;
     text-align: justify;
     padding: auto;
-
-}
-
-.faq-page:hover {
-    background-color: var(--navbar-color);
-}
-
-
-.faq-page:after {
-    font-size: 13px;
-    float: right;
-    margin-left: 5px;
+  }
 }

@@ -26,19 +26,17 @@ const FAQ = () => {
   ];
 
   return (
-    <div>
-      <h2 className="header-about">FAQ</h2>
+    <>
       <section className="faq-container">
+        <h2>FAQ</h2>
         {questions.map((question, index) => (
           <div key={index}>
-            <h3 className="faq-page" onClick={() => handleClick(index)}>
-              {question.question}
-            </h3>
-            {activeIndex === index && <p className="faq-body">{question.answer}</p>}
+            <h3 onClick={() => handleClick(index)}>{question.question}</h3>
+            {activeIndex === index && <p>{question.answer}</p>}
           </div>
         ))}
       </section>
-    </div>
+    </>
   );
 };
 

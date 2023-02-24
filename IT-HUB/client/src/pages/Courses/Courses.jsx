@@ -20,6 +20,7 @@ const Courses = () => {
   if (useNavigation().state === "loading") return <Loader />;
   let data = useLoaderData();
   data = shuffle(data);
+  console.log(data);
 
   let { id } = useParams();
 
@@ -81,6 +82,7 @@ const Courses = () => {
                 >
                   <h3>
                     <Star rating={learn.course_rating} />
+                    <span>{learn.Difficulty_level}</span>
                   </h3>
                 </div>
                 <a href={learn.course_url}>

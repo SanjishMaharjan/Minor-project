@@ -28,36 +28,28 @@ const Login = () => {
   return (
     <>
       <div className="main-div">
-        <div className="box">
-          <h1>Login</h1>
-          <Form method="post" action="/login">
-            <div className="input-box">
-              {res && res.status === 400 && <p className="input-box"> {res.data.msg} </p>}
-              <label htmlFor="email">Email</label>
-              <input type="text" placeholder="Email" name="email" id="email" autoComplete="off" />
-            </div>
+        <h1>Login</h1>
+        <Form method="post" action="/login">
+          {res && res.status === 400 && <p className="input-box"> {res.data.msg} </p>}
+          <label htmlFor="email">Email</label>
+          <input type="text" placeholder="Email" name="email" id="email" autoComplete="off" />
 
-            <div className="input-box">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                placeholder="password"
-                name="password"
-                id="password"
-                autoComplete="off"
-              />
-            </div>
-            <button style={{ border: "0.05rem solid var(--background-color)" }} type="submit">
-              Login
-            </button>
-            <NavLink to="/forgotpassword">
-              <a className="btn-register">Forgot Password?</a>
-            </NavLink>
-            <NavLink to="/register">
-              <a className="btn-register">Don't have a account? Register here</a>
-            </NavLink>
-          </Form>
-        </div>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            placeholder="password"
+            name="password"
+            id="password"
+            autoComplete="off"
+          />
+          <button type="submit">Login</button>
+          <NavLink to="/forgotpassword">
+            <a>Forgot Password?</a>
+          </NavLink>
+          <NavLink to="/register">
+            <a>Don't have a account? Register here</a>
+          </NavLink>
+        </Form>
       </div>
     </>
   );

@@ -1,57 +1,46 @@
-/* .aboutwrapper {
-    display: grid;
-    margin-block: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(22rem, 28rem));
-    gap: 3rem;
-    justify-content: center;
-    border: 2px, solid, red;
-}
+.about-container {
+  h1 {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 3.4rem;
+  }
 
-.aboutcard {
-    display: grid;
-    margin-block: 2rem;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    grid-template-columns: repeat(auto-fit, minmax(22rem, 28rem));
-    gap: 1rem;
-    justify-content: space-around;
-} */
-
-.social-media {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
-    align-items: center;
-    /* text-size-adjust: 1.2rem; */
-}
-
-/* Css for About section */
-#clubLogo {
+  img {
     margin-top: 2rem;
     width: 10%;
     height: auto;
     margin-inline: auto;
     display: block;
-}
+  }
 
-.header-about {
-    text-align: center;
-    margin-top: 3rem;
-    font-size: 3.4rem;
-}
-
-.intro {
+  section:first-of-type {
     margin-inline: auto;
     width: 110ch;
-}
 
-.intro p {
-    text-align: justify;
+    p {
+      text-align: justify;
+    }
+  }
 
-}
+  .about-wrapper {
+    width: 90%;
+    margin-inline: auto;
+    display: flex;
+    flex-wrap: wrap;
 
-.intro h3 {
-    margin-top: 2rem;
-    text-align: center;
+    div {
+      display: flex;
+      width: 600px;
+      flex-direction: column;
+
+      img {
+      }
+
+      h2 {
+      }
+
+      p {
+      }
+    }
+  }
 }

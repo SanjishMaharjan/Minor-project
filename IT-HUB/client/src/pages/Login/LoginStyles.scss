@@ -1,16 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .main-div {
-  width: 100%;
-
-
-}
-
-.box {
   width: 35%;
   min-width: 300px;
   top: 50%;
@@ -21,81 +9,84 @@
   background: var(--navbar-color);
   box-shadow: var(--box-shadow);
   border-radius: 20px;
-}
 
-.box h1 {
-  margin-bottom: 25px;
-  /* color: var(--alternate-color); */
-  text-align: center;
-  text-transform: capitalize;
-}
+  h1 {
+    margin-bottom: 25px;
+    /* color: var(--alternate-color); */
+    text-align: center;
+    text-transform: capitalize;
+  }
 
-.box .input-box {
-  position: relative;
-}
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    /* color: var(--alternate-color); */
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid var(--alternate-color);
+    background: transparent;
+    outline: none;
+  }
 
-.box .input-box input {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  letter-spacing: 1px;
-  /* color: var(--alternate-color); */
-  margin-bottom: 30px;
-  border: none;
-  border-bottom: 1px solid var(--alternate-color);
-  background: transparent;
-  outline: none;
-}
+  label {
+    letter-spacing: 1px;
+    padding: 10px 0;
+    font-size: 16px;
+    transition: 0.5s;
+  }
 
-.box .input-box label {
-  /* position: absolute; */
-  top: 0;
-  left: 0;
-  letter-spacing: 1px;
-  padding: 10px 0;
-  font-size: 16px;
-  /* color: var(--alternate-color); */
-  transition: 0.5s;
-}
+  a {
+    background: transparent;
+    border: none;
+    outline: none;
+    margin-top: 2rem;
+    display: block;
+    margin-inline: auto;
+    font-size: 14px;
+  }
 
-.btn-register {
-  background: transparent;
-  border: none;
-  outline: none;
-  margin-top: 2rem;
-  display: block;
-  margin-inline: auto;
-  font-size: 14px;
-}
+  a:hover {
+    color: gray;
+  }
 
-.btn-register:hover {
-  color: gray;
-}
+  button {
+    border: 0.15rem solid var(--hover-color);
+  }
+  /* +++++++++++++++++++++++++++++++++ Forget password ++++++++++++++++++++ */
+  .forget-navigation {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    gap: 20rem;
 
-.forget-navigation {
-  margin-top: 2rem;
-  display: flex;
-  gap: 24rem;
-}
+    a {
+      flex-basis: 10%;
+      display: block;
+    }
 
-.fa-solid:hover {
-  scale: 1.2;
-}
+    svg {
+      margin-left: auto;
+    }
+  }
 
-/* +++++++++++++++++++++++++++++++++ Sign up ++++++++++++++++++++ */
-.signup-button {
-  margin-top: 2rem;
-  border: 2px solid var(--background-color);
-}
+  /* +++++++++++++++++++++++++++++++++ Sign up ++++++++++++++++++++ */
 
-.input-box select {
-  padding: 0.6rem 1.2rem;
-  border-radius: 1rem;
-  color: var(--alternate-color);
-  background-color: transparent;
-}
+  select {
+    padding: 0.6rem 1.2rem;
+    border-radius: 1rem;
+    color: var(--alternate-color);
+    background-color: transparent;
+  }
 
-.input-box select option {
-  color: var(--alternate-color);
-  background-color: var(--navbar-color);
+  select option {
+    color: var(--alternate-color);
+    background-color: var(--navbar-color);
+  }
+
+  select + button {
+    margin-top: 2rem;
+    display: block;
+  }
 }

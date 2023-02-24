@@ -1,34 +1,37 @@
 .Tagline {
-    color: var(--font-color-primary);
-    margin-block: 3rem;
-    font-size: 16px;
-    text-align: center;
+  color: var(--font-color-primary);
+  margin-block: 3rem;
+  font-size: 16px;
+  text-align: center;
 
-}
+  h1 {
+    font-size: 2.8rem;
+  }
 
-p {
-    top: auto;
-    margin-block: 3rem;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-}
+  h2 {
+    font-size: 1.8rem;
+    margin-block: 1.2rem;
+  }
 
-body {
-    background-color: var(--background-color);
-    /* background-image: linear-gradient(180deg, rgb(41, 137, 197), rgb(61, 11, 222)); */
-}
-
-.Landing-image {
+  img {
+    margin-top: 1.5rem;
     width: 90%;
     height: 40rem;
     margin-inline: auto;
     display: block;
     border-radius: 15px;
+  }
+
+  p {
+    font-size: 1.3rem;
+  }
 }
 
+.getstarted {
+  margin-inline: auto;
 
-.btn-getstarted {
+  button {
     display: block;
     margin-inline: auto;
+  }
 }

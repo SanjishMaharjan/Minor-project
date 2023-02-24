@@ -9,10 +9,10 @@ const About = () => {
   if (useNavigation().state === "loading") return <Loader />;
 
   return (
-    <div>
-      <h1 className="header-about">About SOCE</h1>
-      <img id="clubLogo" src="../src/assets/images/SOCE_logo.png" alt="" />
-      <section className="intro">
+    <div className="about-container">
+      <h1>About SOCE</h1>
+      <img src="../src/assets/images/SOCE_logo.png" alt="club-logo" />
+      <section>
         <p>
           Society Of Computer Enthusiasts-Lalitpur Engineering College (SOCE-LEC) is an active
           students’ society for the students of Lalitpur Engineering College established on 2022 AD.
@@ -28,35 +28,18 @@ const About = () => {
         </p>
       </section>
 
-      <section className="member-info">
-        <h1 className="header-about"> Members</h1>
-        <div className="wrapper about-wrapper">
-          {members.map((student) => {
-            return (
-              <div className="card about-card">
-                <div className="card-body">
-                  <img className="card-image" src={student.image} alt="" />
-                  <h2 className="card-name">{student.name}</h2>
-                  <div>{student.post}</div>
-
-                  <div className="social-media">
-                    <a href={student.facebookId}>
-                      <i className="fa-brands fa-facebook-f"></i>
-                    </a>
-                    <a href={student.facebookId}>
-                      <i className="fa-brands fa-twitter"></i>
-                    </a>
-                    <a href={student.facebookId}>
-                      <i className="fa-brands fa-instagram"></i>
-                    </a>
-                  </div>
-                </div>
-                {/* <a href={item.href}><button className="card_btn" type="button">Read more</button></a> */}
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      <h1> Members</h1>
+      <div className="about-wrapper">
+        {members.map((student) => {
+          return (
+            <div>
+              <img src={student.image} alt="" />
+              <h2>{student.name}</h2>
+              <p>{student.post}</p>
+            </div>
+          );
+        })}
+      </div>
       <FAQ />
     </div>
   );
