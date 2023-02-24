@@ -17,7 +17,7 @@ import Layout from "./pages/Navbar/Layout";
 
 import Courses from "./pages/Courses/Courses";
 import Gallery from "./pages/Gallery/Gallery";
-import Events from "./pages/Eventss/Events"
+import Events from "./pages/Eventss/Events";
 import Home from "./pages/Landing_page/Home";
 import News from "./pages/News/News";
 import About from "./pages/About/About";
@@ -40,22 +40,40 @@ import ErrorHandler from "./pages/Error/ErrorHandler";
 import Handle404 from "./pages/Error/Handle404";
 
 import { fetchNews } from "./Api/news_utils";
-import { getQuestion, getAnswer, postQuestion, deleteQuestion, commentQuestion, upvoteQuestion } from "./Api/discussion_utils";
+import {
+  getQuestion,
+  getAnswer,
+  postQuestion,
+  deleteQuestion,
+  commentQuestion,
+  upvoteQuestion,
+} from "./Api/discussion_utils";
 import { validateLogin } from "./Api/login_utils";
 import { validateRegister } from "./Api/login_utils";
 import { forgotPassword } from "./Api/login_utils";
 import { fetchProfile } from "./Api/profile";
+
+import { getCourse, getRecommend, getPage, searchCourse } from "./Api/course_utils";
 import ManageEvents from "./pages/Admin_pannel/ManageEvents/ManageEvents";
 import SideBar from "./pages/Admin_pannel/SideBar";
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:5000";
 
+export const customAxios = axios.create({
+  baseURL: "http://localhost:8000",
+});
+customAxios.defaults.withCredentials = true;
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
-      <Route path="/courses" element={<Courses />} />
+
+      <Route path="/course" loader={getRecommend} element={<Courses />} />
+      <Route path="/search" loader={searchCourse} element={<Courses />} />
+
+      <Route path="/course/pages/:id" loader={getPage} element={<Courses />} />
       <Route path="/news" loader={fetchNews} element={<News />} errorElement={<ErrorHandler />} />
 
       <Route path="/question" loader={getQuestion} element={<Questions />} />
