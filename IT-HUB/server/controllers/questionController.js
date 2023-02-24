@@ -174,7 +174,7 @@ const reportQuestion = asyncHandler(async (req, res) => {
     throw new Error(`no question by id:${questionId}`);
   }
 
-  // const { reason } = req.body;
+  const { reason } = req.body;
   // if (!reason) {
   //   res.status(400);
   //   throw new Error("reason cannot be empty");

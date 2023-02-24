@@ -42,61 +42,83 @@ const getReportedPosts = asyncHandler(async (req, res) => {
 
 //* Admin can delete the reported post
 //////////////////////////////////////////////////////////////
-const deleteReportedPost = asyncHandler(async (req, res) => {
+const deleteReportedPost = async (req, res) => {
   const { postId } = req.params;
 
-  const comment = await Comment.findById(postId).populate(
-    "commenter",
-    "name email"
-  );
+  try {
+    const post = await findPostById(postId);
 
-  if (comment && comment.isReported) {
-    const deletedComment = await Comment.findByIdAndDelete(comment._id);
-    const message = `
-          <h2>Hello ${comment.commenter.name}</h2>
-          <p>Reports on your comment were reviewed by the admin and found to be vali.</p>
-          <p>So your comment has been removed by the admin.</p>
-          <p>Please don't post unnecessary comments or else your account will be deleted then you can't take part in events oragnized by the club and you as well receive more punishment from the college aswell.</p>
-          <p>Be more carefull</p>
-          <p>Reported Comment: </p>
-          <p>${deletedComment.answer}</p>
-          <p>Regards...</p>
-          <p>IT-Hub</p>
-        `;
-    const subject = "Comment Removed By Admin";
-    const send_to = comment.commenter.email;
-    const sent_from = process.env.EMAIL_USER;
-    await sendEmail(subject, message, send_to, sent_from);
-    res.status(200).json(deletedComment);
+    if (!post) {
+      return res
+        .status(404)
+        .json({ msg: `No post with id: ${postId} has been reported.` });
+    }
+
+    await deletePost(post);
+
+    const message = generateEmailMessage(post);
+    const subject = generateEmailSubject(post);
+
+    await sendEmailToPostAuthor(post, message, subject);
+
+    res.status(200).json(post);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Internal Server Error" });
+  }
+};
+
+const findPostById = async (postId) => {
+  const post = await Promise.any([
+    Comment.findById(postId).populate("commenter", "name email"),
+    Question.findById(postId).populate("questioner", "name email"),
+  ]);
+
+  if (!post?.isReported) {
+    return null;
   }
 
-  const question = await Question.findById(postId).populate(
-    "questioner",
-    "name email"
-  );
-  if (question && question.isReported) {
-    const deletedQuestion = await Question.findByIdAndDelete(postId);
-    await Comment.deleteMany({ _id: deletedQuestion.comments });
-    const message = `
-            <h2>Hello ${question.questioner.name}</h2>
-            <p>Reports on your question were reviewed by the admin and found to be vali.</p>
-            <p>So your question has been removed by the admin.</p>
-            <p>Please don't post unnecessary comments or else your account will be deleted then you can't take part in events oragnized by the club and you as well receive more punishment from the college aswell.</p>
-            <p>Be more carefull</p>
-            <p>Reported Comment: </p>
-            <p>${deletedQuestion.answer}</p>
-            <p>Regards...</p>
-            <p>IT-Hub</p>
-      `;
-    const subject = "Question Removed By Admin";
-    const send_to = question.questioner.email;
-    const sent_from = process.env.EMAIL_USER;
+  return post;
+};
 
-    await sendEmail(subject, message, send_to, sent_from);
-    res.status(200).json(deletedQuestion);
+const deletePost = async (post) => {
+  if (post instanceof Comment) {
+    await Comment.findByIdAndDelete(post._id);
+  } else if (post instanceof Question) {
+    await Question.findByIdAndDelete(post._id);
+    await Comment.deleteMany({ _id: post.comments });
   }
-  res.status(404).json({ msg: `no post with id: ${postId} has been reported` });
-});
+};
+
+const generateEmailMessage = (post) => {
+  const reportedContent = post.answer || post.question;
+  const authorName = post.commenter?.name || post.questioner?.name;
+
+  return `
+    <h2>Hello ${authorName},</h2>
+    <p>Reports on your post were reviewed by the admin and found to be valid.</p>
+    <p>So your post has been removed by the admin.</p>
+    <p>Please don't post unnecessary content or else your account will be deleted then you can't take part in events organized by the club and you as well receive more punishment from the college as well.</p>
+    <p>Be more careful</p>
+    <p>Reported Content:</p>
+    <p>${reportedContent}</p>
+    <p>Regards...</p>
+    <p>IT-Hub</p>
+  `;
+};
+
+const generateEmailSubject = (post) => {
+  const reportedType = post instanceof Comment ? "Comment" : "Question";
+  return `${reportedType} Removed By Admin`;
+};
+
+const sendEmailToPostAuthor = async (post, message, subject) => {
+  const authorEmail = post.commenter?.email || post.questioner?.email;
+  const sentFrom = process.env.EMAIL_USER;
+
+  await sendEmail(subject, message, authorEmail, sentFrom);
+};
+
 //* Admin creates the poll
 /////////////////////////////////////////////////////////
 const createPoll = asyncHandler(async (req, res) => {
