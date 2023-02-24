@@ -1,11 +1,33 @@
-import course from "./Courses.json";
-import { useNavigation } from "react-router-dom";
+import images from "./images.json";
+import { useNavigation, useLoaderData, Link, useParams, Form } from "react-router-dom";
 import Loader from "../../components/Loader";
+import Pagination from "../../components/pagination";
+
 import "./CoursesStyles.css";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai"
+
+import { customAxios } from "../../App";
+import Star from "../../components/Star";
+
+function shuffle(array) {
+  return array.sort(function () {
+    return 0.5 - Math.random();
+  });
+}
 
 const Courses = () => {
+  let url = [images][0];
+  url = shuffle(url);
   if (useNavigation().state === "loading") return <Loader />;
+  let data = useLoaderData();
+  data = shuffle(data);
+
+  let { id } = useParams();
+
+  const postClick = async (course_name) => {
+    await customAxios.post(`/course/${course_name}`);
+  };
+
+  if (data && data.status == 404) return <>Login to view course</>;
 
   return (
     <>
@@ -14,33 +36,39 @@ const Courses = () => {
         <div className="question-bar">
           <i
             style={{ marginRight: "1rem", fontSize: "2rem" }}
-            class="fa-solid fa-magnifying-glass"
+            className="fa-solid fa-magnifying-glass"
           ></i>
-          <form>
-            <input className="post-question" type="text" placeholder="Browse Courses" />
+          <Form method="get" action="/search">
+            <input
+              name="course"
+              className="post-question"
+              type="text"
+              placeholder="Browse Courses"
+            />
             <button style={{ marginLeft: "1rem" }} type="submit">
               Search
             </button>
-          </form>
+          </Form>
         </div>
       </div>
 
       <div className="course-container">
         <div className="container-content">
           <div className="category">
-            <button>Recommended</button>
-            <button>ALL</button>
+            <Link to="/course">
+              <button className={!id && "select"}>Recommended</button>
+            </Link>
+            <Link to="/course/pages/1">
+              <button className={id && "select"}>ALL</button>
+            </Link>
           </div>
-          {course.map((learn) => {
+          {data.map((learn, i) => {
             return (
-              <div className="course-card">
+              <div className="course-card" key={learn._id}>
+                <h2 className="course-title">{learn.course_name}</h2>
                 <div className="course-content">
-                  <img className="course-image" src={learn.image} alt="" />
-                  <h2 className="course-title">{learn.title}</h2>
-                  {/* <h3 className="card-description">{learn.description}</h3> */}
-                  {/* <h4 className="card-author">{learn.author}</h4> */}
-                  {/* <h4 className="card-publishedAt">{learn.publishedAt}</h4> */}
-                  {/* <h4 className="card-sourcename">{learn.source.name}</h4> */}
+                  <img className="course-image" src={url[i].url} alt="" />
+                  <h3 className="card-description">{learn.course_description}</h3>
                 </div>
                 <div
                   className="course-tag"
@@ -52,23 +80,23 @@ const Courses = () => {
                   }}
                 >
                   <h3>
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiOutlineStar />
+                    <Star rating={learn.course_rating} />
                   </h3>
-                  <button>{learn.tags}</button>
                 </div>
-                <a href={learn.href}>
-                  <button className="card-btn" type="button">
+                <a href={learn.course_url}>
+                  <button
+                    className="card-btn"
+                    type="button"
+                    onClick={() => postClick(learn.course_name)}
+                  >
                     Read more
                   </button>
                 </a>
               </div>
             );
           })}
-          <button>Next</button>
+
+          {id && <Pagination currentPage={Number(id)} totalPages={50} />}
         </div>
       </div>
     </>

@@ -15,7 +15,6 @@ export const AuthContextProvider = (props) => {
       const user = await axios.get("/api/users/getuser");
       setUser(user.data);
       setAdmin(user.data.isAdmin);
-      console.log(user.data.isAdmin);
     }
   };
 

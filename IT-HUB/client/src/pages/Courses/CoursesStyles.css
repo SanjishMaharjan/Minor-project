@@ -1,71 +1,81 @@
 .course-container {
-    gap: 1rem;
-    height: auto;
-    width: 100%;
-    margin: 10px;
+  gap: 1rem;
+  height: auto;
+  width: 100%;
+  margin: 10px;
 }
 
 .course-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .container-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-block: 2rem;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-block: 2rem;
+  gap: 1rem;
 }
 
 .container-content .category {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 }
 
 .course-card {
-    margin-block: 2rem;
-    background: transparent;
-    /* border: 2px solid var(--font-color-primary); */
-    /* box-shadow: 7px 10px 8px -7px rgba(0, 0, 0, 0.77); */
-    box-shadow: var(--box-shadow);
-    border-radius: 20px;
-    width: 70%;
+  margin-block: 2rem;
+  background: transparent;
+  /* border: 2px solid var(--font-color-primary); */
+  /* box-shadow: 7px 10px 8px -7px rgba(0, 0, 0, 0.77); */
+  box-shadow: var(--box-shadow);
+  border-radius: 20px;
+  width: 70%;
 }
 
 .course-card .course-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 3rem;
-    padding: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+  padding: 30px;
 }
 
 .course-image {
-    overflow: hidden;
-    height: 11rem;
-    width: 50%;
-    object-fit: cover;
-    scale: 1;
-    transition: scale 200ms ease-in;
+  overflow: hidden;
+  width: 50%;
+  object-fit: cover;
+  scale: 1;
+  transition: scale 200ms ease-in;
+  flex-basis: 70%;
+}
+
+.card-description {
+  flex-basis: 50%;
+  max-lines: 4;
 }
 
 .course-card :hover .course-image {
-    scale: 1.1;
+  scale: 1.1;
 }
 
 .course-card :hover .course-title {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .course-title {
-    font-size: 1.1rem;
-    margin-top: 2rem;
-    /* padding: 1rem; */
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  /* padding: 1rem; */
+}
+
+.select {
+  background-color: var(--hover-color);
+  color: var(--alternate-color);
 }
