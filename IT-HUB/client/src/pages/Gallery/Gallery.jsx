@@ -4,7 +4,6 @@ import "./GalleryStyles.scss";
 import { convertToYDHMS } from "../../Utils/dateConverter";
 
 const Gallery = () => {
-
   const imgCollection = useLoaderData();
   console.log(imgCollection);
 
@@ -12,7 +11,6 @@ const Gallery = () => {
     fullBox.style.display = "flex";
     fullImg.src = pic;
   };
-
 
   if (useNavigation().state === "loading") return <Loader />;
 
@@ -22,7 +20,7 @@ const Gallery = () => {
         <h1 className="welcome">WELCOME TO THE GALLERY !!</h1>
         <p className="welcome">FOR TOMORROW'S MEMORIES</p>
       </div>
-      <div className="wrapper">
+      <div className="gallery-wrapper">
         {imgCollection.map((img) => {
           return (
             <>
@@ -33,9 +31,9 @@ const Gallery = () => {
               <div className="gallery">
                 <div className="gallery-item">
                   <img src={img.images[0].imagePath} onClick={openImg} />
-                  <p className='gallery-detail'>{img.title}</p>
-                  <p className='gallery-detail'>{img.description}</p>
-                  <p className='gallery-detail'>{convertToYDHMS(img.createdAt)} ago</p>
+                  <p className="gallery-detail">{img.title}</p>
+                  <p className="gallery-detail">{img.description}</p>
+                  <p className="gallery-detail">{convertToYDHMS(img.createdAt)} ago</p>
                 </div>
               </div>
             </>

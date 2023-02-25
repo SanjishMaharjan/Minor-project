@@ -11,8 +11,6 @@ import RequireAdmin from "./components/RequireAdmin";
 import { AuthContextProvider } from "./context/AuthContext";
 import { ThemeContextProvider } from "./context/ThemeContext";
 
-import "./App.scss";
-
 import Layout from "./pages/Navbar/Layout";
 
 import Courses from "./pages/Courses/Courses";
@@ -57,7 +55,6 @@ import { getImages, postImages } from "./Api/gallery";
 import { getCourse, getRecommend, getPage, searchCourse } from "./Api/course_utils";
 import ManageEvents from "./pages/Admin_pannel/ManageEvents/ManageEvents";
 import SideBar from "./pages/Admin_pannel/SideBar";
-
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:5000";
