@@ -1,9 +1,10 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import Handle404 from "../pages/Error/Handle404";
 
-const RequireLogin = () => {
+const RequireAdmin = () => {
   const { isAdmin } = useAuth();
-  return isAdmin ? <Outlet /> : <Navigate to="/" />;
+  return isAdmin ? <Outlet /> : <Handle404 />;
 };
 
-export default RequireLogin;
+export default RequireAdmin;

@@ -25,7 +25,7 @@ export const AuthContextProvider = (props) => {
 
   useEffect(() => {
     checkLogin();
-  }, [isLoggedIn, isAdmin]);
+  }, [isLoggedIn]);
 
   return (
     <context.Provider value={{ isLoggedIn, setLoggedIn, logOut, user, setUser, isAdmin, setAdmin }}>
