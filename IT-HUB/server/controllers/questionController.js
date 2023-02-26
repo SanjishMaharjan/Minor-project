@@ -67,6 +67,19 @@ const getLikedQuestions = asyncHandler(async (req, res) => {
   res.status(200).json(questions);
 });
 
+//* get most recently updated questions
+/////////////////////////////////////////////////////////////////////////
+const getUpdatedQuestions = asyncHandler(async (req, res) => {
+  const pageSize = 5;
+  const pageNumber = req.params.pageNumber || 1;
+  const questions = await Question.find()
+    .populate("questioner", "name email image.imagePath _id")
+    .sort({ updatedAt: -1 })
+    .skip((pageNumber - 1) * pageSize)
+    .limit(pageSize);
+  res.status(200).json(questions);
+});
+
 //*                          get a single question
 /////////////////////////////////////////////////////////////////////////
 
@@ -260,6 +273,7 @@ module.exports = {
   createQuestion,
   getQuestions,
   getLikedQuestions,
+  getUpdatedQuestions,
   getQuestion,
   deleteQuestion,
   updateQuestion,
