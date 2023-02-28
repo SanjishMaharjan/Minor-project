@@ -8,9 +8,8 @@ const CreatePoll = () => {
     return (
 
         <div className="main-container">
-            <h1><MdOutlinePoll style={{ fontSize: "7rem" }} /><br />
-                Create Polls</h1>
             <div className='box-admin'>
+                <h1><MdOutlinePoll />Create Polls</h1>
                 <Form method='post' action='/admin/editcontent' encType="multipart/form-data">
                     <div className="events-details">
                         <label htmlFor="post"><MdOutlineSubtitles /> Topic of Poll</label>

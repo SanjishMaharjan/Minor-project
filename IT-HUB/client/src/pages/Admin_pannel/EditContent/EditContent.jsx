@@ -13,8 +13,8 @@ const EditContent = () => {
         <div className="main-container">
             {/* <h1><HiOutlineWrenchScrewdriver style={{ fontSize: "7rem" }} /><br />
                 Edit Content</h1> */}
-            <h1><RiGalleryLine />  Update Gallery </h1>
             <div className='box-admin'>
+                <h1><RiGalleryLine />  Update Gallery </h1>
                 <Form method='post' action='/admin/editcontent' encType="multipart/form-data">
                     <div className="events-details">
                         <label htmlFor="title"><MdOutlineSubtitles /> Title</label>
