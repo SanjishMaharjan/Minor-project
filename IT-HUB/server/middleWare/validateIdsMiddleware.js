@@ -2,8 +2,6 @@ const mongoose = require("mongoose");
 
 function validateIds(...paramNames) {
   return (req, res, next) => {
-    console.log("I am agian here");
-    console.log(req.params);
     if (Object.keys(req.params).length !== 0) {
       const invalidIds = [];
       for (const paramName of paramNames) {
