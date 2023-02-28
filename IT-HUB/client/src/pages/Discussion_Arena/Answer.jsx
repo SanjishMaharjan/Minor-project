@@ -1,4 +1,12 @@
-import { useLoaderData, useNavigation, Form, Link } from "react-router-dom";
+import {
+  useLoaderData,
+  useNavigation,
+  Form,
+  Link,
+  Navigate,
+  useActionData,
+  useParams,
+} from "react-router-dom";
 import Loader from "../../components/Loader";
 import useAuth from "../../hooks/useAuth";
 import { convertToYDHMS } from "../../Utils/dateConverter";
@@ -6,7 +14,19 @@ import { convertToYDHMS } from "../../Utils/dateConverter";
 const Answer = () => {
   const { isLoggedIn } = useAuth();
 
-  const { answer, question } = useLoaderData();
+  const data = useLoaderData();
+  const { id } = useParams();
+
+  const question = data?.question;
+  const answer = data?.answer;
+
+  const res = useActionData();
+
+  console.log(res);
+  if (res && res.status === 201) return <Navigate to={`/question/${id}`} />;
+
+  const serverError = res?.status === 400 && res?.data?.msg;
+  const answerError = res?.status === 403 && res?.data?.errors?.answer;
 
   if (useNavigation().state === "loading") return <Loader />;
 
@@ -18,6 +38,34 @@ const Answer = () => {
             <i class="fa-brands fa-rocketchat"></i> {question.question}
           </h1>
         </div>
+
+        {isLoggedIn && (
+          <Form method="post" action={`/question/${question._id}`} className="answer-form">
+            <p className="error">{serverError ?? null}</p>
+            <input
+              className="post-question"
+              type="text"
+              placeholder="Post Your Opinion"
+              name="answer"
+            />
+
+            <p className="error">{answerError ?? null}</p>
+
+            <div className="comment-button">
+              <label htmlFor="file-input">
+                <i class="fa-solid fa-images"></i>
+                <input
+                  style={{ display: "none" }}
+                  type="file"
+                  name="photo"
+                  id="file-input"
+                  accept=".png,.jpg"
+                />
+              </label>
+              <button type="submit">Post</button>
+            </div>
+          </Form>
+        )}
         {answer.map((c) => {
           return (
             <>
@@ -51,33 +99,6 @@ const Answer = () => {
         })}
 
         {/* to comment on any post */}
-
-        {isLoggedIn && (
-
-
-          <Form method="post" action={`/${question._id}/comment/new`} className="answer-form">
-            <input
-              className="post-question"
-              type="text"
-              placeholder="Post Your Opinion"
-              name="answer"
-            />
-
-            <label htmlFor="file-input">
-              <i class="fa-solid fa-images"></i>
-              <input
-                style={{ display: "none" }}
-                type="file"
-                name="photo"
-                id="file-input"
-                accept=".png,.jpg"
-              />
-            </label>
-            <button className="post-question-button" type="submit">
-              Post
-            </button>
-          </Form>
-        )}
       </div>
     </>
   );

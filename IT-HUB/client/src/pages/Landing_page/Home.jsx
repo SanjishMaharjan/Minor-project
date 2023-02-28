@@ -25,7 +25,7 @@ const Home = () => {
         </p>
       </div>
       <div className="getstarted">
-        <Link to="/courses">
+        <Link to="/course/recommend">
           <button type="submit">Get Started</button>
         </Link>
       </div>

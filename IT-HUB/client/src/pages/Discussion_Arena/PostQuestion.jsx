@@ -1,10 +1,17 @@
-import { useNavigate, Form, useNavigation } from "react-router-dom";
+import { useNavigate, Form, useNavigation, useActionData, Navigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import useAuth from "../../hooks/useAuth";
 
 const PostQuestion = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const res = useActionData();
+
+  if (res && res.status === 200) return <Navigate to="/question" />;
+
+  const serverError = res?.status === 404 && res?.data?.msg;
+  const questionError = res?.status === 403 && res?.data?.errors?.question;
+
   if (useNavigation().state === "loading") return <Loader />;
   return (
     <>
@@ -16,6 +23,7 @@ const PostQuestion = () => {
             src={user?.image?.imagePath}
           ></img>
           <Form method="post" action="/question/new">
+            <p className="input-box"> {serverError ?? null} </p>
             <textarea
               className="post-question"
               type="text"
@@ -23,6 +31,7 @@ const PostQuestion = () => {
               placeholder="Post Your Question"
               name="question"
             />
+            <p className="input-box"> {questionError ?? null} </p>
             <div className="post-question-footer">
               <button onClick={() => navigate(-1)}>Go back</button>
               <label htmlFor="file-input">
@@ -35,10 +44,7 @@ const PostQuestion = () => {
                   accept=".png,.jpg"
                 />
               </label>
-              <button
-                className="post-question-button"
-                type="submit"
-              >
+              <button className="post-question-button" type="submit">
                 Post
               </button>
             </div>

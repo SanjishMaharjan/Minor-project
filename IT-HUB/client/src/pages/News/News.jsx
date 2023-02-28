@@ -1,34 +1,64 @@
-import { useLoaderData, Link, useNavigation } from "react-router-dom";
+import { useLoaderData, Link, useNavigation, useParams } from "react-router-dom";
 import Loader from "../../components/Loader";
 import "./NewsStyles.scss";
 import { convertToYDHMS } from "../../Utils/dateConverter";
-import { shuffle } from "../../Utils/suffle";
+import { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+
+import { customAxios } from "../../App";
 
 const News = () => {
-  let [news1, news2] = useLoaderData();
-  news1 = news1.articles;
-  news2 = news2.articles;
-  const news = news2.concat(news1);
-
   if (useNavigation().state === "loading") return <Loader />;
+  const [news, setNews] = useState([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    fetchNews();
+  }, []);
+
+  const fetchNews = async () => {
+    console.log("reached");
+    const response = await customAxios.get(`/news/pages/${page}`);
+    const data = await response.data;
+    setNews([...news, ...data]);
+    setPage(page + 1);
+    if (page >= 10) setHasMore(false);
+  };
+
   return (
-    <div className="news-wrapper">
-      {news.map((item) => {
-        return (
-          <div key={item.url}>
-            <img src={item?.urlToImage} alt="" />
-            <h2>{item.title}</h2>
-            <h3>{item.description}</h3>
-            <h4>{item.author}</h4>
-            <h4>{convertToYDHMS(item.publishedAt)} ago</h4>
-            <h4>{item.source.name}</h4>
-            <Link to={item.url} target="_blank">
-              <button type="button">Read more</button>
-            </Link>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <div className="news-header">
+        <h1>Crunchy Bytes</h1>
+      </div>
+      <div className="news-wrapper">
+        <InfiniteScroll
+          dataLength={news.length}
+          next={fetchNews}
+          hasMore={hasMore}
+          loader={<Loader />}
+        >
+          {news.map((item) => {
+            return (
+              <div key={item._id}>
+                <div>
+                  <Link to={item.link} target="_blank">
+                    <img src={item.image} alt="" />
+                  </Link>
+                  <h2>{item.title}</h2>
+                  <p>{item.description.substring(0, 100) + "..."}</p>
+                </div>
+                <Link to={item.link} target="_blank">
+                  <button type="button">Read more</button>
+                </Link>
+              </div>
+            );
+          })}
+        </InfiniteScroll>
+      </div>
+    </>
   );
 };
 

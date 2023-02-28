@@ -1,5 +1,5 @@
 #root {
-  max-width: 2000px;
-
-  min-width: 300px;
+  display: grid;
+  min-height: 100dvh;
+  grid-template-rows: auto 1fr auto;
 }
