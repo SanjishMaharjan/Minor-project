@@ -15,13 +15,16 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const prev = location.state?.prev || "/";
-  console.log(prev);
 
   const res = useActionData();
   if (res && res.status === 200) {
     setLoggedIn(true);
     return navigate(prev, { replace: true });
   }
+
+  const serverError = res?.status === 400 && res?.data?.msg;
+  const emailError = res?.status === 403 && res?.data?.errors?.email;
+  const passwordError = res?.status === 403 && res?.data?.errors?.password;
 
   if (useNavigation().state === "loading") return <Loader />;
 
@@ -30,9 +33,11 @@ const Login = () => {
       <div className="main-div">
         <h1>Login</h1>
         <Form method="post" action="/login">
-          {res && res.status === 400 && <p className="input-box"> {res.data.msg} </p>}
+          <p className="input-box"> {serverError ?? null} </p>
+
           <label htmlFor="email">Email</label>
           <input type="text" placeholder="Email" name="email" id="email" autoComplete="off" />
+          <p className="input-box"> {emailError ?? null} </p>
 
           <label htmlFor="password">Password</label>
           <input
@@ -42,6 +47,7 @@ const Login = () => {
             id="password"
             autoComplete="off"
           />
+          <p className="input-box">{passwordError ?? null}</p>
           <button type="submit">Login</button>
           <NavLink to="/forgotpassword">
             <a>Forgot Password?</a>

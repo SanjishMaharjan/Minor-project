@@ -16,7 +16,7 @@
   --font-color-primary: rgb(255, 255, 255);
   --navbar-color: rgb(43, 44, 55);
   --background-color: rgb(32, 33, 44);
-  --alternate-color: #c5d3f7;
+  --alternate-color: #fff;
   --box-shadow: 0px 5px 10px rgba(14, 18, 23, 0.5);
 }
 
@@ -61,7 +61,6 @@ a {
 
 p {
   top: auto;
-  margin-block: 3rem;
   display: flex;
   justify-content: center;
   text-align: center;
@@ -88,4 +87,19 @@ button {
 button:hover {
   background: var(--hover-color);
   color: white;
+}
+
+button-sec {
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button-sec:hover {
+  background-color: #1a1a1a;
 }

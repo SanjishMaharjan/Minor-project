@@ -1,5 +1,8 @@
 import axios from "axios";
 import { redirect } from "react-router-dom";
+import { postQuestionSchema } from "../validation/post_question_schema";
+import { validator } from "../validation/validator";
+import { postAnswerSchema } from "../validation/post_answer_schema";
 
 export const getQuestion = async () => {
   const question = await axios.get("/api/question");
@@ -27,15 +30,18 @@ export const postQuestion = async ({ request }) => {
     question: formData.get("question"),
   };
 
-  const res = await axios.post("/api/question", post);
+  const res = await validator(post, postQuestionSchema);
+  if (res.status == 403) return res;
 
-  if (!res.status === 200) throw Error("cannot post data");
+  const response = await axios.post("/api/question", post);
 
-  return redirect("/question");
+  if (!response.status === 200) throw Error("cannot post data");
+  return response;
 };
 
 export const getAnswer = async ({ params }) => {
   const { id } = params;
+
   const response = await axios.get(`/api/${id}/comment`);
   if (response.status != 200) {
     throw new Error("Not Found", { status: 404 });
@@ -47,15 +53,16 @@ export const getAnswer = async ({ params }) => {
 };
 
 export const commentQuestion = async ({ params, request }) => {
-  const { questionId } = params;
+  const { id } = params;
   const formData = await request.formData();
   const data = {
     answer: formData.get("answer"),
   };
-  console.log(questionId);
-  console.log(data);
-  const response = await axios.post(`/api/${questionId}/comment`, data);
-  if (response.status != 201) throw new Error("Not Found", { status: 404 });
 
-  return redirect(`/question/${questionId}`);
+  const res = await validator(data, postAnswerSchema);
+  if (res.status === 403) return res;
+
+  const response = await axios.post(`/api/${id}/comment`, data);
+  if (response.status != 201) throw new Error("Not Found", { status: 404 });
+  return response;
 };

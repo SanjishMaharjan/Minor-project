@@ -39,7 +39,7 @@ const ProfileDropDown = () => {
       )}
       {isOpen && isLoggedIn && (
         <div className="dropdown">
-          <h2> {(user?.name).toUpperCase()}</h2>
+          <h2>{user?.name ? user.name.split(" ")[0] : ""}</h2>
           <div>
             <Link to="/profile">
               <CgProfile /> <span>Profile</span>

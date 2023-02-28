@@ -1,13 +1,19 @@
 import axios from "axios";
 import { redirect } from "react-router-dom";
+import { LoginSchema } from "../validation/login_schema";
+import { RegisterSchema } from "../validation/register_schema";
+import { validator } from "../validation/validator";
 
-export const validateLogin = async ({ request }) => {
+export const handleLogin = async ({ request }) => {
   const formData = await request.formData();
 
   const data = {
     email: formData.get("email"),
     password: formData.get("password"),
   };
+
+  const res = await validator(data, LoginSchema);
+  if (res.status === 403) return res;
 
   try {
     const response = await axios.post("/api/users/login", data);
@@ -17,7 +23,7 @@ export const validateLogin = async ({ request }) => {
   }
 };
 
-export const validateRegister = async ({request}) => {
+export const validateRegister = async ({ request }) => {
   const formData = await request.formData();
 
   const registerData = {
@@ -25,36 +31,50 @@ export const validateRegister = async ({request}) => {
     password: formData.get("password"),
     name: formData.get("name"),
     DOB: formData.get("DOB"),
-    level: formData.get("level")
+    level: formData.get("level"),
   };
+
+  const res = await validator(registerData, RegisterSchema);
+  if (res.status === 403) return res;
 
   // console.log(registerData);
   try {
-      const response = await axios.post('api/users/register', registerData);
-      return response;
-      
-      // const data = await response;
-      // console.log(data)
-  }
-  catch (error) {
+    const response = await axios.post("api/users/register", registerData);
+    return response;
+
+    // const data = await response;
+    // console.log(data)
+  } catch (error) {
     console.log(error);
     return error.response;
   }
 };
 
-export const forgotPassword = async ({request}) => {
+export const forgotPassword = async ({ request }) => {
   const formData = await request.formData();
 
   const forgotData = {
-    email: formData.get("email")
+    email: formData.get("email"),
   };
 
   try {
-      const response = await axios.post('api/users/forgotpassword', forgotData);
-      return response;
-      
+    const response = await axios.post("api/users/forgotpassword", forgotData);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error.response;
   }
-  catch (error) {
+};
+
+export const verifyUser = async ({ params }) => {
+ const {id} = params;
+ console.log(id
+  );
+  redirect("/login")
+  try {
+    const response = await axios.post(`api/users/verification/${id}`);
+    return redirect("/login");
+  } catch (error) {
     console.log(error);
     return error.response;
   }

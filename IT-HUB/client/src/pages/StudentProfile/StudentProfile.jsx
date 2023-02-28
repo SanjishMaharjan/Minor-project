@@ -19,7 +19,7 @@ const StudentProfile = () => {
       <h1>Profile</h1>
       {
         <div className="student-details">
-          <img className="profile-pic" src={user?.image?.imagePath} />
+          <img width="300px" height="300px" className="profile-pic" src={user?.image?.imagePath} />
           <div>
             <h3>Name: {user.name}</h3>
             <h3>Role: {user.membership}</h3>

@@ -18,10 +18,10 @@ const Navbar = () => {
           <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <NavLink to="/course">Courses</NavLink>
+          <NavLink to="/news">Crunchy Bytes</NavLink>
         </li>
         <li>
-          <NavLink to="/news">News</NavLink>
+          <NavLink to="/course/recommend">Courses</NavLink>
         </li>
         <li>
           <NavLink to="/question">Code Café</NavLink>

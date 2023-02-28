@@ -127,7 +127,7 @@
   margin-bottom: 2rem;
 }
 
-.answer-form>* {
+.answer-form > * {
   display: block;
   margin-inline: auto;
 }
@@ -156,8 +156,6 @@
   font-size: 1.3rem;
 }
 
-
-
 /* ======================================================= Comment section*/
 .comment-section {
   display: flex;
@@ -167,10 +165,14 @@
 }
 
 .comment-header {
-
   margin-block: 2rem;
   background-color: var(--navbar-color);
   border-radius: 2rem;
   box-shadow: var(--box-shadow);
   width: 40%;
+}
+
+.comment-button {
+  display: flex;
+  justify-content: space-evenly;
 }
