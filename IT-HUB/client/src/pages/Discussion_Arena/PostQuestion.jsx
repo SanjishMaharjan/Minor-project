@@ -13,6 +13,7 @@ const PostQuestion = () => {
   const questionError = res?.status === 403 && res?.data?.errors?.question;
 
   if (useNavigation().state === "loading") return <Loader />;
+  if (useNavigation().state === "submitting") return <Loader />;
   return (
     <>
       <div>
@@ -22,7 +23,7 @@ const PostQuestion = () => {
             onClick={() => navigate("/profile")}
             src={user?.image?.imagePath}
           ></img>
-          <Form method="post" action="/question/new">
+          <Form method="post" action="/question/new" encType="multipart/form-data">
             <p className="input-box"> {serverError ?? null} </p>
             <textarea
               className="post-question"
@@ -39,7 +40,7 @@ const PostQuestion = () => {
                 <input
                   style={{ display: "none" }}
                   type="file"
-                  name="question"
+                  name="image"
                   id="file-input"
                   accept=".png,.jpg"
                 />

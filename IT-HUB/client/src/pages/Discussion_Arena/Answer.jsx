@@ -19,7 +19,8 @@ const Answer = () => {
 
   const question = data?.question;
   const answer = data?.answer;
-
+  // console.log(question.questioner.image.imagePath);
+  // console.log(question.image.imagePath);
   const res = useActionData();
 
   console.log(res);
@@ -35,8 +36,14 @@ const Answer = () => {
       <div className="comment-section">
         <div className="comment-header">
           <h1>
-            <i class="fa-brands fa-rocketchat"></i> {question.question}
+            <img width="50px" height="50px" src={question.questioner.image?.imagePath} />
+            {question.question}
           </h1>
+          {
+            question.image &&
+            <img width="400px" height="400px" src={question?.image?.imagePath} />
+          }
+          <h5>{convertToYDHMS(question?.createdAt) || `1 second`} ago</h5>
         </div>
 
         {isLoggedIn && (

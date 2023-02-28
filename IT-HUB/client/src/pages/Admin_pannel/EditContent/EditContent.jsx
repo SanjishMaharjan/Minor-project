@@ -24,7 +24,7 @@ const EditContent = () => {
                 Edit Content</h1> */}
             <div className='box-admin'>
                 <h1><RiGalleryLine />  Update Gallery </h1>
-                <Form method='post' action='/admin/editcontent' encType="multipart/form-data">
+                <Form method='post' action='/admin/editcontent'>
                     <p>{serverError ?? null}</p>
                     <div className="events-details">
                         <label htmlFor="title"><MdOutlineSubtitles /> Title</label>
