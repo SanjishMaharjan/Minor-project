@@ -19,7 +19,7 @@ const { upload } = require("../utils/fileUpload");
 
 router.post("/register", registerUser);
 router.get("/profile/:id", protect, getProfile);
-router.get("/verification/:verifyToken", verifyUser);
+router.post("/verification/:verifyToken", verifyUser);
 router.post("/login", loginUser);
 router.get("/logout", protect, logout);
 router.get("/getuser", protect, getUser);
