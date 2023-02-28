@@ -7,7 +7,7 @@ const Register = () => {
   const navigate = useNavigate();
   const res = useActionData();
   if (res && res.status === 200) {
-    return navigate("/", { replace: true });
+    return navigate("/login");
   }
 
   const serverError = res?.status === 400 && res?.data?.msg;

@@ -46,9 +46,7 @@ import {
   commentQuestion,
   upvoteQuestion,
 } from "./Api/discussion_utils";
-import { handleLogin } from "./Api/login_utils";
-import { validateRegister } from "./Api/login_utils";
-import { forgotPassword } from "./Api/login_utils";
+import { forgotPassword, verifyUser, validateRegister, handleLogin } from "./Api/login_utils";
 import { fetchProfile } from "./Api/profile";
 import { getImages, postImages } from "./Api/gallery";
 
@@ -114,6 +112,11 @@ const router = createBrowserRouter(
         path="/login"
         element={<Login />}
         action={handleLogin}
+        errorElement={<ErrorHandler />}
+      />
+      <Route
+        path="/verification/:id"
+        loader={verifyUser}
         errorElement={<ErrorHandler />}
       />
       <Route path="/logout" element={<LogOut />} />

@@ -65,3 +65,17 @@ export const forgotPassword = async ({ request }) => {
     return error.response;
   }
 };
+
+export const verifyUser = async ({ params }) => {
+ const {id} = params;
+ console.log(id
+  );
+  redirect("/login")
+  try {
+    const response = await axios.post(`api/users/verification/${id}`);
+    return redirect("/login");
+  } catch (error) {
+    console.log(error);
+    return error.response;
+  }
+};
