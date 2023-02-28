@@ -10,17 +10,12 @@ const ManageEvents = () => {
   const navigate = useNavigate();
   return (
     <div className="main-container">
-      <h1>
-        <GoTasklist />
-        All Events{" "}
-      </h1>
-
-      <h1 className="manage-events">
-        <MdOutlineEventNote />
-        Manage Events
-      </h1>
       <div className="box-admin">
 
+        <h2 className="manage-events">
+          <MdOutlineEventNote />
+          Manage Events
+        </h2>
         <div className="events-handler">
           <h3>
             <BiAddToQueue className="admin-icons" />

@@ -12,11 +12,13 @@ const {
   upvoteQuestion,
   getLikedQuestions,
   getupvotes,
+  getUpdatedQuestions,
 } = require("../controllers/questionController");
 
 router.post("/", protect, upload.single("image"), createQuestion);
 router.get("/", getQuestions);
 router.get("/liked", getLikedQuestions);
+router.get("/recentlyupdated/:pageNumber", getUpdatedQuestions);
 router.get("/:questionId", getQuestion);
 router.delete("/:questionId", protect, deleteQuestion);
 router.patch("/:questionId", protect, updateQuestion);
