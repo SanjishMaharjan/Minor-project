@@ -46,7 +46,7 @@ import {
   commentQuestion,
   upvoteQuestion,
 } from "./Api/discussion_utils";
-import { validateLogin } from "./Api/login_utils";
+import { handleLogin } from "./Api/login_utils";
 import { validateRegister } from "./Api/login_utils";
 import { forgotPassword } from "./Api/login_utils";
 import { fetchProfile } from "./Api/profile";
@@ -55,6 +55,7 @@ import { getImages, postImages } from "./Api/gallery";
 import { getCourse, getRecommend, getPage, searchCourse } from "./Api/course_utils";
 import ManageEvents from "./pages/Admin_pannel/ManageEvents/ManageEvents";
 import SideBar from "./pages/Admin_pannel/SideBar";
+import Recommended from "./pages/Courses/Recommend";
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:5000";
@@ -69,11 +70,13 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
 
+      <Route path="/course/recommend" loader={getRecommend} element={<Recommended />} />
       <Route path="/course" loader={getRecommend} element={<Courses />} />
-      <Route path="/search" loader={searchCourse} element={<Courses />} />
+
+      <Route path="/search" loader={searchCourse} element={<Recommended />} />
 
       <Route path="/course/pages/:id" loader={getPage} element={<Courses />} />
-      <Route path="/news" loader={fetchNews} element={<News />} errorElement={<ErrorHandler />} />
+      <Route path="/news" element={<News />} errorElement={<ErrorHandler />} />
 
       <Route path="/question" loader={getQuestion} element={<Questions />} />
 
@@ -88,7 +91,7 @@ const router = createBrowserRouter(
           path="/question/:id"
           loader={getAnswer}
           element={<Answer />}
-          errorElement={<ErrorHandler />}
+          action={commentQuestion}
         />
         <Route
           path="/question/:id/delete"
@@ -100,11 +103,7 @@ const router = createBrowserRouter(
           action={upvoteQuestion}
           errorElement={<h1>Cannot upvote</h1>}
         />
-        <Route
-          path="/:questionId/comment/new"
-          action={commentQuestion}
-          errorElement={<ErrorHandler />}
-        />
+        {/* <Route path="/:id/comment/new" action={commentQuestion} errorElement={<ErrorHandler />} /> */}
       </Route>
 
       <Route path="/events" loader={getImages} element={<Events />} />
@@ -114,7 +113,7 @@ const router = createBrowserRouter(
       <Route
         path="/login"
         element={<Login />}
-        action={validateLogin}
+        action={handleLogin}
         errorElement={<ErrorHandler />}
       />
       <Route path="/logout" element={<LogOut />} />
