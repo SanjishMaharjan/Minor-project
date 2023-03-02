@@ -1,13 +1,13 @@
-import { Form, useNavigate, useNavigation, useActionData } from "react-router-dom";
+import { Form, useNavigate, useNavigation, useActionData, Navigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 
 const Register = () => {
-  if (useNavigation().state === "loading") return <Loader />;
+  if (useNavigation().state === "submitting") return <Loader />;
 
   const navigate = useNavigate();
   const res = useActionData();
   if (res && res.status === 200) {
-    return navigate("/login");
+    return <Navigate to="/login" />;
   }
 
   const serverError = res?.status === 400 && res?.data?.msg;

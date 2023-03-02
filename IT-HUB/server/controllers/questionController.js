@@ -113,7 +113,7 @@ const deleteQuestion = asyncHandler(async (req, res) => {
     throw new Error(`not authorized to delete the question`);
   }
 
-  if (Object.keys(question.image).length !== 0) {
+  if (question.image) {
     const deletedImage = await cloudinary.uploader.destroy(
       question.image.imageId
     );

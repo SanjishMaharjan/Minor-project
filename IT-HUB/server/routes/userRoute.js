@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const validateIds = require("../middleWare/validateIdsMiddleware");
 const {
   registerUser,
   loginUser,
@@ -18,7 +19,7 @@ const { protect } = require("../middleWare/authMiddleware");
 const { upload } = require("../utils/fileUpload");
 
 router.post("/register", registerUser);
-router.get("/profile/:id", protect, getProfile);
+router.get("/profile/:id", validateIds("id"), protect, getProfile);
 router.post("/verification/:verifyToken", verifyUser);
 router.post("/login", loginUser);
 router.get("/logout", protect, logout);

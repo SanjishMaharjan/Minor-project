@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { isAdmin } = require("../middleWare/authMiddleware");
+const validateIds = require("../middleWare/validateIdsMiddleware");
 const { upload } = require("../utils/fileUpload");
 const {
   createPoll,
@@ -22,11 +23,16 @@ router.get("/poll/initial", isAdmin, getPollInitial);
 router.get("/poll/final", isAdmin, getPollFinal);
 router.get("/poll/updatable", isAdmin, getUpdateablePoll);
 router.get("/poll/completed", isAdmin, getPollCompleted);
-router.patch("/poll/:pollId", isAdmin, updateForVoting);
+router.patch("/poll/:pollId", validateIds("pollId"), isAdmin, updateForVoting);
 router.get("/users", isAdmin, getAllUsers);
-router.get("/users/:userId", isAdmin, deleteUser);
+router.get("/users/:userId", validateIds("userId"), isAdmin, deleteUser);
 router.get("/reported", isAdmin, getReportedPosts);
-router.delete("/reported/:postId", isAdmin, deleteReportedPost);
+router.delete(
+  "/reported/:postId",
+  validateIds("postId"),
+  isAdmin,
+  deleteReportedPost
+);
 router.post("/uploadimages", isAdmin, upload.array("images"), uploadImages);
 
 module.exports = router;
