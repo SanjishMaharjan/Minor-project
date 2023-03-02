@@ -28,7 +28,7 @@ import ForgotPassword from "./pages/Login/ForgotPassword";
 import MainAdmin from "./pages/Admin_pannel/MainAdmin";
 import CreatePoll from "./pages/Admin_pannel/CreatePoll";
 import EditContent from "./pages/Admin_pannel/EditContent/EditContent";
-import Notification from "./pages/Admin_pannel/Notification";
+import AdminNotification from "./pages/Admin_pannel/AdminNotification";
 
 import PostQuestion from "./pages/Discussion_Arena/PostQuestion";
 import Questions from "./pages/Discussion_Arena/Questions";
@@ -54,6 +54,7 @@ import { getCourse, getRecommend, getPage, searchCourse } from "./Api/course_uti
 import ManageEvents from "./pages/Admin_pannel/ManageEvents/ManageEvents";
 import SideBar from "./pages/Admin_pannel/SideBar";
 import Recommended from "./pages/Courses/Recommend";
+import Notification from "./pages/Notification/Notification";
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:5000";
@@ -152,9 +153,10 @@ const router = createBrowserRouter(
             errorElement={<ErrorHandler />}
           />
 
-          <Route path="notification" element={<Notification />} />
+          <Route path="adminnotification" element={<AdminNotification />} />
           <Route path="manageevents" element={<ManageEvents />} />
         </Route>
+        <Route path="notification" element={<Notification />} />
       </Route>
 
       <Route path="*" element={<Handle404 />} />

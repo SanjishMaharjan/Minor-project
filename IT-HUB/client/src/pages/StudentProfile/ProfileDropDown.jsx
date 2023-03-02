@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { RiAdminLine } from "react-icons/ri";
-import { MdOutlineLogout } from "react-icons/md";
+import { MdOutlineLogout, MdOutlineNotificationsActive } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import "./dropdown.scss";
 
@@ -43,6 +43,10 @@ const ProfileDropDown = () => {
           <div>
             <Link to="/profile">
               <CgProfile /> <span>Profile</span>
+            </Link>
+
+            <Link to="/notification">
+              <MdOutlineNotificationsActive /> <span>Notifs</span>
             </Link>
 
             {isAdmin && (

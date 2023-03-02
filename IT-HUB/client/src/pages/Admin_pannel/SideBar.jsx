@@ -26,7 +26,7 @@ const SideBar = () => {
             </NavLink>
             <ul className="sidebar">
               <li>
-                <NavLink to="/admin/notification">
+                <NavLink to="/admin/adminnotification">
                   <MdOutlineNotificationsActive /> Notifications
                 </NavLink>
               </li>

@@ -19,6 +19,7 @@ const Answer = () => {
 
   const question = data?.question;
   const answer = data?.answer;
+  console.log(answer);
   // console.log(question.questioner.image.imagePath);
   // console.log(question.image.imagePath);
   const res = useActionData();
@@ -34,50 +35,27 @@ const Answer = () => {
   return (
     <>
       <div className="comment-section">
-        <div className="comment-header">
-          <h1>
-            <img width="50px" height="50px" src={question.questioner.image?.imagePath} />
-            {question.question}
-          </h1>
-          {
-            question.image &&
-            <img width="400px" height="400px" src={question?.image?.imagePath} />
-          }
-          <h5>{convertToYDHMS(question?.createdAt) || `1 second`} ago</h5>
+        <div className="chat-message">
+          <div className="message-sender">
+            <img className="chat-img" width="50px" height="50px" src={question.questioner.image?.imagePath} />
+            <h3>{question.questioner.name}</h3>
+            <h5>{convertToYDHMS(question?.createdAt) || `1 second`} ago</h5>
+          </div>
+          <div className="message-content">
+            <h4>{question.question}</h4>
+            {
+              question.image &&
+              <img className="posted-img" width="600px" height="auto" src={question?.image?.imagePath} />
+            }
+          </div>
         </div>
 
-        {isLoggedIn && (
-          <Form method="post" action={`/question/${question._id}`} className="answer-form">
-            <p className="error">{serverError ?? null}</p>
-            <input
-              className="post-question"
-              type="text"
-              placeholder="Post Your Opinion"
-              name="answer"
-            />
-
-            <p className="error">{answerError ?? null}</p>
-
-            <div className="comment-button">
-              <label htmlFor="file-input">
-                <i class="fa-solid fa-images"></i>
-                <input
-                  style={{ display: "none" }}
-                  type="file"
-                  name="photo"
-                  id="file-input"
-                  accept=".png,.jpg"
-                />
-              </label>
-              <button type="submit">Post</button>
-            </div>
-          </Form>
-        )}
         {answer.map((c) => {
           return (
             <>
               <div className="chat-message">
                 <div className="message-sender" onClick={() => navigate("/profile")}>
+                  {/* <img className="chat-img" width="50px" height="50px" src={c.questioner.image?.imagePath} /> */}
                   <Link to={`/profile/${"scs"}`}>
                     <h3>{c?.commenter?.name}</h3>
                   </Link>
@@ -107,6 +85,23 @@ const Answer = () => {
 
         {/* to comment on any post */}
       </div>
+      {isLoggedIn && (
+        <Form method="post" action={`/question/${question._id}`} className="answer-form">
+          <p className="error">{serverError ?? null}</p>
+          <input
+            className="post-question"
+            type="text"
+            placeholder="Post Your Opinion"
+            name="answer"
+          />
+
+          <p className="error">{answerError ?? null}</p>
+
+          <div className="comment-button">
+            <button type="submit">Post</button>
+          </div>
+        </Form>
+      )}
     </>
   );
 };
