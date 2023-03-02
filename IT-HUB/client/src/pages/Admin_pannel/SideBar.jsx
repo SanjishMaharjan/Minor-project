@@ -9,7 +9,7 @@ import {
   MdOutlineLogout,
 } from "react-icons/md";
 import { HiOutlineWrenchScrewdriver } from "react-icons/hi2";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../context/AuthContext";
 
 const SideBar = () => {
   // const { isAdmin } = useAuth();

@@ -3,47 +3,104 @@ import { redirect } from "react-router-dom";
 import { postQuestionSchema } from "../validation/post_question_schema";
 import { validator } from "../validation/validator";
 import { postAnswerSchema } from "../validation/post_answer_schema";
+const queryKey = ["chat"];
+
+import { client } from "./queryClient";
 
 export const getQuestion = async () => {
-  const question = await axios.get("/api/question");
-  question.data.reverse();
-  return question.data;
+  const queryFn = async () => {
+    const { data } = await axios.get("/api/question");
+    return data.reverse();
+  };
+  return client.fetchQuery(queryKey, queryFn, { staleTime: 1000 * 60 * 1 });
 };
 
 export const deleteQuestion = async ({ params }) => {
-  const res = await axios.delete(`/api/question/${params.id}`);
-  console.log(res.status);
-  if (!res.status === 200) throw new Error("Error occured while deleting");
-  return redirect("/question");
+  // get the question from cache
+
+  const OldQuestions = client.getQueryData(queryKey);
+
+  // remove the question from the cache
+  const newQuestions = OldQuestions.filter((q) => q._id !== params.id);
+
+  // set the new cache
+
+  client.setQueryData(queryKey, newQuestions);
+
+  try {
+    await axios.delete(`/api/question/${params.id}`);
+
+    client.invalidateQueries(queryKey);
+
+    return redirect("/question");
+  } catch (error) {
+    throw new Error("Cannot delete", { status: 404 });
+  }
 };
 
 export const upvoteQuestion = async ({ params }) => {
-  const res = await axios.post(`/api/question/${params.id}/upvote`);
-  console.log(res.status);
-  if (!res.status === 200) throw new Error("Error occured while upvoting");
-  return redirect("/question");
+  // get the question from cache
+
+  const OldQuestions = client.getQueryData(queryKey);
+
+  const Oldquestion = client.getQueryData(queryKey).find((q) => q._id === params.id);
+
+  // check if the user has already upvoted the question
+  // first get userId from query cache
+
+  const userId = client.getQueryData(["user"])._id;
+  // const userId = QC.getQueryData(["user"])._id;
+
+  if (Oldquestion.upvote.upvoters.includes(userId)) {
+    Oldquestion.upvote.count -= 1;
+
+    // remove the user from the upvoters array
+    Oldquestion.upvote.upvoters = Oldquestion.upvote.upvoters.filter((u) => u !== userId);
+  } else {
+    Oldquestion.upvote.count += 1;
+
+    // add the user to the upvoters array
+    Oldquestion.upvote.upvoters.push(userId);
+  }
+
+  const newQuestions = OldQuestions.map((q) => {
+    if (q._id === params.id) {
+      return Oldquestion;
+    }
+    return q;
+  });
+
+  // update the cache
+  client.setQueryData(queryKey, newQuestions);
+
+  try {
+    await axios.post(`/api/question/${params.id}/upvote`);
+
+    client.invalidateQueries(queryKey);
+    return redirect("/question");
+  } catch (error) {
+    client.setQueryData(queryKey, OldQuestions);
+  }
 };
 
 export const postQuestion = async ({ request }) => {
   const formData = await request.formData();
   const post = {
     question: formData.get("question"),
-    image: formData.get('image')
   };
-  console.log(post);
 
   const res = await validator(post, postQuestionSchema);
   if (res.status == 403) return res;
 
-    const response = await axios.post("/api/question", post,
-  {
-        headers: {
-              "Content-Type": "multipart/form-data",
-            }
-});
+  try {
+    const response = await axios.post("/api/question", post);
+    client.invalidateQueries(queryKey);
 
-  if (!response.status === 200) throw Error("cannot post data");
-  return response;
+    return response;
+  } catch (error) {
+    client.setQueryData(queryKey, OldQuestions);
+    return error.response;
+  }
 };
 
 export const getAnswer = async ({ params }) => {

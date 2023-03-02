@@ -17,7 +17,11 @@ const Home = () => {
         </div> */}
         <h1>Exploring the boundless possibilities of technology.</h1>
         <h2>Where imagination meets creativity</h2>
-        <img src="../../src/assets/Images/shahadat-rahman-BfrQnKBulYQ-unsplash.jpg" alt="image" />
+        <img
+          loading="lazy"
+          src="../../src/assets/Images/shahadat-rahman-BfrQnKBulYQ-unsplash.jpg"
+          alt="image"
+        />
         <p>
           Want to learn and grow together computer Enthusiast?
           <br />

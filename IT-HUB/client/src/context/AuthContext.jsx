@@ -1,7 +1,8 @@
-import { useState, createContext, useEffect } from "react";
 import axios from "axios";
+import { useState, createContext, useEffect, useContext } from "react";
+import { client } from "../Api/queryClient";
 
-export const context = createContext(null);
+const context = createContext(null);
 
 export const AuthContextProvider = (props) => {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -9,23 +10,30 @@ export const AuthContextProvider = (props) => {
   const [user, setUser] = useState({});
 
   const checkLogin = async () => {
-    const res = await axios.get("/api/users/loggedin");
-    setLoggedIn(res.data);
-    if (res.data) {
+    try {
       const user = await axios.get("/api/users/getuser");
+      client.setQueryData(["user"], user.data, { staleTime: Infinity });
       setUser(user.data);
+      setLoggedIn(true);
       setAdmin(user.data.isAdmin);
+    } catch (error) {
+      setLoggedIn(false);
+      setUser({});
+      setAdmin(false);
     }
   };
 
   const logOut = async () => {
     await axios.get("/api/users/logout");
     setLoggedIn(false);
+    setUser({});
+    setAdmin(false);
+    client.invalidateQueries(["user"]);
   };
 
   useEffect(() => {
     checkLogin();
-  }, [isLoggedIn]);
+  }, []);
 
   return (
     <context.Provider value={{ isLoggedIn, setLoggedIn, logOut, user, setUser, isAdmin, setAdmin }}>
@@ -33,3 +41,9 @@ export const AuthContextProvider = (props) => {
     </context.Provider>
   );
 };
+
+const useAuth = () => {
+  return useContext(context);
+};
+
+export default useAuth;

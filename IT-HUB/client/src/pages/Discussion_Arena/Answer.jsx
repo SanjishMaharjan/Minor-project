@@ -8,7 +8,7 @@ import {
   useParams,
 } from "react-router-dom";
 import Loader from "../../components/Loader";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../context/AuthContext";
 import { convertToYDHMS } from "../../Utils/dateConverter";
 
 const Answer = () => {
@@ -39,10 +39,7 @@ const Answer = () => {
             <img width="50px" height="50px" src={question.questioner.image?.imagePath} />
             {question.question}
           </h1>
-          {
-            question.image &&
-            <img width="400px" height="400px" src={question?.image?.imagePath} />
-          }
+          {question.image && <img width="400px" height="400px" src={question?.image?.imagePath} />}
           <h5>{convertToYDHMS(question?.createdAt) || `1 second`} ago</h5>
         </div>
 

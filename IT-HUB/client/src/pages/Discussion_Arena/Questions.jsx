@@ -1,20 +1,30 @@
-import { useNavigate, Link, useLoaderData, Form, useNavigation } from "react-router-dom";
-import { useState } from "react";
+import {
+  useNavigate,
+  useFetcher,
+  Link,
+  useLoaderData,
+  Form,
+  useNavigation,
+} from "react-router-dom";
 import "./QAStyles.scss";
 import { convertToYDHMS } from "../../Utils/dateConverter";
+import { BiUpvote, BiDownvote, BiComment } from "react-icons/bi";
+import { HiFlag } from "react-icons/hi";
+import { FaTrash } from "react-icons/fa";
 
 import Loader from "../../components/Loader";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../context/AuthContext";
+import { useQuery } from "@tanstack/react-query";
+const queryKey = ["chat"];
 
 const Questions = () => {
-  const chat = useLoaderData();
-  console.log(chat);
   const { isLoggedIn, user } = useAuth();
 
-  const navigate = useNavigate();
-  console.log(user._id);
+  const { data: chat } = useQuery(queryKey, { enabled: false });
 
-  if (useNavigation().state === "loading") return <Loader />;
+  const fetcher = useFetcher();
+
+  if (useNavigation().state === "loading" && fetcher.formData == null) return <Loader />;
 
   return (
     <div>
@@ -56,35 +66,27 @@ const Questions = () => {
               <div className="message-footer">
                 {isLoggedIn && (
                   <>
-                    <Form method="post" action={`/question/${talk._id}/upvote`}>
+                    <fetcher.Form method="post" action={`/question/${talk._id}/upvote`}>
                       <button type="submit">
-                        <i
-                          className={
-                            talk.upvote.upvoters.includes(user._id)
-                              ? "fa-solid fa-angle-down"
-                              : "fa-solid fa-angle-up"
-                          }
-                          style={{ fontSize: "0.8rem" }}
-                        ></i>
-                        {console.log(user._id in talk.upvote.upvoters)}
+                        {talk.upvote.upvoters.includes(user._id) ? <BiDownvote /> : <BiUpvote />}
                       </button>
-                    </Form>
+                    </fetcher.Form>
                     <h3>{talk.upvote.count}</h3>
                   </>
                 )}
                 <Link to={`/question/${talk._id}`}>
-                  <i className="fa-solid fa-comment"></i>
+                  <BiComment />
                 </Link>
-                {isLoggedIn && <i className="fa-solid fa-font-awesome"></i>}
+                {isLoggedIn && <HiFlag />}
 
                 {user._id === talk.questioner._id && <i class="fa-solid fa-pen-to-square"></i>}
 
                 {user._id === talk.questioner._id && (
-                  <Form method="delete" action={`/question/${talk._id}/delete`}>
+                  <fetcher.Form method="delete" action={`/question/${talk._id}/delete`}>
                     <button type="submit">
-                      <i className="fa-solid fa-trash"></i>
+                      <FaTrash />
                     </button>
-                  </Form>
+                  </fetcher.Form>
                 )}
               </div>
             </div>

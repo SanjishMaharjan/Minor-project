@@ -1,10 +1,14 @@
 import axios from "axios";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { client } from "./Api/queryClient";
+
 import {
   createBrowserRouter,
   RouterProvider,
   Route,
   createRoutesFromElements,
 } from "react-router-dom";
+
 import RequireLogin from "./components/RequireLogin";
 import RequireAdmin from "./components/RequireAdmin";
 
@@ -101,7 +105,6 @@ const router = createBrowserRouter(
           action={upvoteQuestion}
           errorElement={<h1>Cannot upvote</h1>}
         />
-        {/* <Route path="/:id/comment/new" action={commentQuestion} errorElement={<ErrorHandler />} /> */}
       </Route>
 
       <Route path="/events" loader={getImages} element={<Events />} />
@@ -114,11 +117,7 @@ const router = createBrowserRouter(
         action={handleLogin}
         errorElement={<ErrorHandler />}
       />
-      <Route
-        path="/verification/:id"
-        loader={verifyUser}
-        errorElement={<ErrorHandler />}
-      />
+      <Route path="/verification/:id" loader={verifyUser} errorElement={<ErrorHandler />} />
       <Route path="/logout" element={<LogOut />} />
       <Route
         path="/register"
@@ -165,9 +164,11 @@ const router = createBrowserRouter(
 const App = () => {
   return (
     <ThemeContextProvider>
-      <AuthContextProvider>
-        <RouterProvider router={router} />
-      </AuthContextProvider>
+      <QueryClientProvider client={client}>
+        <AuthContextProvider>
+          <RouterProvider router={router} />
+        </AuthContextProvider>
+      </QueryClientProvider>
     </ThemeContextProvider>
   );
 };

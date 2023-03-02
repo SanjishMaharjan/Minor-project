@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import "./LoginStyles.scss";
 import Loader from "../../components/Loader";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../context/AuthContext";
 
 const Login = () => {
   const { setLoggedIn } = useAuth();

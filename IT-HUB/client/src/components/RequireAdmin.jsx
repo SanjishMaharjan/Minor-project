@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../context/AuthContext";
+
 import Handle404 from "../pages/Error/Handle404";
 
 const RequireAdmin = () => {
