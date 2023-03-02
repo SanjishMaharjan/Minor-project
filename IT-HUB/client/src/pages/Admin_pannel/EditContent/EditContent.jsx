@@ -22,21 +22,21 @@ const EditContent = () => {
     <div className="main-container">
       {/* <h1><HiOutlineWrenchScrewdriver style={{ fontSize: "7rem" }} /><br />
                 Edit Content</h1> */}
-      <div className="box-admin">
-        <h1>
-          <RiGalleryLine /> Update Gallery{" "}
-        </h1>
-        <Form method="post" action="/admin/editcontent" encType="multipart/form-data">
+      <div className='box-admin'>
+        <h1><RiGalleryLine />  Update Gallery </h1>
+        <Form method='post' action='/admin/editcontent' encType="multipart/form-data">
           <p>{serverError ?? null}</p>
           <div className="events-details">
-            <label htmlFor="title">
-              <MdOutlineSubtitles /> Title
-            </label>
-            <input type="text" placeholder="title" name="title" id="title" autoComplete="off" />
+            <label htmlFor="title"><MdOutlineSubtitles /> Title</label>
+            <input
+              type="text"
+              placeholder="title"
+              name="title"
+              id="title"
+              autoComplete="off"
+            />
             <p>{titleError ?? null}</p>
-            <label htmlFor="description">
-              <MdDescription /> Description
-            </label>
+            <label htmlFor="description"><MdDescription /> Description</label>
             <textarea
               type="text-area"
               placeholder="Description"
@@ -47,15 +47,21 @@ const EditContent = () => {
             <p>{descriptionError ?? null}</p>
             <label htmlFor="img-input">
               {<BiImageAdd className="admin-icons" />}
-              <input type="file" name="images" id="img-input" accept=".png,.jpg" />
+              <input
+                style={{ display: "none", marginTop: "2rem" }}
+                type="file"
+                name="images"
+                id="img-input"
+                accept=".png,.jpg"
+              />
             </label>
             <p>{fileError ?? null}</p>
           </div>
           <button type="submit">Post</button>
         </Form>
       </div>
-    </div>
-  );
-};
+    </div >
+  )
+}
 
 export default EditContent;
