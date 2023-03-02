@@ -4,6 +4,8 @@ const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const Report = require("../models/reportModel");
 const Comment = require("../models/commentModel");
+const User = require("../models/userModel");
+const Notification = require("../models/notificationModel");
 
 //*                       create question
 ////////////////////////////////////////////////////////////////
@@ -101,27 +103,30 @@ const getQuestion = asyncHandler(async (req, res) => {
 
 const deleteQuestion = asyncHandler(async (req, res) => {
   const { questionId } = req.params;
-  const { _id } = req.user;
-  const question = await Question.findById(questionId);
-  if (!question) {
+  const deletedQuestion = await Question.findOneAndDelete({
+    _id: questionId,
+    questioner: req.user._id,
+  });
+  console.log(deletedQuestion);
+  if (!deletedQuestion) {
     res.status(404);
-    throw new Error(`no question with id: ${questionId}`);
+    throw new Error(`could not delete question with id: ${questionId}`);
   }
 
-  if (_id.toString() !== question.questioner.toString()) {
-    res.status(400);
-    throw new Error(`not authorized to delete the question`);
+  if (deletedQuestion.image) {
+    await cloudinary.uploader.destroy(deletedQuestion.image.imageId);
   }
 
-  if (question.image) {
-    const deletedImage = await cloudinary.uploader.destroy(
-      question.image.imageId
-    );
-  }
-
-  const deletedQuestion = await Question.findByIdAndDelete(questionId);
-  const deletedComments = await Comment.deleteMany({
+  await Comment.deleteMany({
     _id: deletedQuestion.comments,
+  });
+
+  const notification = await Notification.deleteMany({
+    post: deletedQuestion._id,
+  });
+  const count = notification.deletedCount;
+  await User.findByIdAndUpdate(deletedQuestion.questioner, {
+    $inc: { notification: -count },
   });
 
   return res.status(200).json({

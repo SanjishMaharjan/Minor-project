@@ -1,7 +1,8 @@
 import { Navigate, useLoaderData, useNavigation, useParams } from "react-router-dom";
 import { convertToYDHMS } from "../../Utils/dateConverter";
 import Loader from "../../components/Loader";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../context/AuthContext";
+
 import "./StudentStyles.scss";
 
 const StudentProfile = () => {

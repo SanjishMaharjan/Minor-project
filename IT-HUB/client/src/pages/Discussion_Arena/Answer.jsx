@@ -8,7 +8,7 @@ import {
   useParams,
 } from "react-router-dom";
 import Loader from "../../components/Loader";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../context/AuthContext";
 import { convertToYDHMS } from "../../Utils/dateConverter";
 
 const Answer = () => {
@@ -35,6 +35,7 @@ const Answer = () => {
   return (
     <>
       <div className="comment-section">
+<<<<<<< HEAD
         <div className="chat-message">
           <div className="message-sender">
             <img className="chat-img" width="50px" height="50px" src={question.questioner.image?.imagePath} />
@@ -48,6 +49,15 @@ const Answer = () => {
               <img className="posted-img" width="600px" height="auto" src={question?.image?.imagePath} />
             }
           </div>
+=======
+        <div className="comment-header">
+          <h1>
+            <img width="50px" height="50px" src={question.questioner.image?.imagePath} />
+            {question.question}
+          </h1>
+          {question.image && <img width="400px" height="400px" src={question?.image?.imagePath} />}
+          <h5>{convertToYDHMS(question?.createdAt) || `1 second`} ago</h5>
+>>>>>>> 4707b54992a9ded5aea8efc102f8f1ab234ed34f
         </div>
 
         {answer.map((c) => {

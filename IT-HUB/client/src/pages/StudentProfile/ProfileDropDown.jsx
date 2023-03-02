@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../context/AuthContext";
+
 import { RiAdminLine } from "react-icons/ri";
 import { MdOutlineLogout, MdOutlineNotificationsActive } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";

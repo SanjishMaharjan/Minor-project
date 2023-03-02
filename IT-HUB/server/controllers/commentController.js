@@ -1,10 +1,11 @@
 const asyncHandler = require("express-async-handler");
 const Comment = require("../models/commentModel");
 const Report = require("../models/reportModel");
-const mongoose = require("mongoose");
 const Question = require("../models/questionModel");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
+const Notification = require("../models/notificationModel");
+const User = require("../models/userModel");
 ///////////////////////////////////////////////////////
 
 //*               creating a comment
@@ -15,21 +16,36 @@ const createComment = asyncHandler(async (req, res) => {
   if (!answer) {
     res.status(400).json({ msg: "answer field cannot be empty" });
   }
-
+  const question = await Question.findById(questionId);
+  if (!question) {
+    res.status(404);
+    throw new Error(`no question with id: ${questionId}`);
+  }
   const comment = await Comment.create({
     answer,
     commenter: req.user._id,
     questionId,
   });
-  return res.status(201).json(comment);
+  if (req.user._id.toString() !== question.questioner.toString()) {
+    const notification = await Notification.create({
+      user: question.questioner,
+      post: questionId,
+      comment: comment._id,
+      commenter: req.user._id,
+    });
+    await User.findByIdAndUpdate(notification.user, {
+      $inc: { notification: 1 },
+    });
+  }
+  return res
+    .status(200)
+    .json({ msg: "succesfully created comment and notification" });
 });
 
 //*             get comments on specific question
 ///////////////////////////////////////////////////////////
 const getComments = asyncHandler(async (req, res) => {
   const { questionId } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(questionId))
-    return res.status(500).json({ msg: "Question not found" });
 
   const comments = await Comment.find({ questionId }).populate(
     "commenter",
@@ -70,7 +86,11 @@ const deleteComment = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error(`no comment with id: ${commentId}`);
   }
-
+  const question = await Question.findById(questionId);
+  if (!question) {
+    res.status(404);
+    throw new Error(`no question with id: ${questionId}`);
+  }
   if (questionId !== comment.questionId.toString()) {
     res.status(400);
     throw new Error(`id: ${questionId} != id: ${comment.questionId}`);
@@ -78,6 +98,12 @@ const deleteComment = asyncHandler(async (req, res) => {
 
   if (_id.toString() === comment.commenter._id.toString()) {
     const deletedComment = await Comment.findByIdAndDelete(commentId);
+    await Notification.findOneAndDelete({
+      comment: deletedComment._id,
+    });
+    await User.findByIdAndUpdate(question.questioner, {
+      $inc: { notification: -1 },
+    });
     res.status(200).json({ msg: "Comment Deleted Successfully" });
   } else {
     res.status(400).json({ msg: "Not authorized to delete the the comment" });

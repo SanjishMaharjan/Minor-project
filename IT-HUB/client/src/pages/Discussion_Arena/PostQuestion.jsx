@@ -1,6 +1,6 @@
 import { useNavigate, Form, useNavigation, useActionData, Navigate } from "react-router-dom";
 import Loader from "../../components/Loader";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../context/AuthContext";
 
 const PostQuestion = () => {
   const navigate = useNavigate();
