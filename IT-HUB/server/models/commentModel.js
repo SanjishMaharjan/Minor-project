@@ -60,9 +60,6 @@ commentSchema.pre("save", function (next) {
     if (err) {
       return next(new Error("server error occured"));
     }
-    if (!question) {
-      return next(new Error("no question with that id"));
-    }
     question.comments.push(_id);
     question.save();
     next();

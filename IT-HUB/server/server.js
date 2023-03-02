@@ -11,6 +11,7 @@ const commentRoute = require("./routes/commentRoute");
 const userRoute = require("./routes/userRoute");
 const adminRoute = require("./routes/adminRoute");
 const pollRoute = require("./routes/pollRoute");
+const notificationRoute = require("./routes/notificationRoute");
 
 mongoose.set("strictQuery", true);
 
@@ -26,6 +27,7 @@ app.use("/api/:questionId", commentRoute);
 app.use("/api/users", userRoute);
 app.use("/api/poll", pollRoute);
 app.use("/api/admin", adminRoute);
+app.use("/api/notification", notificationRoute);
 
 //* Error Middleware
 app.use(errorHandler);

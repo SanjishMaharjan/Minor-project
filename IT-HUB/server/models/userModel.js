@@ -25,10 +25,6 @@ const userSchema = mongoose.Schema(
           "https://res.cloudinary.com/df9xqsage/image/upload/v1677556710/IT-Hub/Profile/rfjlxxnknwcoga0rhnpc.jpg",
         imageName: "Default Image",
         imageId: "nan",
-        profile:
-          "http://res.cloudinary.com/df9xqsage/image/upload/h_300,w_300/v1/IT-Hub/Profile/rfjlxxnknwcoga0rhnpc",
-        thumb:
-          "http://res.cloudinary.com/df9xqsage/image/upload/h_30,w_30/v1/IT-Hub/Profile/rfjlxxnknwcoga0rhnpc",
       },
     },
     DOB: {
@@ -38,6 +34,11 @@ const userSchema = mongoose.Schema(
     isAdmin: {
       type: Boolean,
       default: false,
+    },
+    notification: {
+      type: Number,
+      default: 0,
+      min: 0,
     },
     membership: {
       type: String,
