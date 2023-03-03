@@ -9,23 +9,19 @@ import {
 import "./LoginStyles.scss";
 import Loader from "../../components/Loader";
 import useAuth from "../../context/AuthContext";
-import { useEffect } from "react";
 
 const Login = () => {
-  const { setLoggedIn, setUser, setAdmin } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const prev = location.state?.prev || "/";
 
   const res = useActionData();
-  useEffect(() => {
-    if (res && res.status === 200) {
-      setLoggedIn(true);
-      setUser(res.data);
-      setAdmin(res.data.isAdmin);
-      navigate(prev, { replace: true });
-    }
-  }, [res, setAdmin, setLoggedIn, setUser]);
+  if (res && res.status === 200) {
+    login(res);
+
+    return navigate(prev, { replace: true });
+  }
 
   const serverError = res?.status === 400 && res?.data?.msg;
   const emailError = res?.status === 403 && res?.data?.errors?.email;

@@ -16,27 +16,32 @@ export const AuthContextProvider = (props) => {
       setUser(user.data);
       setLoggedIn(true);
       setAdmin(user.data.isAdmin);
-    } catch (error) {
-      setLoggedIn(false);
-      setUser({});
-      setAdmin(false);
-    }
-  };
-
-  const logOut = async () => {
-    await axios.get("/api/users/logout");
-    setLoggedIn(false);
-    setUser({});
-    setAdmin(false);
-    client.invalidateQueries(["user"]);
+    } catch (error) {}
   };
 
   useEffect(() => {
     checkLogin();
   }, []);
 
+  const login = async (res) => {
+    client.setQueryData(["user"], res.data, { staleTime: Infinity });
+    setUser(res.data);
+    setLoggedIn(true);
+    setAdmin(res.data.isAdmin);
+  };
+
+  const logOut = async () => {
+    await axios.get("/api/users/logout");
+    client.invalidateQueries(["user"]);
+    setUser({});
+    setLoggedIn(false);
+    setAdmin(false);
+  };
+
   return (
-    <context.Provider value={{ isLoggedIn, setLoggedIn, logOut, user, setUser, isAdmin, setAdmin }}>
+    <context.Provider
+      value={{ isLoggedIn, setLoggedIn, user, setUser, isAdmin, setAdmin, login, logOut }}
+    >
       {props.children}
     </context.Provider>
   );
