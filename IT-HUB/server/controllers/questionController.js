@@ -230,47 +230,6 @@ const reportQuestion = asyncHandler(async (req, res) => {
   }
 });
 
-//*                         Handle Likes!!!
-////////////////////////////////////////////////////////////////////
-
-const upvoteQuestion = asyncHandler(async (req, res) => {
-  const { questionId } = req.params;
-  let question = await Question.findById(questionId);
-  if (!question) {
-    res.status(404);
-    throw new Error(`No question with id:${questionId}`);
-  }
-
-  const alreadyUpvoted =
-    question.upvote.upvoters.filter(
-      (e) => e.toString() === req.user._id.toString()
-    ).length > 0;
-  let operation = alreadyUpvoted ? "$pull" : "$push";
-  question = await Question.findOneAndUpdate(
-    { _id: questionId },
-    {
-      $inc: { "upvote.count": alreadyUpvoted ? -1 : 1 },
-      [operation]: { "upvote.upvoters": req.user._id },
-    },
-    { new: true }
-  );
-
-  res.status(200);
-  res.json(question.upvote.count);
-});
-
-//* get number of likes on question
-///////////////////////////////////////////////////////////
-const getupvotes = asyncHandler(async (req, res) => {
-  const { questionId } = req.params;
-  const question = await Question.findById(questionId);
-  if (!question) {
-    res.status(404);
-    throw new Error(`no question with id:${questionId}`);
-  }
-  res.status(200).json({ upvote: question.upvote.count });
-});
-
 //*                          export Modules
 //////////////////////////////////////////////////////////////////////
 
@@ -283,6 +242,4 @@ module.exports = {
   deleteQuestion,
   updateQuestion,
   reportQuestion,
-  upvoteQuestion,
-  getupvotes,
 };
