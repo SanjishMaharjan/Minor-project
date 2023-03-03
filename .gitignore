@@ -124,3 +124,29 @@ Package Control.merged-ca-bundle
 Package Control.user-ca-bundle
 oscrypto-ca-bundle.crt
 bh_unicode_properties.cache
+
+.idea
+.ipynb_checkpoints
+.mypy_cache
+.vscode
+__pycache__
+.pytest_cache
+htmlcov
+dist
+site
+.coverage
+coverage.xml
+.netlify
+test.db
+log.txt
+Pipfile.lock
+env3.*
+.env
+docs_build
+*/*/.venv/*
+docs.zip
+archive.zip
+
+# vim temporary files
+*~
+.*.sw?

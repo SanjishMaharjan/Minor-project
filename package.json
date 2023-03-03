@@ -4,8 +4,9 @@
   "description": "minor project config",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client",
-    "server": "cd IT-HUB/server && npm install  && npm run server",
+    "start": "concurrently \"npm run server-node\" \"npm run server-fastapi\" \"npm run client",
+    "server-node": "cd IT-HUB/server && npm install  && npm run server",
+    "server-fastapi": "cd IT-HUB/server-fastapi &&  pip install -r requirements.txt && python main.py",
     "client": "cd IT-HUB/client && npm install && npm run dev"
   },
   "repository": {
