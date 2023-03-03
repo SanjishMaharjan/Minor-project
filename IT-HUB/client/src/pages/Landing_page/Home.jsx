@@ -9,10 +9,10 @@ const Home = () => {
   return (
     <>
       <div className="Tagline">
-        <div class="bg"></div>
-        <div class="bg bg2"></div>
-        <div class="bg bg3"></div>
-        {/* <div class="content">
+        <div className="bg"></div>
+        <div className="bg bg2"></div>
+        <div className="bg bg3"></div>
+        {/* <div className="content">
           <h1>Sliding Diagonals Background Effect</h1>
         </div> */}
         <h1>Exploring the boundless possibilities of technology.</h1>

@@ -1,5 +1,5 @@
 import { Navigate, useLoaderData, useNavigation, useParams } from "react-router-dom";
-import { convertToYDHMS } from "../../Utils/dateConverter";
+import { getDate } from "../../Utils/dateConverter";
 import Loader from "../../components/Loader";
 import useAuth from "../../context/AuthContext";
 
@@ -25,7 +25,7 @@ const StudentProfile = () => {
             <h3>Name: {user.name}</h3>
             <h3>Role: {user.membership}</h3>
             <h3>Semester: {user.level}</h3>
-            <h3>Age:{convertToYDHMS(user.DOB)} </h3>
+            <h3>Age:{getDate(user.DOB)} </h3>
             <h3>Email: {user.email}</h3>
           </div>
         </div>

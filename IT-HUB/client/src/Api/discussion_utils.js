@@ -87,13 +87,21 @@ export const postQuestion = async ({ request }) => {
   const formData = await request.formData();
   const post = {
     question: formData.get("question"),
+    image: formData.get("image"),
   };
+  console.log(post);
 
   const res = await validator(post, postQuestionSchema);
   if (res.status == 403) return res;
 
   try {
-    const response = await axios.post("/api/question", post);
+    const response = await axios.post("/api/question", post,
+    {
+          headers: {
+                "Content-Type": "multipart/form-data",
+              }
+  });
+
     client.invalidateQueries(queryKey);
 
     return response;

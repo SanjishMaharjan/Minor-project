@@ -1,4 +1,4 @@
-export function convertToYDHMS(date) {
+export function getDate(date) {
     const date1 = new Date(date);
     const time = date1.getTime();
     const diff = new Date() - time;
@@ -16,9 +16,9 @@ export function convertToYDHMS(date) {
     if(minutes) return  `${minutes % 60} minutes`
     if(seconds) return  `${seconds % 60} seconds`
 }
-console.log(new Date())
+// console.log(new Date())
 
 
 
 // Testing
-//   console.log(convertToYDHMS("2023-02-10T16:35:00.339Z"));
+//   console.log(getDate("2023-02-10T16:35:00.339Z"));

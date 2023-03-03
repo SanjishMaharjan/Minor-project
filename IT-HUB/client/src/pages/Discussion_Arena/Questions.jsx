@@ -7,7 +7,7 @@ import {
   useNavigation,
 } from "react-router-dom";
 import "./QAStyles.scss";
-import { convertToYDHMS } from "../../Utils/dateConverter";
+import { getDate } from "../../Utils/dateConverter";
 import { BiUpvote, BiDownvote, BiComment } from "react-icons/bi";
 import { HiFlag } from "react-icons/hi";
 import { FaTrash } from "react-icons/fa";
@@ -60,7 +60,7 @@ const Questions = () => {
                   <img className="chat-img" src={talk.questioner.image.thumb}></img>
                   <h3>{talk.questioner.name}</h3>
                 </Link>
-                <h5>{convertToYDHMS(talk.createdAt) || `1 second`} ago</h5>
+                <h5>{getDate(talk.createdAt) || `1 second`} ago</h5>
               </div>
               <div className="message-content">{talk.question}</div>
               <div className="message-footer">
@@ -79,7 +79,7 @@ const Questions = () => {
                 </Link>
                 {isLoggedIn && <HiFlag />}
 
-                {user._id === talk.questioner._id && <i class="fa-solid fa-pen-to-square"></i>}
+                {user._id === talk.questioner._id && <i className="fa-solid fa-pen-to-square"></i>}
 
                 {user._id === talk.questioner._id && (
                   <fetcher.Form method="delete" action={`/question/${talk._id}/delete`}>

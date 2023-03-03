@@ -1,7 +1,7 @@
 import { useLoaderData, useNavigation } from "react-router-dom";
 import Loader from "../../components/Loader";
 import "./GalleryStyles.scss";
-import { convertToYDHMS } from "../../Utils/dateConverter";
+import { getDate } from "../../Utils/dateConverter";
 
 const Gallery = () => {
   const imgCollection = useLoaderData();
@@ -23,20 +23,14 @@ const Gallery = () => {
       <div className="gallery-wrapper">
         {imgCollection.map((img) => {
           return (
-            <>
-              {/* <div className="full-img" id="fullBox">
-              <img src="water.jpg" id="fullImg" />
-              <span onclick="close()">x</span>
-            </div> */}
-              <div className="gallery">
-                <div className="gallery-item">
-                  <img src={img.images[0].imagePath} onClick={openImg} />
-                  <p className="gallery-detail">{img.title}</p>
-                  <p className="gallery-detail">{img.description}</p>
-                  <p className="gallery-detail">{convertToYDHMS(img.createdAt)} ago</p>
-                </div>
+            <div key={img._id} className="gallery">
+              <div className="gallery-item">
+                <img src={img.images[0].imagePath} onClick={openImg} />
+                <p className="gallery-detail">{img.title}</p>
+                <p className="gallery-detail">{img.description}</p>
+                <p className="gallery-detail">{getDate(img.createdAt)} ago</p>
               </div>
-            </>
+            </div>
           );
         })}
       </div>

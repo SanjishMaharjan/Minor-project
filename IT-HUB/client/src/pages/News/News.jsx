@@ -1,7 +1,7 @@
 import { useLoaderData, Link, useNavigation, useParams } from "react-router-dom";
 import Loader from "../../components/Loader";
 import "./NewsStyles.scss";
-import { convertToYDHMS } from "../../Utils/dateConverter";
+import { getDate } from "../../Utils/dateConverter";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 

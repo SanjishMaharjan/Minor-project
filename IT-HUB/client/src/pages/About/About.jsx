@@ -32,7 +32,7 @@ const About = () => {
       <div className="about-wrapper">
         {members.map((student) => {
           return (
-            <div>
+            <div key={student.name}>
               <img src={student.image} alt="" />
               <h2>{student.name}</h2>
               <p>{student.post}</p>

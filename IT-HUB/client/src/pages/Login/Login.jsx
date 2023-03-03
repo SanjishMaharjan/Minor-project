@@ -11,14 +11,17 @@ import Loader from "../../components/Loader";
 import useAuth from "../../context/AuthContext";
 
 const Login = () => {
-  const { setLoggedIn } = useAuth();
+  const { setLoggedIn, setUser, setAdmin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const prev = location.state?.prev || "/";
 
   const res = useActionData();
   if (res && res.status === 200) {
+    console.log(res);
     setLoggedIn(true);
+    // setAdmin(res.user.IsAd);
+    // setUser(true);
     return navigate(prev, { replace: true });
   }
 
@@ -50,10 +53,10 @@ const Login = () => {
           <p className="input-box">{passwordError ?? null}</p>
           <button type="submit">Login</button>
           <NavLink to="/forgotpassword">
-            <a>Forgot Password?</a>
+            Forgot Password?
           </NavLink>
           <NavLink to="/register">
-            <a>Don't have a account? Register here</a>
+            Don't have a account? Register here
           </NavLink>
         </Form>
       </div>

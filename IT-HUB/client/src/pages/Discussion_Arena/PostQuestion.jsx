@@ -36,7 +36,7 @@ const PostQuestion = () => {
             <div className="post-question-footer">
               <button onClick={() => navigate(-1)}>Go back</button>
               <label htmlFor="file-input">
-                <i style={{ fontSize: "2rem", cursor: "pointer" }} class="fa-solid fa-images"></i>
+                <i style={{ fontSize: "2rem", cursor: "pointer" }} className="fa-solid fa-images"></i>
                 <input
                   style={{ display: "none" }}
                   type="file"
