@@ -48,7 +48,7 @@ const getComments = asyncHandler(async (req, res) => {
   const { questionId } = req.params;
 
   const comments = await Comment.find({ questionId })
-    .populate("commenter", "name email image.filePath -_id")
+    .populate("commenter", "name email image.imagePath -_id")
     .populate({
       path: "questionId",
       select: "question image.imagePath",
@@ -58,7 +58,21 @@ const getComments = asyncHandler(async (req, res) => {
       },
     });
 
-  res.status(200).json(comments);
+  const [firstComment, ...restComments] = comments;
+  const restCommentsWithoutQuestionId = restComments.map(
+    ({ _id, answer, isReported, commenter, createdAt, updatedAt, upvote }) => ({
+      _id,
+      answer,
+      isReported,
+      commenter,
+      createdAt,
+      updatedAt,
+      upvote,
+    })
+  );
+  const mergedComment = [firstComment, ...restCommentsWithoutQuestionId];
+
+  res.status(200).json(mergedComment);
 });
 
 //*                  get a single comment
