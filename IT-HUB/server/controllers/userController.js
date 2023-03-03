@@ -61,10 +61,7 @@ const registerUser = asyncHandler(async (req, res) => {
     let verifyToken = crypto.randomBytes(32).toString("hex") + _id;
     console.log(verifyToken);
     //* hash token before saving
-    const hashedToken = crypto
-      .createHash("sha256")
-      .update(verifyToken)
-      .digest("hex");
+    const hashedToken = crypto.createHash("sha256").update(verifyToken).digest("hex");
 
     //* save token to database
     await new Token({
@@ -116,10 +113,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const verifyUser = asyncHandler(async (req, res) => {
   const { verifyToken } = req.params;
   //* hash token to compare
-  const hashedToken = crypto
-    .createHash("sha256")
-    .update(verifyToken)
-    .digest("hex");
+  const hashedToken = crypto.createHash("sha256").update(verifyToken).digest("hex");
 
   //* find token in database
   const userToken = await Token.findOne({
@@ -203,19 +197,36 @@ const loginUser = asyncHandler(async (req, res) => {
   });
 
   if (user && passwordIsCorrect) {
-    const { _id, name, email, image, DOB, level, membership } = user;
-    res.json({
+    const {
       _id,
       name,
       email,
-      image,
       DOB,
       level,
       membership,
+      image,
+      isAdmin,
+      facebook,
+      instagram,
+      twitter,
+      linkedin,
+      notification,
+    } = user;
+    res.status(200).json({
+      _id,
+      name,
+      email,
+      DOB,
+      level,
+      membership,
+      image,
+      isAdmin,
+      notification,
+      instagram,
+      facebook,
+      twitter,
+      linkedin,
     });
-  } else {
-    res.status(400);
-    throw new Error("Invalid email or password");
   }
 });
 
@@ -391,10 +402,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
   let resetToken = crypto.randomBytes(32).toString("hex") + user._id;
   console.log(resetToken);
   //* hash token before saving to DB
-  const hashedToken = crypto
-    .createHash("sha256")
-    .update(resetToken)
-    .digest("hex");
+  const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
 
   //* save token to database
   await new Token({
@@ -429,10 +437,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   const { password } = req.body;
   const { resetToken } = req.params;
   //* hash token to compare
-  const hashedToken = crypto
-    .createHash("sha256")
-    .update(resetToken)
-    .digest("hex");
+  const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
 
   //* find token in database
   const userToken = await Token.findOne({

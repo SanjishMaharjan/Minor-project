@@ -53,44 +53,42 @@ const Questions = () => {
 
       {chat.map((talk) => {
         return (
-          <>
-            <div key={talk.questioner.name} className="chat-message">
-              <div className="message-sender">
-                <Link to={`/profile/${talk.questioner._id}`}>
-                  <img className="chat-img" src={talk.questioner.image.thumb}></img>
-                  <h3>{talk.questioner.name}</h3>
-                </Link>
-                <h5>{getDate(talk.createdAt) || `1 second`} ago</h5>
-              </div>
-              <div className="message-content">{talk.question}</div>
-              <div className="message-footer">
-                {isLoggedIn && (
-                  <>
-                    <fetcher.Form method="post" action={`/question/${talk._id}/upvote`}>
-                      <button type="submit">
-                        {talk.upvote.upvoters.includes(user._id) ? <BiDownvote /> : <BiUpvote />}
-                      </button>
-                    </fetcher.Form>
-                    <h3>{talk.upvote.count}</h3>
-                  </>
-                )}
-                <Link to={`/question/${talk._id}`}>
-                  <BiComment />
-                </Link>
-                {isLoggedIn && <HiFlag />}
-
-                {user._id === talk.questioner._id && <i className="fa-solid fa-pen-to-square"></i>}
-
-                {user._id === talk.questioner._id && (
-                  <fetcher.Form method="delete" action={`/question/${talk._id}/delete`}>
+          <div key={talk._id} className="chat-message">
+            <div className="message-sender">
+              <Link to={`/profile/${talk.questioner._id}`}>
+                <img className="chat-img" src={talk.questioner.image.thumb}></img>
+                <h3>{talk.questioner.name}</h3>
+              </Link>
+              <h5>{getDate(talk.createdAt) || `1 second`} ago</h5>
+            </div>
+            <div className="message-content">{talk.question}</div>
+            <div className="message-footer">
+              {isLoggedIn && (
+                <>
+                  <fetcher.Form method="post" action={`/question/${talk._id}/upvote`}>
                     <button type="submit">
-                      <FaTrash />
+                      {talk.upvote.upvoters.includes(user._id) ? <BiDownvote /> : <BiUpvote />}
                     </button>
                   </fetcher.Form>
-                )}
-              </div>
+                  <h3>{talk.upvote.count}</h3>
+                </>
+              )}
+              <Link to={`/question/${talk._id}`}>
+                <BiComment />
+              </Link>
+              {isLoggedIn && <HiFlag />}
+
+              {user._id === talk.questioner._id && <i className="fa-solid fa-pen-to-square"></i>}
+
+              {user._id === talk.questioner._id && (
+                <fetcher.Form method="delete" action={`/question/${talk._id}/delete`}>
+                  <button type="submit">
+                    <FaTrash />
+                  </button>
+                </fetcher.Form>
+              )}
             </div>
-          </>
+          </div>
         );
       })}
     </div>

@@ -9,6 +9,7 @@ import {
 import "./LoginStyles.scss";
 import Loader from "../../components/Loader";
 import useAuth from "../../context/AuthContext";
+import { useEffect } from "react";
 
 const Login = () => {
   const { setLoggedIn, setUser, setAdmin } = useAuth();
@@ -17,13 +18,14 @@ const Login = () => {
   const prev = location.state?.prev || "/";
 
   const res = useActionData();
-  if (res && res.status === 200) {
-    console.log(res);
-    setLoggedIn(true);
-    // setAdmin(res.user.IsAd);
-    // setUser(true);
-    return navigate(prev, { replace: true });
-  }
+  useEffect(() => {
+    if (res && res.status === 200) {
+      setLoggedIn(true);
+      setUser(res.data);
+      setAdmin(res.data.isAdmin);
+      navigate(prev, { replace: true });
+    }
+  }, [res, setAdmin, setLoggedIn, setUser]);
 
   const serverError = res?.status === 400 && res?.data?.msg;
   const emailError = res?.status === 403 && res?.data?.errors?.email;
@@ -52,12 +54,8 @@ const Login = () => {
           />
           <p className="input-box">{passwordError ?? null}</p>
           <button type="submit">Login</button>
-          <NavLink to="/forgotpassword">
-            Forgot Password?
-          </NavLink>
-          <NavLink to="/register">
-            Don't have a account? Register here
-          </NavLink>
+          <NavLink to="/forgotpassword">Forgot Password?</NavLink>
+          <NavLink to="/register">Don't have a account? Register here</NavLink>
         </Form>
       </div>
     </>
