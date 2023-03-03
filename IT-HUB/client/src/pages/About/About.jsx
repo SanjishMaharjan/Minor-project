@@ -34,7 +34,7 @@ const About = () => {
           return (
             <div key={student.name}>
               <img src={student.image} alt="" />
-              <h2>{student.name}</h2>
+              <p>{student.name}</p>
               <p>{student.post}</p>
             </div>
           );
