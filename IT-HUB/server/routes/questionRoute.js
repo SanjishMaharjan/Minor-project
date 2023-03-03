@@ -10,9 +10,7 @@ const {
   deleteQuestion,
   updateQuestion,
   reportQuestion,
-  upvoteQuestion,
   getLikedQuestions,
-  getupvotes,
   getUpdatedQuestions,
 } = require("../controllers/questionController");
 
@@ -39,12 +37,5 @@ router.post(
   protect,
   reportQuestion
 );
-router.post(
-  "/:questionId/upvote",
-  validateIds("questionId"),
-  protect,
-  upvoteQuestion
-);
-router.get("/:questionId/upvote", validateIds("questionId"), getupvotes);
 
 module.exports = router;

@@ -7,19 +7,6 @@ const questionSchema = mongoose.Schema(
       required: [true, "query cannot be empty"],
     },
     tag: [String],
-    upvote: {
-      count: {
-        type: Number,
-        default: 0,
-        min: 0,
-      },
-      upvoters: [
-        {
-          type: mongoose.Types.ObjectId,
-          ref: "User",
-        },
-      ],
-    },
     isReported: {
       type: Boolean,
       default: false,
