@@ -127,6 +127,6 @@ export const commentQuestion = async ({ params, request }) => {
   if (res.status === 403) return res;
 
   const response = await axios.post(`/api/${id}/comment`, data);
-  if (response.status != 201) throw new Error("Not Found", { status: 404 });
+  // if (response.status != 201) throw new Error("Not Found", { status: 404 });
   return response;
 };

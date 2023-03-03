@@ -35,21 +35,6 @@ const Answer = () => {
   return (
     <>
       <div className="comment-section">
-<<<<<<< HEAD
-        <div className="chat-message">
-          <div className="message-sender">
-            <img className="chat-img" width="50px" height="50px" src={question.questioner.image?.imagePath} />
-            <h3>{question.questioner.name}</h3>
-            <h5>{convertToYDHMS(question?.createdAt) || `1 second`} ago</h5>
-          </div>
-          <div className="message-content">
-            <h4>{question.question}</h4>
-            {
-              question.image &&
-              <img className="posted-img" width="600px" height="auto" src={question?.image?.imagePath} />
-            }
-          </div>
-=======
         <div className="comment-header">
           <h1>
             <img width="50px" height="50px" src={question.questioner.image?.imagePath} />
@@ -57,7 +42,6 @@ const Answer = () => {
           </h1>
           {question.image && <img width="400px" height="400px" src={question?.image?.imagePath} />}
           <h5>{convertToYDHMS(question?.createdAt) || `1 second`} ago</h5>
->>>>>>> 4707b54992a9ded5aea8efc102f8f1ab234ed34f
         </div>
 
         {answer.map((c) => {
