@@ -1,0 +1,11 @@
+.nofication-container{
+    div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-block: 2rem;
+        border: 2px solid var(--hover-color);
+    }
+
+
+}

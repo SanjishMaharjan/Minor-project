@@ -4,7 +4,10 @@ const asyncHandler = require("express-async-handler");
 //* get notification
 ////////////////////////////////////////////
 const getNotification = asyncHandler(async (req, res) => {
-  const notification = await Notification.find({ user: req.user._id });
+  const notification = await Notification.find({ user: req.user._id }).populate(
+    "comment",
+    "name"
+  );
   res.status(200).json(notification);
 });
 
