@@ -59,6 +59,7 @@ import ManageEvents from "./pages/Admin_pannel/ManageEvents/ManageEvents";
 import SideBar from "./pages/Admin_pannel/SideBar";
 import Recommended from "./pages/Courses/Recommend";
 import Notification from "./pages/Notification/Notification";
+import { getNotification } from "./Api/notification_utils";
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:5000";
@@ -111,6 +112,12 @@ const router = createBrowserRouter(
       <Route path="/events" loader={getImages} element={<Events />} />
       <Route path="/events" element={<Events />} />
       <Route path="/about" element={<About />} />
+      <Route
+        path="/notification"
+        loader={getNotification}
+        element={<Notification />}
+        errorElement={<ErrorHandler />
+        } />
 
       <Route
         path="/login"
@@ -155,7 +162,6 @@ const router = createBrowserRouter(
           <Route path="adminnotification" element={<AdminNotification />} />
           <Route path="manageevents" element={<ManageEvents />} />
         </Route>
-        <Route path="notification" element={<Notification />} />
       </Route>
 
       <Route path="*" element={<Handle404 />} />
