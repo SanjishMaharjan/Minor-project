@@ -1,26 +1,52 @@
-import { Navigate, useLoaderData, useNavigation, useParams } from "react-router-dom";
+import { Navigate, useLoaderData, useNavigation, useParams, useFetcher, useActionData } from "react-router-dom";
 import { getDate } from "../../Utils/dateConverter";
 import Loader from "../../components/Loader";
 import useAuth from "../../context/AuthContext";
+import { FiEdit3 } from "react-icons/fi"
+
 
 import "./StudentStyles.scss";
 
 const StudentProfile = () => {
-  let { user } = useAuth();
+  let { user, setUser } = useAuth();
 
   const profile = useLoaderData();
-  console.log(user);
+  const res = useActionData();
+  // console.log(user);
   const { id } = useParams();
-  if (id) user = profile;
+  const fetcher = useFetcher();
 
+  if (id) user = profile;
+  const serverError = res?.status === 400 && res?.data?.msg;
+  const fileError = res?.status === 403 && res?.data?.errors?.image;
+  console.log(fileError);
   if (useNavigation().state === "loading") return <Loader />;
+  console.log(res?.data?.status);
+  if (res && res?.data?.status === 200) return <Navigate to="/profile" />;
 
   return (
     <div className="student-wrapper">
+      <p>{fileError ?? null}</p>
+      <p>{serverError ?? null}</p>
       <h1>Profile</h1>
       {
         <div className="student-details">
           <img width="300px" height="300px" className="profile-pic" src={user?.image?.imagePath} />
+          <span>
+            <fetcher.Form method="post" action="/profile" encType="multipart/form-data">
+              <label htmlFor="file-input">
+                <FiEdit3 />
+                <input
+                  style={{ display: "none" }}
+                  type="file"
+                  name="image"
+                  id="file-input"
+                  accept=".png,.jpg"
+                />
+              </label>
+              <button>edit</button>
+            </fetcher.Form>
+          </span>
           <div>
             <h3>Name: {user.name}</h3>
             <h3>Role: {user.membership}</h3>
@@ -30,7 +56,7 @@ const StudentProfile = () => {
           </div>
         </div>
       }
-    </div>
+    </div >
   );
 };
 

@@ -60,6 +60,7 @@ import SideBar from "./pages/Admin_pannel/SideBar";
 import Recommended from "./pages/Courses/Recommend";
 import Notification from "./pages/Notification/Notification";
 import { getNotification } from "./Api/notification_utils";
+import { changeProfileImage } from "./Api/profile";
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:5000";
@@ -133,7 +134,7 @@ const router = createBrowserRouter(
         action={validateRegister}
         errorElement={<ErrorHandler />}
       />
-      <Route path="/profile" element={<StudentProfile />} />
+      <Route path="/profile" action={changeProfileImage} element={<StudentProfile />} />
       <Route path="/profile/:id" loader={fetchProfile} element={<StudentProfile />} />
       <Route
         path="/forgotpassword"

@@ -1,9 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../context/AuthContext";
-
 import { RiAdminLine } from "react-icons/ri";
+import { FaUserAlt } from "react-icons/fa";
 import { MdOutlineLogout, MdOutlineNotificationsActive } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
+import { GoPrimitiveDot } from "react-icons/go";
 import "./dropdown.scss";
 
 import { useState, useRef, useEffect } from "react";
@@ -31,7 +32,14 @@ const ProfileDropDown = () => {
     <div ref={ref}>
       {isLoggedIn ? (
         <div onClick={() => setIsOpen(!isOpen)} className="profile-dropdown">
-          <i style={{ marginTop: "0.6rem" }} className="fa-solid fa-user"></i>
+          {/* <i style={{ marginTop: "0.6rem" }} className="fa-solid fa-user"></i> */}
+          <FaUserAlt />
+          <span className="active-number">
+            {
+              user.notification > 0 ? <GoPrimitiveDot className="active-dot" /> : null
+            }
+          </span>
+
         </div>
       ) : (
         <NavLink to="/login">
@@ -47,7 +55,11 @@ const ProfileDropDown = () => {
             </Link>
 
             <Link to="/notification">
-              <MdOutlineNotificationsActive /> <span>Notifs</span>
+              <MdOutlineNotificationsActive /> <span className="active-number">Notifs
+                {
+                  user.notification > 0 ? user.notification : null
+                }
+              </span>
             </Link>
 
             {isAdmin && (
