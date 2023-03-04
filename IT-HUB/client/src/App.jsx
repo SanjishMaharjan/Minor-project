@@ -57,7 +57,6 @@ import { getImages, postImages } from "./Api/gallery";
 import { getCourse, getRecommend, getPage, searchCourse } from "./Api/course_utils";
 import ManageEvents from "./pages/Admin_pannel/ManageEvents/ManageEvents";
 import SideBar from "./pages/Admin_pannel/SideBar";
-import Recommended from "./pages/Courses/Recommend";
 import Notification from "./pages/Notification/Notification";
 import { getNotification } from "./Api/notification_utils";
 import { changeProfileImage } from "./Api/profile";
@@ -75,12 +74,11 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
 
-      <Route path="/course/recommend" loader={getRecommend} element={<Recommended />} />
       <Route path="/course" loader={getRecommend} element={<Courses />} />
-
-      <Route path="/search" loader={searchCourse} element={<Recommended />} />
+      <Route path="/search" loader={searchCourse} element={<Courses />} />
 
       <Route path="/course/pages/:id" loader={getPage} element={<Courses />} />
+
       <Route path="/news" element={<News />} errorElement={<ErrorHandler />} />
 
       <Route path="/question" loader={getQuestion} element={<Questions />} />
@@ -117,8 +115,8 @@ const router = createBrowserRouter(
         path="/notification"
         loader={getNotification}
         element={<Notification />}
-        errorElement={<ErrorHandler />
-        } />
+        errorElement={<ErrorHandler />}
+      />
 
       <Route
         path="/login"

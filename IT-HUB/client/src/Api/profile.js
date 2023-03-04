@@ -1,12 +1,16 @@
 import axios from "axios";
 import { validator } from "../validation/validator";
 import { profileUpdateSchema } from "../validation/profileupdateSchema";
+import { client } from "./queryClient";
 
 export const fetchProfile = async ({ params }) => {
   const { id } = params;
-  const profile = await axios.get(`/api/users/profile/${id}`);
-  console.log(profile.data);
-  return profile.data;
+  const queryFn = async () => {
+    const profile = await axios.get(`/api/users/profile/${id}`);
+    return profile.data;
+  };
+
+  return client.fetchQuery(["profile", id], queryFn);
 };
 
 export const changeProfileImage = async ({ request }) => {
@@ -34,4 +38,4 @@ export const changeProfileImage = async ({ request }) => {
     console.log(error);
     return error.response;
   }
-}
+};

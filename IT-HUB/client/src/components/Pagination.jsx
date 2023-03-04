@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./pagination.scss";
 
-const Pagination = ({ currentPage, totalPages }) => {
+const Pagination = ({ currentPage, totalPages, baseUrl }) => {
   const pageNumbers = [];
   const maxPagesToShow = 5;
 
@@ -26,7 +26,7 @@ const Pagination = ({ currentPage, totalPages }) => {
   return (
     <div className="pagination">
       {currentPage !== 1 && (
-        <Link to={`/course/pages/${currentPage - 1}`}>
+        <Link to={`${baseUrl}/${currentPage - 1}`}>
           <button className="page-link">Previous</button>
         </Link>
       )}
@@ -35,14 +35,19 @@ const Pagination = ({ currentPage, totalPages }) => {
           {page === "..." ? (
             <span className="ellipsis">...</span>
           ) : (
-            <Link to={`/course/pages/${page}`}>
-              <button className={page === currentPage ? "active" : ""}>{page}</button>
+            <Link to={`${baseUrl}/${page}`}>
+              <button
+                className={page === currentPage ? "active" : ""}
+                disabled={page === currentPage}
+              >
+                {page}
+              </button>
             </Link>
           )}
         </React.Fragment>
       ))}
       {currentPage !== totalPages && (
-        <Link to={`/course/pages/${currentPage + 1}`}>
+        <Link to={`${baseUrl}/${currentPage + 1}`}>
           <button className="page-link">Next</button>
         </Link>
       )}
