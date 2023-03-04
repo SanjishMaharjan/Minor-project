@@ -9,8 +9,6 @@ const getNotification = asyncHandler(async (req, res) => {
     .populate("comment", "answer -_id")
     .populate("post", "question ")
     .select("-user");
-
-  console.log(notification);
   res.status(200).json(notification);
 });
 
@@ -26,7 +24,14 @@ const deleteNotification = asyncHandler(async (req, res) => {
   res.status(200).json({ msg: "deleted notification" });
 });
 
+//* get notification count
+////////////////////////////////////////////////
+const getNotificationCount = asyncHandler(async (req, res) => {
+  const count = (await Notification.find({ user: req.user._id })).length;
+  res.status(200).json(count);
+});
 module.exports = {
   getNotification,
   deleteNotification,
+  getNotificationCount,
 };
