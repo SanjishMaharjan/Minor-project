@@ -1,5 +1,6 @@
 import { redirect } from "react-router-dom";
 import { customAxios } from "../App";
+import { client } from "./queryClient";
 
 export const getCourse = async () => {
   try {
@@ -11,15 +12,19 @@ export const getCourse = async () => {
 };
 
 export const getRecommend = async () => {
-  try {
-    const data = await customAxios.get("/course/recommend");
-    return data.data;
-  } catch (error) {
-    console.log(error);
-    if (error.response.status === 401) {
-      throw new Error(error.response.data.detail);
+  const queryFn = async () => {
+    try {
+      const data = await customAxios.get("/course/recommend");
+      return data.data;
+    } catch (error) {
+      console.log(error);
+      if (error.response.status === 401) {
+        throw new Error(error.response.data.detail);
+      }
     }
-  }
+  };
+
+  return client.fetchQuery(["recommend"], queryFn);
 };
 
 export const getPage = async ({ params }) => {
@@ -37,7 +42,6 @@ export const searchCourse = async ({ request }) => {
   const search_params = url.searchParams.get("course");
   try {
     const data = await customAxios.get(`/course/search/?search=${search_params}`);
-    console.log(data);
     return data.data;
   } catch (error) {
     console.log(error);

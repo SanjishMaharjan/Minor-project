@@ -57,7 +57,7 @@ async def get_course(search:str)->list[Course_Out]:
 @course.get("/pages/{id}")
 async def get_course(id:int=Field(le=50))->list[Course_Out]:
    try:
-      size=10
+      size=12
       page=(id-1)*size
       course = list( Course.find({}).limit(size).skip(page))
       course=[{**i,"_id":str(i.get('_id'))} for i in course]

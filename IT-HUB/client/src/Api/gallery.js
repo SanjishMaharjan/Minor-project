@@ -3,10 +3,15 @@ import { redirect } from "react-router-dom";
 import { galleryUpdateSchema } from "../validation/galleryupdateSchema";
 import { validator } from "../validation/validator";
 
+import { client } from "./queryClient";
+
 export const getImages = async () => {
-  const images = await axios.get(`/api/users/getimages`);
-  console.log(images);
-  return images.data;
+  const queryFn = async () => {
+    const images = await axios.get(`/api/users/getimages`);
+    return images.data;
+  };
+
+  return client.fetchQuery(["gallery"], queryFn);
 };
 
 export const postImages = async ({ request }) => {
@@ -18,7 +23,7 @@ export const postImages = async ({ request }) => {
   };
 
   const res = await validator(post, galleryUpdateSchema);
-  console.log(res);
+
   if (res.status === 403) return res;
   try {
     const response = await axios.post("/api/admin/uploadimages", post, {
@@ -27,12 +32,11 @@ export const postImages = async ({ request }) => {
       },
     });
 
-    console.log(response);
     if (!response.status === 200) throw Error("cannot post data");
 
+    client.invalidateQueries(["gallery"]);
     return response;
   } catch (error) {
-    console.log(error);
     return error.response;
   }
   // return redirect("/events");

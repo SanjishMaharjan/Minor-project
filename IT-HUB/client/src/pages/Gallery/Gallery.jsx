@@ -2,10 +2,12 @@ import { useLoaderData, useNavigation } from "react-router-dom";
 import Loader from "../../components/Loader";
 import "./GalleryStyles.scss";
 import { getDate } from "../../Utils/dateConverter";
+import { useQuery } from "@tanstack/react-query";
 
 const Gallery = () => {
-  const imgCollection = useLoaderData();
-  console.log(imgCollection);
+  const { data: imgCollection } = useQuery(["gallery"], {
+    enabled: false,
+  });
 
   const openImg = (pic) => {
     fullBox.style.display = "flex";

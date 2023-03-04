@@ -1,27 +1,37 @@
-import { Navigate, useLoaderData, useNavigation, useParams, useFetcher, useActionData } from "react-router-dom";
+import {
+  Navigate,
+  useLoaderData,
+  useNavigation,
+  useParams,
+  useFetcher,
+  useActionData,
+} from "react-router-dom";
 import { getDate } from "../../Utils/dateConverter";
 import Loader from "../../components/Loader";
 import useAuth from "../../context/AuthContext";
-import { FiEdit3 } from "react-icons/fi"
-
+import { FiEdit3 } from "react-icons/fi";
+import { useQuery } from "@tanstack/react-query";
 
 import "./StudentStyles.scss";
 
 const StudentProfile = () => {
   let { user, setUser } = useAuth();
+  const { id } = useParams();
 
-  const profile = useLoaderData();
+  const { data: profile } = useQuery(["profile", id], {
+    enabled: false,
+  });
+
+  // const profile = useLoaderData();
   const res = useActionData();
   // console.log(user);
-  const { id } = useParams();
   const fetcher = useFetcher();
 
   if (id) user = profile;
+
   const serverError = res?.status === 400 && res?.data?.msg;
   const fileError = res?.status === 403 && res?.data?.errors?.image;
-  console.log(fileError);
   if (useNavigation().state === "loading") return <Loader />;
-  console.log(res?.data?.status);
   if (res && res?.data?.status === 200) return <Navigate to="/profile" />;
 
   return (
@@ -56,7 +66,7 @@ const StudentProfile = () => {
           </div>
         </div>
       }
-    </div >
+    </div>
   );
 };
 
