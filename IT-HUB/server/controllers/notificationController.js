@@ -16,16 +16,18 @@ const getNotification = asyncHandler(async (req, res) => {
   res.status(200).json(notification);
 });
 
-//* delete notification after vewing it
+//* delete notification
 //////////////////////////////////////////////
-const deleteNotification = asyncHandler(async (req, res) => {
-  const { notificationId } = req.params;
-  const notification = await Notification.findByIdAndDelete(notificationId);
-  if (!notification) {
-    res.status(404);
-    throw new Error(`no notification with id: ${notificationId}`);
+const deleteNotification = asyncHandler(async (userId, notiLength) => {
+  maxNotificationNumber = 20;
+  if (notiLength > maxNotificationNumber) {
+    const notificationId = (
+      await Notification.find({ user: userId }).sort({ date: 1 })
+    )[0]._id;
+    const lol = await Notification.findByIdAndDelete(notificationId);
+    return true;
   }
-  res.status(200).json({ msg: "deleted notification" });
+  return false;
 });
 
 //* get notification count

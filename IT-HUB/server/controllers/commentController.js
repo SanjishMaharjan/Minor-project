@@ -6,6 +6,7 @@ const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const Notification = require("../models/notificationModel");
 const User = require("../models/userModel");
+const { deleteNotification } = require("./notificationController");
 ///////////////////////////////////////////////////////
 
 //*               creating a comment
@@ -33,9 +34,13 @@ const createComment = asyncHandler(async (req, res) => {
       comment: comment._id,
       commenter: req.user._id,
     });
-    await User.findByIdAndUpdate(notification.user, {
+    const user = await User.findByIdAndUpdate(notification.user, {
       $inc: { notification: 1 },
     });
+
+    const notiLength = (await Notification.find({ user: notification.user }))
+      .length;
+    deleteNotification(notification.user, notiLength);
   }
   return res
     .status(200)
