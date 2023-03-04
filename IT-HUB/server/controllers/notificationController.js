@@ -1,9 +1,13 @@
 const Notification = require("../models/notificationModel");
 const asyncHandler = require("express-async-handler");
+const User = require("../models/userModel");
 
 //* get notification
 ////////////////////////////////////////////
 const getNotification = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+  user.notification = 0;
+  user.save();
   const notification = await Notification.find({ user: req.user._id })
     .populate("commenter", "name -_id")
     .populate("comment", "answer -_id")
@@ -27,8 +31,11 @@ const deleteNotification = asyncHandler(async (req, res) => {
 //* get notification count
 ////////////////////////////////////////////////
 const getNotificationCount = asyncHandler(async (req, res) => {
-  const count = (await Notification.find({ user: req.user._id })).length;
-  res.status(200).json(count);
+  const user = await User.findById({ _id: req.user._id });
+  console.log(user.name);
+  const count = user.notification;
+  console.log(count);
+  res.status(200).json({ count });
 });
 module.exports = {
   getNotification,
