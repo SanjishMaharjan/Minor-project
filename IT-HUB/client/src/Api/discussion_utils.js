@@ -3,10 +3,11 @@ import { redirect } from "react-router-dom";
 import { postQuestionSchema } from "../validation/post_question_schema";
 import { validator } from "../validation/validator";
 import { postAnswerSchema } from "../validation/post_answer_schema";
-const queryKey = ["chat"];
+const queryKey = ["question"];
 
 import { client } from "./queryClient";
 
+// get all the questions
 export const getQuestion = async () => {
   const queryFn = async () => {
     const { data } = await axios.get("/api/question");
@@ -15,6 +16,7 @@ export const getQuestion = async () => {
   return client.fetchQuery(queryKey, queryFn, { staleTime: 1000 * 60 * 1 });
 };
 
+// detele a question
 export const deleteQuestion = async ({ params }) => {
   // get the question from cache
 
@@ -38,6 +40,7 @@ export const deleteQuestion = async ({ params }) => {
   }
 };
 
+// upvote a question
 export const upvoteQuestion = async ({ params }) => {
   // get the question from cache
 
@@ -95,12 +98,11 @@ export const postQuestion = async ({ request }) => {
   if (res.status == 403) return res;
 
   try {
-    const response = await axios.post("/api/question", post,
-    {
-          headers: {
-                "Content-Type": "multipart/form-data",
-              }
-  });
+    const response = await axios.post("/api/question", post, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
     client.invalidateQueries(queryKey);
 
@@ -111,6 +113,8 @@ export const postQuestion = async ({ request }) => {
   }
 };
 
+// get a particular answer
+
 export const getAnswer = async ({ params }) => {
   const { id } = params;
 
@@ -119,11 +123,12 @@ export const getAnswer = async ({ params }) => {
     throw new Error("Not Found", { status: 404 });
   }
 
-  const particularQuestion = await axios.get(`/api/question/${id}`);
+  console.log(response.data);
 
-  return { answer: response.data, question: particularQuestion.data };
+  return { answer: response.data, question: response.data[0].questionId };
 };
 
+// post an answer
 export const commentQuestion = async ({ params, request }) => {
   const { id } = params;
   const formData = await request.formData();

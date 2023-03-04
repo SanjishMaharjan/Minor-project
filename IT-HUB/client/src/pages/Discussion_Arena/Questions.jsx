@@ -15,7 +15,7 @@ import { FaTrash } from "react-icons/fa";
 import Loader from "../../components/Loader";
 import useAuth from "../../context/AuthContext";
 import { useQuery } from "@tanstack/react-query";
-const queryKey = ["chat"];
+const queryKey = ["question"];
 
 const Questions = () => {
   const { isLoggedIn, user } = useAuth();
