@@ -10,12 +10,12 @@ const {
   deleteQuestion,
   updateQuestion,
   reportQuestion,
-  getUpdatedQuestions,
+  getLatestQuestions,
 } = require("../controllers/questionController");
 
 router.post("/", protect, upload.single("image"), createQuestion);
-router.get("/", getQuestions);
-router.get("/recentlyupdated/:pageNumber", getUpdatedQuestions);
+router.get("/page/:pageNumber", getQuestions);
+router.get("/latest/:pageNumber", getLatestQuestions);
 router.get("/:questionId", validateIds("questionId"), getQuestion);
 router.delete(
   "/:questionId",

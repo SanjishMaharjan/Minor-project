@@ -53,6 +53,8 @@ const createQuestion = asyncHandler(async (req, res) => {
 ////////////////////////////////////////////////////////////////////
 
 const getQuestions = asyncHandler(async (req, res) => {
+  const pageSize = 5;
+  const pageNumber = req.params.pageNumber || 1;
   const questions = await Question.find()
     .populate("questioner", "name image.imagePath")
     .populate({
@@ -62,18 +64,29 @@ const getQuestions = asyncHandler(async (req, res) => {
         path: "commenter",
         select: "image.imagePath -_id",
       },
-    });
+    })
+    .sort({ updatedAt: -1 })
+    .skip((pageNumber - 1) * pageSize)
+    .limit(pageSize);
   res.status(200).json(questions);
 });
 
 //* get most recently updated questions
 /////////////////////////////////////////////////////////////////////////
-const getUpdatedQuestions = asyncHandler(async (req, res) => {
+const getLatestQuestions = asyncHandler(async (req, res) => {
   const pageSize = 5;
   const pageNumber = req.params.pageNumber || 1;
   const questions = await Question.find()
-    .populate("questioner", "name email image.imagePath _id")
-    .sort({ updatedAt: -1 })
+    .populate("questioner", "name image.imagePath")
+    .populate({
+      path: "comments.commentIds",
+      select: "commenter -_id",
+      populate: {
+        path: "commenter",
+        select: "image.imagePath -_id",
+      },
+    })
+    .sort({ createdAt: -1 })
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize);
   res.status(200).json(questions);
@@ -94,6 +107,12 @@ const getQuestion = asyncHandler(async (req, res) => {
   }
 });
 
+//*                 Get all questions of a current User
+////////////////////////////////////////////////////////////////////////////
+const getQuestionByUser = asyncHandler(async (req, res) => {
+  const questions = await Question.find({ questioner: req.user._id });
+  return res.status(200).json(questions);
+});
 //*                      delete a single question
 /////////////////////////////////////////////////////////////////////////
 
@@ -156,25 +175,6 @@ const updateQuestion = asyncHandler(async (req, res) => {
   }
 });
 
-//*                 Get all questions of a current User
-////////////////////////////////////////////////////////////////////////////
-
-// //? where to put this module
-// //! think carefully
-// //? Maybe on profile controller maybe
-// //? Maybe here why make new controller to fetch question again if it can be done here
-// const getQuestionByUser = async (req, res) => {
-//   try {
-//     const questions = await Question.find({ questioner: req.user._id });
-//     if (!questions) {
-//       return res.status(404).json({ msg: "no questions by the user" });
-//     }
-//     return res.status(200).json(questions);
-//   } catch (error) {
-//     res.status(500).json({ msg: error.message });
-//   }
-// };
-
 //*                         Handle Report!!
 ///////////////////////////////////////////////////////////////
 
@@ -231,7 +231,7 @@ const reportQuestion = asyncHandler(async (req, res) => {
 module.exports = {
   createQuestion,
   getQuestions,
-  getUpdatedQuestions,
+  getLatestQuestions,
   getQuestion,
   deleteQuestion,
   updateQuestion,
