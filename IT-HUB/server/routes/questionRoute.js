@@ -16,7 +16,6 @@ const {
 
 router.post("/", protect, upload.single("image"), createQuestion);
 router.get("/", getQuestions);
-router.get("/liked", getLikedQuestions);
 router.get("/recentlyupdated/:pageNumber", getUpdatedQuestions);
 router.get("/:questionId", validateIds("questionId"), getQuestion);
 router.delete(

@@ -49,23 +49,13 @@ const createQuestion = asyncHandler(async (req, res) => {
   res.status(200).json(savedQuestion);
 });
 
-//*                              get questions
+//*                              get all questions
 ////////////////////////////////////////////////////////////////////
 
 const getQuestions = asyncHandler(async (req, res) => {
-  const questions = await Question.find().populate(
-    "questioner",
-    "name email image.imagePath image.thumb image.profile _id"
-  );
-  res.status(200).json(questions);
-});
-
-//* get most liked questions
-/////////////////////////////////////////////////////////////////////////
-const getLikedQuestions = asyncHandler(async (req, res) => {
   const questions = await Question.find()
-    .populate("questioner", "name email image.imagePath _id")
-    .sort({ "upvote.count": -1 });
+    .populate("questioner", "name image.imagePath")
+    .select("-comments.commentIds -__v");
   res.status(200).json(questions);
 });
 
@@ -87,10 +77,9 @@ const getUpdatedQuestions = asyncHandler(async (req, res) => {
 
 const getQuestion = asyncHandler(async (req, res) => {
   const { questionId } = req.params;
-  const question = await Question.findById(questionId).populate(
-    "questioner",
-    "_id name email image.imagePath"
-  );
+  const question = await Question.findById(questionId)
+    .populate("questioner", "_id name image.imagePath")
+    .select("-comments.commentIds -__v");
   if (!question) {
     return res.status(404).json(`no question with id: ${questionId}`);
   } else {
@@ -107,9 +96,8 @@ const deleteQuestion = asyncHandler(async (req, res) => {
     _id: questionId,
     questioner: req.user._id,
   });
-  console.log(deletedQuestion);
   if (!deletedQuestion) {
-    res.status(404);
+    res.status(400);
     throw new Error(`could not delete question with id: ${questionId}`);
   }
 
@@ -118,7 +106,7 @@ const deleteQuestion = asyncHandler(async (req, res) => {
   }
 
   await Comment.deleteMany({
-    _id: deletedQuestion.comments,
+    _id: deletedQuestion.comments.commentIds,
   });
 
   const notification = await Notification.deleteMany({
@@ -236,7 +224,6 @@ const reportQuestion = asyncHandler(async (req, res) => {
 module.exports = {
   createQuestion,
   getQuestions,
-  getLikedQuestions,
   getUpdatedQuestions,
   getQuestion,
   deleteQuestion,

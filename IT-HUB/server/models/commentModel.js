@@ -45,13 +45,13 @@ commentSchema.post("findOneAndDelete", async function (comment) {
   await Question.findByIdAndUpdate(
     comment.questionId,
     {
-      $pull: { comments: mongoose.Types.ObjectId(comment._id) },
+      $pull: { "comments.commentIds": mongoose.Types.ObjectId(comment._id) },
+      $inc: { "comments.count": -1 },
     },
     { new: true }
   );
 });
 
-//* before creating comment question should be verified
 //* also push the new created comment's id to question's comment array
 commentSchema.pre("save", function (next) {
   if (this.isModified("upvote") || this.isModified("isReported")) return next();
@@ -60,7 +60,8 @@ commentSchema.pre("save", function (next) {
     if (err) {
       return next(new Error("server error occured"));
     }
-    question.comments.push(_id);
+    question.comments.commentIds.push(_id);
+    question.comments.count += 1;
     question.save();
     next();
   });

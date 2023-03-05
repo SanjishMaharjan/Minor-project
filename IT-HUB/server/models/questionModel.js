@@ -11,12 +11,15 @@ const questionSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    comments: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Comment",
-      },
-    ],
+    comments: {
+      count: { type: Number, default: 0, min: 0 },
+      commentIds: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Comment",
+        },
+      ],
+    },
     questioner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
