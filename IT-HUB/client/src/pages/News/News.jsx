@@ -1,32 +1,30 @@
-import { useLoaderData, Link, useNavigation, useParams } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
 import Loader from "../../components/Loader";
+import React, { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { fetchNews } from "../../Api/news_utils";
 import "./NewsStyles.scss";
-import { getDate } from "../../Utils/dateConverter";
-import { useEffect, useState } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
-
-import { customAxios } from "../../App";
 
 const News = () => {
   if (useNavigation().state === "loading") return <Loader />;
-  const [news, setNews] = useState([]);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
 
-  const { id } = useParams();
+  const { ref, inView } = useInView();
+
+  const { status, data, fetchNextPage } = useInfiniteQuery(
+    ["news"],
+    ({ pageParam = 1 }) => fetchNews(pageParam),
+    {
+      getNextPageParam: (lastPage, allPages) =>
+        lastPage.length === 0 ? undefined : allPages.length + 1,
+    }
+  );
 
   useEffect(() => {
-    fetchNews();
-  }, []);
+    if (inView) fetchNextPage();
+  }, [inView]);
 
-  const fetchNews = async () => {
-    console.log("reached");
-    const response = await customAxios.get(`/news/pages/${page}`);
-    const data = await response.data;
-    setNews([...news, ...data]);
-    setPage(page + 1);
-    if (page >= 10) setHasMore(false);
-  };
+  if (status === "loading") return <Loader />;
 
   return (
     <>
@@ -34,30 +32,28 @@ const News = () => {
         <h1>Crunchy Bytes</h1>
       </div>
       <div className="news-wrapper">
-        <InfiniteScroll
-          dataLength={news.length}
-          next={fetchNews}
-          hasMore={hasMore}
-          loader={<Loader />}
-        >
-          {news.map((item) => {
-            return (
-              <div key={item._id}>
-                <div>
+        {data.pages.map((page) => (
+          <React.Fragment key={page.nextId}>
+            {page.map((item) => {
+              return (
+                <div key={item._id}>
+                  <div>
+                    <Link to={item.link} target="_blank">
+                      <img src={item.image} alt="" />
+                    </Link>
+                    <h2>{item.title}</h2>
+                    <p>{item.description.substring(0, 100) + "..."}</p>
+                  </div>
                   <Link to={item.link} target="_blank">
-                    <img src={item.image} alt="" />
+                    <button type="button">Read more</button>
                   </Link>
-                  <h2>{item.title}</h2>
-                  <p>{item.description.substring(0, 100) + "..."}</p>
                 </div>
-                <Link to={item.link} target="_blank">
-                  <button type="button">Read more</button>
-                </Link>
-              </div>
-            );
-          })}
-        </InfiniteScroll>
+              );
+            })}
+          </React.Fragment>
+        ))}
       </div>
+      <p ref={ref}> End of Crunchy Bytes </p>
     </>
   );
 };
