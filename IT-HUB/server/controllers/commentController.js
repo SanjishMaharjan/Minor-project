@@ -51,33 +51,29 @@ const createComment = asyncHandler(async (req, res) => {
 ///////////////////////////////////////////////////////////
 const getComments = asyncHandler(async (req, res) => {
   const { questionId } = req.params;
-
-  const comments = await Comment.find({ questionId })
-    .populate("commenter", "name email image.imagePath -_id")
-    .populate({
-      path: "questionId",
-      select: "question image.imagePath",
-      populate: {
-        path: "questioner",
-        select: "name image.imagePath _id",
-      },
-    });
-
-  const [firstComment, ...restComments] = comments;
-  const restCommentsWithoutQuestionId = restComments.map(
-    ({ _id, answer, isReported, commenter, createdAt, updatedAt, upvote }) => ({
-      _id,
-      answer,
-      isReported,
-      commenter,
-      createdAt,
-      updatedAt,
-      upvote,
-    })
+  const question = await Question.findById(questionId).populate(
+    "questioner",
+    "name image.imagePath"
   );
-  const mergedComment = [firstComment, ...restCommentsWithoutQuestionId];
+  if (!question) {
+    res.status(404);
+    throw new Error(`no question with id:${questionId}`);
+  }
+  console.log(question);
+  const questionInfo = {
+    questioner: question.questioner.name,
+    questionerImage: question.questioner.image.imagePath,
+    questionerId: question.questioner._id,
+    question: question.question,
+    questionId: question._id,
+    QuestionImage: question.image,
+  };
+  const comments = await Comment.find({ questionId }).populate(
+    "commenter",
+    "name  image.imagePath"
+  );
 
-  res.status(200).json(mergedComment);
+  res.status(200).json({ questionInfo, comments });
 });
 
 //*                  get a single comment
