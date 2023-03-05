@@ -2,9 +2,13 @@ const mongoose = require("mongoose");
 
 const questionSchema = mongoose.Schema(
   {
+    title: {
+      type: String,
+      require: [true, "title of query cannot be empty"],
+    },
     question: {
       type: String,
-      required: [true, "query cannot be empty"],
+      require: [true, "query cannot be empty"],
     },
     tag: [String],
     isReported: {

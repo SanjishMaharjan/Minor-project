@@ -55,7 +55,14 @@ const createQuestion = asyncHandler(async (req, res) => {
 const getQuestions = asyncHandler(async (req, res) => {
   const questions = await Question.find()
     .populate("questioner", "name image.imagePath")
-    .select("-comments.commentIds -__v");
+    .populate({
+      path: "comments.commentIds",
+      select: "commenter -_id",
+      populate: {
+        path: "commenter",
+        select: "image.imagePath -_id",
+      },
+    });
   res.status(200).json(questions);
 });
 

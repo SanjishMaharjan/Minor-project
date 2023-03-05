@@ -10,7 +10,6 @@ const {
   deleteQuestion,
   updateQuestion,
   reportQuestion,
-  getLikedQuestions,
   getUpdatedQuestions,
 } = require("../controllers/questionController");
 
