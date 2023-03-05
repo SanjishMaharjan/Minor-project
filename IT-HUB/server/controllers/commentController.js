@@ -59,7 +59,6 @@ const getComments = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error(`no question with id:${questionId}`);
   }
-  console.log(question);
   const questionInfo = {
     questioner: question.questioner.name,
     questionerImage: question.questioner.image.imagePath,
