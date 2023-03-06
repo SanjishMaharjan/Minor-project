@@ -44,25 +44,23 @@
   .line {
     color: var(--alternate-color);
   }
-
 }
 
 .profile-dropdown {
   cursor: pointer;
   position: relative;
 
-  .active-number{
+  .active-number {
     position: absolute;
     font-size: 0.9rem;
     font-weight: 600;
-    color: yellow;
-    top:-4px;
-    right:-10px;
+    color: red;
+    top: -4px;
+    right: -10px;
 
     .active-dot {
       // color: red !important;
       // background-color: red;
     }
-
   }
 }

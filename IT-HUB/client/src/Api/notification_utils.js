@@ -5,7 +5,15 @@ export const getNotification = async () => {
   const notification = await axios.get(`/api/notification`);
   //   console.log(notification);
 
-  await client.invalidateQueries(["notificationCount"]);
+  client.invalidateQueries(["notificationCount"]);
+
+  const oldNotification = client.getQueryData(["notification"]);
+  if (oldNotification) {
+    oldNotification.count = 0;
+  }
+
+  client.setQueryData(["notification"], oldNotification);
+
   return notification.data.reverse();
 };
 
