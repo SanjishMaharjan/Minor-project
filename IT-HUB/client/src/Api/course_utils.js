@@ -25,7 +25,7 @@ export const getRecommend = async () => {
   };
 
   const user = client.getQueryData(["user"]);
-  if (!user) throw new Error();
+  // if (!user) throw new Error();
 
   return client.fetchQuery(["recommend"], queryFn);
 };

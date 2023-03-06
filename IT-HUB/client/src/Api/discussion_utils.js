@@ -93,6 +93,7 @@ export const postQuestion = async ({ request }) => {
   const post = {
     question: formData.get("question"),
     image: formData.get("image"),
+    title: formData.get("title"),
   };
   console.log(post);
 
@@ -179,6 +180,8 @@ export const upvoteAnswer = async ({ params }) => {
   const OldAnswer = OldAnswers.comments.find((a) => a._id === answerId);
   const OldQuestion = OldAnswers.question;
 
+  const oldUnanswered = OldAnswers.unAnswered;
+
   // check if the user has already upvoted the answer
   // first get userId from query cache
   const userId = client.getQueryData(["user"])._id;
@@ -201,7 +204,11 @@ export const upvoteAnswer = async ({ params }) => {
   });
 
   // update the cache
-  client.setQueryData(["answer", id], { question: OldQuestion, comments: newAnswers });
+  client.setQueryData(["answer", id], {
+    question: OldQuestion,
+    comments: newAnswers,
+    unAnswered: oldUnanswered,
+  });
 
   try {
     await axios.patch(`/api/${id}/comment/${answerId}/upvote`);

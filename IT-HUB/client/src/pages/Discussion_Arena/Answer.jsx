@@ -32,9 +32,12 @@ const Answer = () => {
     enabled: false,
   });
 
-  const { questionInfo: question, comments: answers } = data;
+  const { questionInfo: question, comments: answers, unAnswered } = data;
 
   const fetcher = useFetcher();
+
+  console.log(unAnswered);
+
   const res = fetcher.data;
 
   if (res && res.status === 201) return <Navigate to={`/question/${id}`} />;
@@ -152,30 +155,20 @@ const Answer = () => {
           <p>Discussion with no comments. Be first to get in a comment</p>
 
           <div class="unanswered-questions">
-            <div class="unanswered-question">
-              <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
-              <div class="unanswered-content">
-                <p>Pawel Kadysz</p>
-              </div>
-              <span>3 days ago</span>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, ut enim. Laborum
-                ullam dolore fugit perspiciatis, provident ipsum, minus dolores, ut iste doloremque
-                eveniet aperiam? Sed modi laboriosam consequuntur tempora?
-              </p>
-            </div>
-            <div class="unanswered-question">
-              <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
-              <div class="unanswered-content">
-                <p>Pawel Kadysz</p>
-              </div>
-              <span>3 days ago</span>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, ut enim. Laborum
-                ullam dolore fugit perspiciatis, provident ipsum, minus dolores, ut iste doloremque
-                eveniet aperiam? Sed modi laboriosam consequuntur tempora?
-              </p>
-            </div>
+            {unAnswered.map((question) => (
+              <Link to={`/question/${question._id}`}>
+                <div class="unanswered-question">
+                  <Link to={`/profile/${question.questioner._id}`}>
+                    <img src={question.questioner.image.imagePath} height="20" width="20" alt="" />
+                  </Link>
+                  <div class="unanswered-content">
+                    <p>{question.questioner.name}</p>
+                  </div>
+                  <span>{getDate(question.createdAt)} ago </span>
+                  <p>{question.question}</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

@@ -25,6 +25,8 @@ const PostQuestion = () => {
             src={user?.image?.imagePath}
           ></img>
           <Form method="post" action="/question/new" encType="multipart/form-data">
+            <input type="text" name="title" placeholder="Enter title here" />
+            <br />
             <p className="input-box"> {serverError ?? null} </p>
             <textarea
               className="post-question"

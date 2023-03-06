@@ -23,6 +23,9 @@ const Questions = () => {
   const { isLoggedIn, user } = useAuth();
   const { id } = useParams();
   const { data: questions } = useQuery(["question", id], { enabled: false });
+
+  console.log(questions);
+
   const fetcher = useFetcher();
 
   if (useNavigation().state === "loading" && fetcher.formData == null) return <Loader />;
@@ -43,17 +46,18 @@ const Questions = () => {
                   <h1>{question.questioner.name}</h1>
                   <p>Last engaged {getDate(question.updatedAt) || 1 + "second"} ago</p>
                   <br />
-                  <p>{question.question}</p>
+                  <p>{question.title}</p>
                 </div>
 
                 <div className="reply">
                   <div className="reply-images">
-                    <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
-                    <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
-                    <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
+                    {question.comments.commentIds.map((image) => (
+                      <img src={image.commenter.image.imagePath} height="20" width="20" alt="" />
+                    ))}
+
                     <CgMoreO color="green" fontSize="1.3rem" />
                   </div>
-                  <p>25 comments</p>
+                  <p>{question.comments.count} comments</p>
                 </div>
               </div>
             </Link>
