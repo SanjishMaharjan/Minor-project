@@ -7,9 +7,19 @@
     margin-inline: auto;
   }
 
-  .love {
-    font-size: 1.8rem;
+  .love,
+  .delete,
+  .report {
+    font-size: 1.5rem;
+    // color: var(--hover-color);
+    transition: all ease-in 0.25s;
+  }
+
+  .love:hover,
+  .delete:hover,
+  .report:hover {
     color: var(--hover-color);
+    fill: var(--hover-color);
   }
 
   img {
@@ -55,6 +65,12 @@
     display: flex;
     width: 80%;
     margin-inline: auto;
+    gap: 3rem;
+
+    p {
+      color: rgb(187, 112, 112);
+      align-self: center;
+    }
   }
 
   form .form-profile {
@@ -102,6 +118,13 @@
     display: flex;
     gap: 1.5rem;
     align-items: center;
+
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--alternate-color);
+    }
   }
 
   span {

@@ -20,7 +20,6 @@ export const getNotificationCount = async () => {
   const queryFn = async () => {
     const notification = await axios.get(`/api/notification/count`);
 
-    console.log(notification.data);
     return notification.data;
   };
   const user = client.getQueryData(["user"]);

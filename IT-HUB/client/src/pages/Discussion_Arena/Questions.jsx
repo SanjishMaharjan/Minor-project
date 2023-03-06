@@ -41,7 +41,7 @@ const Questions = () => {
                 </div>
                 <div className="question-content">
                   <h1>{question.questioner.name}</h1>
-                  <p>Last engaged {getDate(question.createdAt) || 1 + "second"} ago</p>
+                  <p>Last engaged {getDate(question.updatedAt) || 1 + "second"} ago</p>
                   <br />
                   <p>{question.question}</p>
                 </div>

@@ -6,6 +6,7 @@ import {
   Navigate,
   useActionData,
   useParams,
+  useFetcher,
 } from "react-router-dom";
 import Loader from "../../components/Loader";
 import { getDate } from "../../Utils/dateConverter";
@@ -31,18 +32,17 @@ const Answer = () => {
     enabled: false,
   });
 
-  console.log(data, user);
-
   const { questionInfo: question, comments: answers } = data;
 
-  const res = useActionData();
+  const fetcher = useFetcher();
+  const res = fetcher.data;
 
   if (res && res.status === 201) return <Navigate to={`/question/${id}`} />;
 
   const serverError = res?.status === 400 && res?.data?.msg;
   const answerError = res?.status === 403 && res?.data?.errors?.answer;
 
-  if (useNavigation().state === "loading") return <Loader />;
+  if (useNavigation().state === "loading" && fetcher.formData == null) return <Loader />;
 
   return (
     <>
@@ -51,30 +51,32 @@ const Answer = () => {
           <div class="answer-header">
             <h1>How would you describe the community we're creating here on Stack Overflow?</h1>
             <div class="question">
-              <Link to={`/profile/${question.questionerId}`}>
-                <img src={question.questionerImage} height="50" width="50" alt="" />
+              <Link to={`/profile/${question?.questionerId}`}>
+                <img src={question?.questionerImage} height="50" width="50" alt="" />
               </Link>
               <div class="question-content">
-                <p>{question.questioner}</p>
-                <span> {getDate(question.QuestionDate)} ago</span>
-                <p>{question.question}</p>
+                <p>{question?.questioner}</p>
+                <span> {getDate(question?.QuestionDate)} ago</span>
+                <p>{question?.question}</p>
               </div>
             </div>
 
-            <Form method="post" action={`/question/${question.questionId}`}>
+            <fetcher.Form method="post" action={`/question/${question?.questionId}`}>
               <div class="form-profile">
                 <img src={user.image.imagePath} height="50" width="50" alt="" />
-
                 <input
+                  className="answer-input"
                   type="text"
                   name="answer"
-                  placeholder={`click here to answer ${question.questioner}`}
+                  placeholder={`click here to answer ${question?.questioner}`}
                 />
               </div>
               <div class="button">
                 <button>Post comment</button>
+                {answerError && <p className="error">{answerError}</p>}
+                {serverError && <p className="error">{serverError}</p>}
               </div>
-            </Form>
+            </fetcher.Form>
           </div>
 
           <p class="comment-no">{answers.length} comments</p>
@@ -82,26 +84,32 @@ const Answer = () => {
           <div class="answer-container">
             {answers.map((answer) => (
               <div class="answer">
-                <img src={answer.commenter.image.imagePath} height="50" width="50" alt="" />
+                <img src={answer?.commenter?.image?.imagePath} height="50" width="50" alt="" />
                 <div class="question-content">
-                  <p>{answer.commenter.name + " "} </p>
-                  <span> {" " + "   " + getDate(answer.createdAt)} ago</span>
+                  <p>{answer?.commenter?.name + " "} </p>
+                  <span> {" " + "   " + getDate(answer?.createdAt)} ago</span>
                   <p>{answer.answer}</p>
                 </div>
                 <div className="answer-icons">
-                  <HiFlag className="icons" />
                   {user._id === "question.questioner._id" && (
                     <i className="fa-solid fa-pen-to-square"></i>
                   )}
-
-                  {user._id === "question.questioner._id" && (
-                    <fetcher.Form method="delete" action={"/question/${question._id}/delete"}>
-                      <button type="submit">
-                        <FaTrash className="icons" />
-                      </button>
-                    </fetcher.Form>
-                  )}
-                  <AiFillHeart className="love" />
+                  {/* <AiFillHeart className="love" /> */}
+                  <fetcher.Form method="post" action={`#`}>
+                    <HiFlag className="icons" type="submit" />
+                  </fetcher.Form>
+                  <fetcher.Form
+                    method="post"
+                    action={`/${question?.questionId}/answer/${answer._id}/upvote`}
+                  >
+                    <button>
+                      {answer?.upvote?.upvoters.includes(user._id) ? (
+                        <AiFillHeart className="love" fill="green" />
+                      ) : (
+                        <FaRegHeart className="love" />
+                      )}
+                    </button>
+                  </fetcher.Form>
                 </div>
               </div>
             ))}

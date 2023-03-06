@@ -25,7 +25,6 @@ export const getRecommend = async () => {
   };
 
   const user = client.getQueryData(["user"]);
-  console.log(user);
   if (!user) throw new Error();
 
   return client.fetchQuery(["recommend"], queryFn);
@@ -48,7 +47,6 @@ export const searchCourse = async ({ request }) => {
     const data = await customAxios.get(`/course/search/?search=${search_params}`);
     return data.data;
   } catch (error) {
-    console.log(error);
     return redirect("/course");
   }
 };

@@ -139,12 +139,76 @@ export const commentQuestion = async ({ params, request }) => {
     answer: formData.get("answer"),
   };
 
+  // get the question from cache
+
+  const OldAnswers = client.getQueryData(["answer", id]);
+
+  const { comments, questionInfo } = OldAnswers;
+
+  // validate the data
   const res = await validator(data, postAnswerSchema);
-  if (res.status === 403) return res;
+  if (res.status == 403) return res;
 
-  const response = await axios.post(`/api/${id}/comment`, data);
+  // add the answer to the cache
+  const newAnswers = [...comments, data];
 
-  client.invalidateQueries(["answer", id]);
-  // if (response.status != 201) throw new Error("Not Found", { status: 404 });
-  return response;
+  // update the cache
+  client.setQueryData(["answer", id], { questionInfo, comments: newAnswers });
+
+  // reset the form
+  document.querySelector(".answer-input").value = "";
+
+  try {
+    const response = await axios.post(`/api/${id}/comment`, data);
+    client.invalidateQueries(["answer", id]);
+    return response;
+  } catch (error) {
+    client.setQueryData(["answer", id], OldAnswers);
+    return error.response;
+  }
+};
+
+// upvote an answer
+export const upvoteAnswer = async ({ params }) => {
+  const { id, answerId } = params;
+
+  // get the answer from cache
+
+  const OldAnswers = client.getQueryData(["answer", id]);
+
+  const OldAnswer = OldAnswers.comments.find((a) => a._id === answerId);
+  const OldQuestion = OldAnswers.question;
+
+  // check if the user has already upvoted the answer
+  // first get userId from query cache
+  const userId = client.getQueryData(["user"])._id;
+
+  if (OldAnswer.upvote.upvoters.includes(userId)) {
+    OldAnswer.upvote.count -= 1;
+    OldAnswer.upvote.upvoters = OldAnswer.upvote.upvoters.filter((u) => u !== userId);
+    // update the array
+  } else {
+    OldAnswer.upvote.count += 1;
+    // remove the user from the upvoters array
+    OldAnswer.upvote.upvoters.push(userId);
+  }
+
+  const newAnswers = OldAnswers.comments.map((a) => {
+    if (a._id === answerId) {
+      return OldAnswer;
+    }
+    return a;
+  });
+
+  // update the cache
+  client.setQueryData(["answer", id], { question: OldQuestion, comments: newAnswers });
+
+  try {
+    await axios.patch(`/api/${id}/comment/${answerId}/upvote`);
+
+    client.invalidateQueries(["answer", id]);
+    return redirect(`/question/${id}`);
+  } catch (error) {
+    client.setQueryData(["answer", id], OldAnswers);
+  }
 };

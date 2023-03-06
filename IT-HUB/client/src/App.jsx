@@ -50,6 +50,7 @@ import {
   deleteQuestion,
   commentQuestion,
   upvoteQuestion,
+  upvoteAnswer,
 } from "./Api/discussion_utils";
 import { forgotPassword, verifyUser, validateRegister, handleLogin } from "./Api/login_utils";
 import { fetchProfile } from "./Api/profile";
@@ -80,7 +81,8 @@ const router = createBrowserRouter(
       {/* <Route path="/question" loader={getQuestion} element={<Questions />} /> */}
       <Route path="/question/page/:id" loader={getQuestion} element={<Questions />} />
 
-      <Route element={<RequireLogin />} errorElement={<NotLoggedIn />}>
+      <Route element={<RequireLogin />}>
+        {/* <Route element={<RequireLogin />} errorElement={<NotLoggedIn />}> */}
         <Route path="/course" loader={getRecommend} element={<Courses />} />
         <Route path="/search" loader={searchCourse} element={<Courses />} />
 
@@ -100,6 +102,11 @@ const router = createBrowserRouter(
         <Route
           path="/question/:id/upvote"
           action={upvoteQuestion}
+          errorElement={<h1>Cannot upvote</h1>}
+        />
+        <Route
+          path=":id/answer/:answerId/upvote"
+          action={upvoteAnswer}
           errorElement={<h1>Cannot upvote</h1>}
         />
         <Route path="/profile/:id" loader={fetchProfile} element={<StudentProfile />} />
