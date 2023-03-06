@@ -15,7 +15,7 @@ const {
 } = require("../controllers/questionController");
 
 router.post("/", protect, upload.single("image"), createQuestion);
-router.get("/mydiscussion", protect, getQuestionByUser);
+router.get("/mydiscussion/page/:pageNumber", protect, getQuestionByUser);
 router.get("/page/:pageNumber", getQuestions);
 router.get("/latest/:pageNumber", getLatestQuestions);
 router.get("/:questionId", validateIds("questionId"), getQuestion);

@@ -110,7 +110,21 @@ const getQuestion = asyncHandler(async (req, res) => {
 //*                 Get all questions of a current User
 ////////////////////////////////////////////////////////////////////////////
 const getQuestionByUser = asyncHandler(async (req, res) => {
-  const questions = await Question.find({ questioner: req.user._id });
+  const pageSize = 5;
+  const pageNumber = req.params.pageNumber || 1;
+  const questions = await Question.find({ questioner: req.user._id })
+    .populate("questioner", "name image.imagePath")
+    .populate({
+      path: "comments.commentIds",
+      select: "commenter -_id",
+      populate: {
+        path: "commenter",
+        select: "image.imagePath -_id",
+      },
+    })
+    .sort({ updatedAt: -1 })
+    .skip((pageNumber - 1) * pageSize)
+    .limit(pageSize);
   return res.status(200).json(questions);
 });
 //*                      delete a single question
