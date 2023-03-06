@@ -5,7 +5,7 @@ import { MdOutlineLightMode } from "react-icons/md";
 import { BiMoon } from "react-icons/bi";
 import useToggleTheme from "../../context/ThemeContext";
 
-const Navbar = () => {
+const Navbar = ({ count }) => {
   const { toggleTheme, theme } = useToggleTheme();
 
   return (
@@ -24,7 +24,7 @@ const Navbar = () => {
           <NavLink to="/course">Courses</NavLink>
         </li>
         <li>
-          <NavLink to="/question">Code Café</NavLink>
+          <NavLink to="/question/page/1">Code Café</NavLink>
         </li>
         <li>
           <NavLink to="/events">Events</NavLink>
@@ -39,7 +39,7 @@ const Navbar = () => {
             <BiMoon className="icon " onClick={toggleTheme} />
           )}
         </li>
-        <ProfileDropDown />
+        <ProfileDropDown count={count} />
       </ul>
     </div>
   );

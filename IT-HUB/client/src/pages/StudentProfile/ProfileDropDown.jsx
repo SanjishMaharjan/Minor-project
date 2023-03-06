@@ -9,7 +9,7 @@ import "./dropdown.scss";
 
 import { useState, useRef, useEffect } from "react";
 
-const ProfileDropDown = () => {
+const ProfileDropDown = ({ count }) => {
   const { isLoggedIn, user, isAdmin } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -35,11 +35,8 @@ const ProfileDropDown = () => {
           {/* <i style={{ marginTop: "0.6rem" }} className="fa-solid fa-user"></i> */}
           <FaUserAlt />
           <span className="active-number">
-            {
-              user.notification > 0 ? <GoPrimitiveDot className="active-dot" /> : null
-            }
+            {count > 0 ? <GoPrimitiveDot className="active-dot" /> : null}
           </span>
-
         </div>
       ) : (
         <NavLink to="/login">
@@ -55,10 +52,10 @@ const ProfileDropDown = () => {
             </Link>
 
             <Link to="/notification">
-              <MdOutlineNotificationsActive /> <span className="active-number">Notifs
-                {
-                  user.notification > 0 ? user.notification : null
-                }
+              <MdOutlineNotificationsActive />{" "}
+              <span className="active-number">
+                Notifs
+                {count > 0 ? count : null}
               </span>
             </Link>
 

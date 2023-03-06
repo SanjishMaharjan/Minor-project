@@ -29,11 +29,23 @@
 }
 
 * {
-  color: var(--font-color-primary);
+  // color: var(--font-color-primary);
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+a,
+li,
+ul,
+div {
+  color: var(--font-color-primary);
 }
 
 li {
@@ -42,6 +54,10 @@ li {
 
 a {
   text-decoration: none;
+}
+
+.icons {
+  font-size: 1.8rem;
 }
 
 ::-webkit-scrollbar {
@@ -60,10 +76,10 @@ a {
 }
 
 p {
-  top: auto;
-  display: flex;
-  justify-content: center;
-  text-align: center;
+  // top: auto;
+  // display: flex;
+  // justify-content: center;
+  // text-align: center;
 }
 
 body {

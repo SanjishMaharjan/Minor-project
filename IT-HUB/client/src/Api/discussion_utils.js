@@ -8,12 +8,14 @@ const queryKey = ["question"];
 import { client } from "./queryClient";
 
 // get all the questions
-export const getQuestion = async () => {
+export const getQuestion = async ({ params }) => {
+  const { id } = params;
+  console.log(id);
   const queryFn = async () => {
-    const { data } = await axios.get("/api/question");
-    return data.reverse();
+    const { data } = await axios.get(`/api/question/page/${id}`);
+    return data;
   };
-  return client.fetchQuery(queryKey, queryFn, { staleTime: 1000 * 60 * 1 });
+  return client.fetchQuery(["question", id], queryFn);
 };
 
 // detele a question
@@ -104,7 +106,7 @@ export const postQuestion = async ({ request }) => {
       },
     });
 
-    client.invalidateQueries(queryKey);
+    client.invalidateQueries(["question", "1"]);
 
     return response;
   } catch (error) {
@@ -118,14 +120,15 @@ export const postQuestion = async ({ request }) => {
 export const getAnswer = async ({ params }) => {
   const { id } = params;
 
-  const response = await axios.get(`/api/${id}/comment`);
-  if (response.status != 200) {
-    throw new Error("Not Found", { status: 404 });
-  }
+  const queryFn = async () => {
+    const response = await axios.get(`/api/${id}/comment`);
+    // if (response.status != 200) {
+    //   throw new Error("Not Found", { status: 404 });
+    // }
+    return response.data;
+  };
 
-  console.log(response.data);
-
-  return { answer: response.data, question: response.data[0].questionId };
+  return client.fetchQuery(["answer", id], queryFn);
 };
 
 // post an answer
@@ -140,6 +143,8 @@ export const commentQuestion = async ({ params, request }) => {
   if (res.status === 403) return res;
 
   const response = await axios.post(`/api/${id}/comment`, data);
+
+  client.invalidateQueries(["answer", id]);
   // if (response.status != 201) throw new Error("Not Found", { status: 404 });
   return response;
 };

@@ -19,10 +19,14 @@ export const getRecommend = async () => {
     } catch (error) {
       console.log(error);
       if (error.response.status === 401) {
-        throw new Error(error.response.data.detail);
+        throw new Error();
       }
     }
   };
+
+  const user = client.getQueryData(["user"]);
+  console.log(user);
+  if (!user) throw new Error();
 
   return client.fetchQuery(["recommend"], queryFn);
 };

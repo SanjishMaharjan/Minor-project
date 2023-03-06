@@ -1,11 +1,11 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import useAuth from "../context/AuthContext";
-import Handle404 from "../pages/Error/Handle404";
+import NotLoggedIn from "../pages/Error/NotLoggedIn";
 
 const RequireLogin = () => {
   const { isLoggedIn } = useAuth();
   const location = useLocation();
-  return isLoggedIn ? <Outlet /> : null;
+  return isLoggedIn ? <Outlet /> : <NotLoggedIn />;
 };
 
 export default RequireLogin;

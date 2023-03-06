@@ -9,6 +9,8 @@ export const fetchProfile = async ({ params }) => {
     const profile = await axios.get(`/api/users/profile/${id}`);
     return profile.data;
   };
+  const user = client.getQueryData(["user"]);
+  if (!user) throw new Error();
 
   return client.fetchQuery(["profile", id], queryFn);
 };

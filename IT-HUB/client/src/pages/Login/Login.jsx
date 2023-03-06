@@ -5,6 +5,7 @@ import {
   useNavigation,
   NavLink,
   useActionData,
+  Navigate,
 } from "react-router-dom";
 import "./LoginStyles.scss";
 import Loader from "../../components/Loader";
@@ -20,7 +21,7 @@ const Login = () => {
   if (res && res.status === 200) {
     login(res);
 
-    return navigate(prev, { replace: true });
+    return <Navigate to={"/"} />;
   }
 
   const serverError = res?.status === 400 && res?.data?.msg;

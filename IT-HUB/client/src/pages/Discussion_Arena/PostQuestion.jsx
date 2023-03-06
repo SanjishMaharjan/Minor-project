@@ -1,13 +1,14 @@
 import { useNavigate, Form, useNavigation, useActionData, Navigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import useAuth from "../../context/AuthContext";
+import "./QAStyles.scss";
 
 const PostQuestion = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const res = useActionData();
 
-  if (res && res.status === 200) return <Navigate to="/question" />;
+  if (res && res.status === 200) return <Navigate to="/question/page/1" />;
 
   const serverError = res?.status === 404 && res?.data?.msg;
   const questionError = res?.status === 403 && res?.data?.errors?.question;
@@ -36,7 +37,10 @@ const PostQuestion = () => {
             <div className="post-question-footer">
               <button onClick={() => navigate(-1)}>Go back</button>
               <label htmlFor="file-input">
-                <i style={{ fontSize: "2rem", cursor: "pointer" }} className="fa-solid fa-images"></i>
+                <i
+                  style={{ fontSize: "2rem", cursor: "pointer" }}
+                  className="fa-solid fa-images"
+                ></i>
                 <input
                   style={{ display: "none" }}
                   type="file"

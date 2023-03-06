@@ -43,19 +43,21 @@ const StudentProfile = () => {
         <div className="student-details">
           <img width="300px" height="300px" className="profile-pic" src={user?.image?.imagePath} />
           <span>
-            <fetcher.Form method="post" action="/profile" encType="multipart/form-data">
-              <label htmlFor="file-input">
-                <FiEdit3 />
-                <input
-                  style={{ display: "none" }}
-                  type="file"
-                  name="image"
-                  id="file-input"
-                  accept=".png,.jpg"
-                />
-              </label>
-              <button>edit</button>
-            </fetcher.Form>
+            {!id && (
+              <fetcher.Form method="post" action="/profile" encType="multipart/form-data">
+                <label htmlFor="file-input">
+                  <FiEdit3 />
+                  <input
+                    style={{ display: "none" }}
+                    type="file"
+                    name="image"
+                    id="file-input"
+                    accept=".png,.jpg"
+                  />
+                </label>
+                <button>edit</button>
+              </fetcher.Form>
+            )}
           </span>
           <div>
             <h3>Name: {user.name}</h3>

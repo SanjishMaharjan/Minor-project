@@ -8,14 +8,32 @@ import {
   useParams,
 } from "react-router-dom";
 import Loader from "../../components/Loader";
-import useAuth from "../../context/AuthContext";
 import { getDate } from "../../Utils/dateConverter";
+import { FcLikePlaceholder } from "react-icons/fc";
+import { BiComment } from "react-icons/bi";
+import { HiFlag } from "react-icons/hi";
+import { FaTrash } from "react-icons/fa";
+import { CgMoreO } from "react-icons/cg";
+import { FcLike } from "react-icons/fc";
+import { FaRegHeart } from "react-icons/fa";
+import { AiFillHeart } from "react-icons/ai";
+
+import useAuth from "../../context/AuthContext";
+import "./answer.scss";
+import { useQuery } from "@tanstack/react-query";
 
 const Answer = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
 
-  const { answer, question } = useLoaderData();
   const { id } = useParams();
+
+  const { data } = useQuery(["answer", id], {
+    enabled: false,
+  });
+
+  console.log(data, user);
+
+  const { questionInfo: question, comments: answers } = data;
 
   const res = useActionData();
 
@@ -28,80 +46,131 @@ const Answer = () => {
 
   return (
     <>
-      <div className="chat-message">
-        <div className="message-sender">
-          <img
-            className="chat-img"
-            width="50px"
-            height="50px"
-            src={question?.questioner.image?.imagePath}
-          />
-          <h3>{question?.questioner.name}</h3>
-          <h5>{getDate(question?.createdAt) || `1 second`} ago</h5>
+      <div class="answer-wrapper">
+        <div class="first-col">
+          <div class="answer-header">
+            <h1>How would you describe the community we're creating here on Stack Overflow?</h1>
+            <div class="question">
+              <Link to={`/profile/${question.questionerId}`}>
+                <img src={question.questionerImage} height="50" width="50" alt="" />
+              </Link>
+              <div class="question-content">
+                <p>{question.questioner}</p>
+                <span> {getDate(question.QuestionDate)} ago</span>
+                <p>{question.question}</p>
+              </div>
+            </div>
+
+            <Form method="post" action={`/question/${question.questionId}`}>
+              <div class="form-profile">
+                <img src={user.image.imagePath} height="50" width="50" alt="" />
+
+                <input
+                  type="text"
+                  name="answer"
+                  placeholder={`click here to answer ${question.questioner}`}
+                />
+              </div>
+              <div class="button">
+                <button>Post comment</button>
+              </div>
+            </Form>
+          </div>
+
+          <p class="comment-no">{answers.length} comments</p>
+
+          <div class="answer-container">
+            {answers.map((answer) => (
+              <div class="answer">
+                <img src={answer.commenter.image.imagePath} height="50" width="50" alt="" />
+                <div class="question-content">
+                  <p>{answer.commenter.name + " "} </p>
+                  <span> {" " + "   " + getDate(answer.createdAt)} ago</span>
+                  <p>{answer.answer}</p>
+                </div>
+                <div className="answer-icons">
+                  <HiFlag className="icons" />
+                  {user._id === "question.questioner._id" && (
+                    <i className="fa-solid fa-pen-to-square"></i>
+                  )}
+
+                  {user._id === "question.questioner._id" && (
+                    <fetcher.Form method="delete" action={"/question/${question._id}/delete"}>
+                      <button type="submit">
+                        <FaTrash className="icons" />
+                      </button>
+                    </fetcher.Form>
+                  )}
+                  <AiFillHeart className="love" />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="message-content">
-          <h4>{question?.question}</h4>
-          {question?.image && (
-            <img
-              className="posted-img"
-              width="600px"
-              height="auto"
-              src={question?.image?.imagePath}
-            />
-          )}
+
+        <div class="aside">
+          <h2>Top Contributers</h2>
+          <p>People who engaged most on discussion</p>
+
+          <div class="top-contributers">
+            <div class="top-contributer">
+              <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
+              <p>Pawel Kadysz</p>
+              <span>103</span>
+            </div>
+            <div class="top-contributer">
+              <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
+              <p>Pawel Kadysz</p>
+              <span>103</span>
+            </div>
+            <div class="top-contributer">
+              <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
+              <p>Pawel Kadysz</p>
+              <span>103</span>
+            </div>
+            <div class="top-contributer">
+              <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
+              <p>Pawel Kadysz</p>
+              <span>103</span>
+            </div>
+            <div class="top-contributer">
+              <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
+              <p>Pawel Kadysz</p>
+              <span>103</span>
+            </div>
+          </div>
+
+          <h2>Unanswered Questions</h2>
+          <p>Discussion with no comments. Be first to get in a comment</p>
+
+          <div class="unanswered-questions">
+            <div class="unanswered-question">
+              <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
+              <div class="unanswered-content">
+                <p>Pawel Kadysz</p>
+              </div>
+              <span>3 days ago</span>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, ut enim. Laborum
+                ullam dolore fugit perspiciatis, provident ipsum, minus dolores, ut iste doloremque
+                eveniet aperiam? Sed modi laboriosam consequuntur tempora?
+              </p>
+            </div>
+            <div class="unanswered-question">
+              <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
+              <div class="unanswered-content">
+                <p>Pawel Kadysz</p>
+              </div>
+              <span>3 days ago</span>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, ut enim. Laborum
+                ullam dolore fugit perspiciatis, provident ipsum, minus dolores, ut iste doloremque
+                eveniet aperiam? Sed modi laboriosam consequuntur tempora?
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-
-      {answer.map((c) => {
-        return (
-          <div className="chat-message">
-            <div className="message-sender" onClick={() => navigate("/profile")}>
-              {/* <img className="chat-img" width="50px" height="50px" src={c.questioner.image?.imagePath} /> */}
-              <Link to={`/profile/${"scs"}`}>
-                <h3>{c?.commenter?.name}</h3>
-              </Link>
-              <h5>{getDate(c?.createdAt) || `1 second`} ago</h5>
-            </div>
-            <div className="message-content">{c.answer}</div>
-
-            <div className="message-footer">
-              <i style={{}} className="fa-solid fa-angle-up"></i>
-
-              {isLoggedIn && <i className="fa-solid fa-font-awesome"></i>}
-
-              {<i className="fa-solid fa-pen-to-square"></i>}
-
-              {
-                <Form method="delete" action={`/question/${c._id}/delete`}>
-                  <button type="submit">
-                    <i className="fa-solid fa-trash"></i>
-                  </button>
-                </Form>
-              }
-            </div>
-          </div>
-        );
-      })}
-
-      {/* to comment on any post */}
-
-      {isLoggedIn && (
-        <Form method="post" action={`/question/${question?._id}`} className="answer-form">
-          <p className="error">{serverError ?? null}</p>
-          <input
-            className="post-question"
-            type="text"
-            placeholder="Post Your Opinion"
-            name="answer"
-          />
-
-          <p className="error">{answerError ?? null}</p>
-
-          <div className="comment-button">
-            <button type="submit">Post</button>
-          </div>
-        </Form>
-      )}
     </>
   );
 };

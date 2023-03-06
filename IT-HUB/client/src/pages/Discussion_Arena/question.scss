@@ -1,0 +1,156 @@
+.question-wrapper {
+  width: 85%;
+  margin-top: 2.5rem;
+  margin-inline: auto;
+  display: grid;
+  column-gap: 2rem;
+  position: relative;
+
+  grid-template-columns: auto 15%;
+
+  .question {
+    display: grid;
+    grid-template-columns: 5% auto 10%;
+
+    column-gap: 2rem;
+
+    padding: 1.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--background-color);
+    box-shadow: var(--box-shadow);
+
+    margin-bottom: 3rem;
+
+    img {
+      border-radius: 50%;
+      border: 1px solid #ccc;
+    }
+  }
+
+  .question > div:first-child {
+    align-self: start;
+  }
+
+  .question-content {
+    // align-self: start;
+    cursor: pointer;
+  }
+
+  .question-content h1 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .question-content p {
+    font-size: 1rem;
+    color: #666;
+    width: 95%;
+  }
+
+  .reply-images {
+    // display: grid;
+    display: flex;
+    // grid-template-columns: repeat(4, 1fr);
+    // grid-gap: 0.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .reply {
+    margin-top: 1rem;
+  }
+
+  .reply p {
+    font-size: 1rem;
+    color: #666;
+  }
+
+  .aside {
+    position: fixed;
+    // top: calc(100vh - 90rem);
+    top: 15%;
+    right: 5%;
+  }
+
+  .aside > a,
+  button {
+    margin-top: 0.5rem;
+  }
+
+  .aside hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin-block: 1rem;
+  }
+
+  .aside a {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: #666;
+    font-size: 1rem;
+
+    cursor: pointer;
+  }
+
+  .aside a:hover {
+    // color: rgb(65, 171, 249);
+    color: var(--hover-color);
+  }
+
+  .aside .tag::before {
+    content: "";
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: orangered;
+    margin-right: 0.5rem;
+  }
+}
+
+@media (width <= 1200px) {
+  .question-wrapper {
+    width: 90%;
+  }
+  .aside {
+    right: 1%;
+  }
+}
+
+@media (width <= 900px) {
+  .question-wrapper {
+    grid-template-columns: 1fr;
+
+    .aside {
+      position: initial;
+
+      grid-row: 1/2;
+    }
+    .tags {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+
+    .aside hr {
+      margin-block: 0.8rem;
+    }
+
+    .tags a {
+      margin-inline: 0.5rem;
+    }
+  }
+}
+
+@media (width <= 500px) {
+  .question-wrapper {
+    width: 100%;
+  }
+
+  .question {
+    grid-template-columns: 5% auto 1fr;
+  }
+
+  .reply {
+    display: none;
+  }
+}

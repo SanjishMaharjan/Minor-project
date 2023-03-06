@@ -40,6 +40,7 @@ import Answer from "./pages/Discussion_Arena/Answer";
 
 import ErrorHandler from "./pages/Error/ErrorHandler";
 import Handle404 from "./pages/Error/Handle404";
+import NotLoggedIn from "./pages/Error/NotLoggedIn";
 
 import { fetchNews } from "./Api/news_utils";
 import {
@@ -58,7 +59,7 @@ import { getCourse, getRecommend, getPage, searchCourse } from "./Api/course_uti
 import ManageEvents from "./pages/Admin_pannel/ManageEvents/ManageEvents";
 import SideBar from "./pages/Admin_pannel/SideBar";
 import Notification from "./pages/Notification/Notification";
-import { getNotification } from "./Api/notification_utils";
+import { getNotification, getNotificationCount } from "./Api/notification_utils";
 import { changeProfileImage } from "./Api/profile";
 
 axios.defaults.withCredentials = true;
@@ -71,25 +72,20 @@ customAxios.defaults.withCredentials = true;
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
+    <Route path="/" loader={getNotificationCount} element={<Layout />}>
       <Route index element={<Home />} />
-
-      <Route path="/course" loader={getRecommend} element={<Courses />} />
-      <Route path="/search" loader={searchCourse} element={<Courses />} />
-
-      <Route path="/course/pages/:id" loader={getPage} element={<Courses />} />
 
       <Route path="/news" element={<News />} errorElement={<ErrorHandler />} />
 
-      <Route path="/question" loader={getQuestion} element={<Questions />} />
+      {/* <Route path="/question" loader={getQuestion} element={<Questions />} /> */}
+      <Route path="/question/page/:id" loader={getQuestion} element={<Questions />} />
 
-      <Route element={<RequireLogin />}>
-        <Route
-          path="/question/new"
-          action={postQuestion}
-          element={<PostQuestion />}
-          errorElement={<ErrorHandler />}
-        />
+      <Route element={<RequireLogin />} errorElement={<NotLoggedIn />}>
+        <Route path="/course" loader={getRecommend} element={<Courses />} />
+        <Route path="/search" loader={searchCourse} element={<Courses />} />
+
+        <Route path="/course/pages/:id" loader={getPage} element={<Courses />} />
+        <Route path="/question/new" action={postQuestion} element={<PostQuestion />} />
         <Route
           path="/question/:id"
           loader={getAnswer}
@@ -106,6 +102,8 @@ const router = createBrowserRouter(
           action={upvoteQuestion}
           errorElement={<h1>Cannot upvote</h1>}
         />
+        <Route path="/profile/:id" loader={fetchProfile} element={<StudentProfile />} />
+        <Route path="/profile" action={changeProfileImage} element={<StudentProfile />} />
       </Route>
 
       <Route path="/events" loader={getImages} element={<Events />} />
@@ -132,8 +130,6 @@ const router = createBrowserRouter(
         action={validateRegister}
         errorElement={<ErrorHandler />}
       />
-      <Route path="/profile" action={changeProfileImage} element={<StudentProfile />} />
-      <Route path="/profile/:id" loader={fetchProfile} element={<StudentProfile />} />
       <Route
         path="/forgotpassword"
         element={<ForgotPassword />}
