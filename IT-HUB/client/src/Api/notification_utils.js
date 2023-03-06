@@ -7,12 +7,14 @@ export const getNotification = async () => {
 
   client.invalidateQueries(["notificationCount"]);
 
-  const oldNotification = client.getQueryData(["notification"]);
+  const oldNotification = client.getQueryData(["notificationCount"]);
   if (oldNotification) {
     oldNotification.count = 0;
   }
 
-  client.setQueryData(["notification"], oldNotification);
+  console.log(oldNotification);
+
+  client.setQueryData(["notificationCount"], oldNotification);
 
   return notification.data.reverse();
 };
@@ -22,7 +24,7 @@ export const getNotificationCount = async () => {
     const notification = await axios.get(`/api/notification/count`);
 
     console.log(notification.data);
-    return notification.data.count;
+    return notification.data;
   };
   const user = client.getQueryData(["user"]);
   if (!user) return 0;

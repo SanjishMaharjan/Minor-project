@@ -35,7 +35,7 @@ const ProfileDropDown = ({ count }) => {
           {/* <i style={{ marginTop: "0.6rem" }} className="fa-solid fa-user"></i> */}
           <FaUserAlt />
           <span className="active-number">
-            {count > 0 ? <GoPrimitiveDot className="active-dot" /> : null}
+            {count.count > 0 ? <GoPrimitiveDot className="active-dot" /> : null}
           </span>
         </div>
       ) : (
@@ -55,7 +55,7 @@ const ProfileDropDown = ({ count }) => {
               <MdOutlineNotificationsActive />{" "}
               <span className="active-number">
                 Notifs
-                {count > 0 ? count : null}
+                {count.count > 0 ? count.count : null}
               </span>
             </Link>
 
