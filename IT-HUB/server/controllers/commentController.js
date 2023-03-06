@@ -70,6 +70,15 @@ const getComments = asyncHandler(async (req, res) => {
   const unAnswered = await Question.aggregate([
     { $match: { "comments.commentIds": [] } },
     { $sample: { size: 5 } },
+    {
+      $lookup: {
+        from: "users",
+        localField: "questioner",
+        foreignField: "_id",
+        as: "questioner",
+      },
+    },
+    { $unwind: "$questioner" },
   ]);
 
   const comments = await Comment.find({ questionId }).populate(
