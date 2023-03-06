@@ -56,6 +56,7 @@ const createQuestion = asyncHandler(async (req, res) => {
 const getQuestions = asyncHandler(async (req, res) => {
   const pageSize = 5;
   const pageNumber = req.params.pageNumber || 1;
+  const totalQuestions = (await Question.countDocuments()) / pageSize;
   const questions = await Question.find()
     .populate("questioner", "name image.imagePath")
     .populate({
@@ -69,8 +70,7 @@ const getQuestions = asyncHandler(async (req, res) => {
     .sort({ updatedAt: -1 })
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize);
-  console.log(questions);
-  res.status(200).json(questions);
+  res.status(200).json({ totalQuestions, questions });
 });
 
 //* get most recently updated questions
@@ -114,6 +114,7 @@ const getQuestion = asyncHandler(async (req, res) => {
 const getQuestionByUser = asyncHandler(async (req, res) => {
   const pageSize = 5;
   const pageNumber = req.params.pageNumber || 1;
+  const totalQuestions = (await Question.countDocuments()) / pageSize;
   const questions = await Question.find({ questioner: req.user._id })
     .populate("questioner", "name image.imagePath")
     .populate({
@@ -127,7 +128,7 @@ const getQuestionByUser = asyncHandler(async (req, res) => {
     .sort({ updatedAt: -1 })
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize);
-  return res.status(200).json(questions);
+  return res.status(200).json({ totalQuestions, questions });
 });
 //*                      delete a single question
 /////////////////////////////////////////////////////////////////////////

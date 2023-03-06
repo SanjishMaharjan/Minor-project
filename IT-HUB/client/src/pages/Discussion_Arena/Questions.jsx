@@ -36,11 +36,13 @@ const Questions = () => {
     currentPage = "question";
   }
 
-  console.log(questions);
+  const totalPages = questions.totalQuestions;
+  questions = questions.questions;
 
   const fetcher = useFetcher();
 
-  if (useNavigation().state === "loading" && fetcher.formData == null) return <Loader />;
+  if (useNavigation().state === "loading" && fetcher.formData == null)
+    return <Loader />;
 
   return (
     <>
@@ -51,12 +53,20 @@ const Questions = () => {
               <div className="question">
                 <div className="div">
                   <Link to={`/profile/${question.questioner._id}`}>
-                    <img src={question.questioner.image.imagePath} height="50" width="50" alt="" />
+                    <img
+                      src={question.questioner.image.imagePath}
+                      height="50"
+                      width="50"
+                      alt=""
+                    />
                   </Link>
                 </div>
                 <div className="question-content">
                   <h1>{question.questioner.name}</h1>
-                  <p>Last engaged {getDate(question.updatedAt) || 1 + "second"} ago</p>
+                  <p>
+                    Last engaged {getDate(question.updatedAt) || 1 + "second"}{" "}
+                    ago
+                  </p>
                   <br />
                   <p>{question.title}</p>
                 </div>
@@ -75,7 +85,9 @@ const Questions = () => {
                         )
                     )}
 
-                    {question.comments.count > 3 && <CgMoreO color="green" fontSize="1.3rem" />}
+                    {question.comments.count > 3 && (
+                      <CgMoreO color="green" fontSize="1.3rem" />
+                    )}
                   </div>
                   <p>{question.comments.count} comments</p>
                 </div>
@@ -93,7 +105,6 @@ const Questions = () => {
           </Link>
 
           <hr />
-
           <div className="tags">
             <a className="tag">#javascript</a>
             <a className="tag">#python</a>
@@ -102,7 +113,11 @@ const Questions = () => {
           </div>
         </div>
       </div>
-      <Pagination currentPage={Number(id)} totalPages={10} baseUrl={`/${currentPage}/page`} />
+      <Pagination
+        currentPage={Number(id)}
+        totalPages={Number(totalPages)}
+        baseUrl={`/${currentPage}/page`}
+      />
     </>
   );
 };
