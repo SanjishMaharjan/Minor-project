@@ -64,6 +64,7 @@ const getComments = asyncHandler(async (req, res) => {
     question: question.question,
     questionId: question._id,
     QuestionImage: question.image,
+    QuestionDate: question.createdAt,
   };
   const comments = await Comment.find({ questionId }).populate(
     "commenter",
