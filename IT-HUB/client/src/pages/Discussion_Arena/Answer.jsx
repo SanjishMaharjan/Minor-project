@@ -36,7 +36,7 @@ const Answer = () => {
 
   const fetcher = useFetcher();
 
-  console.log(unAnswered);
+  console.log(question);
 
   const res = fetcher.data;
 
@@ -52,7 +52,7 @@ const Answer = () => {
       <div class="answer-wrapper">
         <div class="first-col">
           <div class="answer-header">
-            <h1>How would you describe the community we're creating here on Stack Overflow?</h1>
+            <h1>{question.questionTitle}</h1>
             <div class="question">
               <Link to={`/profile/${question?.questionerId}`}>
                 <img src={question?.questionerImage} height="50" width="50" alt="" />
@@ -67,7 +67,15 @@ const Answer = () => {
             <fetcher.Form method="post" action={`/question/${question?.questionId}`}>
               <div class="form-profile">
                 <img src={user.image.imagePath} height="50" width="50" alt="" />
-                <input
+                {/* <input
+                  className="answer-input"
+                  type="text"
+                  name="answer"
+                  placeholder={`click here to answer ${question?.questioner}`}
+                /> */}
+                <textarea
+                  cols={30}
+                  rows={5}
                   className="answer-input"
                   type="text"
                   name="answer"
@@ -103,9 +111,9 @@ const Answer = () => {
                     <i className="fa-solid fa-pen-to-square"></i>
                   )}
                   {/* <AiFillHeart className="love" /> */}
-                  <fetcher.Form method="post" action={`#`}>
+                  {/* <fetcher.Form method="post" action={`#`}>
                     <HiFlag className="icons" type="submit" />
-                  </fetcher.Form>
+                  </fetcher.Form> */}
                   <fetcher.Form
                     method="post"
                     action={`/${question?.questionId}/answer/${answer._id}/upvote`}

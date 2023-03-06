@@ -6,6 +6,7 @@ import {
   Form,
   useNavigation,
   useParams,
+  useLocation,
 } from "react-router-dom";
 import { getDate } from "../../Utils/dateConverter";
 import { BiUpvote, BiDownvote, BiComment } from "react-icons/bi";
@@ -22,7 +23,18 @@ import Pagination from "../../components/Pagination";
 const Questions = () => {
   const { isLoggedIn, user } = useAuth();
   const { id } = useParams();
-  const { data: questions } = useQuery(["question", id], { enabled: false });
+
+  // use location to get the current page
+  const location = useLocation();
+  let currentPage = location.pathname.split("/")[1];
+  console.log(currentPage);
+  let questions;
+  if (currentPage === "mydiscussion") {
+    questions = useQuery(["myquestion", id], { enabled: false }).data;
+  } else {
+    questions = useQuery(["question", id], { enabled: false }).data;
+    currentPage = "question";
+  }
 
   console.log(questions);
 
@@ -76,7 +88,7 @@ const Questions = () => {
           <Link to="/question/new">
             <button>Start Discussion</button>
           </Link>
-          <Link to="#">
+          <Link to={`/mydiscussion/page/1`}>
             <a>My discussion</a>
           </Link>
 
@@ -90,7 +102,7 @@ const Questions = () => {
           </div>
         </div>
       </div>
-      <Pagination currentPage={Number(id)} totalPages={10} baseUrl={`/question/page`} />
+      <Pagination currentPage={Number(id)} totalPages={10} baseUrl={`/${currentPage}/page`} />
     </>
   );
 };

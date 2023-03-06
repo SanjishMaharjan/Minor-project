@@ -45,6 +45,7 @@ import NotLoggedIn from "./pages/Error/NotLoggedIn";
 import { fetchNews } from "./Api/news_utils";
 import {
   getQuestion,
+  getMyQuestion,
   getAnswer,
   postQuestion,
   deleteQuestion,
@@ -80,6 +81,7 @@ const router = createBrowserRouter(
 
       {/* <Route path="/question" loader={getQuestion} element={<Questions />} /> */}
       <Route path="/question/page/:id" loader={getQuestion} element={<Questions />} />
+      <Route path="/mydiscussion/page/:id" loader={getMyQuestion} element={<Questions />} />
 
       <Route element={<RequireLogin />} errorElement={<NotLoggedIn />}>
         <Route path="/course" loader={getRecommend} element={<Courses />} />

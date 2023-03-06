@@ -79,7 +79,7 @@
     margin-bottom: 2rem;
   }
 
-  .form-profile input {
+  .form-profile textarea {
     font-size: 1rem;
     flex-basis: 60%;
     border: 1px solid #ccc;
@@ -91,7 +91,7 @@
     border-radius: 5px;
   }
 
-  .form-profile input:focus {
+  .form-profile textarea:focus {
     outline: none;
   }
 
