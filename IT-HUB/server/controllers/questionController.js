@@ -13,9 +13,9 @@ const Notification = require("../models/notificationModel");
 const createQuestion = asyncHandler(async (req, res) => {
   const { question, tag } = req.body;
 
-  if (!question) {
+  if (!question || !title) {
     res.status(400);
-    throw new Error("question field cannot be empty!");
+    throw new Error("question and title field cannot be empty!");
   }
 
   imageData = {};
