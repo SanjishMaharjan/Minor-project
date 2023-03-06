@@ -3,7 +3,6 @@ import { client } from "./queryClient";
 
 export const getNotification = async () => {
   const notification = await axios.get(`/api/notification`);
-  //   console.log(notification);
 
   client.invalidateQueries(["notificationCount"]);
 
@@ -11,8 +10,6 @@ export const getNotification = async () => {
   if (oldNotification) {
     oldNotification.count = 0;
   }
-
-  console.log(oldNotification);
 
   client.setQueryData(["notificationCount"], oldNotification);
 
@@ -29,5 +26,7 @@ export const getNotificationCount = async () => {
   const user = client.getQueryData(["user"]);
   if (!user) return 0;
 
-  return client.fetchQuery(["notificationCount"], queryFn);
+  return client.fetchQuery(["notificationCount"], queryFn, {
+    staleTime: 1000 * 60 * 5,
+  });
 };
