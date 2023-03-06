@@ -63,6 +63,7 @@ const getComments = asyncHandler(async (req, res) => {
     questionerId: question.questioner._id,
     question: question.question,
     questionId: question._id,
+    questionTitle: question.title,
     QuestionImage: question.image,
     QuestionDate: question.createdAt,
   };
@@ -73,8 +74,11 @@ const getComments = asyncHandler(async (req, res) => {
     {
       $lookup: {
         from: "users",
-        localField: "questioner",
-        foreignField: "_id",
+        let: { questionerId: "$questioner" },
+        pipeline: [
+          { $match: { $expr: { $eq: ["$_id", "$$questionerId"] } } },
+          { $project: { name: 1, "image.imagePath": 1 } },
+        ],
         as: "questioner",
       },
     },

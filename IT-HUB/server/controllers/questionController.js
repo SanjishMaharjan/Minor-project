@@ -11,7 +11,7 @@ const Notification = require("../models/notificationModel");
 ////////////////////////////////////////////////////////////////
 
 const createQuestion = asyncHandler(async (req, res) => {
-  const { question, tag } = req.body;
+  const { question, tag, title } = req.body;
 
   if (!question || !title) {
     res.status(400);
@@ -41,8 +41,9 @@ const createQuestion = asyncHandler(async (req, res) => {
   }
 
   const savedQuestion = await Question.create({
-    question: question,
-    tag: tag,
+    question,
+    title,
+    tag,
     questioner: req.user._id,
     image: imageData,
   });
@@ -68,6 +69,7 @@ const getQuestions = asyncHandler(async (req, res) => {
     .sort({ updatedAt: -1 })
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize);
+  console.log(questions);
   res.status(200).json(questions);
 });
 
