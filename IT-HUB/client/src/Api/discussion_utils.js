@@ -144,7 +144,7 @@ export const commentQuestion = async ({ params, request }) => {
 
   const OldAnswers = client.getQueryData(["answer", id]);
 
-  const { comments, questionInfo } = OldAnswers;
+  const { comments, questionInfo, unAnswered } = OldAnswers;
 
   // validate the data
   const res = await validator(data, postAnswerSchema);
@@ -154,7 +154,7 @@ export const commentQuestion = async ({ params, request }) => {
   const newAnswers = [...comments, data];
 
   // update the cache
-  client.setQueryData(["answer", id], { questionInfo, comments: newAnswers });
+  client.setQueryData(["answer", id], { questionInfo, comments: newAnswers, unAnswered });
 
   // reset the form
   document.querySelector(".answer-input").value = "";
