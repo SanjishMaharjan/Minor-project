@@ -9,6 +9,7 @@ const {
   reportComment,
   upvoteComment,
   getUpvotes,
+  verifyComment,
 } = require("../controllers/commentController");
 
 router.post("/comment", validateIds("questionId"), protect, createComment);
@@ -31,7 +32,7 @@ router.post(
   protect,
   reportComment
 );
-router.post(
+router.patch(
   "/comment/:commentId/upvote",
   validateIds("questionId", "commentId"),
   protect,
@@ -41,6 +42,13 @@ router.get(
   "/comment/:commentId/upvote",
   validateIds("questionId", "commentId"),
   getUpvotes
+);
+
+router.patch(
+  "/comment/:commentId/verify",
+  validateIds("questionId", "commentId"),
+  protect,
+  verifyComment
 );
 
 module.exports = router;

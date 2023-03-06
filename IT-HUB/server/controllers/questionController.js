@@ -231,6 +231,7 @@ const reportQuestion = asyncHandler(async (req, res) => {
 module.exports = {
   createQuestion,
   getQuestions,
+  getQuestionByUser,
   getLatestQuestions,
   getQuestion,
   deleteQuestion,

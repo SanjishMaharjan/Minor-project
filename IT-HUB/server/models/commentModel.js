@@ -24,6 +24,10 @@ const commentSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    anecdote: {
+      type: Boolean,
+      default: false,
+    },
     commenter: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -54,7 +58,12 @@ commentSchema.post("findOneAndDelete", async function (comment) {
 
 //* also push the new created comment's id to question's comment array
 commentSchema.pre("save", function (next) {
-  if (this.isModified("upvote") || this.isModified("isReported")) return next();
+  if (
+    this.isModified("upvote") ||
+    this.isModified("isReported") ||
+    this.isModified("anecdote")
+  )
+    return next();
   const { _id, questionId } = this;
   Question.findOne({ _id: questionId }, function (err, question) {
     if (err) {

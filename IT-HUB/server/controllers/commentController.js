@@ -2,8 +2,6 @@ const asyncHandler = require("express-async-handler");
 const Comment = require("../models/commentModel");
 const Report = require("../models/reportModel");
 const Question = require("../models/questionModel");
-const cloudinary = require("cloudinary").v2;
-const fs = require("fs");
 const Notification = require("../models/notificationModel");
 const User = require("../models/userModel");
 const { deleteNotification } = require("./notificationController");
@@ -285,6 +283,47 @@ const getUpvotes = asyncHandler(async (req, res) => {
   res.status(200).json({ upvote: comment.upvote.count });
 });
 
+//*                    Handle anecdote
+/////////////////////////////////////////////////////////////
+
+const verifyComment = asyncHandler(async (req, res) => {
+  const { questionId, commentId } = req.params;
+  const comment = await Comment.findById(commentId)
+    .populate("questionId", "questioner ")
+    .exec();
+  if (!comment) {
+    res.status(404);
+    throw new Error(`No comment with id:${commentId}`);
+  }
+
+  if (questionId !== comment.questionId._id.toString()) {
+    res.status(400);
+    throw new Error(
+      "question Id in params and questionId in comment.questionId didn't match"
+    );
+  }
+  if (comment.questionId.questioner.toString() != req.user._id.toString()) {
+    res.status(400);
+    throw new Error("not authenticated");
+  }
+
+  const comments = await Comment.find({ questionId, anecdote: true });
+
+  if (!comment.anecdote) {
+    for (const c of comments) {
+      if (c.anecdote === true) {
+        c.anecdote = false;
+        await c.save();
+      }
+    }
+  }
+  comment.anecdote = !comment.anecdote;
+  await comment.save();
+
+  res.status(200);
+  res.json(comment);
+});
+
 //* export modules
 
 module.exports = {
@@ -295,4 +334,5 @@ module.exports = {
   upvoteComment,
   getUpvotes,
   reportComment,
+  verifyComment,
 };
