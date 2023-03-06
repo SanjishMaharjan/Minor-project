@@ -66,12 +66,18 @@ const getComments = asyncHandler(async (req, res) => {
     QuestionImage: question.image,
     QuestionDate: question.createdAt,
   };
+
+  const unAnswered = await Question.aggregate([
+    { $match: { "comments.commentIds": [] } },
+    { $sample: { size: 5 } },
+  ]);
+
   const comments = await Comment.find({ questionId }).populate(
     "commenter",
     "name  image.imagePath"
   );
 
-  res.status(200).json({ questionInfo, comments });
+  res.status(200).json({ questionInfo, comments, unAnswered });
 });
 
 //*                  get a single comment
