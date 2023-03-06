@@ -51,11 +51,19 @@ const Questions = () => {
 
                 <div className="reply">
                   <div className="reply-images">
-                    {question.comments.commentIds.map((image) => (
-                      <img src={image.commenter.image.imagePath} height="20" width="20" alt="" />
-                    ))}
+                    {question.comments.commentIds.map(
+                      (image, i) =>
+                        i < 3 && (
+                          <img
+                            src={image.commenter.image.imagePath}
+                            height="20"
+                            width="20"
+                            alt=""
+                          />
+                        )
+                    )}
 
-                    <CgMoreO color="green" fontSize="1.3rem" />
+                    {question.comments.count > 3 && <CgMoreO color="green" fontSize="1.3rem" />}
                   </div>
                   <p>{question.comments.count} comments</p>
                 </div>

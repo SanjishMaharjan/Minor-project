@@ -90,7 +90,12 @@ const Answer = () => {
                 <img src={answer?.commenter?.image?.imagePath} height="50" width="50" alt="" />
                 <div class="question-content">
                   <p>{answer?.commenter?.name + " "} </p>
-                  <span> {" " + "   " + getDate(answer?.createdAt)} ago</span>
+                  <span>
+                    {getDate(answer.createdAt) === undefined
+                      ? 1 + " second "
+                      : getDate(answer.createdAt) + " "}
+                    ago
+                  </span>
                   <p>{answer.answer}</p>
                 </div>
                 <div className="answer-icons">
