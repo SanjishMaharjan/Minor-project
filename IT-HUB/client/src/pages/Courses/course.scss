@@ -61,6 +61,12 @@
     box-shadow: var(--box-shadow);
     transition: transform 0.3s ease;
 
+    div {
+      height: 600px;
+      overflow-y: hidden;
+      margin-bottom: 1rem;
+    }
+
     &:hover {
       transform: translateY(-5px);
     }

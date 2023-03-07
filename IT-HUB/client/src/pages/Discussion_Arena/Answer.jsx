@@ -22,6 +22,7 @@ import { AiFillHeart } from "react-icons/ai";
 import useAuth from "../../context/AuthContext";
 import "./answer.scss";
 import { useQuery } from "@tanstack/react-query";
+import DOMPurify from "dompurify";
 
 const Answer = () => {
   const { isLoggedIn, user } = useAuth();
@@ -33,6 +34,7 @@ const Answer = () => {
   });
 
   const { questionInfo: question, comments: answers, unAnswered } = data;
+  console.log(answers);
 
   const fetcher = useFetcher();
 
@@ -60,10 +62,16 @@ const Answer = () => {
               <div class="question-content">
                 <p>{question?.questioner}</p>
                 <span> {getDate(question?.QuestionDate)} ago</span>
-                <p>{question?.question}</p>
-              </div>
-            </div>
+                {/* <ReactMarkdown> "hu *scs* sdc" </ReactMarkdown> */}
+                {/* <p>{question?.question}</p> */}
 
+                <div
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(question?.question) }}
+                ></div>
+              </div>
+              {/* <p>{question?.question}</p> */}
+            </div>
+            <p>{/* <ReactQuill value={question.question} readOnly={true} /> */}</p>
             <fetcher.Form method="post" action={`/question/${question?.questionId}`}>
               <div class="form-profile">
                 <img src={user.image.imagePath} height="50" width="50" alt="" />
@@ -178,7 +186,7 @@ const Answer = () => {
                     <p>{question.questioner.name}</p>
                   </div>
                   <span>{getDate(question.createdAt)} ago </span>
-                  <p>{question.question}</p>
+                  <p>{question.title}</p>
                 </div>
               </Link>
             ))}

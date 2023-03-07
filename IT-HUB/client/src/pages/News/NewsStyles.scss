@@ -27,6 +27,11 @@
     box-shadow: var(--box-shadow);
     transition: transform 0.3s ease;
 
+    div {
+      height: 450px;
+      overflow-y: hidden;
+    }
+
     &:hover {
       transform: translateY(-5px);
     }
@@ -50,7 +55,7 @@
     }
 
     button {
-      margin-top: auto;
+      margin-top: 1rem;
       align-self: flex-end;
     }
   }

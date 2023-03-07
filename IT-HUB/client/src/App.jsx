@@ -83,7 +83,8 @@ const router = createBrowserRouter(
       <Route path="/question/page/:id" loader={getQuestion} element={<Questions />} />
       <Route path="/mydiscussion/page/:id" loader={getMyQuestion} element={<Questions />} />
 
-      <Route element={<RequireLogin />} errorElement={<NotLoggedIn />}>
+      <Route element={<RequireLogin />}>
+        {/* <Route element={<RequireLogin />} errorElement={<NotLoggedIn />}> */}
         <Route path="/course" loader={getRecommend} element={<Courses />} />
         <Route path="/search" loader={searchCourse} element={<Courses />} />
 

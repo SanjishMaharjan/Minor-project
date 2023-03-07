@@ -107,8 +107,8 @@ export const postQuestion = async ({ request }) => {
   };
   console.log(post);
 
-  const res = await validator(post, postQuestionSchema);
-  if (res.status == 403) return res;
+  // const res = await validator(post, postQuestionSchema);
+  // if (res.status == 403) return res;
 
   try {
     const response = await axios.post("/api/question", post, {
@@ -121,6 +121,7 @@ export const postQuestion = async ({ request }) => {
 
     return response;
   } catch (error) {
+    console.log(error);
     client.setQueryData(queryKey, OldQuestions);
     return error.response;
   }

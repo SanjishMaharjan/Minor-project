@@ -53,6 +53,11 @@
 
   .question-content {
     margin-bottom: 2rem;
+
+    div {
+      max-height: 500px;
+      overflow-y: auto;
+    }
   }
 
   form {
