@@ -23,8 +23,11 @@ import useAuth from "../../context/AuthContext";
 import "./answer.scss";
 import { useQuery } from "@tanstack/react-query";
 import DOMPurify from "dompurify";
+import { useState } from "react";
 
 const Answer = () => {
+  const [showImageFullScreen, setShowImageFullScreen] = useState(false);
+
   const { isLoggedIn, user } = useAuth();
 
   const { id } = useParams();
@@ -60,16 +63,31 @@ const Answer = () => {
                 <img src={question?.questionerImage} height="50" width="50" alt="" />
               </Link>
               <div class="question-content">
-                <p>{question?.questioner}</p>
-                <span> {getDate(question?.QuestionDate)} ago</span>
-                {/* <ReactMarkdown> "hu *scs* sdc" </ReactMarkdown> */}
-                {/* <p>{question?.question}</p> */}
+                <div>
+                  <p>{question?.questioner}</p>
+                  <span> {getDate(question?.QuestionDate)} ago</span>
+                </div>
 
+                <div>
+                  <img
+                    height="100"
+                    width="100"
+                    className="image question-image"
+                    src={question.QuestionImage.imagePath}
+                    onClick={() => setShowImageFullScreen(true)}
+                    alt=""
+                  />
+                  {showImageFullScreen && (
+                    <div className="fullscreen-image" onClick={() => setShowImageFullScreen(false)}>
+                      <img className="image" src={question.QuestionImage.imagePath} alt="" />
+                    </div>
+                  )}
+                </div>
                 <div
+                  className="description"
                   dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(question?.question) }}
                 ></div>
               </div>
-              {/* <p>{question?.question}</p> */}
             </div>
             <p>{/* <ReactQuill value={question.question} readOnly={true} /> */}</p>
             <fetcher.Form method="post" action={`/question/${question?.questionId}`}>

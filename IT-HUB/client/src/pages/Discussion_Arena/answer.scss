@@ -27,6 +27,11 @@
     border: 1px solid #ccc;
   }
 
+  .image {
+    border-radius: 0;
+    border: none;
+  }
+
   .answer-header h1 {
     font-size: 1.8rem;
     margin-bottom: 2rem;
@@ -53,10 +58,50 @@
 
   .question-content {
     margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 1.5rem;
 
-    div {
+    .fullscreen-image {
+      position: absolute;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      inset: 0;
+      // width: 50vw;
+      // height: 50vh;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .question-image {
+      cursor: pointer;
+    }
+
+    .description {
+      max-width: 900px;
       max-height: 500px;
       overflow-y: auto;
+      overflow-x: auto;
+    }
+    span {
+      margin-left: auto;
+    }
+
+    image {
+      grid-column: 1/-1;
+    }
+
+    div {
+      grid-column: 1/-1;
     }
   }
 
