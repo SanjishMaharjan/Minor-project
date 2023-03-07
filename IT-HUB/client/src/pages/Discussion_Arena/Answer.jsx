@@ -73,14 +73,16 @@ const Answer = () => {
                 </div>
 
                 <div>
-                  <img
-                    height="100"
-                    width="100"
-                    className="image question-image"
-                    src={question.QuestionImage.imagePath}
-                    onClick={() => setShowImageFullScreen(true)}
-                    alt=""
-                  />
+                  {question?.QuestionImage?.imagePath && (
+                    <img
+                      height="100"
+                      width="100"
+                      className="image question-image"
+                      src={question?.QuestionImage?.imagePath}
+                      onClick={() => setShowImageFullScreen(true)}
+                      alt=""
+                    />
+                  )}
                   {showImageFullScreen && (
                     <div className="fullscreen-image" onClick={() => setShowImageFullScreen(false)}>
                       <img className="image" src={question.QuestionImage.imagePath} alt="" />
