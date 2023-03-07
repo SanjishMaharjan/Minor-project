@@ -207,15 +207,13 @@
   }
 
   .top-contributers {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 3rem;
+    display: grid;
+    row-gap: 1rem;
   }
 
   .top-contributer {
-    display: flex;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: 10% 60% 20%;
   }
 
   .unanswered-question {

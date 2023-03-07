@@ -36,12 +36,16 @@ const Answer = () => {
     enabled: false,
   });
 
-  const { questionInfo: question, comments: answers, unAnswered } = data;
-  console.log(answers);
+  const {
+    questionInfo: question,
+    comments: answers,
+    unAnswered,
+    topContributor: contributors,
+  } = data;
 
   const fetcher = useFetcher();
 
-  console.log(question);
+  console.log(contributors);
 
   const res = fetcher.data;
 
@@ -89,16 +93,10 @@ const Answer = () => {
                 ></div>
               </div>
             </div>
-            <p>{/* <ReactQuill value={question.question} readOnly={true} /> */}</p>
             <fetcher.Form method="post" action={`/question/${question?.questionId}`}>
               <div class="form-profile">
                 <img src={user.image.imagePath} height="50" width="50" alt="" />
-                {/* <input
-                  className="answer-input"
-                  type="text"
-                  name="answer"
-                  placeholder={`click here to answer ${question?.questioner}`}
-                /> */}
+
                 <textarea
                   cols={30}
                   rows={5}
@@ -136,10 +134,7 @@ const Answer = () => {
                   {user._id === "question.questioner._id" && (
                     <i className="fa-solid fa-pen-to-square"></i>
                   )}
-                  {/* <AiFillHeart className="love" /> */}
-                  {/* <fetcher.Form method="post" action={`#`}>
-                    <HiFlag className="icons" type="submit" />
-                  </fetcher.Form> */}
+
                   <fetcher.Form
                     method="post"
                     action={`/${question?.questionId}/answer/${answer._id}/upvote`}
@@ -162,32 +157,16 @@ const Answer = () => {
           <h2>Top Contributers</h2>
           <p>People who engaged most on discussion</p>
 
-          <div class="top-contributers">
-            <div class="top-contributer">
-              <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
-              <p>Pawel Kadysz</p>
-              <span>103</span>
-            </div>
-            <div class="top-contributer">
-              <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
-              <p>Pawel Kadysz</p>
-              <span>103</span>
-            </div>
-            <div class="top-contributer">
-              <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
-              <p>Pawel Kadysz</p>
-              <span>103</span>
-            </div>
-            <div class="top-contributer">
-              <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
-              <p>Pawel Kadysz</p>
-              <span>103</span>
-            </div>
-            <div class="top-contributer">
-              <img src="../../src/assets/Images/image.jpg" height="20" width="20" alt="" />
-              <p>Pawel Kadysz</p>
-              <span>103</span>
-            </div>
+          <div className="top-contributers">
+            {contributors.map((contributor) => (
+              <div className="top-contributer" key={contributor.name}>
+                <Link to={`/profile/${contributor._id}`}>
+                  <img src={contributor.image.imagePath} height="20" width="20" alt="" />
+                </Link>
+                <p> {contributor.name}</p>
+                <span>{contributor.contribution}</span>
+              </div>
+            ))}
           </div>
 
           <h2>Unanswered Questions</h2>

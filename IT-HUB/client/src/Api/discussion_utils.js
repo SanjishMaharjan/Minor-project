@@ -155,7 +155,7 @@ export const commentQuestion = async ({ params, request }) => {
 
   const OldAnswers = client.getQueryData(["answer", id]);
 
-  const { comments, questionInfo, unAnswered } = OldAnswers;
+  const { comments, questionInfo, unAnswered, topContributor } = OldAnswers;
 
   // validate the data
   const res = await validator(data, postAnswerSchema);
@@ -165,7 +165,12 @@ export const commentQuestion = async ({ params, request }) => {
   const newAnswers = [...comments, data];
 
   // update the cache
-  client.setQueryData(["answer", id], { questionInfo, comments: newAnswers, unAnswered });
+  client.setQueryData(["answer", id], {
+    questionInfo,
+    comments: newAnswers,
+    unAnswered,
+    topContributor,
+  });
 
   // reset the form
   document.querySelector(".answer-input").value = "";
@@ -192,6 +197,7 @@ export const upvoteAnswer = async ({ params }) => {
   const OldQuestion = OldAnswers.question;
 
   const oldUnanswered = OldAnswers.unAnswered;
+  const topContributor = OldAnswers.topContributor;
 
   // check if the user has already upvoted the answer
   // first get userId from query cache
@@ -219,6 +225,7 @@ export const upvoteAnswer = async ({ params }) => {
     question: OldQuestion,
     comments: newAnswers,
     unAnswered: oldUnanswered,
+    topContributor,
   });
 
   try {
