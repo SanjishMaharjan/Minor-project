@@ -45,25 +45,13 @@ p.welcome {
 }
 
 .gallery-wrapper {
-  /* display: grid;
+   display: grid;
     padding: 20px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     width: 100%;
-    height: auto;
-    position: relative;
-    justify-content: center;
-    align-items: center;
     grid-column: 1 / 2;
-    grid-row: 1 / 2; */
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  flex-wrap: wrap;
-  width: 90%;
+    grid-row: 1 / 2; 
   margin-inline: auto;
-  //   display: grid;
-  //   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  //   grid-gap: 2px;
 }
 
 .gallery-item {
@@ -73,7 +61,6 @@ p.welcome {
 
 .gallery img {
   border-radius: 8px;
-  //   position: relative;
   margin: 10px;
   width: clamp(50%, 500px, 100%);
   cursor: pointer;
@@ -84,40 +71,69 @@ p.welcome {
   filter: brightness(100%);
 }
 
+
+.gallery-detail {
+  width: 100%;
+  margin-bottom: 1rem;
+  transform: translateY(0%);
+  cursor: pointer;
+  transition: transform 0.3s ease-out;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.1)
+  );
+  background-color: var(--navbar-color);
+  border-radius:0.6rem ;
+  p{
+    font-size: 1rem;
+    // color: var(--hover-color);
+
+  }
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-item:hover .gallery-detail {
+  transform: translateY(-120%);
+}
+
 .gallery img:hover {
   transform: scale(1.2);
-  // filter: brightness(100%);
+  filter: brightness(100%);
   border-radius: 12px;
   box-shadow: var(--box-shadow);
 }
 
-.full-img {
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.8);
-  position: fixed;
-  top: 0;
-  left: 0;
-  align-items: center;
-  justify-content: center;
-  display: none;
-  z-index: 100;
-}
+// .full-img {
+//   width: 100%;
+//   height: 100vh;
+//   background-color: rgba(0, 0, 0, 0.8);
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   align-items: center;
+//   justify-content: center;
+//   display: none;
+//   z-index: 100;
+// }
 
-.full-img img {
-  width: 90%;
-  max-width: 500px;
-}
+// .full-img img {
+//   width: 90%;
+//   max-width: 500px;
+// }
 
-.full-img span {
-  font-family: Courier;
-  position: fixed;
-  top: 5%;
-  right: 5%;
-  font-size: 30px;
-  color: white;
-  cursor: pointer;
-}
+// .full-img span {
+//   font-family: Courier;
+//   position: fixed;
+//   top: 5%;
+//   right: 5%;
+//   font-size: 30px;
+//   color: white;
+//   cursor: pointer;
+// }
 
 .fullscreen-image {
   position: absolute;
