@@ -11,7 +11,7 @@ const getNotification = asyncHandler(async (req, res) => {
   const notification = await Notification.find({ user: req.user._id })
     .populate("commenter", "name -_id")
     .populate("comment", "answer -_id")
-    .populate("post", "question ")
+    .populate("post", "question title ")
     .select("-user");
   res.status(200).json(notification);
 });
