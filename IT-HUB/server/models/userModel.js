@@ -40,6 +40,10 @@ const userSchema = mongoose.Schema(
       default: 0,
       min: 0,
     },
+    contribution: {
+      type: Number,
+      default: 0,
+    },
     membership: {
       type: String,
       enum: [
