@@ -32,10 +32,12 @@ const createComment = asyncHandler(async (req, res) => {
       comment: comment._id,
       commenter: req.user._id,
     });
-    const user = await User.findByIdAndUpdate(notification.user, {
+    await User.findByIdAndUpdate(notification.user, {
       $inc: { notification: 1 },
     });
-
+    await User.findByIdAndUpdate(req.user._id, {
+      $inc: { contribution: 1 },
+    });
     const notiLength = (await Notification.find({ user: notification.user }))
       .length;
     deleteNotification(notification.user, notiLength);
@@ -85,12 +87,14 @@ const getComments = asyncHandler(async (req, res) => {
     { $unwind: "$questioner" },
   ]);
 
+  topContributor = await User.find({}).sort({ contribution: -1 }).limit(5);
+
   const comments = await Comment.find({ questionId }).populate(
     "commenter",
     "name  image.imagePath"
   );
 
-  res.status(200).json({ questionInfo, comments, unAnswered });
+  res.status(200).json({ questionInfo, comments, unAnswered, topContributor });
 });
 
 //*                  get a single comment
@@ -141,6 +145,9 @@ const deleteComment = asyncHandler(async (req, res) => {
     });
     await User.findByIdAndUpdate(question.questioner, {
       $inc: { notification: -1 },
+    });
+    await User.findByIdAndUpdate(req.user._id, {
+      $inc: { contribution: -1 },
     });
     res.status(200).json({ msg: "Comment Deleted Successfully" });
   } else {
@@ -224,30 +231,32 @@ const reportComment = asyncHandler(async (req, res) => {
   //* check if it has already been reported or not
   //todo: If it hasn't been reported create new report and also set the isReported flag of comment
   if (!comment.isReported) {
-    await Report.create(
-      { reportedOn: commentId, reasons: reason, count: 1 },
-      asyncHandler(async (err, report) => {
-        comment.isReported = true;
-        await comment.save();
-        res.status(200).json(report);
-      })
-    );
+    const report = await Report.create({
+      reportedOn: commentId,
+      reasons: reason,
+      count: 1,
+    });
+    comment.isReported = true;
+    await comment.save();
+    await User.findByIdAndUpdate(req.user._id, {
+      $inc: { contribution: -1 },
+    });
+    res.status(200).json(report);
   } else {
     //todo: If it has been reported previously then just modify the previous report
-    Report.findOne(
-      { reportedOn: commentId },
-      asyncHandler(async (err, report) => {
-        const array = report.reasons.filter((e) => e == reason);
-        if (array.length != 0) {
-          report.count += 1;
-        } else {
-          report.count += 1;
-          report.reasons.push(reason);
-        }
-        await report.save();
-        res.status(200).json(report);
-      })
-    );
+    const report = await Report.findOne({ reportedOn: commentId });
+    const array = report.reasons.filter((e) => e == reason);
+    if (array.length != 0) {
+      report.count += 1;
+    } else {
+      report.count += 1;
+      report.reasons.push(reason);
+    }
+    await report.save();
+    await User.findByIdAndUpdate(req.user._id, {
+      $inc: { contribution: -1 },
+    });
+    res.status(200).json(report);
   }
 });
 
