@@ -42,9 +42,8 @@ const getReportedPosts = asyncHandler(async (req, res) => {
 
 //* Admin can delete the reported post
 //////////////////////////////////////////////////////////////
-const deleteReportedPost = async (req, res) => {
+const deleteReportedPost = asyncHandler(async (req, res) => {
   const { postId } = req.params;
-  console.log(postId);
   try {
     const post = await findPostById(postId);
     console.log(post);
@@ -66,7 +65,7 @@ const deleteReportedPost = async (req, res) => {
     console.error(error);
     res.status(500).json({ msg: "Internal Server Error" });
   }
-};
+});
 
 const findPostById = asyncHandler(async (postId) => {
   let post;
@@ -86,7 +85,10 @@ const findPostById = asyncHandler(async (postId) => {
 
 const deletePost = async (post) => {
   if (post instanceof Comment) {
-    await Comment.findByIdAndDelete(post._id);
+    const deleted = await Comment.findByIdAndDelete(post._id);
+    await User.findByIdAndUpdate(deleted.commenter, {
+      $inc: { contribution: -4 },
+    });
   } else if (post instanceof Question) {
     await Question.findByIdAndDelete(post._id);
     await Comment.deleteMany({ _id: post.comments });
