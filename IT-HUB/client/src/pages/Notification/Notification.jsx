@@ -21,7 +21,7 @@ const Notification = () => {
         {notices.map((notice) => (
           <Link key={notice._id} to={`/question/${notice.post._id}`}>
             <div className="notify">
-              {notice.commenter.name} has commented <span>{notice.comment.answer}</span> on your post <span>{notice.post.question}</span>
+              {notice.commenter.name} has commented on your post <span>{notice.post.title}</span>
               <p>{getDate(notice.createdAt)} ago</p>
               {/* <button>view</button> */}
             </div>

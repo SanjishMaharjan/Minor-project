@@ -23,9 +23,9 @@ export const getNotificationCount = async () => {
     return notification.data;
   };
   const user = client.getQueryData(["user"]);
-  if (!user) return 0;
+  // if (!user) return 0;
 
   return client.fetchQuery(["notificationCount"], queryFn, {
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 3,
   });
 };

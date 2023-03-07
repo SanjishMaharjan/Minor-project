@@ -139,7 +139,7 @@ const Answer = () => {
 
                   <fetcher.Form
                     method="post"
-                    action={`/${question?.questionId}/answer/${answer._id}/upvote`}
+                    action={`/${question?.questionId}/answer/${answer?._id}/upvote`}
                   >
                     <button>
                       {answer?.upvote?.upvoters.includes(user._id) ? (
@@ -162,7 +162,7 @@ const Answer = () => {
           <div className="top-contributers">
             {contributors.map((contributor) => (
               <div className="top-contributer" key={contributor.name}>
-                <Link to={`/profile/${contributor._id}`}>
+                <Link to={`/profile/${contributor?._id}`}>
                   <img src={contributor.image.imagePath} height="20" width="20" alt="" />
                 </Link>
                 <p> {contributor.name}</p>
