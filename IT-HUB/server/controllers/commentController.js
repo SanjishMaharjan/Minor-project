@@ -35,13 +35,13 @@ const createComment = asyncHandler(async (req, res) => {
     await User.findByIdAndUpdate(notification.user, {
       $inc: { notification: 1 },
     });
-    await User.findByIdAndUpdate(req.user._id, {
-      $inc: { contribution: 1 },
-    });
     const notiLength = (await Notification.find({ user: notification.user }))
       .length;
     deleteNotification(notification.user, notiLength);
   }
+  const lol = await User.findByIdAndUpdate(req.user._id, {
+    $inc: { contribution: 1 },
+  });
   return res
     .status(200)
     .json({ msg: "succesfully created comment and notification" });
