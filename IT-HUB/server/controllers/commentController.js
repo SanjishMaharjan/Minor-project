@@ -87,7 +87,10 @@ const getComments = asyncHandler(async (req, res) => {
     { $unwind: "$questioner" },
   ]);
 
-  topContributor = await User.find({}).sort({ contribution: -1 }).limit(5);
+  topContributor = await User.find({})
+    .sort({ contribution: -1 })
+    .select("name image.imagePath contribution")
+    .limit(5);
 
   const comments = await Comment.find({ questionId }).populate(
     "commenter",
@@ -343,12 +346,17 @@ const verifyComment = asyncHandler(async (req, res) => {
       if (c.anecdote === true) {
         c.anecdote = false;
         await c.save();
+        await User.findByIdAndUpdate(comment.commenter, {
+          $inc: { contribution: -5 },
+        });
       }
     }
   }
   comment.anecdote = !comment.anecdote;
   await comment.save();
-
+  await User.findByIdAndUpdate(comment.commenter, {
+    $inc: { contribution: 5 },
+  });
   res.status(200);
   res.json(comment);
 });
