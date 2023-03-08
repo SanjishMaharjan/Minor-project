@@ -2,6 +2,7 @@ import { useNavigate, Form, useNavigation, useActionData, Navigate } from "react
 import Loader from "../../components/Loader";
 import useAuth from "../../context/AuthContext";
 import { useState } from "react";
+import "./newQuestion.scss";
 
 // import "./QAStyles.scss";
 
@@ -24,30 +25,27 @@ const PostQuestion = () => {
     <>
       <div>
         <div className="question-bar">
-          <img
-            height="50"
-            width="50"
-            className="chat-img"
-            onClick={() => navigate("/profile")}
-            src={user?.image?.imagePath}
-          ></img>
-          {/* <ReactQuill
-            value={editorValue}
-            onChange={handleEditorChange}
-            formats={formats}
-            modules={modules}
-          /> */}
-          <TextEditor text={text} setText={setText} />
-          {console.log(text)}
+          <h1>Ask a publcic question</h1>
 
           <Form method="post" action="/question/new" encType="multipart/form-data">
+            <h2>Title</h2>
+            <p>Be specific and imagine you're asking a question to another person</p>
             <input type="text" name="title" placeholder="Enter title here" />
             <br />
             <p className="input-box"> {serverError ?? null} </p>
+            <h2>Body</h2>
+            <p>Include all the information someone woulf need to answer your question</p>
+            <TextEditor text={text} setText={setText} />
 
             <input type="text" hidden value={text} name="question" />
 
             <p className="input-box"> {questionError ?? null} </p>
+
+            <h2>Tags</h2>
+            <p>Add up to 5 tags to describe what your question is about</p>
+            <input type="text" name="tags" placeholder="Enter tags here" />
+            <br />
+
             <div className="post-question-footer">
               <button onClick={() => navigate(-1)}>Go back</button>
               <label htmlFor="file-input">
@@ -75,26 +73,3 @@ const PostQuestion = () => {
 };
 
 export default PostQuestion;
-
-const formats = [
-  "background",
-  "color",
-  "code",
-  "size",
-  "italic",
-  "blockquote",
-  "list",
-  "bullet",
-  "link",
-  "code-block",
-  "formula",
-];
-
-const modules = {
-  toolbar: [
-    ["blockquote", "code-block"], // blocks
-    [{ list: "ordered" }, { list: "bullet" }], // lists
-    [{ color: [] }, { background: [] }], // dropdown with defaults
-    ["clean"], // remove formatting
-  ],
-};

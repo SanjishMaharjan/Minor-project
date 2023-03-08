@@ -132,14 +132,14 @@
   .form-profile textarea {
     font-size: 1rem;
     flex-basis: 60%;
-    resize: none;
     border: 1px solid #ccc;
-    color: var(--alternate-color);
+
     padding: 0.5rem 1rem;
     display: block;
     min-height: 5rem;
     background-color: var(--navbar-color);
     border-radius: 5px;
+    resize: none;
   }
 
   .form-profile textarea:focus {
@@ -163,6 +163,10 @@
   .answer-container .answer {
     display: grid;
     grid-template-columns: 10% auto 10%;
+
+    .description {
+      min-width: 900px;
+    }
   }
 
   .answer-icons {

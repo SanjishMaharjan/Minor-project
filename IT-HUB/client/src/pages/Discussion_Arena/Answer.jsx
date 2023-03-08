@@ -23,10 +23,14 @@ import useAuth from "../../context/AuthContext";
 import "./answer.scss";
 import { useQuery } from "@tanstack/react-query";
 import DOMPurify from "dompurify";
-import { useState } from "react";
+import { useState, useRef, useMemo } from "react";
+import TextEditor from "./Editor";
 
 const Answer = () => {
+  const comment = useRef("");
   const [showImageFullScreen, setShowImageFullScreen] = useState(false);
+  const [text, setText] = useState("");
+  const memoizedText = useMemo(() => text, [text]);
 
   const { isLoggedIn, user } = useAuth();
 
@@ -45,11 +49,12 @@ const Answer = () => {
 
   const fetcher = useFetcher();
 
-  console.log(contributors);
-
   const res = fetcher.data;
 
-  if (res && res.status === 201) return <Navigate to={`/question/${id}`} />;
+  if (res && res.status === 200) {
+    // document.querySelector(".answer-input").value = "";
+    console.log("here");
+  }
 
   const serverError = res?.status === 400 && res?.data?.msg;
   const answerError = res?.status === 403 && res?.data?.errors?.answer;
@@ -98,15 +103,16 @@ const Answer = () => {
             <fetcher.Form method="post" action={`/question/${question?.questionId}`}>
               <div class="form-profile">
                 <img src={user.image.imagePath} height="50" width="50" alt="" />
-
-                <textarea
-                  cols={30}
-                  rows={5}
+                <TextEditor text={text} setText={setText} />
+                {/* <textarea
                   className="answer-input"
+                  cols={30}
+                  rows={10}
                   type="text"
                   name="answer"
                   placeholder={`click here to answer ${question?.questioner}`}
-                />
+                /> */}
+                <input type="text" name="answer" value={memoizedText} hidden />
               </div>
               <div class="button">
                 <button>Post comment</button>
@@ -130,7 +136,11 @@ const Answer = () => {
                       : getDate(answer.createdAt) + " "}
                     ago
                   </span>
-                  <p>{answer.answer}</p>
+                  <div
+                    className="description"
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(answer?.answer) }}
+                  ></div>
+                  {/* <p>{answer.answer}</p> */}
                 </div>
                 <div className="answer-icons">
                   {user._id === "question.questioner._id" && (
