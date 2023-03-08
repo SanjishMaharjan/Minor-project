@@ -24,8 +24,10 @@ import "./answer.scss";
 import { useQuery } from "@tanstack/react-query";
 import DOMPurify from "dompurify";
 import { useState } from "react";
+import TextEditor from "./Editor";
 
 const Answer = () => {
+  const [text, setText] = useState("");
   const [showImageFullScreen, setShowImageFullScreen] = useState(false);
 
   const { isLoggedIn, user } = useAuth();
@@ -48,8 +50,11 @@ const Answer = () => {
   console.log(contributors);
 
   const res = fetcher.data;
+  console.log(res);
 
-  if (res && res.status === 201) return <Navigate to={`/question/${id}`} />;
+  if (res && res.status === 200) {
+    console.log("here");
+  }
 
   const serverError = res?.status === 400 && res?.data?.msg;
   const answerError = res?.status === 403 && res?.data?.errors?.answer;
@@ -99,12 +104,13 @@ const Answer = () => {
               <div class="form-profile">
                 <img src={user.image.imagePath} height="50" width="50" alt="" />
 
+                <TextEditor text={text} setText={setText} />
                 <textarea
-                  cols={30}
-                  rows={5}
+                  hidden
                   className="answer-input"
                   type="text"
                   name="answer"
+                  value={text}
                   placeholder={`click here to answer ${question?.questioner}`}
                 />
               </div>
@@ -130,7 +136,11 @@ const Answer = () => {
                       : getDate(answer.createdAt) + " "}
                     ago
                   </span>
-                  <p>{answer.answer}</p>
+                  <div
+                    className="description"
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(answer?.answer) }}
+                  ></div>
+                  {/* <p>{answer.answer}</p> */}
                 </div>
                 <div className="answer-icons">
                   {user._id === "question.questioner._id" && (

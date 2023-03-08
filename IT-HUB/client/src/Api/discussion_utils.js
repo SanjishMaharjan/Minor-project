@@ -100,12 +100,17 @@ export const upvoteQuestion = async ({ params }) => {
 
 export const postQuestion = async ({ request }) => {
   const formData = await request.formData();
-  const post = {
+  let post = {
     question: formData.get("question"),
     image: formData.get("image"),
     title: formData.get("title"),
   };
   console.log(post);
+
+  post.question = post.question.replace(
+    /background-color:[^;]*;/g,
+    "background-color:transparent;"
+  );
 
   // const res = await validator(post, postQuestionSchema);
   // if (res.status == 403) return res;
@@ -147,7 +152,7 @@ export const getAnswer = async ({ params }) => {
 export const commentQuestion = async ({ params, request }) => {
   const { id } = params;
   const formData = await request.formData();
-  const data = {
+  let data = {
     answer: formData.get("answer"),
   };
 
@@ -165,6 +170,8 @@ export const commentQuestion = async ({ params, request }) => {
   const newAnswers = [...comments, data];
 
   // update the cache
+  data.answer = data.answer.replace(/background-color:[^;]*;/g, "background-color:transparent;");
+
   client.setQueryData(["answer", id], {
     questionInfo,
     comments: newAnswers,
@@ -173,14 +180,15 @@ export const commentQuestion = async ({ params, request }) => {
   });
 
   // reset the form
-  document.querySelector(".answer-input").value = "";
 
   try {
     const response = await axios.post(`/api/${id}/comment`, data);
     client.invalidateQueries(["answer", id]);
     return response;
   } catch (error) {
+    console.log(error);
     client.setQueryData(["answer", id], OldAnswers);
+    return error;
     return error.response;
   }
 };

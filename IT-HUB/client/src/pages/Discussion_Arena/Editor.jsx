@@ -16,6 +16,7 @@ const TextEditor = ({ text, setText }) => {
   return (
     <div>
       <Editor
+        className="editor"
         editorState={editorState}
         toolbarHidden
         toolbarClassName="toolbarClassName"
