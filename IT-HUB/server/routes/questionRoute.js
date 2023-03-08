@@ -12,11 +12,13 @@ const {
   reportQuestion,
   getLatestQuestions,
   getQuestionByUser,
+  getQuestionsByTag,
 } = require("../controllers/questionController");
 
 router.post("/", protect, upload.single("image"), createQuestion);
 router.get("/mydiscussion/page/:pageNumber", protect, getQuestionByUser);
 router.get("/page/:pageNumber", getQuestions);
+router.get("/tag/:tagName/page/:pageNumber", getQuestionsByTag);
 router.get("/latest/:pageNumber", getLatestQuestions);
 router.get("/:questionId", validateIds("questionId"), getQuestion);
 router.delete(

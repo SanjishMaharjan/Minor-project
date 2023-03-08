@@ -88,10 +88,30 @@ const getQuestions = asyncHandler(async (req, res) => {
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize);
   const tags = await mostUsedTag();
-  console.log(tags);
   res.status(200).json({ totalQuestions, tags: tags, questions });
 });
 
+//*search by tags
+//////////////////////////////////////////////////
+const getQuestionsByTag = asyncHandler(async (req, res) => {
+  const { tagName, pageNumber } = req.params;
+  const pageSize = 5;
+  const questions = await Question.find({ tag: tagName })
+    .populate("questioner", "name image.imagePath")
+    .populate({
+      path: "comments.commentIds",
+      select: "commenter -_id",
+      populate: {
+        path: "commenter",
+        select: "image.imagePath -_id",
+      },
+    })
+    .sort({ updatedAt: -1 })
+    .skip((pageNumber - 1) * pageSize)
+    .limit(pageSize);
+  const totalPages = questions.length / pageSize;
+  res.status(200).json({ totalPages, questions });
+});
 //* get most recently updated questions
 /////////////////////////////////////////////////////////////////////////
 const getLatestQuestions = asyncHandler(async (req, res) => {
@@ -110,7 +130,8 @@ const getLatestQuestions = asyncHandler(async (req, res) => {
     .sort({ createdAt: -1 })
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize);
-  res.status(200).json(questions);
+  totalPages = questions.length / pageSize;
+  res.status(200).json({ totalPages, questions });
 });
 
 //*                          get a single question
@@ -133,7 +154,6 @@ const getQuestion = asyncHandler(async (req, res) => {
 const getQuestionByUser = asyncHandler(async (req, res) => {
   const pageSize = 5;
   const pageNumber = req.params.pageNumber || 1;
-  const totalQuestions = (await Question.countDocuments()) / pageSize;
   const questions = await Question.find({ questioner: req.user._id })
     .populate("questioner", "name image.imagePath")
     .populate({
@@ -147,6 +167,7 @@ const getQuestionByUser = asyncHandler(async (req, res) => {
     .sort({ updatedAt: -1 })
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize);
+  const totalQuestions = question.length / pageSize;
   return res.status(200).json({ totalQuestions, questions });
 });
 //*                      delete a single question
@@ -262,6 +283,7 @@ const reportQuestion = asyncHandler(async (req, res) => {
 module.exports = {
   createQuestion,
   getQuestions,
+  getQuestionsByTag,
   getQuestionByUser,
   getLatestQuestions,
   getQuestion,
