@@ -38,6 +38,7 @@ const Questions = () => {
   console.log(questions);
 
   const totalPages = questions.totalQuestions;
+  const tags = questions.tags;
   questions = questions.questions;
 
   const fetcher = useFetcher();
@@ -104,10 +105,11 @@ const Questions = () => {
 
           <hr />
           <div className="tags">
-            <a className="tag">#javascript</a>
-            <a className="tag">#python</a>
-            <a className="tag">#java</a>
-            <a className="tag">#react</a>
+            {tags.map((tag) => (
+              <Link to="#" className="tag">
+                {tag._id}{" "}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

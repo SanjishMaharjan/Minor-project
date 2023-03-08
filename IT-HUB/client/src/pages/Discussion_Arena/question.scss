@@ -117,6 +117,25 @@
 .aside .tag:nth-child(3)::before {
   background-color: rgb(74, 192, 192);
 }
+
+.aside .tag:nth-child(4)::before {
+  background-color: rgb(98, 184, 64);
+}
+.aside .tag:nth-child(5)::before {
+  background-color: rgb(202, 99, 58);
+}
+.aside .tag:nth-child(6)::before {
+  background-color: seagreen;
+}
+.aside .tag:nth-child(7)::before {
+  background-color: rgb(206, 43, 83);
+}
+.aside .tag:nth-child(8)::before {
+  background-color: rgb(136, 29, 199);
+}
+.aside .tag:nth-child(9)::before {
+  background-color: rgb(17, 160, 196);
+}
 .aside .tag:last-child::before {
   background-color: coral;
 }
@@ -142,6 +161,7 @@
     .tags {
       display: flex;
       margin-bottom: 1rem;
+      flex-wrap: wrap;
     }
 
     .aside hr {
