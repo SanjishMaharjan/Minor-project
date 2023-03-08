@@ -78,12 +78,9 @@ p.welcome {
   transform: translateY(0%);
   cursor: pointer;
   transition: transform 0.3s ease-out;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.4),
-    rgba(255, 255, 255, 0.1)
-  );
-  background-color: var(--navbar-color);
+  background: transparent;
+
+  // background-color: var(--navbar-color);
   border-radius:0.6rem ;
   p{
     font-size: 1rem;
@@ -94,6 +91,11 @@ p.welcome {
 
 .gallery-item:hover img {
   transform: scale(1.1);
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.1)
+  );
 }
 
 .gallery-item:hover .gallery-detail {

@@ -25,6 +25,11 @@
         justify-content: center;
         width: 90%;
         padding: 10px;
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.4),
+          rgba(255, 255, 255, 0.1)
+        );
         background-color: var(--navbar-color);
         // color: var(--hover-color);
         padding-inline: 2rem;
