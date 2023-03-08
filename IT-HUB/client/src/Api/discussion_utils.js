@@ -112,8 +112,8 @@ export const postQuestion = async ({ request }) => {
     "background-color:transparent;"
   );
 
-  // const res = await validator(post, postQuestionSchema);
-  // if (res.status == 403) return res;
+  const res = await validator(post, postQuestionSchema);
+  if (res.status == 403) return res;
 
   try {
     const response = await axios.post("/api/question", post, {
@@ -145,7 +145,9 @@ export const getAnswer = async ({ params }) => {
     return response.data;
   };
 
-  return client.fetchQuery(["answer", id], queryFn);
+  return client.fetchQuery(["answer", id], queryFn, {
+    staleTime: 1000 * 60 * 60,
+  });
 };
 
 // post an answer
@@ -155,6 +157,8 @@ export const commentQuestion = async ({ params, request }) => {
   let data = {
     answer: formData.get("answer"),
   };
+
+  console.log(data);
 
   // get the question from cache
 
@@ -188,7 +192,6 @@ export const commentQuestion = async ({ params, request }) => {
   } catch (error) {
     console.log(error);
     client.setQueryData(["answer", id], OldAnswers);
-    return error;
     return error.response;
   }
 };

@@ -73,26 +73,3 @@ const PostQuestion = () => {
 };
 
 export default PostQuestion;
-
-const formats = [
-  "background",
-  "color",
-  "code",
-  "size",
-  "italic",
-  "blockquote",
-  "list",
-  "bullet",
-  "link",
-  "code-block",
-  "formula",
-];
-
-const modules = {
-  toolbar: [
-    ["blockquote", "code-block"], // blocks
-    [{ list: "ordered" }, { list: "bullet" }], // lists
-    [{ color: [] }, { background: [] }], // dropdown with defaults
-    ["clean"], // remove formatting
-  ],
-};
