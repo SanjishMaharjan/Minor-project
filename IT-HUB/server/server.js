@@ -4,6 +4,7 @@ const dotenv = require("dotenv").config();
 cookieParser = require("cookie-parser");
 const cors = require("cors");
 const path = require("path");
+const cron = require("node-cron");
 
 const { errorHandler } = require("./middleWare/errorMiddleWare");
 const questionRoute = require("./routes/questionRoute");
@@ -29,6 +30,11 @@ app.use("/api/poll", pollRoute);
 app.use("/api/admin", adminRoute);
 app.use("/api/notification", notificationRoute);
 
+// const task = cron.schedule("*/5 * * * *", function () {
+// const task = cron.schedule('0 0 * * 0', function() {
+//   console.log("Resetting top contributor...");
+// });
+
 //* Error Middleware
 app.use(errorHandler);
 //* connect to database and start server
@@ -36,6 +42,7 @@ const PORT = process.env.PORT || 5000;
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
+    // task.start();
     app.listen(PORT, () => {
       console.log(`server running on port : ${PORT}`);
     });
