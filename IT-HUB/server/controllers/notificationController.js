@@ -6,13 +6,20 @@ const User = require("../models/userModel");
 ////////////////////////////////////////////
 const getNotification = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
+  if (!user) {
+    res.status(404);
+    throw new Error("no user available");
+  }
   user.notification = 0;
   user.save();
   const notification = await Notification.find({ user: req.user._id })
-    .populate("commenter", "name -_id")
-    .populate("comment", "answer -_id")
-    .populate("post", "question title ")
-    .select("-user");
+    .populate("commenter", "name _id")
+    .populate("post", "title ")
+    .select("-user -comment");
+  await Notification.updateMany(
+    { user: req.user._id },
+    { $set: { viewed: true } }
+  );
   res.status(200).json(notification);
 });
 
@@ -24,7 +31,7 @@ const deleteNotification = asyncHandler(async (userId, notiLength) => {
     const notificationId = (
       await Notification.find({ user: userId }).sort({ date: 1 })
     )[0]._id;
-    const lol = await Notification.findByIdAndDelete(notificationId);
+    await Notification.findByIdAndDelete(notificationId);
     return true;
   }
   return false;
@@ -34,9 +41,11 @@ const deleteNotification = asyncHandler(async (userId, notiLength) => {
 ////////////////////////////////////////////////
 const getNotificationCount = asyncHandler(async (req, res) => {
   const user = await User.findById({ _id: req.user._id });
-  console.log(user.name);
+  if (!user) {
+    res.status(404);
+    throw new Error("no user available");
+  }
   const count = user.notification;
-  console.log(count);
   res.status(200).json({ count });
 });
 module.exports = {

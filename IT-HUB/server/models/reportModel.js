@@ -1,8 +1,13 @@
 const mongoose = require("mongoose");
 
 const reportSchema = mongoose.Schema({
+  onPost: {
+    type: String,
+    enum: ["Question", "Comment"],
+  },
   reportedOn: {
     type: mongoose.Types.ObjectId,
+    refPath: "onPost",
   },
   reportedUser: {
     type: mongoose.Types.ObjectId,
@@ -15,7 +20,7 @@ const reportSchema = mongoose.Schema({
   reasons: [
     {
       type: String,
-      required: true,
+      // required: true,
     },
   ],
   resolved: {

@@ -15,6 +15,7 @@ const {
   updateForVoting,
   getPollCompleted,
   uploadImages,
+  removeReport,
 } = require("../controllers/adminController");
 
 router.post("/poll", isAdmin, createPoll);
@@ -28,10 +29,16 @@ router.get("/users", isAdmin, getAllUsers);
 router.get("/users/:userId", validateIds("userId"), isAdmin, deleteUser);
 router.get("/reported", isAdmin, getReportedPosts);
 router.delete(
-  "/reported/:postId",
-  validateIds("postId"),
+  "/reported/:reportId",
+  validateIds("reportId"),
   isAdmin,
   deleteReportedPost
+);
+router.patch(
+  "/reported/:reportId",
+  validateIds("reportId"),
+  isAdmin,
+  removeReport
 );
 router.post("/uploadimages", isAdmin, upload.array("images"), uploadImages);
 

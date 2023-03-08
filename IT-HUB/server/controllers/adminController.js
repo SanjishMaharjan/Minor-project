@@ -8,6 +8,7 @@ const { Poll, Candidate } = require("../models/pollModel");
 const { sendEmail } = require("../utils/sendEmail");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
+const Notification = require("../models/notificationModel");
 
 //* Admin can view all the users of the site!
 ///////////////////////////////////////////////////////////
@@ -35,94 +36,125 @@ const deleteUser = asyncHandler(async (req, res) => {
 ///////////////////////////////////////////////////////////////
 const getReportedPosts = asyncHandler(async (req, res) => {
   const reportedPosts = await Report.find()
-    .populate("reportedOn")
+    .populate({
+      path: "reportedOn",
+      select: "question answer title",
+    })
+    .populate("reportedUser", "name image.imagePath")
     .sort({ count: -1 });
   res.status(200).json(reportedPosts);
 });
-
 //* Admin can delete the reported post
 //////////////////////////////////////////////////////////////
 const deleteReportedPost = asyncHandler(async (req, res) => {
-  const { postId } = req.params;
-  try {
-    const post = await findPostById(postId);
-    console.log(post);
-    if (!post) {
-      return res
-        .status(404)
-        .json({ msg: `No post with id: ${postId} has been reported.` });
+  const { reportId } = req.params;
+  const report = await Report.findById(reportId)
+    .populate({
+      path: "reportedOn",
+      select: "question answer title",
+    })
+    .populate("reportedUser", "name email");
+  console.log(report.reportedOn);
+  console.log(report.reportedUser);
+  if (!report) {
+    res.status(404);
+    throw new Error(`no report with id: ${reportId}`);
+  }
+  if (report.onPost === "Question") {
+    console.log("I am inside Question");
+    //remove question
+    const deletedQuestion = await Question.findByIdAndDelete({
+      _id: report.reportedOn._id,
+    });
+    if (!deletedQuestion) {
+      res.status(400);
+      throw new Error(`could not delete question`);
     }
 
-    await deletePost(post);
-
-    const message = generateEmailMessage(post);
-    const subject = generateEmailSubject(post);
-
-    await sendEmailToPostAuthor(post, message, subject);
-
-    res.status(200).json(post);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ msg: "Internal Server Error" });
-  }
-});
-
-const findPostById = asyncHandler(async (postId) => {
-  let post;
-  if (await Comment.findById(postId)) {
-    post = await Comment.findById(postId).populate("commenter", "name email");
-  }
-  if (await Question.findById(postId)) {
-    post = await Question.findById(postId).populate("questioner", "name email");
-  }
-
-  if (!post?.isReported) {
-    return null;
-  }
-
-  return post;
-});
-
-const deletePost = async (post) => {
-  if (post instanceof Comment) {
-    const deleted = await Comment.findByIdAndDelete(post._id);
-    await User.findByIdAndUpdate(deleted.commenter, {
-      $inc: { contribution: -4 },
+    await Comment.deleteMany({
+      _id: deletedQuestion.comments.commentIds,
     });
-  } else if (post instanceof Question) {
-    await Question.findByIdAndDelete(post._id);
-    await Comment.deleteMany({ _id: post.comments });
+
+    const notification = await Notification.deleteMany({
+      post: deletedQuestion._id,
+    });
+
+    const count = notification.deletedCount;
+    await User.findByIdAndUpdate(deletedQuestion.questioner, {
+      $inc: { notification: -count },
+    });
+
+    if (deletedQuestion.image) {
+      await cloudinary.uploader.destroy(deletedQuestion.image.imageId);
+    }
   }
-};
-
-const generateEmailMessage = (post) => {
-  const reportedContent = post.answer || post.question;
-  const authorName = post.commenter?.name || post.questioner?.name;
-
-  return `
-    <h2>Hello ${authorName},</h2>
+  if (report.onPost === "Comment") {
+    console.log("I am inside Comment");
+    //remove comment and decrease the contribution
+    const deletedComment = await Comment.findByIdAndDelete({
+      _id: report.reportedOn._id,
+    });
+    if (!deletedComment) {
+      res.status(400);
+      throw new Error("cannot delete the comment");
+    }
+    const noti = await Notification.findOneAndDelete({
+      comment: deletedComment._id,
+      viewed: false,
+    });
+    if (noti) {
+      await User.findByIdAndUpdate(noti.user, {
+        $inc: { notification: -1 },
+      });
+    }
+    await User.findByIdAndUpdate(report.reportedUser._id, {
+      $inc: { contribution: -5 },
+    });
+  }
+  await Report.findByIdAndDelete(reportId);
+  const message = `
+    <h2>Hello ${report.reportedUser.name},</h2>
     <p>Reports on your post were reviewed by the admin and found to be valid.</p>
     <p>So your post has been removed by the admin.</p>
     <p>Please don't post unnecessary content or else your account will be deleted then you can't take part in events organized by the club and you as well receive more punishment from the college as well.</p>
     <p>Be more careful</p>
     <p>Reported Content:</p>
-    <p>${reportedContent}</p>
     <p>Regards...</p>
     <p>IT-Hub</p>
   `;
-};
+  const subject = `${report.onPost} Removed By Admin`;
 
-const generateEmailSubject = (post) => {
-  const reportedType = post instanceof Comment ? "Comment" : "Question";
-  return `${reportedType} Removed By Admin`;
-};
-
-const sendEmailToPostAuthor = async (post, message, subject) => {
-  const authorEmail = post.commenter?.email || post.questioner?.email;
   const sentFrom = process.env.EMAIL_USER;
+  const sendTo = report.reportedUser.email;
 
-  await sendEmail(subject, message, authorEmail, sentFrom);
-};
+  await sendEmail(subject, message, sendTo, sentFrom);
+
+  res.status(200).json({ msg: "Success" });
+});
+
+//* admin removes the report
+////////////////////////////////////////////////////
+const removeReport = asyncHandler(async (req, res) => {
+  const { reportId } = req.params;
+  const report = await Report.findByIdAndDelete(reportId);
+  if (!report) {
+    res.status(404);
+    throw new Error(`no report with id: ${reportId}`);
+  }
+
+  if (report.onPost === "Question") {
+    await Question.findByIdAndUpdate(report.reportedOn, { isReported: false });
+  }
+  if (report.onPost === "Comment") {
+    await Comment.findByIdAndUpdate(report.reportedOn, { isReported: false });
+    await User.findByIdAndUpdate(report.reportedUser, {
+      $inc: { contribution: report.count },
+    });
+  }
+  res
+    .status(200)
+    .json({ msg: `sucessfully removed report of ${report.onPost}` });
+});
 
 //* Admin creates the poll
 /////////////////////////////////////////////////////////
@@ -274,5 +306,6 @@ module.exports = {
   deleteUser,
   getReportedPosts,
   deleteReportedPost,
+  removeReport,
   uploadImages,
 };

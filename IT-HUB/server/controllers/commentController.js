@@ -126,36 +126,25 @@ const getComments = asyncHandler(async (req, res) => {
 const deleteComment = asyncHandler(async (req, res) => {
   const { questionId, commentId } = req.params;
   const { _id } = req.user;
-  const comment = await Comment.findById(commentId);
-  if (!comment) {
-    res.status(404);
-    throw new Error(`no comment with id: ${commentId}`);
-  }
-  const question = await Question.findById(questionId);
-  if (!question) {
-    res.status(404);
-    throw new Error(`no question with id: ${questionId}`);
-  }
-  if (questionId !== comment.questionId.toString()) {
+  const deletedComment = await Comment.findOneAndDelete({
+    _id: commentId,
+    commenter: req.user._id,
+    questionId: questionId,
+  });
+  if (!deletedComment) {
     res.status(400);
-    throw new Error(`id: ${questionId} != id: ${comment.questionId}`);
+    throw new Error("cannot delete the comment");
   }
-
-  if (_id.toString() === comment.commenter._id.toString()) {
-    const deletedComment = await Comment.findByIdAndDelete(commentId);
-    await Notification.findOneAndDelete({
-      comment: deletedComment._id,
-    });
-    await User.findByIdAndUpdate(question.questioner, {
-      $inc: { notification: -1 },
-    });
-    await User.findByIdAndUpdate(req.user._id, {
-      $inc: { contribution: -1 },
-    });
-    res.status(200).json({ msg: "Comment Deleted Successfully" });
-  } else {
-    res.status(400).json({ msg: "Not authorized to delete the the comment" });
-  }
+  const noti = await Notification.findOneAndDelete({
+    comment: deletedComment._id,
+  });
+  await User.findByIdAndUpdate(noti.user, {
+    $inc: { notification: -1 },
+  });
+  await User.findByIdAndUpdate(req.user._id, {
+    $inc: { contribution: -1 },
+  });
+  res.status(200).json({ msg: "Comment Deleted Successfully" });
 });
 
 //*                 update a single comment
@@ -226,22 +215,24 @@ const reportComment = asyncHandler(async (req, res) => {
   }
 
   const { reason } = req.body;
-  if (!reason) {
-    res.status(400);
-    throw new Error("reason cannot be empty");
-  }
+  // if (!reason) {
+  //   res.status(400);
+  //   throw new Error("reason cannot be empty");
+  // }
 
   //* check if it has already been reported or not
   //todo: If it hasn't been reported create new report and also set the isReported flag of comment
   if (!comment.isReported) {
     const report = await Report.create({
       reportedOn: commentId,
+      onPost: "Comment",
       reasons: reason,
       count: 1,
+      reportedUser: comment.commenter,
     });
     comment.isReported = true;
     await comment.save();
-    await User.findByIdAndUpdate(req.user._id, {
+    await User.findByIdAndUpdate(comment.commenter, {
       $inc: { contribution: -1 },
     });
     res.status(200).json(report);
@@ -256,7 +247,7 @@ const reportComment = asyncHandler(async (req, res) => {
       report.reasons.push(reason);
     }
     await report.save();
-    await User.findByIdAndUpdate(req.user._id, {
+    await User.findByIdAndUpdate(report.reportedUser, {
       $inc: { contribution: -1 },
     });
     res.status(200).json(report);

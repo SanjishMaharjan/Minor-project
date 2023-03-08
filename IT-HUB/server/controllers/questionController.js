@@ -213,22 +213,17 @@ const reportQuestion = asyncHandler(async (req, res) => {
   //* check if it has already been reported or not
   //todo: If it hasn't been reported create new report and also set the isReported flag of question
   if (!question.isReported) {
-    await Report.create(
-      {
-        reportedOn: questionId,
-        reasons: reason,
-        reportedUser: question.questioner,
-        count: 1,
-      },
-      (err, report) => {
-        if (err) throw new Error("failed to create report");
-        else {
-          question.isReported = true;
-          question.save();
-          res.status(200).json(report);
-        }
-      }
-    );
+    console.log("hello world");
+    const report = await Report.create({
+      reportedOn: questionId,
+      onPost: "Question",
+      reasons: reason,
+      reportedUser: question.questioner,
+      count: 1,
+    });
+    question.isReported = true;
+    question.save();
+    res.status(200).json(report);
   } else {
     //todo: If it has been reported previously then just modify the previous report
     const report = await Report.findOne({ reportedOn: questionId });
