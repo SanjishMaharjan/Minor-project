@@ -25,7 +25,7 @@ const PostQuestion = () => {
     <>
       <div>
         <div className="question-bar">
-          <h1>Ask a publcic question</h1>
+          <h1>Ask a public question</h1>
 
           <Form method="post" action="/question/new" encType="multipart/form-data">
             <h2>Title</h2>
@@ -34,7 +34,7 @@ const PostQuestion = () => {
             <br />
             <p className="input-box"> {serverError ?? null} </p>
             <h2>Body</h2>
-            <p>Include all the information someone woulf need to answer your question</p>
+            <p>Include all the information someone would need to answer your question</p>
             <TextEditor text={text} setText={setText} />
 
             <input type="text" hidden value={text} name="question" />
