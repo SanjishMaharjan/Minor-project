@@ -50,6 +50,23 @@ const createQuestion = asyncHandler(async (req, res) => {
   res.status(200).json(savedQuestion);
 });
 
+//* find the most used tag in question
+////////////////////////////////////////
+const mostUsedTag = asyncHandler(async () => {
+  const tags = await Question.aggregate([
+    { $unwind: "$tag" },
+    {
+      $group: {
+        _id: "$tag",
+        count: { $sum: 1 },
+      },
+    },
+    { $sort: { count: -1 } },
+    { $limit: 10 },
+  ]);
+  return tags;
+});
+
 //*                              get all questions
 ////////////////////////////////////////////////////////////////////
 
@@ -70,7 +87,9 @@ const getQuestions = asyncHandler(async (req, res) => {
     .sort({ updatedAt: -1 })
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize);
-  res.status(200).json({ totalQuestions, questions });
+  const tags = await mostUsedTag();
+  console.log(tags);
+  res.status(200).json({ totalQuestions, tags: tags, questions });
 });
 
 //* get most recently updated questions
