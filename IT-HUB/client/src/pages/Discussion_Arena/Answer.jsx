@@ -23,12 +23,14 @@ import useAuth from "../../context/AuthContext";
 import "./answer.scss";
 import { useQuery } from "@tanstack/react-query";
 import DOMPurify from "dompurify";
-import { useState } from "react";
+import { useState, useRef, useMemo } from "react";
 import TextEditor from "./Editor";
 
 const Answer = () => {
-  const [text, setText] = useState("");
+  const comment = useRef("");
   const [showImageFullScreen, setShowImageFullScreen] = useState(false);
+  const [text, setText] = useState("");
+  const memoizedText = useMemo(() => text, [text]);
 
   const { isLoggedIn, user } = useAuth();
 
@@ -47,12 +49,10 @@ const Answer = () => {
 
   const fetcher = useFetcher();
 
-  console.log(contributors);
-
   const res = fetcher.data;
-  console.log(res);
 
   if (res && res.status === 200) {
+    // document.querySelector(".answer-input").value = "";
     console.log("here");
   }
 
@@ -103,16 +103,16 @@ const Answer = () => {
             <fetcher.Form method="post" action={`/question/${question?.questionId}`}>
               <div class="form-profile">
                 <img src={user.image.imagePath} height="50" width="50" alt="" />
-
                 <TextEditor text={text} setText={setText} />
-                <textarea
-                  hidden
+                {/* <textarea
                   className="answer-input"
+                  cols={30}
+                  rows={10}
                   type="text"
                   name="answer"
-                  value={text}
                   placeholder={`click here to answer ${question?.questioner}`}
-                />
+                /> */}
+                <input type="text" name="answer" value={memoizedText} hidden />
               </div>
               <div class="button">
                 <button>Post comment</button>

@@ -129,23 +129,22 @@
     margin-bottom: 2rem;
   }
 
-  // .form-profile textarea {
-  //   font-size: 1rem;
-  //   flex-basis: 60%;
-  //   resize: none;
-  //   border: 1px solid #ccc;
-  //   color: var(--alternate-color);
-  //   padding: 0.5rem 1rem;
-  //   display: block;
-  //   min-height: 5rem;
-  //   background-color: var(--navbar-color);
-  //   border-radius: 5px;
-  //   display: none;
-  // }
+  .form-profile textarea {
+    font-size: 1rem;
+    flex-basis: 60%;
+    border: 1px solid #ccc;
 
-  // .form-profile textarea:focus {
-  //   outline: none;
-  // }
+    padding: 0.5rem 1rem;
+    display: block;
+    min-height: 5rem;
+    background-color: var(--navbar-color);
+    border-radius: 5px;
+    resize: none;
+  }
+
+  .form-profile textarea:focus {
+    outline: none;
+  }
 
   .comment-no {
     font-size: 1.3rem;
@@ -164,6 +163,10 @@
   .answer-container .answer {
     display: grid;
     grid-template-columns: 10% auto 10%;
+
+    .description {
+      min-width: 700px;
+    }
   }
 
   .answer-icons {

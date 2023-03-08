@@ -5,12 +5,13 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from "draftjs-to-html";
 import "./editor.scss";
 
-const TextEditor = ({ text, setText }) => {
+const TextEditor = ({ comment, setText }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
-    setText(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+    if (comment) comment.current = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    else setText(draftToHtml(convertToRaw(editorState.getCurrentContent())));
   };
 
   return (
