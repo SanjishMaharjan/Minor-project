@@ -104,7 +104,20 @@ export const postQuestion = async ({ request }) => {
     question: formData.get("question"),
     image: formData.get("image"),
     title: formData.get("title"),
+    tag: formData.get("tag"),
   };
+
+  // change the tags into array
+
+  post.tag = post.tag.split(",");
+  post.tag = post.tag.map((t) => t.trim());
+
+  // limit the number of tags to 5
+
+  if (post.tag.length > 5) {
+    post.tag = post.tag.slice(0, 5);
+  }
+
   console.log(post);
 
   post.question = post.question.replace(
