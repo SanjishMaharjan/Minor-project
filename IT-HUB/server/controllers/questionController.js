@@ -110,7 +110,8 @@ const getQuestionsByTag = asyncHandler(async (req, res) => {
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize);
   const totalPages = questions.length / pageSize;
-  res.status(200).json({ totalPages, questions });
+  const tags = await mostUsedTag();
+  res.status(200).json({ totalQuestions, tags: tags, questions });
 });
 //* get most recently updated questions
 /////////////////////////////////////////////////////////////////////////
@@ -130,8 +131,9 @@ const getLatestQuestions = asyncHandler(async (req, res) => {
     .sort({ createdAt: -1 })
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize);
-  totalPages = questions.length / pageSize;
-  res.status(200).json({ totalPages, questions });
+  totalQuestions = questions.length / pageSize;
+  const tags = await mostUsedTag();
+  res.status(200).json({ totalQuestions, tags: tags, questions });
 });
 
 //*                          get a single question
@@ -168,7 +170,8 @@ const getQuestionByUser = asyncHandler(async (req, res) => {
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize);
   const totalQuestions = question.length / pageSize;
-  return res.status(200).json({ totalQuestions, questions });
+  const tags = await mostUsedTag();
+  res.status(200).json({ totalQuestions, tags: tags, questions });
 });
 //*                      delete a single question
 /////////////////////////////////////////////////////////////////////////
