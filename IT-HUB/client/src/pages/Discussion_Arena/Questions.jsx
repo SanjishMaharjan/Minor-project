@@ -22,7 +22,8 @@ import Pagination from "../../components/Pagination";
 
 const Questions = () => {
   const { isLoggedIn, user } = useAuth();
-  const { id } = useParams();
+  const params = useParams();
+  const id = params.id;
 
   // use location to get the current page
   const location = useLocation();
@@ -30,12 +31,14 @@ const Questions = () => {
   let questions;
   if (currentPage === "mydiscussion") {
     questions = useQuery(["myquestion", id], { enabled: false }).data;
+  } else if (params.tname) {
+    questions = useQuery(["tag", params.tname, id], { enabled: false }).data;
+    console.log(questions);
+    currentPage = `question/tag/${params.tname}`;
   } else {
     questions = useQuery(["question", id], { enabled: false }).data;
     currentPage = "question";
   }
-
-  console.log(questions);
 
   const totalPages = questions.totalQuestions;
   const tags = questions.tags;
@@ -86,7 +89,9 @@ const Questions = () => {
                 <div class="tags-container">
                   {question.tag.map((t) => (
                     <div class="tag">
-                      <p>{t}</p>
+                      <Link to={`/question/tag/${t}/page/1`}>
+                        <p>{t}</p>
+                      </Link>
                     </div>
                   ))}
                 </div>
@@ -106,7 +111,7 @@ const Questions = () => {
           <hr />
           <div className="tags">
             {tags.map((tag) => (
-              <Link to="#" className="tag">
+              <Link to={`/question/tag/${tag._id}/page/1`} className="tag">
                 {tag._id}{" "}
               </Link>
             ))}

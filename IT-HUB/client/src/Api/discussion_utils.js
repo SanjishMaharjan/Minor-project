@@ -30,6 +30,15 @@ export const getMyQuestion = async ({ params }) => {
   return client.fetchQuery(["myquestion", id], queryFn);
 };
 
+export const getTaggedQuestion = async ({ params }) => {
+  const { id, tname } = params;
+  const queryFn = async () => {
+    const { data } = await axios.get(`/api/question/tag/${tname}/page/${id}`);
+    return data;
+  };
+  return client.fetchQuery(["tag", tname, id], queryFn);
+};
+
 // detele a question
 export const deleteQuestion = async ({ params }) => {
   // get the question from cache

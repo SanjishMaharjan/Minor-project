@@ -44,6 +44,7 @@ import NotLoggedIn from "./pages/Error/NotLoggedIn";
 
 import { fetchNews } from "./Api/news_utils";
 import {
+  getTaggedQuestion,
   getQuestion,
   getMyQuestion,
   getAnswer,
@@ -82,6 +83,11 @@ const router = createBrowserRouter(
       {/* <Route path="/question" loader={getQuestion} element={<Questions />} /> */}
       <Route path="/question/page/:id" loader={getQuestion} element={<Questions />} />
       <Route path="/mydiscussion/page/:id" loader={getMyQuestion} element={<Questions />} />
+      <Route
+        path="/question/tag/:tname/page/:id"
+        loader={getTaggedQuestion}
+        element={<Questions />}
+      />
 
       <Route element={<RequireLogin />}>
         {/* <Route element={<RequireLogin />} errorElement={<NotLoggedIn />}> */}
@@ -106,6 +112,7 @@ const router = createBrowserRouter(
           element={<Answer />}
           action={commentQuestion}
         />
+
         <Route
           path="/question/:id/delete"
           action={deleteQuestion}
