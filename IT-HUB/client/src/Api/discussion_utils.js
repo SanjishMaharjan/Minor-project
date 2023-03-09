@@ -69,7 +69,9 @@ export const upvoteQuestion = async ({ params }) => {
 
   const OldQuestions = client.getQueryData(queryKey);
 
-  const Oldquestion = client.getQueryData(queryKey).find((q) => q._id === params.id);
+  const Oldquestion = client
+    .getQueryData(queryKey)
+    .find((q) => q._id === params.id);
 
   // check if the user has already upvoted the question
   // first get userId from query cache
@@ -81,7 +83,9 @@ export const upvoteQuestion = async ({ params }) => {
     Oldquestion.upvote.count -= 1;
 
     // remove the user from the upvoters array
-    Oldquestion.upvote.upvoters = Oldquestion.upvote.upvoters.filter((u) => u !== userId);
+    Oldquestion.upvote.upvoters = Oldquestion.upvote.upvoters.filter(
+      (u) => u !== userId
+    );
   } else {
     Oldquestion.upvote.count += 1;
 
@@ -198,7 +202,10 @@ export const commentQuestion = async ({ params, request }) => {
   const newAnswers = [...comments, data];
 
   // update the cache
-  data.answer = data.answer.replace(/background-color:[^;]*;/g, "background-color:transparent;");
+  data.answer = data.answer.replace(
+    /background-color:[^;]*;/g,
+    "background-color:transparent;"
+  );
 
   client.setQueryData(["answer", id], {
     questionInfo,
@@ -216,7 +223,7 @@ export const commentQuestion = async ({ params, request }) => {
   } catch (error) {
     console.log(error);
     client.setQueryData(["answer", id], OldAnswers);
-    return error.response;
+    return error;
   }
 };
 
@@ -240,7 +247,9 @@ export const upvoteAnswer = async ({ params }) => {
 
   if (OldAnswer.upvote.upvoters.includes(userId)) {
     OldAnswer.upvote.count -= 1;
-    OldAnswer.upvote.upvoters = OldAnswer.upvote.upvoters.filter((u) => u !== userId);
+    OldAnswer.upvote.upvoters = OldAnswer.upvote.upvoters.filter(
+      (u) => u !== userId
+    );
     // update the array
   } else {
     OldAnswer.upvote.count += 1;

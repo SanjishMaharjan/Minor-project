@@ -1,6 +1,12 @@
 import Pagination from "../../components/pagination";
 import images from "./images.json";
-import { useNavigation, useLoaderData, Link, useParams, Form } from "react-router-dom";
+import {
+  useNavigation,
+  useLoaderData,
+  Link,
+  useParams,
+  Form,
+} from "react-router-dom";
 import Loader from "../../components/Loader";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { shuffle } from "../../utils/suffle.js";
@@ -52,7 +58,11 @@ const Courses = () => {
             <div key={course._id}>
               <div>
                 <Link to={course.course_url}>
-                  <img src={url[i].url} alt="" />
+                  <img
+                    src={url[i].url}
+                    onClick={() => postClick(course.course_name)}
+                    alt=""
+                  />
                 </Link>
                 <h2>{course.course_name}</h2>
                 <p>{course.course_description.substring(0, 100) + "..."}</p>
@@ -62,7 +72,9 @@ const Courses = () => {
                 <span>{course.Difficulty_level}</span>
               </h3>
               <Link to={course.course_url}>
-                <button type="button" onClick={() => postClick(course.course_name)}>
+                <button
+                  type="button"
+                  onClick={() => postClick(course.course_name)}>
                   Read more
                 </button>
               </Link>
@@ -70,7 +82,13 @@ const Courses = () => {
           );
         })}
       </div>
-      {id && <Pagination currentPage={Number(id)} totalPages={50} baseUrl={`/course/pages`} />}
+      {id && (
+        <Pagination
+          currentPage={Number(id)}
+          totalPages={50}
+          baseUrl={`/course/pages`}
+        />
+      )}
     </>
   );
 };

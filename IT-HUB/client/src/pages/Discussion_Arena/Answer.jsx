@@ -56,10 +56,12 @@ const Answer = () => {
     console.log("here");
   }
 
-  const serverError = res?.status === 400 && res?.data?.msg;
+  const serverError =
+    res?.message === "Network Error" && "long comment cannot be posted";
   const answerError = res?.status === 403 && res?.data?.errors?.answer;
 
-  if (useNavigation().state === "loading" && fetcher.formData == null) return <Loader />;
+  if (useNavigation().state === "loading" && fetcher.formData == null)
+    return <Loader />;
 
   return (
     <>
@@ -69,7 +71,12 @@ const Answer = () => {
             <h1>{question.questionTitle}</h1>
             <div class="question">
               <Link to={`/profile/${question?.questionerId}`}>
-                <img src={question?.questionerImage} height="50" width="50" alt="" />
+                <img
+                  src={question?.questionerImage}
+                  height="50"
+                  width="50"
+                  alt=""
+                />
               </Link>
               <div class="question-content">
                 <div>
@@ -89,18 +96,27 @@ const Answer = () => {
                     />
                   )}
                   {showImageFullScreen && (
-                    <div className="fullscreen-image" onClick={() => setShowImageFullScreen(false)}>
-                      <img className="image" src={question.QuestionImage.imagePath} alt="" />
+                    <div
+                      className="fullscreen-image"
+                      onClick={() => setShowImageFullScreen(false)}>
+                      <img
+                        className="image"
+                        src={question.QuestionImage.imagePath}
+                        alt=""
+                      />
                     </div>
                   )}
                 </div>
                 <div
                   className="description"
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(question?.question) }}
-                ></div>
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(question?.question),
+                  }}></div>
               </div>
             </div>
-            <fetcher.Form method="post" action={`/question/${question?.questionId}`}>
+            <fetcher.Form
+              method="post"
+              action={`/question/${question?.questionId}`}>
               <div class="form-profile">
                 <img src={user.image.imagePath} height="50" width="50" alt="" />
                 <TextEditor text={text} setText={setText} />
@@ -127,7 +143,12 @@ const Answer = () => {
           <div class="answer-container">
             {answers.map((answer) => (
               <div class="answer">
-                <img src={answer?.commenter?.image?.imagePath} height="50" width="50" alt="" />
+                <img
+                  src={answer?.commenter?.image?.imagePath}
+                  height="50"
+                  width="50"
+                  alt=""
+                />
                 <div class="question-content">
                   <p>{answer?.commenter?.name + " "} </p>
                   <span>
@@ -138,8 +159,9 @@ const Answer = () => {
                   </span>
                   <div
                     className="description"
-                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(answer?.answer) }}
-                  ></div>
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(answer?.answer),
+                    }}></div>
                   {/* <p>{answer.answer}</p> */}
                 </div>
                 <div className="answer-icons">
@@ -149,8 +171,7 @@ const Answer = () => {
 
                   <fetcher.Form
                     method="post"
-                    action={`/${question?.questionId}/answer/${answer?._id}/upvote`}
-                  >
+                    action={`/${question?.questionId}/answer/${answer?._id}/upvote`}>
                     <button>
                       {answer?.upvote?.upvoters.includes(user._id) ? (
                         <AiFillHeart className="love" fill="green" />
@@ -173,7 +194,12 @@ const Answer = () => {
             {contributors.map((contributor) => (
               <div className="top-contributer" key={contributor.name}>
                 <Link to={`/profile/${contributor?._id}`}>
-                  <img src={contributor.image.imagePath} height="20" width="20" alt="" />
+                  <img
+                    src={contributor.image.imagePath}
+                    height="20"
+                    width="20"
+                    alt=""
+                  />
                 </Link>
                 <p> {contributor.name}</p>
                 <span>{contributor.contribution}</span>
@@ -189,7 +215,12 @@ const Answer = () => {
               <Link to={`/question/${question._id}`}>
                 <div class="unanswered-question">
                   <Link to={`/profile/${question.questioner._id}`}>
-                    <img src={question.questioner.image.imagePath} height="20" width="20" alt="" />
+                    <img
+                      src={question.questioner.image.imagePath}
+                      height="20"
+                      width="20"
+                      alt=""
+                    />
                   </Link>
                   <div class="unanswered-content">
                     <p>{question.questioner.name}</p>

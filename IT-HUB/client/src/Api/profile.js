@@ -10,7 +10,7 @@ export const fetchProfile = async ({ params }) => {
     return profile.data;
   };
   const user = client.getQueryData(["user"]);
-  if (!user) throw new Error();
+  // if (!user) throw new Error();
 
   return client.fetchQuery(["profile", id], queryFn);
 };

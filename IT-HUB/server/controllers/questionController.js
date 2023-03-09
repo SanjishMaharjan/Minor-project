@@ -109,7 +109,8 @@ const getQuestionsByTag = asyncHandler(async (req, res) => {
     .sort({ updatedAt: -1 })
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize);
-  const totalQuestions = questions.length / pageSize;
+  const totalQuestions =
+    (await Question.countDocuments({ tag: tagName })) / pageSize;
   const tags = await mostUsedTag();
   res.status(200).json({ totalQuestions, tags: tags, questions });
 });
@@ -118,6 +119,7 @@ const getQuestionsByTag = asyncHandler(async (req, res) => {
 const getLatestQuestions = asyncHandler(async (req, res) => {
   const pageSize = 5;
   const pageNumber = req.params.pageNumber || 1;
+  const totalQuestions = (await Question.countDocuments()) / pageSize;
   const questions = await Question.find()
     .populate("questioner", "name image.imagePath")
     .populate({
@@ -131,7 +133,6 @@ const getLatestQuestions = asyncHandler(async (req, res) => {
     .sort({ createdAt: -1 })
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize);
-  totalQuestions = questions.length / pageSize;
   const tags = await mostUsedTag();
   res.status(200).json({ totalQuestions, tags: tags, questions });
 });
@@ -156,6 +157,8 @@ const getQuestion = asyncHandler(async (req, res) => {
 const getQuestionByUser = asyncHandler(async (req, res) => {
   const pageSize = 5;
   const pageNumber = req.params.pageNumber || 1;
+  const totalQuestions =
+    (await Question.countDocuments({ questioner: req.user._id })) / pageSize;
   const questions = await Question.find({ questioner: req.user._id })
     .populate("questioner", "name image.imagePath")
     .populate({
@@ -169,7 +172,6 @@ const getQuestionByUser = asyncHandler(async (req, res) => {
     .sort({ updatedAt: -1 })
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize);
-  const totalQuestions = questions.length / pageSize;
   const tags = await mostUsedTag();
   res.status(200).json({ totalQuestions, tags: tags, questions });
 });

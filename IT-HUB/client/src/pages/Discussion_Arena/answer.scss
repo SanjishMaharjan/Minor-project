@@ -54,6 +54,9 @@
     display: grid;
     grid-template-columns: 10% auto;
     column-gap: 1rem;
+    a {
+      grid-row: 1/2;
+    }
   }
 
   .question-content {
