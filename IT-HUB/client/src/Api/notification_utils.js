@@ -29,5 +29,6 @@ export const getNotificationCount = async () => {
 
   return client.fetchQuery(["notificationCount"], queryFn, {
     staleTime: 1000 * 3,
+    // refetchInterval: 1000 * 3,
   });
 };

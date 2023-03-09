@@ -7,7 +7,7 @@ export const getCourse = async () => {
     const data = await customAxios.get("/course/all");
     return data.data;
   } catch (error) {
-    return error.response;
+    throw new Error();
   }
 };
 
@@ -18,9 +18,7 @@ export const getRecommend = async () => {
       return data.data;
     } catch (error) {
       console.log(error);
-      if (error.response.status === 401) {
-        throw new Error();
-      }
+      throw new Error();
     }
   };
 

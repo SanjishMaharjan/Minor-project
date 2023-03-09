@@ -15,7 +15,9 @@ export const getQuestion = async ({ params }) => {
     const { data } = await axios.get(`/api/question/page/${id}`);
     return data;
   };
-  return client.fetchQuery(["question", id], queryFn);
+  return client.fetchQuery(["question", id], queryFn, {
+    staleTime: 1000 * 60,
+  });
 };
 
 export const getMyQuestion = async ({ params }) => {
@@ -217,7 +219,7 @@ export const upvoteAnswer = async ({ params }) => {
 
   const OldAnswers = client.getQueryData(["answer", id]);
 
-  const OldAnswer = OldAnswers.comments.find((a) => a._id === answerId);
+  const OldAnswer = OldAnswers.comments.find((a) => a?._id === answerId);
   const OldQuestion = OldAnswers.question;
 
   const oldUnanswered = OldAnswers.unAnswered;
@@ -225,7 +227,7 @@ export const upvoteAnswer = async ({ params }) => {
 
   // check if the user has already upvoted the answer
   // first get userId from query cache
-  const userId = client.getQueryData(["user"])._id;
+  const userId = client.getQueryData(["user"])?._id;
 
   if (OldAnswer.upvote.upvoters.includes(userId)) {
     OldAnswer.upvote.count -= 1;
@@ -238,7 +240,7 @@ export const upvoteAnswer = async ({ params }) => {
   }
 
   const newAnswers = OldAnswers.comments.map((a) => {
-    if (a._id === answerId) {
+    if (a?._id === answerId) {
       return OldAnswer;
     }
     return a;

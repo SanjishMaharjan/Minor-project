@@ -85,10 +85,20 @@ const router = createBrowserRouter(
 
       <Route element={<RequireLogin />}>
         {/* <Route element={<RequireLogin />} errorElement={<NotLoggedIn />}> */}
-        <Route path="/course" loader={getRecommend} element={<Courses />} />
+        <Route
+          path="/course"
+          loader={getRecommend}
+          element={<Courses />}
+          errorElement={<NotLoggedIn />}
+        />
         <Route path="/search" loader={searchCourse} element={<Courses />} />
+        <Route
+          path="/course/pages/:id"
+          loader={getPage}
+          element={<Courses />}
+          errorElement={<NotLoggedIn />}
+        />
 
-        <Route path="/course/pages/:id" loader={getPage} element={<Courses />} />
         <Route path="/question/new" action={postQuestion} element={<PostQuestion />} />
         <Route
           path="/question/:id"
