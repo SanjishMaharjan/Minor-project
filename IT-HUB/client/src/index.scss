@@ -14,6 +14,7 @@
 
 .dark-theme {
   --font-color-primary: rgb(255, 255, 255);
+  --font-color-secondary: #666;
   --navbar-color: rgb(43, 44, 55);
   --background-color: rgb(32, 33, 44);
   --alternate-color: #fff;
@@ -22,6 +23,7 @@
 
 .light-theme {
   --font-color-primary: rgb(14, 18, 23);
+  --font-color-secondary: #666;
   --navbar-color: #c5d3f7;
   --background-color: #e1e9ff;
   --alternate-color: rgb(43, 44, 55);
@@ -40,12 +42,15 @@ h2,
 h3,
 h4,
 h5,
-p,
 a,
 li,
 ul,
 div {
   color: var(--font-color-primary);
+}
+
+p{
+  color: var(--font-color-secondary);
 }
 
 li {
