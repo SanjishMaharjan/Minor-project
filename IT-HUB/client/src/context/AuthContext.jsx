@@ -32,8 +32,7 @@ export const AuthContextProvider = (props) => {
 
   const logOut = async () => {
     await axios.get("/api/users/logout");
-    client.invalidateQueries(["user"]);
-    client.invalidateQueries(["notificationCount"]);
+    client.invalidateQueries();
     setUser({});
     setLoggedIn(false);
     setAdmin(false);
