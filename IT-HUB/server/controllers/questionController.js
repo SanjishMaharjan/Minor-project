@@ -169,7 +169,7 @@ const getQuestionByUser = asyncHandler(async (req, res) => {
     .sort({ updatedAt: -1 })
     .skip((pageNumber - 1) * pageSize)
     .limit(pageSize);
-  const totalQuestions = question.length / pageSize;
+  const totalQuestions = questions.length / pageSize;
   const tags = await mostUsedTag();
   res.status(200).json({ totalQuestions, tags: tags, questions });
 });
