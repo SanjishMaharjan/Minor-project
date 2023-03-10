@@ -7,7 +7,6 @@ const crypto = require("crypto");
 const { sendEmail, validateEmail } = require("../utils/sendEmail");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
-const Gallery = require("../models/galleryModel");
 
 //* token to store on cookie
 const generateToken = (id) => {

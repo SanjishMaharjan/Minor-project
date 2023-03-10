@@ -1,5 +1,4 @@
 const Event = require("../models/eventModel");
-const Gallery = require("../models/galleryModel");
 const asyncHandler = require("express-async-handler");
 
 //* get all events
@@ -7,7 +6,7 @@ const asyncHandler = require("express-async-handler");
 const getAllEvents = asyncHandler(async (req, res) => {
   const currentDate = new Date();
   const upCommingEvents = await Event.find({ endDate: { $gt: currentDate } });
-  const expiredEvents = await Event.find({ endDate: { $ls: currentDate } });
+  const expiredEvents = await Event.find({ endDate: { $lt: currentDate } });
   res.status(200).json({ upCommingEvents, expiredEvents });
 });
 

@@ -3,7 +3,6 @@ const User = require("../models/userModel");
 const Question = require("../models/questionModel");
 const Comment = require("../models/commentModel");
 const Report = require("../models/reportModel");
-const Gallery = require("../models/galleryModel");
 const { Poll, Candidate } = require("../models/pollModel");
 const { sendEmail } = require("../utils/sendEmail");
 const cloudinary = require("cloudinary").v2;
@@ -261,11 +260,6 @@ const getPollCompleted = asyncHandler(async (req, res) => {
 //* admin uploads the image
 /////////////////////////////////////////////////////////////
 const uploadImages = asyncHandler(async (req, res) => {
-  const { title, description } = req.body;
-  if (!title || !description) {
-    res.status(400);
-    throw new Error("title and description is required");
-  }
   const event = await Event.findById(req.params.eventId);
   if (!event) {
     res.status(404);
@@ -279,7 +273,7 @@ const uploadImages = asyncHandler(async (req, res) => {
   imageData = [{}];
   for (i = 0; i < req.files.length; i++) {
     uploadedFile = await cloudinary.uploader.upload(req.files[i].path, {
-      folder: `IT-Hub/Event/Gallery/${title}`,
+      folder: `IT-Hub/Event/Gallery`,
       resource_type: "image",
     });
     imageData[i] = {
@@ -291,9 +285,9 @@ const uploadImages = asyncHandler(async (req, res) => {
       if (err) console.log("error while deleting image");
     });
   }
-  event.gallery = imageData;
+  event.gallery.push(imageData);
   event.save();
-  res.status(200).json(images);
+  res.status(200).json(event);
 });
 
 //* admin creates the events

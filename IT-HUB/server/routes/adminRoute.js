@@ -21,6 +21,13 @@ const {
 
 router.post("/poll", isAdmin, createPoll);
 router.post("/event", isAdmin, upload.array("images"), createEvent);
+router.patch(
+  "/event/:eventId/images",
+  isAdmin,
+  validateIds("eventId"),
+  upload.array("images"),
+  uploadImages
+);
 router.get("/poll", isAdmin, getAllPoll);
 router.get("/poll/initial", isAdmin, getPollInitial);
 router.get("/poll/final", isAdmin, getPollFinal);
@@ -42,6 +49,5 @@ router.patch(
   isAdmin,
   removeReport
 );
-router.post("/uploadimages", isAdmin, upload.array("images"), uploadImages);
 
 module.exports = router;
