@@ -22,14 +22,14 @@ const Home = () => {
           src="../../src/assets/Images/shahadat-rahman-BfrQnKBulYQ-unsplash.jpg"
           alt="image"
         />
-        <p>
+        <h2>
           Want to learn and grow together computer Enthusiast?
           <br />
           Then join us and enroll in our courses
-        </p>
+        </h2>
       </div>
       <div className="getstarted">
-        <Link to="/course/recommend">
+        <Link to="/course">
           <button type="submit">Get Started</button>
         </Link>
       </div>

@@ -1,4 +1,5 @@
 import "./Navbarstyles.scss";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import ProfileDropDown from "../StudentProfile/ProfileDropDown";
 import { MdOutlineLightMode } from "react-icons/md";
@@ -7,30 +8,52 @@ import useToggleTheme from "../../context/ThemeContext";
 
 const Navbar = ({ count }) => {
   const { toggleTheme, theme } = useToggleTheme();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
     <div className="menu-icon">
       <a href="/" className="logo">
         <img className="logo-image" src="../../src/assets/Images/Itlogo2.png" alt="image" />
       </a>
-      <ul className="navbar">
+      <div className="menu-toggle" onClick={toggleMenu}>
+        <div className={`hamburger ${isMenuOpen ? "active" : ""}`}>
+          <span></span>
+        </div>
+      </div>
+      <ul className={`navbar ${isMenuOpen ? "open" : ""}`}>
         <li>
-          <NavLink to="/">Home</NavLink>
+          <NavLink to="/" onClick={toggleMenu}>
+            Home
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/news">Crunchy Bytes</NavLink>
+          <NavLink to="/news" onClick={toggleMenu}>
+            Crunchy Bytes
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/course">Courses</NavLink>
+          <NavLink to="/course" onClick={toggleMenu}>
+            Courses
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/question/page/1">Code Café</NavLink>
+          <NavLink to="/question/page/1" onClick={toggleMenu}>
+            Code Café
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/events">Events</NavLink>
+          <NavLink to="/events" onClick={toggleMenu}>
+            Events
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/about">About</NavLink>
+          <NavLink to="/about" onClick={toggleMenu}>
+            About
+          </NavLink>
         </li>
         <li>
           {theme === "dark-theme" ? (

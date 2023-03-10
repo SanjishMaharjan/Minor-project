@@ -19,7 +19,7 @@ import Layout from "./pages/Navbar/Layout";
 
 import Courses from "./pages/Courses/Courses";
 import Gallery from "./pages/Gallery/Gallery";
-import Events from "./pages/Eventss/Events";
+import Events from "./pages/Events/Events";
 import Home from "./pages/Landing_page/Home";
 import News from "./pages/News/News";
 import About from "./pages/About/About";
