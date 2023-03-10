@@ -6,7 +6,6 @@ const {
   getComments,
   deleteComment,
   updateComment,
-  reportComment,
   upvoteComment,
   getUpvotes,
   verifyComment,
@@ -26,12 +25,7 @@ router.patch(
   protect,
   updateComment
 );
-router.post(
-  "/comment/:commentId/report",
-  validateIds("questionId", "commentId"),
-  protect,
-  reportComment
-);
+
 router.patch(
   "/comment/:commentId/upvote",
   validateIds("questionId", "commentId"),

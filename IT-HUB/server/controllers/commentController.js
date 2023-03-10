@@ -196,64 +196,6 @@ const updateComment = asyncHandler(async (req, res) => {
 //   }
 // });
 
-//*         handle Report!!
-/////////////////////////////////////////////////////////
-const reportComment = asyncHandler(async (req, res) => {
-  const { questionId, commentId } = req.params;
-
-  const comment = await Comment.findById(commentId);
-  if (!comment) {
-    res.status(404);
-    throw new Error(`no comment by id:${commentId}`);
-  }
-
-  if (questionId !== comment.questionId.toString()) {
-    res.status(400);
-    throw new Error(
-      "question Id in param and questionId in comment.questionId didn't match"
-    );
-  }
-
-  const { reason } = req.body;
-  // if (!reason) {
-  //   res.status(400);
-  //   throw new Error("reason cannot be empty");
-  // }
-
-  //* check if it has already been reported or not
-  //todo: If it hasn't been reported create new report and also set the isReported flag of comment
-  if (!comment.isReported) {
-    const report = await Report.create({
-      reportedOn: commentId,
-      onPost: "Comment",
-      reasons: reason,
-      count: 1,
-      reportedUser: comment.commenter,
-    });
-    comment.isReported = true;
-    await comment.save();
-    await User.findByIdAndUpdate(comment.commenter, {
-      $inc: { contribution: -1 },
-    });
-    res.status(200).json(report);
-  } else {
-    //todo: If it has been reported previously then just modify the previous report
-    const report = await Report.findOne({ reportedOn: commentId });
-    const array = report.reasons.filter((e) => e == reason);
-    if (array.length != 0) {
-      report.count += 1;
-    } else {
-      report.count += 1;
-      report.reasons.push(reason);
-    }
-    await report.save();
-    await User.findByIdAndUpdate(report.reportedUser, {
-      $inc: { contribution: -1 },
-    });
-    res.status(200).json(report);
-  }
-});
-
 //*                    Handle Likes!!
 ///////////////////////////////////////////////////////////////
 
@@ -361,6 +303,5 @@ module.exports = {
   updateComment,
   upvoteComment,
   getUpvotes,
-  reportComment,
   verifyComment,
 };

@@ -9,7 +9,6 @@ const {
   getQuestion,
   deleteQuestion,
   updateQuestion,
-  reportQuestion,
   getLatestQuestions,
   getQuestionByUser,
   getQuestionsByTag,
@@ -33,10 +32,5 @@ router.patch(
   protect,
   updateQuestion
 );
-router.post(
-  "/:questionId/report",
-  validateIds("questionId"),
-  protect,
-  reportQuestion
-);
+
 module.exports = router;

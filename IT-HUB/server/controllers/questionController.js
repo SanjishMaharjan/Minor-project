@@ -237,51 +237,6 @@ const updateQuestion = asyncHandler(async (req, res) => {
   }
 });
 
-//*                         Handle Report!!
-///////////////////////////////////////////////////////////////
-
-const reportQuestion = asyncHandler(async (req, res) => {
-  const { questionId } = req.params;
-
-  const question = await Question.findById(questionId);
-  if (!question) {
-    res.status(404);
-    throw new Error(`no question by id:${questionId}`);
-  }
-
-  const { reason } = req.body;
-  // if (!reason) {
-  //   res.status(400);
-  //   throw new Error("reason cannot be empty");
-  // }
-
-  //* check if it has already been reported or not
-  //todo: If it hasn't been reported create new report and also set the isReported flag of question
-  if (!question.isReported) {
-    console.log("hello world");
-    const report = await Report.create({
-      reportedOn: questionId,
-      onPost: "Question",
-      reasons: reason,
-      reportedUser: question.questioner,
-      count: 1,
-    });
-    question.isReported = true;
-    question.save();
-    res.status(200).json(report);
-  } else {
-    //todo: If it has been reported previously then just modify the previous report
-    const report = await Report.findOne({ reportedOn: questionId });
-    const array = report.reasons.filter((e) => e == reason);
-    if (array.length === 0) {
-      report.reasons.push(reason);
-    }
-    report.count += 1;
-    await report.save();
-    res.status(200).json(report);
-  }
-});
-
 //*                          export Modules
 //////////////////////////////////////////////////////////////////////
 
@@ -294,5 +249,4 @@ module.exports = {
   getQuestion,
   deleteQuestion,
   updateQuestion,
-  reportQuestion,
 };
