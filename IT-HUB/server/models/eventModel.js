@@ -23,7 +23,15 @@ const eventSchema = mongoose.Schema(
       required: true,
       default: "Lalitpur Engineering College",
     },
-    images: [
+    speaker: {
+      type: String,
+    },
+    infoImages: [
+      {
+        type: Object,
+      },
+    ],
+    gallery: [
       {
         type: Object,
       },
