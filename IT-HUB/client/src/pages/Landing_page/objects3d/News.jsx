@@ -11,7 +11,7 @@ import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 
 export default function Model(props) {
-  const { nodes, materials } = useGLTF("../../../../public/news-transformed.glb");
+  const { nodes, materials } = useGLTF("/news-transformed.glb");
   return (
     <group {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={0.01}>
@@ -28,4 +28,4 @@ export default function Model(props) {
   );
 }
 
-useGLTF.preload("../../../../public/news-transformed.glb");
+useGLTF.preload("/news-transformed.glb");
