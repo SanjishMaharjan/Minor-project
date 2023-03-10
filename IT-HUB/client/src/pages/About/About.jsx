@@ -34,7 +34,7 @@ const About = () => {
           return (
             <div key={student.name}>
               <img src={student.image} alt="" />
-              <p>{student.name}</p>
+              <p style={{ fontWeight: "500", color: "var(--alternate-color)" }}>{student.name}</p>
               <p>{student.post}</p>
             </div>
           );
