@@ -9,6 +9,7 @@ const { sendEmail } = require("../utils/sendEmail");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 const Notification = require("../models/notificationModel");
+const Event = require("../models/eventModel");
 
 //* Admin can view all the users of the site!
 ///////////////////////////////////////////////////////////
@@ -294,8 +295,45 @@ const uploadImages = asyncHandler(async (req, res) => {
   res.status(200).json(images);
 });
 
+//* admin creates the events
+////////////////////////////////////////////////////
+const createEvent = asyncHandler(async (req, res) => {
+  const { title, description, startDate, endDate, location } = req.body;
+  if (!title || !description || !startDate || !endDate) {
+    res.status(400);
+    throw new Error("sorry necessary field cannot be letf empty");
+  }
+
+  imageData = [{}];
+  for (i = 0; i < req.files.length; i++) {
+    uploadedFile = await cloudinary.uploader.upload(req.files[i].path, {
+      folder: `IT-Hub/Event/${title}`,
+      resource_type: "image",
+    });
+    imageData[i] = {
+      imageId: uploadedFile.public_id,
+      imageName: req.files[i].originalname,
+      imagePath: uploadedFile.secure_url,
+    };
+    fs.unlink(req.files[i].path, (err) => {
+      if (err) console.log("error while deleting image");
+    });
+  }
+
+  await Event.create({
+    title,
+    description,
+    startDate,
+    endDate,
+    location,
+    images: imageData,
+  });
+  res.status(200).json({ msg: "succesfully created the Event" });
+});
 module.exports = {
   createPoll,
+  createEvent,
+  uploadImages,
   updateForVoting,
   getAllPoll,
   getPollInitial,
@@ -307,5 +345,4 @@ module.exports = {
   getReportedPosts,
   deleteReportedPost,
   removeReport,
-  uploadImages,
 };

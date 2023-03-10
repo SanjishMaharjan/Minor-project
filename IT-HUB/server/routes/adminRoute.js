@@ -16,9 +16,11 @@ const {
   getPollCompleted,
   uploadImages,
   removeReport,
+  createEvent,
 } = require("../controllers/adminController");
 
 router.post("/poll", isAdmin, createPoll);
+router.post("/event", isAdmin, upload.array("images"), createEvent);
 router.get("/poll", isAdmin, getAllPoll);
 router.get("/poll/initial", isAdmin, getPollInitial);
 router.get("/poll/final", isAdmin, getPollFinal);
