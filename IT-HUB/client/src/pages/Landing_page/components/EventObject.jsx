@@ -7,7 +7,7 @@ const EventObject = () => {
   return (
     <>
       <Canvas>
-        <OrbitControls enableZoom={false} autoRotate={true} />
+        <OrbitControls enableZoom={false} autoRotate={true} enablePan={false} />
         <Stage environment="night" intensity={0.6}>
           <Html />
         </Stage>

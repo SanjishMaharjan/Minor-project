@@ -7,7 +7,7 @@ const ChatObject = () => {
   return (
     <>
       <Canvas>
-        <OrbitControls enableZoom={false} autoRotate={true} />
+        <OrbitControls enableZoom={false} autoRotate={true} enablePan={false} />
         <Stage environment="night">
           <StackOverflow />
         </Stage>
