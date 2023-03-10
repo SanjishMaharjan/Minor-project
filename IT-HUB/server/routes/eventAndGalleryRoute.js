@@ -11,7 +11,7 @@ const {
 } = require("../controllers/eventAndGalleryController");
 
 router.get("/", getAllEvents);
-router.get("/:id", getEvent);
+router.get("/:eventId", getEvent);
 router.get("/album", getAllImages);
 router.get("/album/:albumId", validateIds("albumId"), getImages);
 module.exports = router;
