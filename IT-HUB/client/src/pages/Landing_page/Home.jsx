@@ -41,7 +41,9 @@ const Home = () => {
       <div className="works-wrapper">
         <div className="our-works">
           {works.map((work, index) => (
-            <p onClick={() => setActive(index)}>{work}</p>
+            <p className={active === index ? "active" : ""} onClick={() => setActive(index)}>
+              {work}
+            </p>
           ))}
         </div>
 

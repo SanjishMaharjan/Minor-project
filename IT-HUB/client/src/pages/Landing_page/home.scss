@@ -11,6 +11,10 @@
   gap: 2rem;
   padding-top: 1rem;
 
+  .active {
+    color: var(--hover-color);
+  }
+
   p {
     max-width: fit-content;
     font-size: 60px;
