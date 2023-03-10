@@ -12,8 +12,6 @@ const {
   forgotPassword,
   resetPassword,
   verifyUser,
-  getImages,
-  getAllImages,
 } = require("../controllers/userController");
 const { protect } = require("../middleWare/authMiddleware");
 const { upload } = require("../utils/fileUpload");
@@ -29,7 +27,5 @@ router.patch("/updateuser", protect, upload.single("image"), updateUser);
 router.patch("/changepassword", protect, changePassword);
 router.post("/forgotpassword", forgotPassword);
 router.put("/resetpassword/:resetToken", resetPassword);
-router.get("/getimages", getAllImages);
-router.get("/getimages/:imagesId", getImages);
 
 module.exports = router;

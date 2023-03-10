@@ -61,7 +61,10 @@ const registerUser = asyncHandler(async (req, res) => {
     let verifyToken = crypto.randomBytes(32).toString("hex") + _id;
     console.log(verifyToken);
     //* hash token before saving
-    const hashedToken = crypto.createHash("sha256").update(verifyToken).digest("hex");
+    const hashedToken = crypto
+      .createHash("sha256")
+      .update(verifyToken)
+      .digest("hex");
 
     //* save token to database
     await new Token({
@@ -113,7 +116,10 @@ const registerUser = asyncHandler(async (req, res) => {
 const verifyUser = asyncHandler(async (req, res) => {
   const { verifyToken } = req.params;
   //* hash token to compare
-  const hashedToken = crypto.createHash("sha256").update(verifyToken).digest("hex");
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(verifyToken)
+    .digest("hex");
 
   //* find token in database
   const userToken = await Token.findOne({
@@ -402,7 +408,10 @@ const forgotPassword = asyncHandler(async (req, res) => {
   let resetToken = crypto.randomBytes(32).toString("hex") + user._id;
   console.log(resetToken);
   //* hash token before saving to DB
-  const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
 
   //* save token to database
   await new Token({
@@ -437,7 +446,10 @@ const resetPassword = asyncHandler(async (req, res) => {
   const { password } = req.body;
   const { resetToken } = req.params;
   //* hash token to compare
-  const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
 
   //* find token in database
   const userToken = await Token.findOne({
@@ -463,7 +475,7 @@ const resetPassword = asyncHandler(async (req, res) => {
 });
 
 //*                                                  Profile Modules
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const getProfile = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
@@ -502,25 +514,6 @@ const getProfile = asyncHandler(async (req, res) => {
   });
 });
 
-//*                                  image of Event
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const getAllImages = asyncHandler(async (req, res) => {
-  const images = await Gallery.find();
-  res.status(200).json(images);
-});
-
-//*                                get image of particular event
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const getImages = asyncHandler(async (req, res) => {
-  const { imagesId } = req.params;
-  const images = await Gallery.findById(imagesId);
-  if (!images) {
-    res.status(404);
-    throw new Error(`no images with id: ${imagesId}`);
-  }
-  res.status(200).json(images);
-});
-
 //*                                                  Export Modules
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 module.exports = {
@@ -535,6 +528,4 @@ module.exports = {
   forgotPassword,
   resetPassword,
   getProfile,
-  getAllImages,
-  getImages,
 };
