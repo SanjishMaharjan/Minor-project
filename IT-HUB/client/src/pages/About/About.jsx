@@ -1,6 +1,5 @@
 import React from "react";
 import members from "./Club_Members.json";
-import FAQ from "./FAQ/FAQ";
 import { useNavigation } from "react-router-dom";
 import Loader from "../../components/Loader";
 import "./AboutStyles.scss";
@@ -40,7 +39,7 @@ const About = () => {
           );
         })}
       </div>
-      <FAQ />
+      {/* <FAQ /> */}
     </div>
   );
 };

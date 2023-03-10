@@ -1,0 +1,252 @@
+.works-wrapper {
+  display: grid;
+  width: 90%;
+  grid-template-columns: 1fr 60%;
+}
+
+.our-works {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-top: 1rem;
+  padding-left: 5.8rem;
+
+  p {
+    max-width: fit-content;
+    font-size: 60px;
+    font-weight: 800;
+    cursor: pointer;
+    color: transparent;
+
+    -webkit-text-stroke: 1px var(--font-color-primary);
+    position: relative;
+
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      overflow: hidden;
+      color: var(--hover-color);
+      white-space: nowrap;
+    }
+    &:first-child:after {
+      content: "Courses";
+    }
+    &:nth-child(2):after {
+      content: "News";
+    }
+    &:nth-child(3):after {
+      content: "Discussion";
+    }
+    &:last-child:after {
+      content: "Events";
+    }
+
+    &:hover {
+      &:after {
+        color: var(--hover-color);
+        animation: text-animate 0.5s linear both;
+
+        @keyframes text-animate {
+          0% {
+            width: 0;
+          }
+          100% {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.objects {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .works-wrapper {
+    column-gap: 5rem;
+    p {
+      font-size: 30px;
+    }
+
+    .our-works {
+      padding-left: 2rem;
+    }
+
+    .objects {
+      width: 50%;
+    }
+  }
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  margin-bottom: 5rem;
+
+  padding-block: 5rem;
+
+  h1 {
+    font-size: 90px;
+    color: var(--font-color-primary);
+    margin-bottom: 3rem;
+  }
+  p {
+    font-size: 20px;
+    color: var(--font-color-primary);
+    margin-bottom: 2rem;
+  }
+
+  button {
+    padding: 1rem 2rem;
+    border: none;
+    background-color: var(--navbar-color);
+    color: var(--font-color-primary);
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: var(--hover-color);
+    }
+  }
+
+  .hero-img {
+    width: 120%;
+    margin-inline: auto;
+    animation: hero-animation 2.4s linear infinite alternate;
+  }
+  @keyframes hero-animation {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-20px);
+    }
+  }
+}
+
+.work-header {
+  width: 90%;
+  margin-inline: auto;
+  margin-bottom: 5rem;
+  h1 {
+    font-size: 70px;
+    color: var(--font-color-primary);
+    margin-bottom: 2rem;
+  }
+}
+
+@media (width < 768px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+
+    place-items: center;
+    margin-bottom: 5rem;
+    gap: 2rem;
+
+    padding-block: 5rem;
+
+    h1 {
+      font-size: 50px;
+      color: var(--font-color-primary);
+      margin-bottom: 2rem;
+    }
+    p {
+      font-size: 15px;
+      color: var(--font-color-primary);
+      margin-bottom: 2rem;
+    }
+
+    button {
+      padding: 1rem 2rem;
+      border: none;
+      background-color: coral;
+      color: var(--font-color-primary);
+      font-size: 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        background-color: #ff6f61;
+      }
+    }
+    .hero-image {
+      grid-row: 1/2;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .hero-img {
+      width: 80%;
+      animation: hero-animation 2s linear infinite alternate;
+    }
+    @keyframes hero-animation {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-10px);
+      }
+    }
+  }
+
+  .work-header {
+    width: 90%;
+    margin-inline: auto;
+    margin-bottom: 5rem;
+    h1 {
+      font-size: 50px;
+      color: var(--font-color-primary);
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+.faq-container {
+  margin-top: 8rem;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin-inline: auto;
+
+  h2 {
+    font-size: 70px;
+    margin-block: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  h3 {
+    cursor: pointer;
+    padding: 30px 0;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    margin: auto;
+    box-shadow: var(--box-shadow);
+    margin-bottom: 2rem;
+  }
+
+  h3:hover {
+    background-color: var(--navbar-color);
+  }
+
+  h3:after {
+    font-size: 13px;
+    float: right;
+    margin-left: 5px;
+  }
+
+  p {
+    margin: auto;
+    padding: 10px;
+  }
+}

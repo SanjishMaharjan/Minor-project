@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import "./FAQStyles.scss";
-const FAQ = () => {
+const Faq = () => {
   const [activeIndex, setActiveIndex] = useState(-1);
 
   const handleClick = (index) => {
@@ -40,4 +39,4 @@ const FAQ = () => {
   );
 };
 
-export default FAQ;
+export default Faq;
