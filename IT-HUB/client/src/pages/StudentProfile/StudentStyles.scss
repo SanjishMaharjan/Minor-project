@@ -1,15 +1,23 @@
 .student-wrapper {
   margin-top: 3rem;
   margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
+  h1{
+    margin-block: 3rem;
+    font-size: 3.5rem;
+  }
   .student-details {
     box-shadow: var(--box-shadow);
-    border-radius: 0.6rem;
+    border-radius: 2rem;
     display: flex;
-    width: 50%;
+    width: 60%;
     justify-content: space-around;
     background-color: var(--navbar-color);
-    padding: 3rem;
+    padding: 8rem;
 
     img {
       border-radius: 30%;
@@ -21,6 +29,9 @@
     }
     div {
       margin-block: auto;
+      display: flex;
+      gap: 1rem;
+      flex-direction: column;
     }
 
     h3 {
