@@ -15,6 +15,7 @@ const pollRoute = require("./routes/pollRoute");
 const notificationRoute = require("./routes/notificationRoute");
 const eventAndGalleryRoute = require("./routes/eventAndGalleryRoute");
 const reportRoute = require("./routes/reportRoute");
+const aboutRoute = require("./routes/aboutRoute");
 
 mongoose.set("strictQuery", true);
 
@@ -33,6 +34,7 @@ app.use("/api/admin", adminRoute);
 app.use("/api/notification", notificationRoute);
 app.use("/api/event", eventAndGalleryRoute);
 app.use("/api/report", reportRoute);
+app.use("/api/about", aboutRoute);
 
 // const task = cron.schedule("*/5 * * * *", function () {
 // const task = cron.schedule('0 0 * * 0', function() {
