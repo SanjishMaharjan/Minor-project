@@ -132,7 +132,7 @@ const router = createBrowserRouter(
         <Route path="/profile" action={changeProfileImage} element={<StudentProfile />} />
       </Route>
 
-      <Route path="/events" loader={getImages} element={<Events />} />
+      {/* <Route path="/events" loader={getImages} element={<Events />} /> */}
       <Route path="/events" element={<Events />} />
       <Route path="/about" element={<About />} />
       <Route

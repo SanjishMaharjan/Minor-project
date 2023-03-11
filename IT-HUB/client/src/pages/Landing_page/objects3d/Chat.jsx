@@ -11,7 +11,7 @@ import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 
 export default function Model(props) {
-  const { nodes, materials } = useGLTF("../../../../public/chat-transformed.glb");
+  const { nodes, materials } = useGLTF("/chat-transformed.glb");
   return (
     <group {...props} dispose={null}>
       <group position={[0, -0.12, 0]} scale={[3.5, 0.7, 1.8]}>
@@ -29,4 +29,4 @@ export default function Model(props) {
   );
 }
 
-useGLTF.preload("../../../../public/chat-transformed.glb");
+useGLTF.preload("/chat-transformed.glb");

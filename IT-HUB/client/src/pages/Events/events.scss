@@ -1,4 +1,131 @@
-.events-container{
-    margin-top: 2rem;
-    text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+.events-wrapper {
+  margin-top: 2rem;
+  display: grid;
+  width: 90%;
+  max-width: 2000px;
+
+  margin-inline: auto;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3rem;
+
+  img {
+    object-fit: cover;
+    border-radius: 1.3rem;
+    cursor: pointer;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .upcomming-events {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+
+    .upcomming-event {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1.7rem 1.5rem;
+      box-shadow: 4px 23px 34px 0px rgba(54, 41, 41, 0.1);
+      border-radius: 0.6rem;
+    }
+
+    .upcomming-event:hover {
+      cursor: pointer;
+    }
+
+    p {
+      color: #666;
+    }
+
+    & p:first-child::before {
+      content: "";
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    & .upcomming-event:nth-child(2) p:first-child::before {
+      background: crimson;
+    }
+    & .upcomming-event:nth-child(3) p:first-child::before {
+      background: #f9c74f;
+    }
+    & .upcomming-event:nth-child(4) p:first-child::before {
+      background: #90be6d;
+    }
+    & .upcomming-event:nth-child(5) p:first-child::before {
+      background: #4352aa;
+    }
+
+    h2 {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+  }
+
+  .past-events {
+    h1 {
+      margin-bottom: 2.5rem;
+    }
+  }
+  .past-events-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+
+    .past-event {
+      img,
+      h2,
+      p {
+        margin-bottom: 0.5rem;
+      }
+      h2 {
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+      p {
+        color: #666;
+      }
+    }
+  }
+  @media (width < 1400px) {
+    .past-events-container {
+      grid-template-columns: 1fr;
+      width: 50%;
+    }
+  }
+
+  @media (width < 600px) {
+    & {
+      grid-template-columns: 1fr;
+      padding: 1.5rem 1rem;
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 600;
+      }
+      h2 {
+        font-size: 1rem;
+      }
+
+      img {
+        width: 200%;
+        display: block;
+        margin-bottom: 1rem;
+      }
+
+      .upcomming-events {
+        margin-bottom: 1rem;
+      }
+    }
+  }
 }
