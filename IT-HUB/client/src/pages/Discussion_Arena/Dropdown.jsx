@@ -4,17 +4,32 @@ import { FaTrash } from "react-icons/fa";
 import { BiEditAlt } from "react-icons/bi";
 import "./dropdown.scss";
 import useAuth from "../../context/AuthContext";
+import { useEffect, useRef } from "react";
 import { Form, useFetcher } from "react-router-dom";
 
 const Dropdown = ({ answer, question }) => {
   const { user } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
   const fetcher = useFetcher();
-  //   if (useNavigation().state === "loading" && fetcher.formData == null) return <Loader />;
+
+  const dropdownRef = useRef(null);
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    window.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      window.removeEventListener("click", handleOutsideClick);
+    };
+  }, [dropdownRef]);
 
   return (
     <>
-      <div className="dropdown-more">
+      <div className="dropdown-more" ref={dropdownRef}>
         <button onClick={() => setShowDropdown(!showDropdown)}>
           <i className="fas fa-ellipsis-h"></i>
         </button>
