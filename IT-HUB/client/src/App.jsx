@@ -47,16 +47,15 @@ import {
   getTaggedQuestion,
   getQuestion,
   getMyQuestion,
-  getAnswer,
   postQuestion,
   deleteQuestion,
-  commentQuestion,
   upvoteQuestion,
-  upvoteAnswer,
-} from "./Api/discussion_utils";
+} from "./Api/question_utils";
+
+import { commentQuestion, upvoteAnswer, getAnswer, deleteAnswer } from "./Api/answer_utils";
 import { forgotPassword, verifyUser, validateRegister, handleLogin } from "./Api/login_utils";
 import { fetchProfile } from "./Api/profile";
-import { getImages, postImages } from "./Api/gallery";
+import { getEvents, postImages } from "./Api/gallery";
 
 import { getCourse, getRecommend, getPage, searchCourse } from "./Api/course_utils";
 import ManageEvents from "./pages/Admin_pannel/ManageEvents/ManageEvents";
@@ -64,7 +63,6 @@ import SideBar from "./pages/Admin_pannel/SideBar";
 import Notification from "./pages/Notification/Notification";
 import { getNotification, getNotificationCount } from "./Api/notification_utils";
 import { changeProfileImage } from "./Api/profile";
-import Poll from "./pages/Poll/Poll";
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:5000";
@@ -125,6 +123,11 @@ const router = createBrowserRouter(
           errorElement={<h1>Cannot upvote</h1>}
         />
         <Route
+          path=":id/answer/:answerId/delete"
+          action={deleteAnswer}
+          errorElement={<h1>Cannot delete</h1>}
+        />
+        <Route
           path=":id/answer/:answerId/upvote"
           action={upvoteAnswer}
           errorElement={<h1>Cannot upvote</h1>}
@@ -133,9 +136,8 @@ const router = createBrowserRouter(
         <Route path="/profile" action={changeProfileImage} element={<StudentProfile />} />
       </Route>
 
-      {/* <Route path="/events" loader={getImages} element={<Events />} /> */}
-      <Route path="/events" element={<Events />} />
-      <Route path="/poll" element={<Poll />} />
+      <Route path="/events" loader={getEvents} element={<Events />} />
+      {/* <Route path="/events" element={<Events />} /> */}
       <Route path="/about" element={<About />} />
       <Route
         path="/notification"
