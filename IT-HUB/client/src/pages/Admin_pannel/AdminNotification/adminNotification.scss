@@ -1,0 +1,72 @@
+.notification-container {
+        width: 90%;
+        margin-inline: auto;
+        margin-top: 2rem;
+  > p {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-block: 2rem;
+
+    span {
+      width: 10%;
+      font-size: 2rem;
+      
+    }
+  }
+  div {
+  
+      margin-inline: auto;
+
+      
+    div{
+        // display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+        padding: 10px;
+        // background: linear-gradient(
+        //   to bottom,
+        //   rgba(255, 255, 255, 0.4),
+        //   rgba(255, 255, 255, 0.1)
+        // );
+        background-color: var(--navbar-color);
+        // color: var(--hover-color);
+        padding-inline: 2rem;
+        margin-bottom:1.8rem;
+        // margin-left: 3rem;
+        border-radius: 0.9rem;
+        box-shadow: var(--box-shadow);
+        cursor: pointer;
+      }
+      span{
+        color: var(--hover-color);
+      }
+      button{
+        margin-inline: auto;
+      }
+    }
+
+    p {
+      
+      font-size: 0.8rem;
+      font-weight: 400;
+      margin-left: auto;
+      
+      span:not(:first-child) {
+        color: var(--hover-color);
+      }
+
+      
+    }
+
+    a {
+      text-decoration: none;;
+      font-size: 1.2rem;
+      font-weight: 400;
+
+
+
+    
+  }
+}

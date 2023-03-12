@@ -32,7 +32,8 @@ import ForgotPassword from "./pages/Login/ForgotPassword";
 import MainAdmin from "./pages/Admin_pannel/MainAdmin";
 import CreatePoll from "./pages/Admin_pannel/CreatePoll";
 import EditContent from "./pages/Admin_pannel/EditContent/EditContent";
-import AdminNotification from "./pages/Admin_pannel/AdminNotification";
+import AdminNotification from "./pages/Admin_pannel/AdminNotification/AdminNotification";
+import { getReportedPosts } from "./Api/admin_reported";
 
 import PostQuestion from "./pages/Discussion_Arena/PostQuestion";
 import Questions from "./pages/Discussion_Arena/Questions";
@@ -184,7 +185,7 @@ const router = createBrowserRouter(
             errorElement={<ErrorHandler />}
           />
 
-          <Route path="adminnotification" element={<AdminNotification />} />
+          <Route path="adminnotification" loader={getReportedPosts} element={<AdminNotification />} />
           <Route path="manageevents" element={<ManageEvents />} />
         </Route>
       </Route>
