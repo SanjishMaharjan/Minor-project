@@ -5,10 +5,11 @@ import { validator } from "../validation/validator";
 
 import { client } from "./queryClient";
 
-export const getImages = async () => {
+export const getEvents = async () => {
   const queryFn = async () => {
-    const images = await axios.get(`/api/users/getimages`);
-    return images.data;
+    const { data } = await axios.get(`/api/event`);
+    console.log(data);
+    return data;
   };
 
   return client.fetchQuery(["gallery"], queryFn);

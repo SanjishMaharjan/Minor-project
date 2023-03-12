@@ -10,12 +10,7 @@ import {
 } from "react-router-dom";
 import Loader from "../../components/Loader";
 import { getDate } from "../../Utils/dateConverter";
-import { FcLikePlaceholder } from "react-icons/fc";
-import { BiComment } from "react-icons/bi";
-import { HiFlag } from "react-icons/hi";
-import { FaTrash } from "react-icons/fa";
-import { CgMoreO } from "react-icons/cg";
-import { FcLike } from "react-icons/fc";
+
 import { FaRegHeart } from "react-icons/fa";
 import { AiFillHeart } from "react-icons/ai";
 
@@ -25,6 +20,7 @@ import { useQuery } from "@tanstack/react-query";
 import DOMPurify from "dompurify";
 import { useState, useRef, useMemo } from "react";
 import TextEditor from "./Editor";
+import Dropdown from "./Dropdown";
 
 const Answer = () => {
   const comment = useRef("");
@@ -66,7 +62,7 @@ const Answer = () => {
       <div class="answer-wrapper">
         <div class="first-col">
           <div class="answer-header">
-            <h1>{question.questionTitle}</h1>
+            <h1>{question?.questionTitle}</h1>
             <div class="question">
               <div>
                 <Link to={`/profile/${question?.questionerId}`}>
@@ -108,14 +104,7 @@ const Answer = () => {
               <div class="form-profile">
                 <img src={user.image.imagePath} height="50" width="50" alt="" />
                 <TextEditor text={text} setText={setText} />
-                {/* <textarea
-                  className="answer-input"
-                  cols={30}
-                  rows={10}
-                  type="text"
-                  name="answer"
-                  placeholder={`click here to answer ${question?.questioner}`}
-                /> */}
+
                 <input type="text" name="answer" value={memoizedText} hidden />
               </div>
               <div class="button">
@@ -165,6 +154,7 @@ const Answer = () => {
                       )}
                     </button>
                   </fetcher.Form>
+                  <Dropdown answer={answer} question={question} />
                 </div>
               </div>
             ))}
@@ -187,8 +177,10 @@ const Answer = () => {
             ))}
           </div>
 
-          <h2>Unanswered Questions</h2>
-          <p>Discussion with no comments. Be first to get in a comment</p>
+          <h2 className="unanswered-title">Unanswered Questions</h2>
+          <p className="unanswered-detail">
+            Discussion with no comments. Be first to get in a comment
+          </p>
 
           <div class="unanswered-questions">
             {unAnswered.map((question) => (

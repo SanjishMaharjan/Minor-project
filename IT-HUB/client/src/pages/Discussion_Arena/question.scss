@@ -174,7 +174,7 @@
   }
 }
 
-@media (width <= 500px) {
+@media (width <= 600px) {
   .question-wrapper {
     width: 100%;
   }
@@ -185,6 +185,10 @@
 
   .reply {
     display: none;
+
+    p {
+      display: none;
+    }
   }
 }
 

@@ -1,0 +1,13 @@
+.dropdown-more {
+  button {
+    padding: 0 0.1rem;
+    margin: 0.4rem;
+  }
+  form {
+    margin-bottom: 0;
+  }
+
+  button:hover {
+    color: var(--hover-color);
+  }
+}

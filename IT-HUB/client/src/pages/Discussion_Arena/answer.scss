@@ -166,6 +166,9 @@
   .answer-container .answer {
     display: grid;
     grid-template-columns: 10% auto 10%;
+    // padding-block: 5em;
+    // margin-bottom: 1rem;
+    min-height: 200px;
 
     .description {
       min-width: 700px;
@@ -175,7 +178,7 @@
   .answer-icons {
     display: flex;
     gap: 1.5rem;
-    align-items: center;
+    // align-items: center;
 
     button {
       background-color: transparent;
@@ -205,7 +208,7 @@
     color: #666;
     font-size: 1rem;
     font-weight: 500;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
   }
 
   .aside h2 {
@@ -252,13 +255,64 @@
     color: #666;
   }
 }
+
+.unanswered-title {
+  margin-top: 5rem;
+  margin-bottom: 0.5rem;
+}
+
 @media (width <= 768px) {
   .answer-wrapper {
     display: flex;
     flex-direction: column;
 
+    .first-col {
+      width: 100%;
+    }
     .aside {
       display: none;
+    }
+
+    .question {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .question-content {
+      margin-bottom: 2rem;
+      display: flex !important;
+      row-gap: 1.5rem;
+    }
+
+    form .form-profile {
+      display: grid;
+      grid-template-columns: 10% 50%;
+      margin-bottom: 2rem;
+    }
+
+    .form-profile textarea {
+      font-size: 1rem;
+      flex-basis: 60%;
+      border: 1px solid #ccc;
+
+      // padding: 0.5rem 1rem;
+      display: block;
+      min-height: 2rem;
+      background-color: var(--navbar-color);
+      border-radius: 5px;
+      resize: none;
+    }
+
+    .answer-container .answer {
+      display: flex !important;
+
+      span {
+        display: none;
+      }
+    }
+    .description {
+      min-width: initial;
+      max-width: 300px;
     }
   }
 }
