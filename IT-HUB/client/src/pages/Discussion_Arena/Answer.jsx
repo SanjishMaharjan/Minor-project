@@ -29,7 +29,7 @@ const Answer = () => {
   const [text, setText] = useState("");
   const memoizedText = useMemo(() => text, [text]);
 
-  const { isLoggedIn, user } = useAuth();
+  const { isLoggedIn, user, isAdmin } = useAuth();
 
   const { id } = useParams();
 
@@ -65,7 +65,9 @@ const Answer = () => {
           <div class="answer-header">
             <div class="question-header">
               <h1>{question?.questionTitle}</h1>
-              {question?.questionerId === user?._id && <QuestionDropdown question={question} />}
+              {question?.questionerId === user?._id || isAdmin ? (
+                <QuestionDropdown question={question} />
+              ) : null}
             </div>
             <div class="question">
               <div>

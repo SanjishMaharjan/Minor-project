@@ -9,7 +9,7 @@ import { Form, useFetcher } from "react-router-dom";
 import { AiOutlineEllipsis } from "react-icons/ai";
 
 const AnswerDropdown = ({ answer, question }) => {
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
   const fetcher = useFetcher();
 
@@ -27,16 +27,16 @@ const AnswerDropdown = ({ answer, question }) => {
       window.removeEventListener("click", handleOutsideClick);
     };
   }, [dropdownRef]);
-
   return (
     <>
       <div className="dropdown-more" ref={dropdownRef}>
         <button onClick={() => setShowDropdown(!showDropdown)}>
           <AiOutlineEllipsis />
         </button>
+
         {showDropdown && (
-          <div>
-            {user?._id === answer?.commenter?._id && (
+          <div className="dropdown-content">
+            {user?._id === answer?.commenter?._id || isAdmin ? (
               <>
                 <fetcher.Form
                   method="post"
@@ -48,11 +48,14 @@ const AnswerDropdown = ({ answer, question }) => {
                     <span>Delete</span>
                   </button>
                 </fetcher.Form>
-                <button>
-                  <BiEditAlt />
-                  <span>Edit</span>
-                </button>
               </>
+            ) : null}
+
+            {user._id === answer?.commenter?._id && (
+              <button>
+                <BiEditAlt />
+                <span>Edit</span>
+              </button>
             )}
 
             {!answer.isReported && (

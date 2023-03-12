@@ -9,7 +9,7 @@ import { Form, useFetcher } from "react-router-dom";
 import { AiOutlineEllipsis } from "react-icons/ai";
 
 const QuestionDropdown = ({ question }) => {
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
   const fetcher = useFetcher();
   console.log(question);
@@ -45,10 +45,13 @@ const QuestionDropdown = ({ question }) => {
                   <span>Delete</span>
                 </button>
               </fetcher.Form>
-              <button>
-                <BiEditAlt />
-                <span>Edit</span>
-              </button>
+
+              {user._id === question?.questionerId && (
+                <button>
+                  <BiEditAlt />
+                  <span>Edit</span>
+                </button>
+              )}
             </div>
           )}
         </div>

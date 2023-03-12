@@ -149,6 +149,7 @@ export const deleteAnswer = async ({ params }) => {
     client.invalidateQueries(["answer", id]);
     return redirect(`/question/${id}`);
   } catch (error) {
-    client.setQueryData(["answer", id], OldAnswers);
+    console.log(error);
+    client.invalidateQueries(["answer", id]);
   }
 };

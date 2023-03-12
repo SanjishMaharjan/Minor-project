@@ -51,6 +51,7 @@ export const deleteQuestion = async ({ params }) => {
 
     return redirect("/question/page/1");
   } catch (error) {
+    console.log(error);
     throw new Error("Cannot delete", { status: 404 });
   }
 };
