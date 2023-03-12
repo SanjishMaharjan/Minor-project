@@ -39,7 +39,7 @@ const createComment = asyncHandler(async (req, res) => {
       .length;
     deleteNotification(notification.user, notiLength);
   }
-  const lol = await User.findByIdAndUpdate(req.user._id, {
+  await User.findByIdAndUpdate(req.user._id, {
     $inc: { contribution: 1 },
   });
   return res
@@ -138,10 +138,13 @@ const deleteComment = asyncHandler(async (req, res) => {
   const noti = await Notification.findOneAndDelete({
     comment: deletedComment._id,
   });
-  await User.findByIdAndUpdate(noti.user, {
-    $inc: { notification: -1 },
-  });
-  await User.findByIdAndUpdate(req.user._id, {
+  if (noti) {
+    console.log("oh no");
+    await User.findByIdAndUpdate(noti.user, {
+      $inc: { notification: -1 },
+    });
+  }
+  const lol = await User.findByIdAndUpdate(_id, {
     $inc: { contribution: -1 },
   });
   res.status(200).json({ msg: "Comment Deleted Successfully" });
