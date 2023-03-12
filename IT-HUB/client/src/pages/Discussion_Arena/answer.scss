@@ -2,6 +2,14 @@
   display: grid;
   grid-template-columns: auto 30%;
   margin-top: 2rem;
+
+  .question-header {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
   .first-col {
     width: 80%;
     margin-inline: auto;

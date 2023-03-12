@@ -6,8 +6,9 @@ import "./dropdown.scss";
 import useAuth from "../../context/AuthContext";
 import { useEffect, useRef } from "react";
 import { Form, useFetcher } from "react-router-dom";
+import { AiOutlineEllipsis } from "react-icons/ai";
 
-const Dropdown = ({ answer, question }) => {
+const AnswerDropdown = ({ answer, question }) => {
   const { user } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
   const fetcher = useFetcher();
@@ -31,7 +32,7 @@ const Dropdown = ({ answer, question }) => {
     <>
       <div className="dropdown-more" ref={dropdownRef}>
         <button onClick={() => setShowDropdown(!showDropdown)}>
-          <i className="fas fa-ellipsis-h"></i>
+          <AiOutlineEllipsis />
         </button>
         {showDropdown && (
           <div>
@@ -67,4 +68,4 @@ const Dropdown = ({ answer, question }) => {
   );
 };
 
-export default Dropdown;
+export default AnswerDropdown;

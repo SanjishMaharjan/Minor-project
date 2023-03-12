@@ -20,7 +20,8 @@ import { useQuery } from "@tanstack/react-query";
 import DOMPurify from "dompurify";
 import { useState, useRef, useMemo } from "react";
 import TextEditor from "./Editor";
-import Dropdown from "./Dropdown";
+import AnswerDropdown from "./AnswerDropdown";
+import QuestionDropdown from "./QuestionDropdown";
 
 const Answer = () => {
   const comment = useRef("");
@@ -62,7 +63,10 @@ const Answer = () => {
       <div class="answer-wrapper">
         <div class="first-col">
           <div class="answer-header">
-            <h1>{question?.questionTitle}</h1>
+            <div class="question-header">
+              <h1>{question?.questionTitle}</h1>
+              {question?.questionerId === user?._id && <QuestionDropdown question={question} />}
+            </div>
             <div class="question">
               <div>
                 <Link to={`/profile/${question?.questionerId}`}>
@@ -154,7 +158,7 @@ const Answer = () => {
                       )}
                     </button>
                   </fetcher.Form>
-                  <Dropdown answer={answer} question={question} />
+                  <AnswerDropdown answer={answer} question={question} />
                 </div>
               </div>
             ))}

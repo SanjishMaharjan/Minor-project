@@ -41,23 +41,15 @@ export const getTaggedQuestion = async ({ params }) => {
 
 // detele a question
 export const deleteQuestion = async ({ params }) => {
-  // get the question from cache
-
-  const OldQuestions = client.getQueryData(queryKey);
-
-  // remove the question from the cache
-  const newQuestions = OldQuestions.filter((q) => q._id !== params.id);
-
-  // set the new cache
-
-  client.setQueryData(queryKey, newQuestions);
+  const { id } = params;
 
   try {
-    await axios.delete(`/api/question/${params.id}`);
+    await axios.delete(`/api/question/${id}`);
 
-    client.invalidateQueries(queryKey);
+    // invalidate the cache
+    client.invalidateQueries(["question"]);
 
-    return redirect("/question");
+    return redirect("/question/page/1");
   } catch (error) {
     throw new Error("Cannot delete", { status: 404 });
   }

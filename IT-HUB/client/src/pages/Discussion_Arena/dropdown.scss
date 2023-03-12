@@ -1,7 +1,20 @@
 .dropdown-more {
+  position: relative;
+
+  .dropdown-content {
+    position: absolute;
+  }
+
   button {
     padding: 0 0.1rem;
     margin: 0.4rem;
+    background-color: transparent;
+    font-size: 1.1rem;
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--alternate-color);
   }
   form {
     margin-bottom: 0;
@@ -9,5 +22,6 @@
 
   button:hover {
     color: var(--hover-color);
+    background-color: transparent;
   }
 }
