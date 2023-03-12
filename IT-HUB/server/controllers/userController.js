@@ -36,13 +36,16 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("Please use lec domain email to regester");
   }
 
+  const expireDate = new Date(
+    isRegistered.createdAt.getTime() + 0.5 * 60 * 60 * 1000
+  );
   //* check if user email already exists
   const isRegistered = await User.findOne({ email });
-  if (isRegistered) {
+  if (expireDate > new Date()) {
     res.status(400);
     throw new Error("Email has already been registered");
   }
-
+  await User.findByIdAndDelete(isRegistered._id);
   //* Create new user
   const user = await User.create({
     name,
