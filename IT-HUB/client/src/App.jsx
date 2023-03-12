@@ -64,6 +64,7 @@ import SideBar from "./pages/Admin_pannel/SideBar";
 import Notification from "./pages/Notification/Notification";
 import { getNotification, getNotificationCount } from "./Api/notification_utils";
 import { changeProfileImage } from "./Api/profile";
+import Poll from "./pages/Poll/Poll";
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:5000";
@@ -134,6 +135,7 @@ const router = createBrowserRouter(
 
       {/* <Route path="/events" loader={getImages} element={<Events />} /> */}
       <Route path="/events" element={<Events />} />
+      <Route path="/poll" element={<Poll />} />
       <Route path="/about" element={<About />} />
       <Route
         path="/notification"
