@@ -5,8 +5,12 @@ const asyncHandler = require("express-async-handler");
 ////////////////////////////////////////////////
 const getAllEvents = asyncHandler(async (req, res) => {
   const currentDate = new Date();
-  const upCommingEvents = await Event.find({ endDate: { $gt: currentDate } });
-  const expiredEvents = await Event.find({ endDate: { $lt: currentDate } });
+  const upCommingEvents = await Event.find({
+    endDate: { $gt: currentDate },
+  }).select("-gallery -createdAt -updatedAt -infoImage");
+  const expiredEvents = await Event.find({
+    endDate: { $lt: currentDate },
+  }).select("-gallery -createdAt -updatedAt -infoImage");
   res.status(200).json({ upCommingEvents, expiredEvents });
 });
 
