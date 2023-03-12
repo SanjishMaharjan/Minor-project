@@ -119,7 +119,7 @@ const Answer = () => {
 
           <div class="answer-container">
             {answers.map((answer) => (
-              <div class="answer">
+              <div class="answer" key={answer._id}>
                 <img src={answer?.commenter?.image?.imagePath} height="50" width="50" alt="" />
                 <div class="question-content">
                   <p>{answer?.commenter?.name + " "} </p>

@@ -146,7 +146,7 @@ export const deleteAnswer = async ({ params }) => {
   try {
     await axios.delete(`/api/${id}/comment/${answerId}`);
 
-    // client.invalidateQueries(["answer", id]);
+    client.invalidateQueries(["answer", id]);
     return redirect(`/question/${id}`);
   } catch (error) {
     client.setQueryData(["answer", id], OldAnswers);
