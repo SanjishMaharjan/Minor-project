@@ -54,6 +54,9 @@
   button {
     border: 0.15rem solid var(--hover-color);
   }
+  & button:last-child{
+    margin-top: 2rem;
+  }
   /* +++++++++++++++++++++++++++++++++ Forget password ++++++++++++++++++++ */
   .forget-navigation {
     width: 100%;
