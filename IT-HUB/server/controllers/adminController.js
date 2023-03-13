@@ -285,7 +285,7 @@ const uploadImages = asyncHandler(async (req, res) => {
       if (err) console.log("error while deleting image");
     });
   }
-  event.gallery.push(imageData);
+  event.gallery = imageData;
   event.save();
   res.status(200).json(event);
 });
@@ -293,7 +293,7 @@ const uploadImages = asyncHandler(async (req, res) => {
 //* admin creates the events
 ////////////////////////////////////////////////////
 const createEvent = asyncHandler(async (req, res) => {
-  const { title, description, startDate, endDate, location } = req.body;
+  const { title, description, startDate, endDate, location, link } = req.body;
   if (!title || !description || !startDate || !endDate) {
     res.status(400);
     throw new Error("sorry necessary field cannot be letf empty");
@@ -312,6 +312,7 @@ const createEvent = asyncHandler(async (req, res) => {
     startDate,
     endDate,
     location,
+    link,
   });
   res.status(200).json({ msg: "succesfully created the Event" });
 });

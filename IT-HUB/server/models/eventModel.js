@@ -26,6 +26,9 @@ const eventSchema = mongoose.Schema(
     speaker: {
       type: String,
     },
+    link: {
+      type: String,
+    },
     gallery: [
       {
         type: Object,
