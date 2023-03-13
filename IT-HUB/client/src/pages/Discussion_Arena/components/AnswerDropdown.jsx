@@ -7,7 +7,6 @@ import useAuth from "../../../context/AuthContext";
 import { useEffect, useRef } from "react";
 import { Form, useFetcher } from "react-router-dom";
 import { AiOutlineEllipsis } from "react-icons/ai";
-import EditAnswer from "./EditAnswer";
 
 const AnswerDropdown = ({ answer, question }) => {
   const { user, isAdmin } = useAuth();
@@ -59,28 +58,12 @@ const AnswerDropdown = ({ answer, question }) => {
               </>
             ) : null}
 
-            {user._id === answer?.commenter?._id && (
-              <button onClick={() => showEditAnswer(answer)}>
-                <BiEditAlt />
-                <span>Edit</span>
-              </button>
-            )}
-
             {!answer.isReported && (
               <button>
                 <HiFlag />
                 <span>Report</span>
               </button>
             )}
-          </div>
-        )}
-        {editAnswer && (
-          <div className="dropdown-answer-edit">
-            <EditAnswer
-              comments={editAnswer}
-              showDropdown={showDropdown}
-              setShowDropdown={setShowDropdown}
-            />
           </div>
         )}
       </div>
