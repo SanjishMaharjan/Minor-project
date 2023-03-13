@@ -299,22 +299,6 @@ const createEvent = asyncHandler(async (req, res) => {
     throw new Error("sorry necessary field cannot be letf empty");
   }
 
-  imageData = [{}];
-  for (i = 0; i < req.files.length; i++) {
-    uploadedFile = await cloudinary.uploader.upload(req.files[i].path, {
-      folder: `IT-Hub/Event/${title}`,
-      resource_type: "image",
-    });
-    imageData[i] = {
-      imageId: uploadedFile.public_id,
-      imageName: req.files[i].originalname,
-      imagePath: uploadedFile.secure_url,
-    };
-    fs.unlink(req.files[i].path, (err) => {
-      if (err) console.log("error while deleting image");
-    });
-  }
-
   await Event.create({
     title,
     description,
