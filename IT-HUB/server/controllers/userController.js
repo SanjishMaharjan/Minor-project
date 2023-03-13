@@ -16,16 +16,16 @@ const generateToken = (id) => {
 };
 
 //*                                             Register User
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, DOB, level } = req.body;
-
   //* Validation
   if (!name || !email || !password || !DOB || !level) {
     res.status(400);
     throw new Error("please fill in all required fields");
   }
+
   if (password.length < 8) {
     res.status(400);
     throw new Error("password must be atleast 8 characters");
@@ -36,16 +36,18 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("Please use lec domain email to regester");
   }
 
-  const expireDate = new Date(
-    isRegistered.createdAt.getTime() + 0.5 * 60 * 60 * 1000
-  );
-  //* check if user email already exists
   const isRegistered = await User.findOne({ email });
-  if (expireDate > new Date()) {
+  const expireDate = new Date(
+    isRegistered.createdAt.getTime() + 7 * 24 * 60 * 60 * 1000
+  );
+
+  //* check if user email already exists
+  if (isRegistered.isVerified || new Date() < expireDate) {
     res.status(400);
     throw new Error("Email has already been registered");
   }
   await User.findByIdAndDelete(isRegistered._id);
+
   //* Create new user
   const user = await User.create({
     name,
