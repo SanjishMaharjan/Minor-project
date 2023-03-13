@@ -200,6 +200,7 @@ const deleteQuestion = asyncHandler(async (req, res) => {
   const notification = await Notification.deleteMany({
     post: deletedQuestion._id,
   });
+  await Report.findOneAndDelete({ reportedOn: deletedQuestion._id });
   const count = notification.deletedCount;
   await User.findByIdAndUpdate(deletedQuestion.questioner, {
     $inc: { notification: -count },
