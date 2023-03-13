@@ -32,13 +32,34 @@ const Register = () => {
         >
           {<p className="input-box"> {serverError ?? null} </p>}
           <label htmlFor="email">Email</label>
-          <input type="text" placeholder="Email" name="email" id="email" autoComplete="off" />
+          <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            id="email"
+            autoComplete="off"
+            className={emailError ? "error" : ""}
+          />
           {<p className="input-box"> {emailError ?? null} </p>}
           <label htmlFor="name">Name</label>
-          <input type="text" placeholder="Name" name="name" id="name" autoComplete="off" />
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            id="name"
+            autoComplete="off"
+            className={nameError ? "error" : ""}
+          />
           {<p className="input-box"> {nameError ?? null} </p>}
           <label htmlFor="DOB">DOB</label>
-          <input type="date" placeholder="Date of Birth" name="DOB" id="DOB" autoComplete="off" />
+          <input
+            type="date"
+            placeholder="Date of Birth"
+            name="DOB"
+            id="DOB"
+            autoComplete="off"
+            className={DOBError ? "error" : ""}
+          />
           {<p className="input-box"> {DOBError ?? null} </p>}
           <label htmlFor="password">Password</label>
           <input
@@ -47,6 +68,7 @@ const Register = () => {
             name="password"
             id="password"
             autoComplete="off"
+            className={passwordError ? "error" : ""}
           />
           {<p className="input-box">{passwordError ?? null}</p>}
           <select name="level" id="level">

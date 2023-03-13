@@ -37,10 +37,11 @@ async def get_course(search:str,user: User = Depends(get_user))->list[Course_Out
       search=" ".join(search)
       course =list( Course.find({"course_name": {"$regex": search, "$options": "i"}}).limit(25))
 
-      n=random.randint(0,4)
-      if(len(course)>5):
+      n=random.randint(1,5)
+      if(len(course)>=5):
          c=course[n]
          c_name=c.get('course_name')
+         print(c_name)
          try:
             interested_course = user.get('interested_course', [])
 
