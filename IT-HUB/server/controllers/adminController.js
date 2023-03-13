@@ -298,6 +298,12 @@ const createEvent = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("sorry necessary field cannot be letf empty");
   }
+  console.log(new Date().getTime());
+  console.log(new Date(startDate));
+  if (new Date(startDate) < new Date()) {
+    res.status(400);
+    throw new Error("your next event will be on past day lol");
+  }
 
   await Event.create({
     title,
@@ -305,7 +311,6 @@ const createEvent = asyncHandler(async (req, res) => {
     startDate,
     endDate,
     location,
-    infoImages: imageData,
   });
   res.status(200).json({ msg: "succesfully created the Event" });
 });
