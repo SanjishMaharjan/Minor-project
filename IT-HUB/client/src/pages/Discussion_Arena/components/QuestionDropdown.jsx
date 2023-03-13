@@ -45,13 +45,6 @@ const QuestionDropdown = ({ question }) => {
                   <span>Delete</span>
                 </button>
               </fetcher.Form>
-
-              {user._id === question?.questionerId && (
-                <button>
-                  <BiEditAlt />
-                  <span>Edit</span>
-                </button>
-              )}
             </div>
           )}
         </div>
