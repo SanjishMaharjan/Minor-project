@@ -28,14 +28,36 @@ async def get_course()->list[Course_Out]:
 
 
 @course.get("/search/")
-async def get_course(search:str)->list[Course_Out]:
+async def get_course(search:str,user: User = Depends(get_user))->list[Course_Out]:
    try:
       if(not search):
          raise HTTPException("cannot search empty items")
 
       search=search.split("+")
       search=" ".join(search)
-      course =list( Course.find({"course_name": {"$regex": search, "$options": "i"}}).limit(30))
+      course =list( Course.find({"course_name": {"$regex": search, "$options": "i"}}).limit(25))
+
+      n=random.randint(0,4)
+      if(len(course)>5):
+         c=course[n]
+         c_name=c.get('course_name')
+         try:
+            interested_course = user.get('interested_course', [])
+
+            if c_name not in interested_course:
+               interested_course.append(c_name)
+
+            if len(interested_course) > 5:
+               interested_course.pop(0)
+   
+            User.update_one({'_id': user['_id']}, {'$set': {'interested_course': interested_course}})
+  
+         except Exception as e:
+            raise HTTPException(status_code=404, detail=str(e))         
+
+      
+
+
 
       # if not found search individual words and join the list
       if( len(course)<=5):
@@ -89,7 +111,6 @@ def recomend(c_name: str, user: User = Depends(get_user)):
       if len(interested_course) > 5:
          interested_course.pop(0)
    
-      print(interested_course)
       User.update_one({'_id': user['_id']}, {'$set': {'interested_course': interested_course}})
   
    except Exception as e:
