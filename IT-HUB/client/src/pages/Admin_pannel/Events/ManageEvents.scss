@@ -1,0 +1,57 @@
+.events-details {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.events-handler {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  cursor: pointer;
+}
+
+.admin-icons {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.events-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.manage-events {
+  margin-top: 4rem;
+}
+
+.event-title-box {
+  color: black;
+  height: 2rem;
+  width: 30%;
+  border-radius: 4px;
+}
+
+.event-desc-box {
+  // height: 7rem;
+  width: 30%;
+  border-radius: 4px;
+  resize: none;
+}
+
+.img-link-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.4rem;
+}

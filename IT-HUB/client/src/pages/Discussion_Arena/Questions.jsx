@@ -52,28 +52,33 @@ const Questions = () => {
     <>
       <div className="question-wrapper">
         <div class="question-container">
-          {questions.map((question) => (
-            <Link to={`/question/${question._id}`} key={question._id}>
+          {questions?.map((question) => (
+            <Link to={`/question/${question?._id}`} key={question?._id}>
               <div className="question">
                 <div className="div">
-                  <Link to={`/profile/${question.questioner._id}`}>
-                    <img src={question.questioner.image.imagePath} height="50" width="50" alt="" />
+                  <Link to={`/profile/${question?.questioner?._id}`}>
+                    <img
+                      src={question?.questioner?.image?.imagePath}
+                      height="50"
+                      width="50"
+                      alt=""
+                    />
                   </Link>
                 </div>
                 <div className="question-content">
-                  <h1>{question.questioner.name}</h1>
-                  <p>Last engaged {getDate(question.updatedAt) || 1 + "second"} ago</p>
+                  <h1>{question?.questioner?.name}</h1>
+                  <p>Last engaged {getDate(question?.updatedAt) || 1 + "second"} ago</p>
                   <br />
-                  <p> {question.title}</p>
+                  <p> {question?.title}</p>
                 </div>
 
                 <div className="reply">
                   <div className="reply-images">
-                    {question.comments.commentIds.map(
+                    {question?.comments.commentIds.map(
                       (image, i) =>
                         i < 3 && (
                           <img
-                            src={image.commenter.image.imagePath}
+                            src={image?.commenter?.image?.imagePath}
                             height="20"
                             width="20"
                             alt=""
@@ -81,7 +86,7 @@ const Questions = () => {
                         )
                     )}
 
-                    {question.comments.count > 3 && <CgMoreO color="green" fontSize="1.3rem" />}
+                    {question?.comments.count > 3 && <CgMoreO color="green" fontSize="1.3rem" />}
                   </div>
                   <p>{question.comments.count} comments</p>
                 </div>
@@ -111,8 +116,8 @@ const Questions = () => {
           <hr />
           <div className="tags">
             {tags.map((tag) => (
-              <Link to={`/question/tag/${tag._id}/page/1`} className="tag">
-                {tag._id}{" "}
+              <Link to={`/question/tag/${tag?._id}/page/1`} className="tag">
+                {tag?._id}{" "}
               </Link>
             ))}
           </div>

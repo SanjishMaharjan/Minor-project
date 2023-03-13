@@ -3,14 +3,17 @@ import { HiFlag } from "react-icons/hi";
 import { FaTrash } from "react-icons/fa";
 import { BiEditAlt } from "react-icons/bi";
 import "./dropdown.scss";
-import useAuth from "../../context/AuthContext";
+import useAuth from "../../../context/AuthContext";
 import { useEffect, useRef } from "react";
 import { Form, useFetcher } from "react-router-dom";
 import { AiOutlineEllipsis } from "react-icons/ai";
+import EditAnswer from "./EditAnswer";
 
 const AnswerDropdown = ({ answer, question }) => {
   const { user, isAdmin } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
+  const [editAnswer, setEditAnswer] = useState(null);
+
   const fetcher = useFetcher();
 
   const dropdownRef = useRef(null);
@@ -27,15 +30,20 @@ const AnswerDropdown = ({ answer, question }) => {
       window.removeEventListener("click", handleOutsideClick);
     };
   }, [dropdownRef]);
+
+  const showEditAnswer = (answer) => {
+    setShowDropdown(false);
+    setEditAnswer(answer);
+  };
   return (
     <>
-      <div className="dropdown-more" ref={dropdownRef}>
+      <div className="answer-dropdown-more" ref={dropdownRef}>
         <button onClick={() => setShowDropdown(!showDropdown)}>
           <AiOutlineEllipsis />
         </button>
 
         {showDropdown && (
-          <div className="dropdown-content">
+          <div className="answer-dropdown-content">
             {user?._id === answer?.commenter?._id || isAdmin ? (
               <>
                 <fetcher.Form
@@ -52,7 +60,7 @@ const AnswerDropdown = ({ answer, question }) => {
             ) : null}
 
             {user._id === answer?.commenter?._id && (
-              <button>
+              <button onClick={() => showEditAnswer(answer)}>
                 <BiEditAlt />
                 <span>Edit</span>
               </button>
@@ -64,6 +72,15 @@ const AnswerDropdown = ({ answer, question }) => {
                 <span>Report</span>
               </button>
             )}
+          </div>
+        )}
+        {editAnswer && (
+          <div className="dropdown-answer-edit">
+            <EditAnswer
+              comments={editAnswer}
+              showDropdown={showDropdown}
+              setShowDropdown={setShowDropdown}
+            />
           </div>
         )}
       </div>

@@ -31,18 +31,18 @@ const SideBar = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/admin/manageevents">
-                  <MdOutlineEventNote /> Manage Events
+                <NavLink to="/admin/addEvent">
+                  <MdOutlineEventNote /> Add Events
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/admin/editEvent">
+                  <HiOutlineWrenchScrewdriver /> Update Events
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/admin/createpoll">
                   <MdOutlinePoll /> Create Poll
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/admin/editcontent">
-                  <HiOutlineWrenchScrewdriver /> Update Content
                 </NavLink>
               </li>
               <li>

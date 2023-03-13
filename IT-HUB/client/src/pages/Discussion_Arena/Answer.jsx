@@ -19,9 +19,9 @@ import "./answer.scss";
 import { useQuery } from "@tanstack/react-query";
 import DOMPurify from "dompurify";
 import { useState, useRef, useMemo } from "react";
-import TextEditor from "./Editor";
-import AnswerDropdown from "./AnswerDropdown";
-import QuestionDropdown from "./QuestionDropdown";
+import TextEditor from "./components/Editor";
+import AnswerDropdown from "./components/AnswerDropdown";
+import QuestionDropdown from "./components/QuestionDropdown";
 
 const Answer = () => {
   const comment = useRef("");

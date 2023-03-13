@@ -3,7 +3,7 @@ import { HiFlag } from "react-icons/hi";
 import { FaTrash } from "react-icons/fa";
 import { BiEditAlt } from "react-icons/bi";
 import "./dropdown.scss";
-import useAuth from "../../context/AuthContext";
+import useAuth from "../../../context/AuthContext";
 import { useEffect, useRef } from "react";
 import { Form, useFetcher } from "react-router-dom";
 import { AiOutlineEllipsis } from "react-icons/ai";

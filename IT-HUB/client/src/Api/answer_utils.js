@@ -153,3 +153,50 @@ export const deleteAnswer = async ({ params }) => {
     client.invalidateQueries(["answer", id]);
   }
 };
+
+export const updateAnswer = async ({ params, request }) => {
+  const { id, answerId } = params;
+
+  const formData = await request.formData();
+  let data = {
+    answer: formData.get("answer"),
+  };
+
+  // get the answer from cache
+
+  const OldAnswers = client.getQueryData(["answer", id]);
+
+  const OldQuestion = OldAnswers.questionInfo;
+  const oldUnanswered = OldAnswers.unAnswered;
+  const topContributor = OldAnswers.topContributor;
+
+  // validate the data
+  const res = await validator(data, postAnswerSchema);
+  if (res.status == 403) return res;
+
+  data.answer = data.answer.replace(/background-color:[^;]*;/g, "background-color:transparent;");
+  // update the answer in the cache
+  const newAnswers = OldAnswers.comments.map((a) => {
+    if (a?._id === answerId) {
+      return { ...a, answer: data.answer };
+    }
+    return a;
+  });
+
+  // update the cache
+  client.setQueryData(["answer", id], {
+    questionInfo: OldQuestion,
+    comments: newAnswers,
+    unAnswered: oldUnanswered,
+    topContributor,
+  });
+
+  try {
+    const response = await axios.patch(`/api/${id}/comment/${answerId}`, data);
+
+    client.invalidateQueries(["answer", id]);
+    return response;
+  } catch (error) {
+    client.setQueryData(["answer", id], OldAnswers);
+  }
+};

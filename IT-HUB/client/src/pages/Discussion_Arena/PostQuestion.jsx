@@ -2,13 +2,13 @@ import { useNavigate, Form, useNavigation, useActionData, Navigate } from "react
 import Loader from "../../components/Loader";
 import useAuth from "../../context/AuthContext";
 import { useState } from "react";
-import "./newQuestion.scss";
+import "./postQuestion.scss";
 import { TagsInput } from "react-tag-input-component";
 import { BsImages } from "react-icons/bs";
 
 // import "./QAStyles.scss";
 
-import TextEditor from "./Editor";
+import TextEditor from "./components/Editor";
 
 const PostQuestion = () => {
   const [selected, setSelected] = useState();

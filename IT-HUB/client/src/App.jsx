@@ -31,8 +31,11 @@ import StudentProfile from "./pages/StudentProfile/StudentProfile";
 import ForgotPassword from "./pages/Login/ForgotPassword";
 import MainAdmin from "./pages/Admin_pannel/MainAdmin";
 import CreatePoll from "./pages/Admin_pannel/CreatePoll";
-import EditContent from "./pages/Admin_pannel/EditContent/EditContent";
 import AdminNotification from "./pages/Admin_pannel/AdminNotification/AdminNotification";
+import AddEvents from "./pages/Admin_pannel/Events/AddEvents";
+import ListEvent from "./pages/Admin_pannel/Events/ListEvent";
+import EditEvent from "./pages/Admin_pannel/Events/EditEvent";
+import SideBar from "./pages/Admin_pannel/SideBar";
 import { getReportedPosts } from "./Api/admin_reported";
 
 import PostQuestion from "./pages/Discussion_Arena/PostQuestion";
@@ -41,9 +44,9 @@ import Answer from "./pages/Discussion_Arena/Answer";
 
 import ErrorHandler from "./pages/Error/ErrorHandler";
 import Handle404 from "./pages/Error/Handle404";
+
 import NotLoggedIn from "./pages/Error/NotLoggedIn";
 
-import { fetchNews } from "./Api/news_utils";
 import {
   getTaggedQuestion,
   getQuestion,
@@ -52,15 +55,18 @@ import {
   deleteQuestion,
   upvoteQuestion,
 } from "./Api/question_utils";
-
-import { commentQuestion, upvoteAnswer, getAnswer, deleteAnswer } from "./Api/answer_utils";
+import {
+  commentQuestion,
+  upvoteAnswer,
+  getAnswer,
+  deleteAnswer,
+  updateAnswer,
+} from "./Api/answer_utils";
 import { forgotPassword, verifyUser, validateRegister, handleLogin } from "./Api/login_utils";
 import { fetchProfile } from "./Api/profile";
-import { getEvents, postImages } from "./Api/gallery";
+import { getEvents, editEvent, addEvent } from "./Api/event";
 
 import { getCourse, getRecommend, getPage, searchCourse } from "./Api/course_utils";
-import ManageEvents from "./pages/Admin_pannel/ManageEvents/ManageEvents";
-import SideBar from "./pages/Admin_pannel/SideBar";
 import Notification from "./pages/Notification/Notification";
 import { getNotification, getNotificationCount } from "./Api/notification_utils";
 import { changeProfileImage } from "./Api/profile";
@@ -89,8 +95,12 @@ const router = createBrowserRouter(
         element={<Questions />}
       />
 
+      <Route
+        path=":id/answer/:answerId/update"
+        action={updateAnswer}
+        errorElement={<h1>Cannot upvote</h1>}
+      />
       <Route element={<RequireLogin />}>
-        {/* <Route element={<RequireLogin />} errorElement={<NotLoggedIn />}> */}
         <Route
           path="/course"
           loader={getRecommend}
@@ -179,14 +189,24 @@ const router = createBrowserRouter(
 
           {/* <Route path="editcontent" element={<EditContent />} /> */}
           <Route
-            path="editcontent"
-            action={postImages}
-            element={<EditContent />}
+            path="editEvent"
+            loader={getEvents}
+            element={<ListEvent />}
+            errorElement={<ErrorHandler />}
+          />
+          <Route
+            path="editEvent/:id"
+            action={editEvent}
+            element={<EditEvent />}
             errorElement={<ErrorHandler />}
           />
 
-          <Route path="adminnotification" loader={getReportedPosts} element={<AdminNotification />} />
-          <Route path="manageevents" element={<ManageEvents />} />
+          <Route
+            path="adminnotification"
+            loader={getReportedPosts}
+            element={<AdminNotification />}
+          />
+          <Route path="addEvent" action={addEvent} element={<AddEvents />} />
         </Route>
       </Route>
 
