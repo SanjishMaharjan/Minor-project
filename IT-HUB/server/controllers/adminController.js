@@ -38,7 +38,7 @@ const getReportedPosts = asyncHandler(async (req, res) => {
   const reportedPosts = await Report.find()
     .populate({
       path: "reportedOn",
-      select: "question answer title",
+      select: "question answer title questionId",
     })
     .populate("reportedUser", "name image.imagePath")
     .sort({ count: -1 });
