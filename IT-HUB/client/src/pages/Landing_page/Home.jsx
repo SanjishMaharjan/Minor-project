@@ -27,7 +27,9 @@ const Home = () => {
           </h1>
 
           <p>Exploring the boundless possibilities of technology.</p>
-          <button>Get started</button>
+          <Link to="/course">
+            <button>Get started</button>
+          </Link>
         </div>
         <div className="hero-image">
           <img src={hero} className="hero-img" alt="hero" />

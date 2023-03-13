@@ -6,7 +6,7 @@ import { MdOutlineLightMode } from "react-icons/md";
 import { BiMoon } from "react-icons/bi";
 import useToggleTheme from "../../context/ThemeContext";
 
-const Navbar = ({ count }) => {
+const Navbar = () => {
   const { toggleTheme, theme } = useToggleTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -62,7 +62,7 @@ const Navbar = ({ count }) => {
             <BiMoon className="icon " onClick={toggleTheme} />
           )}
         </li>
-        <ProfileDropDown count={count} />
+        <ProfileDropDown />
       </ul>
     </div>
   );
