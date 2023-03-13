@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { HiFlag } from "react-icons/hi";
-import { FaTrash } from "react-icons/fa";
+import { FaFlag, FaTrash } from "react-icons/fa";
 import { BiEditAlt } from "react-icons/bi";
 import "./dropdown.scss";
 import useAuth from "../../../context/AuthContext";
@@ -43,6 +43,13 @@ const QuestionDropdown = ({ question }) => {
                 <button>
                   <FaTrash />
                   <span>Delete</span>
+                </button>
+              </fetcher.Form>
+              <fetcher.Form method="post" action={`/question/${question.questionId}/report`}>
+                <input type="text" value="lol" hidden />
+                <button>
+                  <FaFlag />
+                  <span>Report</span>
                 </button>
               </fetcher.Form>
             </div>

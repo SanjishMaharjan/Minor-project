@@ -54,6 +54,7 @@ import {
   postQuestion,
   deleteQuestion,
   upvoteQuestion,
+  reportQuestion,
 } from "./Api/question_utils";
 import {
   commentQuestion,
@@ -126,6 +127,11 @@ const router = createBrowserRouter(
         <Route
           path="/question/:id/delete"
           action={deleteQuestion}
+          errorElement={<h1>Cannot delete</h1>}
+        />
+        <Route
+          path="/question/:id/report"
+          action={reportQuestion}
           errorElement={<h1>Cannot delete</h1>}
         />
         <Route

@@ -56,6 +56,21 @@ export const deleteQuestion = async ({ params }) => {
   }
 };
 
+// report a question
+export const reportQuestion = async ({ params }) => {
+  const { id } = params;
+
+  try {
+    console.log("reporting");
+    await axios.post(`/api/report/${id}`);
+    client.invalidateQueries(["reportedPost"]);
+    return redirect(`/question/${id}`);
+  } catch (error) {
+    console.log(error);
+    throw new Error("Cannot report", { status: 404 });
+  }
+};
+
 // upvote a question
 export const upvoteQuestion = async ({ params }) => {
   // get the question from cache
