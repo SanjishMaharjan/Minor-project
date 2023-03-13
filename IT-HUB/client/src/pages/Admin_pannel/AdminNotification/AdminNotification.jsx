@@ -16,7 +16,7 @@ const AdminNotification = () => {
             <div className="notification-container">
                 <div>
                     {reportedPost.map((report) => (
-                        <Link key={report?._id} to={`/question/${report.reportedOn._id}`}>
+                        <Link key={report?._id} to={`/question/${report.reportedOn?._id}`}>
                             <div key={report?._id} className="notify">
                                 {report.reportedUser.name} has been reported on post <span>{report.reportedOn?.title}</span>
                                 <p>Reasons:{report.reasons}</p>

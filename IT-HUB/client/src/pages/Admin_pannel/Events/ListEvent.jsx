@@ -31,8 +31,9 @@ const ListEvent = () => {
         </h1>
         {expiredEvents.map((event) => (
           <div className="upcomming-event" key={event?._id}>
+            <hr />
             <Link to={`/admin/editEvent/${event._id}`}>
-              <h2>{event.title}</h2>
+              <h2 style={{ marginTop: "1rem" }}>{event.title}</h2>
             </Link>
           </div>
         ))}

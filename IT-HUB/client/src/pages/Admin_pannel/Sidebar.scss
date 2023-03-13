@@ -1,5 +1,6 @@
 .main-sidebar {
-    display: flex;
+    // display: flex;
+    display: grid;
     width: 20%;
 
 }
@@ -77,6 +78,7 @@ a {
 }
 
 .main-sidebar {
+    display: grid;
     flex-basis: 20%;
 }
 

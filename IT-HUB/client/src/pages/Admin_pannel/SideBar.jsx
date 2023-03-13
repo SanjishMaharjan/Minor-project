@@ -41,11 +41,6 @@ const SideBar = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/admin/createpoll">
-                  <MdOutlinePoll /> Create Poll
-                </NavLink>
-              </li>
-              <li>
                 <NavLink to="/logout">
                   <MdOutlineLogout /> logout
                 </NavLink>

@@ -19,73 +19,79 @@ const EditEvent = () => {
 
   return (
     <>
-      <Form
-        method="POST"
-        action={`/admin/editEvent/${event._id}`}
-        encType="multipart/form-data"
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
-            e.preventDefault();
-          }
-        }}
-      >
-        <div className="events-details">
-          <input
-            className="event-title-box"
-            type="text"
-            placeholder="title"
-            name="title"
-            autoComplete="off"
-            defaultValue={event.title}
-          />
-          <textarea
-            className="event-desc-box"
-            type="text-area"
-            placeholder="Description"
-            name="description"
-            autoComplete="off"
-            defaultValue={event.description}
-          />
-          <input
-            className="event-title-box"
-            type="text"
-            placeholder="startDate"
-            name="startDate"
-            autoComplete="off"
-            defaultValue={event.startDate}
-          />
-          <input
-            className="event-title-box"
-            type="text"
-            placeholder="endDate"
-            name="endDate"
-            autoComplete="off"
-            defaultValue={event.endDate}
-          />
-          <input
-            className="event-title-box"
-            type="text"
-            placeholder="location"
-            name="location"
-            autoComplete="off"
-            defaultValue={event.location}
-          />
-        </div>
-        <div className="img-link-menu">
-          <label htmlFor="link-input">
-            {<MdAddLink className="admin-icons" />}
+      <div className="main-container">
+
+        <Form
+          method="POST"
+          action={`/admin/editEvent/${event._id}`}
+          encType="multipart/form-data"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+              e.preventDefault();
+            }
+          }}
+        >
+          <div className="events-details">
+            <p>Title</p>
             <input
-              style={{ display: "none" }}
-              type="file"
-              name="images"
-              id="link-input"
-              accept=".png,.jpg,.jpeg"
-              multiple
+              className="event-title-box"
+              type="text"
+              placeholder="title"
+              name="title"
+              autoComplete="off"
+              defaultValue={event.title}
             />
-          </label>
-        </div>
-        <button>Post</button>
-      </Form>
+            <p>Description</p>
+            <textarea
+              className="event-desc-box"
+              type="text-area"
+              placeholder="Description"
+              name="description"
+              autoComplete="off"
+              defaultValue={event.description}
+            />
+            <input
+              className="event-title-box"
+              type="text"
+              placeholder="startDate"
+              name="startDate"
+              autoComplete="off"
+              defaultValue={event.startDate}
+            />
+            <input
+              className="event-title-box"
+              type="text"
+              placeholder="endDate"
+              name="endDate"
+              autoComplete="off"
+              defaultValue={event.endDate}
+            />
+            <p>Location</p>
+            <input
+              className="event-title-box"
+              type="text"
+              placeholder="location"
+              name="location"
+              autoComplete="off"
+              defaultValue={event.location}
+            />
+          </div>
+          <div className="img-link-menu">
+            <label htmlFor="link-input">
+              {<MdAddLink className="admin-icons" />}
+              <input
+                style={{ display: "none" }}
+                type="file"
+                name="images"
+                id="link-input"
+                accept=".png,.jpg,.jpeg"
+                multiple
+              />
+            </label>
+          </div>
+          <button style={{ marginTop: "1rem" }}>Post</button>
+        </Form>
+      </div>
     </>
   );
 };

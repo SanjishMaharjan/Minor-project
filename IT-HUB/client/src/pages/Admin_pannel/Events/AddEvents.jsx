@@ -13,37 +13,37 @@ const AddEvents = () => {
   const navigate = useNavigate();
   return (
     <div className="main-container">
-      <div className="box-admin">
-        <h2 className="manage-events">
-          <MdOutlineEventNote />
-          Manage Events
-        </h2>
+      {/* <div className="box-admin"> */}
+      <h2 className="manage-events">
+        <MdOutlineEventNote />
+        Manage Events
+      </h2>
 
-        <Form
-          method="POST"
-          action="/admin/addEvent"
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
-              e.preventDefault();
-            }
-          }}
-        >
-          <div className="events-details">
-            <input
-              className="event-title-box"
-              type="text"
-              placeholder="title"
-              name="title"
-              autoComplete="off"
-            />
-            <textarea
-              className="event-desc-box"
-              type="text-area"
-              placeholder="Description"
-              name="description"
-              autoComplete="off"
-            />
-            {/* <input
+      <Form
+        method="POST"
+        action="/admin/addEvent"
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+            e.preventDefault();
+          }
+        }}
+      >
+        <div className="events-details">
+          <input
+            className="event-title-box"
+            type="text"
+            placeholder="title"
+            name="title"
+            autoComplete="off"
+          />
+          <textarea
+            className="event-desc-box"
+            type="text-area"
+            placeholder="Description"
+            name="description"
+            autoComplete="off"
+          />
+          {/* <input
               className="event-title-box"
               type="text"
               placeholder="startDate"
@@ -57,36 +57,36 @@ const AddEvents = () => {
               name="endDate"
               autoComplete="off"
             /> */}
-            <input
-              className="event-title-box"
-              type="text"
-              placeholder="location"
-              name="location"
-              autoComplete="off"
-            />
-            <input
-              type="text"
-              placeholder="Add Link"
-              name="link"
-              autoComplete="off"
-              className="event-title-box"
-            />
-            <div className="date-picker">
-              <p>Start Date</p>
-              <label htmlFor="start-date">
-                <input type="date" name="startDate" id="start-date" />
-              </label>
-              <p>End Date</p>
-              <label htmlFor="end-date">
-                <input type="date" name="endDate" id="end-date" />
-              </label>
-            </div>
+          <input
+            className="event-title-box"
+            type="text"
+            placeholder="location"
+            name="location"
+            autoComplete="off"
+          />
+          <input
+            type="text"
+            placeholder="Add Link"
+            name="link"
+            autoComplete="off"
+            className="event-title-box"
+          />
+          <div className="date-picker">
+            <p>Start Date</p>
+            <label htmlFor="start-date">
+              <input type="date" name="startDate" id="start-date" />
+            </label>
+            <p>End Date</p>
+            <label htmlFor="end-date">
+              <input type="date" name="endDate" id="end-date" />
+            </label>
           </div>
+        </div>
 
-          <button>Post</button>
-        </Form>
-      </div>
+        <button>Post</button>
+      </Form>
     </div>
+
   );
 };
 
