@@ -17,18 +17,12 @@ export const getNotification = async () => {
 };
 
 export const getNotificationCount = async () => {
-  const queryFn = async () => {
-    try {
-      const notification = await axios.get(`/api/notification/count`);
+  try {
+    const notification = await axios.get(`/api/notification/count`);
+    console.log(notification.data);
 
-      return notification.data;
-    } catch (error) {
-      return 0;
-    }
-  };
-
-  return client.fetchQuery(["notificationCount"], queryFn, {
-    staleTime: 1000 * 3,
-    // refetchInterval: 1000 * 3,
-  });
+    return notification.data;
+  } catch (error) {
+    return { count: 0 };
+  }
 };

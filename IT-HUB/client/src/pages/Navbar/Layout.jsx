@@ -6,12 +6,9 @@ import { useQuery } from "@tanstack/react-query";
 import "./Layout.scss";
 
 const Layout = () => {
-  const { data: count } = useQuery(["notificationCount"], {
-    enabled: false,
-  });
   return (
     <>
-      <Navbar count={count} />
+      <Navbar />
       <div className="main-content">
         <Outlet />
       </div>

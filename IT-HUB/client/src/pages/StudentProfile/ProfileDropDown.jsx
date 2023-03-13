@@ -6,11 +6,19 @@ import { MdOutlineLogout, MdOutlineNotificationsActive } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { GoPrimitiveDot } from "react-icons/go";
 import "./dropdown.scss";
-
+import { useQuery } from "@tanstack/react-query";
+import { getNotificationCount } from "../../Api/notification_utils";
 import { useState, useRef, useEffect } from "react";
 
-const ProfileDropDown = ({ count }) => {
+const ProfileDropDown = () => {
   const { isLoggedIn, user, isAdmin } = useAuth();
+  let count = 0;
+  const { data } = useQuery(["notificationCount"], getNotificationCount, {
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchInterval: 1000 * 15,
+  });
+  if (data) count = data?.count;
 
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
@@ -35,7 +43,7 @@ const ProfileDropDown = ({ count }) => {
           {/* <i style={{ marginTop: "0.6rem" }} className="fa-solid fa-user"></i> */}
           <FaUserAlt />
           <span className="active-number">
-            {count?.count > 0 ? <GoPrimitiveDot className="active-dot" /> : null}
+            {count > 0 ? <GoPrimitiveDot className="active-dot" /> : null}
           </span>
         </div>
       ) : (
@@ -55,7 +63,7 @@ const ProfileDropDown = ({ count }) => {
               <MdOutlineNotificationsActive />{" "}
               <span className="active-number">
                 Notifs
-                {count?.count > 0 ? count?.count : null}
+                {count > 0 ? count?.count : null}
               </span>
             </Link>
 

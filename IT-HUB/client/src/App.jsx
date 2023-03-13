@@ -81,7 +81,7 @@ customAxios.defaults.withCredentials = true;
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" loader={getNotificationCount} element={<Layout />}>
+    <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
 
       <Route path="/news" element={<News />} errorElement={<ErrorHandler />} />
