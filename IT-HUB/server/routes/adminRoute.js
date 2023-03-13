@@ -20,7 +20,7 @@ const {
 } = require("../controllers/adminController");
 
 router.post("/poll", isAdmin, createPoll);
-router.post("/event", isAdmin, upload.array("images"), createEvent);
+router.post("/event", isAdmin, createEvent);
 router.patch(
   "/event/:eventId/images",
   isAdmin,
