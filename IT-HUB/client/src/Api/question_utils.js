@@ -129,6 +129,8 @@ export const postQuestion = async ({ request }) => {
     "background-color:transparent;"
   );
 
+  post.question = post.question.replace(/<p>\s*<\/p>/g, "");
+
   const res = await validator(post, postQuestionSchema);
   if (res.status == 403) return res;
 

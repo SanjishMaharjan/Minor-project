@@ -105,17 +105,18 @@ button:hover {
   color: white;
 }
 
-button-sec {
-  background-color: #000000;
-  color: #ffffff;
+.button-sec {
+  padding: 0.7rem 1rem;
   border: none;
-  padding: 0.5rem 1rem;
+  // background-color: var(--navbar-color);
+  color: var(--font-color-primary);
+  font-size: 1rem;
+  border: 1px solid var(--navbar-color);
   border-radius: 5px;
-  font-size: 1.2rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease-in-out;
 }
 
-button-sec:hover {
-  background-color: #1a1a1a;
+.button-sec:hover {
+  background-color: var(--hover-color);
 }

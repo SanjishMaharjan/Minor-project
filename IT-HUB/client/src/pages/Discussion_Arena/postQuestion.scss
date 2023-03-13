@@ -90,6 +90,14 @@
     }
   }
 
+  .error {
+    outline: 2px solid rgb(194, 84, 84) !important;
+    border: none !important;
+  }
+
+  .input-box {
+    color: rgb(194, 84, 84) !important;
+  }
   .tags-title {
     margin-top: 2rem;
   }

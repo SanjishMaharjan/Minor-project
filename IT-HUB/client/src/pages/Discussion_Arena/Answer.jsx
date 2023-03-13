@@ -141,7 +141,6 @@ const Answer = () => {
                       __html: DOMPurify.sanitize(answer?.answer),
                     }}
                   ></div>
-                  {/* <p>{answer.answer}</p> */}
                 </div>
                 <div className="answer-icons">
                   {user._id === "question.questioner._id" && (

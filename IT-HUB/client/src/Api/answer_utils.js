@@ -37,6 +37,8 @@ export const commentQuestion = async ({ params, request }) => {
 
   const { comments, questionInfo, unAnswered, topContributor } = OldAnswers;
 
+  data.answer = data.answer.replace(/<p>\s*<\/p>/g, "");
+
   // validate the data
   const res = await validator(data, postAnswerSchema);
   if (res.status == 403) return res;

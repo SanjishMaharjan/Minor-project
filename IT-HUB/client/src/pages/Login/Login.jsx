@@ -34,11 +34,26 @@ const Login = () => {
     <>
       <div className="main-div">
         <h1>Login</h1>
-        <Form method="post" action="/login">
+        <Form
+          method="post"
+          action="/login"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+              e.preventDefault();
+            }
+          }}
+        >
           <p className="input-box"> {serverError ?? null} </p>
 
           <label htmlFor="email">Email</label>
-          <input type="text" placeholder="Email" name="email" id="email" autoComplete="off" />
+          <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            id="email"
+            autoComplete="off"
+            className={emailError ? "error" : ""}
+          />
           <p className="input-box"> {emailError ?? null} </p>
 
           <label htmlFor="password">Password</label>
@@ -48,6 +63,7 @@ const Login = () => {
             name="password"
             id="password"
             autoComplete="off"
+            className={passwordError ? "error" : ""}
           />
           <p className="input-box">{passwordError ?? null}</p>
           <button type="submit">Login</button>

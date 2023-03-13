@@ -22,7 +22,7 @@
     padding: 10px;
     font-size: 16px;
     letter-spacing: 1px;
-    color: var(--alternate-color); 
+    color: var(--alternate-color);
     margin-bottom: 30px;
     border: none;
     border-bottom: 1px solid var(--alternate-color);
@@ -54,7 +54,7 @@
   button {
     border: 0.15rem solid var(--hover-color);
   }
-  & button:last-child{
+  & button:last-child {
     margin-top: 2rem;
   }
   /* +++++++++++++++++++++++++++++++++ Forget password ++++++++++++++++++++ */
@@ -92,4 +92,8 @@
     margin-top: 2rem;
     display: block;
   }
+}
+
+.error {
+  border-bottom: 1px solid rgb(196, 91, 91) !important;
 }

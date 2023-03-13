@@ -20,6 +20,8 @@ const PostQuestion = () => {
   if (res && res.status === 200) return <Navigate to="/question/page/1" />;
   const serverError = res?.status === 404 && res?.data?.msg;
   const questionError = res?.status === 403 && res?.data?.errors?.question;
+  const titleError = res?.status === 403 && res?.data?.errors?.title;
+
   if (useNavigation().state === "loading") return <Loader />;
   if (useNavigation().state === "submitting") return <Loader />;
 
@@ -29,16 +31,32 @@ const PostQuestion = () => {
         <div className="question-bar">
           <h1>Ask a public question</h1>
           <div className="new-question-container">
-            <Form method="post" action="/question/new" encType="multipart/form-data">
+            <Form
+              method="post"
+              action="/question/new"
+              encType="multipart/form-data"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+                  e.preventDefault();
+                }
+              }}
+            >
               <h2>Title</h2>
               <p>Be specific and imagine you're asking a question to another person</p>
-              <input type="text" name="title" placeholder="Enter title here" />
+              <input
+                type="text"
+                name="title"
+                placeholder="Enter title here"
+                className={titleError ? "error" : ""}
+              />
+              <p className="input-box"> {titleError ?? null} </p>
               <br />
               <p className="input-box"> {serverError ?? null} </p>
               <h2>Body</h2>
               <p>Include all the information someone would need to answer your question</p>
               <TextEditor text={text} setText={setText} />
               <input type="text" hidden value={text} name="question" />
+
               <p className="input-box"> {questionError ?? null} </p>
               <h2 className="tags-title">Tags</h2>
               <p>Add up to 5 tags to describe what your question is about</p>
@@ -46,7 +64,6 @@ const PostQuestion = () => {
               <input type="text" hidden value={selected} name="tag" />
               <em>press enter to add new tag</em>
               <div className="post-question-footer">
-                <p className="input-box"> {questionError ?? null} </p>
                 <h2 className="image-title">Image</h2>
                 <div className="image-input">
                   <label htmlFor="file-input">

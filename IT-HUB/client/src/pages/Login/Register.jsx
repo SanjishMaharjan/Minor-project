@@ -21,7 +21,15 @@ const Register = () => {
     <>
       <div className="main-div">
         <h1>Sign up</h1>
-        <Form method="post" action="/register">
+        <Form
+          method="post"
+          action="/register"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+              e.preventDefault();
+            }
+          }}
+        >
           {<p className="input-box"> {serverError ?? null} </p>}
           <label htmlFor="email">Email</label>
           <input type="text" placeholder="Email" name="email" id="email" autoComplete="off" />
