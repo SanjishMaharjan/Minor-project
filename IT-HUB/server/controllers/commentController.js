@@ -135,6 +135,7 @@ const deleteComment = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("cannot delete the comment");
   }
+  await Report.findOneAndDelete({ reportedOn: deletedComment });
   const noti = await Notification.findOneAndDelete({
     comment: deletedComment._id,
   });
