@@ -11,7 +11,6 @@ import { AiOutlineEllipsis } from "react-icons/ai";
 const AnswerDropdown = ({ answer, question }) => {
   const { user, isAdmin } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
-  const [editAnswer, setEditAnswer] = useState(null);
 
   const fetcher = useFetcher();
 
@@ -30,10 +29,6 @@ const AnswerDropdown = ({ answer, question }) => {
     };
   }, [dropdownRef]);
 
-  const showEditAnswer = (answer) => {
-    setShowDropdown(false);
-    setEditAnswer(answer);
-  };
   return (
     <>
       <div className="answer-dropdown-more" ref={dropdownRef}>
@@ -41,31 +36,29 @@ const AnswerDropdown = ({ answer, question }) => {
           <AiOutlineEllipsis />
         </button>
 
-        {showDropdown && (
-          <div className="answer-dropdown-content">
-            {user?._id === answer?.commenter?._id || isAdmin ? (
-              <>
-                <fetcher.Form
-                  method="post"
-                  action={`/${question?.questionId}/answer/${answer?._id}/delete`}
-                >
-                  <input type="text" value="lol" hidden />
-                  <button>
-                    <FaTrash />
-                    <span>Delete</span>
-                  </button>
-                </fetcher.Form>
-              </>
-            ) : null}
-
-            {!answer.isReported && (
+        <div className="dropdown-content">
+          {showDropdown && (
+            <div>
+              {user?._id === answer?.commenter?._id || isAdmin ? (
+                <div>
+                  <fetcher.Form
+                    method="post"
+                    action={`/${question?.questionId}/answer/${answer?._id}/delete`}
+                  >
+                    <button>
+                      <FaTrash />
+                      <span>Delete</span>
+                    </button>
+                  </fetcher.Form>
+                </div>
+              ) : null}
               <button>
                 <HiFlag />
                 <span>Report</span>
               </button>
-            )}
-          </div>
-        )}
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

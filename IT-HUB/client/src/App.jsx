@@ -82,14 +82,18 @@ customAxios.defaults.withCredentials = true;
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
+    <Route path="/" element={<Layout />} errorElement={<ErrorHandler />}>
       <Route index element={<Home />} />
 
       <Route path="/news" element={<News />} errorElement={<ErrorHandler />} />
 
-      {/* <Route path="/question" loader={getQuestion} element={<Questions />} /> */}
       <Route path="/question/page/:id" loader={getQuestion} element={<Questions />} />
-      <Route path="/mydiscussion/page/:id" loader={getMyQuestion} element={<Questions />} />
+      <Route
+        path="/mydiscussion/page/:id"
+        loader={getMyQuestion}
+        element={<Questions />}
+        errorElement={<NotLoggedIn />}
+      />
       <Route
         path="/question/tag/:tname/page/:id"
         loader={getTaggedQuestion}
@@ -109,21 +113,15 @@ const router = createBrowserRouter(
           errorElement={<NotLoggedIn />}
         />
         <Route path="/search" loader={searchCourse} element={<Courses />} />
-        <Route
-          path="/course/pages/:id"
-          loader={getPage}
-          element={<Courses />}
-          errorElement={<NotLoggedIn />}
-        />
-
+        <Route path="/course/pages/:id" loader={getPage} element={<Courses />} />
         <Route path="/question/new" action={postQuestion} element={<PostQuestion />} />
         <Route
           path="/question/:id"
           loader={getAnswer}
           element={<Answer />}
           action={commentQuestion}
+          errorElement={<ErrorHandler />}
         />
-
         <Route
           path="/question/:id/delete"
           action={deleteQuestion}
@@ -149,7 +147,12 @@ const router = createBrowserRouter(
           action={upvoteAnswer}
           errorElement={<h1>Cannot upvote</h1>}
         />
-        <Route path="/profile/:id" loader={fetchProfile} element={<StudentProfile />} />
+        <Route
+          path="/profile/:id"
+          loader={fetchProfile}
+          element={<StudentProfile />}
+          errorElement={<ErrorHandler />}
+        />
         <Route path="/profile" action={changeProfileImage} element={<StudentProfile />} />
       </Route>
 

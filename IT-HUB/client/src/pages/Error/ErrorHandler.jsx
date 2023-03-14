@@ -7,7 +7,7 @@ const ErrorHandler = () => {
   return (
     <>
       <div className="error-container">
-        <h1>{error?.message || "error occured"}</h1>
+        <h1> {"error occured"}</h1>
         <button onClick={() => navigate(-1)}>Go back</button>
       </div>
     </>

@@ -17,8 +17,8 @@ export const getRecommend = async () => {
       const data = await customAxios.get("/course/recommend");
       return data.data;
     } catch (error) {
-      console.log(error);
-      throw new Error();
+      if (error.response.status === 401) throw new Error();
+      else throw new Error({ message: "Something went wrong" });
     }
   };
 
@@ -34,7 +34,8 @@ export const getPage = async ({ params }) => {
     const data = await customAxios.get(`/course/pages/${id}`);
     return data.data;
   } catch (error) {
-    throw new Error(error.response.data.detail);
+    if (error.response.status === 401) return redirect("/login", { message: "Please login first" });
+    else throw new Error({ message: "Something went wrong" });
   }
 };
 
