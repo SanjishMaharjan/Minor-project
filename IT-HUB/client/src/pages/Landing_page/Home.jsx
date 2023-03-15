@@ -37,7 +37,7 @@ const Home = () => {
       </div>
 
       <div className="work-header">
-        <h1>Ithub Features</h1>
+        <h1>IT Hub Features</h1>
       </div>
 
       <div className="works-wrapper">
