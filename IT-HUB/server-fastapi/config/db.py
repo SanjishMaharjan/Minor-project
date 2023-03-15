@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 from decouple import config
 
-mongoURI=config("mongoURI")
+mongoURI=config("MONGO_URI")
 
 client = MongoClient(mongoURI)
 

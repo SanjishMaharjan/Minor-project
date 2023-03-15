@@ -1,0 +1,66 @@
+.add-event-container {
+  width: 60%;
+  margin: 1rem 0;
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 1rem;
+    width: 60%;
+  }
+
+  textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 60%;
+    resize: vertical;
+  }
+
+  button {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .events-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .event-contact {
+    width: 60%;
+    display: flex;
+    gap: 1rem;
+
+    input {
+      flex: 1;
+      display: block;
+    }
+  }
+
+  .date-picker {
+    width: 60%;
+    div {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    input {
+      width: 100%;
+    }
+  }
+
+  text-align: center;
+}

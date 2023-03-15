@@ -15,20 +15,27 @@ import RequireAdmin from "./components/RequireAdmin";
 import { AuthContextProvider } from "./context/AuthContext";
 import { ThemeContextProvider } from "./context/ThemeContext";
 
+// layout
 import Layout from "./pages/Navbar/Layout";
-
-import Courses from "./pages/Courses/Courses";
-import Gallery from "./pages/Gallery/Gallery";
-import Events from "./pages/Events/Events";
 import Home from "./pages/Landing_page/Home";
+
+// general pages
+import Courses from "./pages/Courses/Courses";
 import News from "./pages/News/News";
 import About from "./pages/About/About";
 
+// event pages
+import Events from "./pages/Events/Events";
+import PastEvents from "./pages/Events/PastEvents";
+
+// auth pages
 import Login from "./pages/Login/Login";
 import LogOut from "./pages/Login/logout";
 import Register from "./pages/Login/Register";
 import StudentProfile from "./pages/StudentProfile/StudentProfile";
 import ForgotPassword from "./pages/Login/ForgotPassword";
+
+// admin pages
 import MainAdmin from "./pages/Admin_pannel/MainAdmin";
 import CreatePoll from "./pages/Admin_pannel/CreatePoll";
 import AdminNotification from "./pages/Admin_pannel/AdminNotification/AdminNotification";
@@ -38,15 +45,17 @@ import EditEvent from "./pages/Admin_pannel/Events/EditEvent";
 import SideBar from "./pages/Admin_pannel/SideBar";
 import { getReportedPosts } from "./Api/admin_reported";
 
+// discussion arena
 import PostQuestion from "./pages/Discussion_Arena/PostQuestion";
 import Questions from "./pages/Discussion_Arena/Questions";
 import Answer from "./pages/Discussion_Arena/Answer";
 
+// error pages
 import ErrorHandler from "./pages/Error/ErrorHandler";
 import Handle404 from "./pages/Error/Handle404";
-
 import NotLoggedIn from "./pages/Error/NotLoggedIn";
 
+// disscussion functions
 import {
   getTaggedQuestion,
   getQuestion,
@@ -56,6 +65,7 @@ import {
   upvoteQuestion,
   reportQuestion,
 } from "./Api/question_utils";
+
 import {
   commentQuestion,
   upvoteAnswer,
@@ -63,13 +73,16 @@ import {
   deleteAnswer,
   updateAnswer,
 } from "./Api/answer_utils";
-import { forgotPassword, verifyUser, validateRegister, handleLogin } from "./Api/login_utils";
-import { fetchProfile } from "./Api/profile";
-import { getEvents, editEvent, addEvent } from "./Api/event";
 
-import { getCourse, getRecommend, getPage, searchCourse } from "./Api/course_utils";
+// auth functions
+import { forgotPassword, verifyUser, validateRegister, handleLogin } from "./Api/login_utils";
+
+import { fetchProfile } from "./Api/profile";
+import { getEvents, editEvent, addEvent, getUpCommingEvent } from "./Api/event";
+
+import { getRecommend, getPage, searchCourse } from "./Api/course_utils";
 import Notification from "./pages/Notification/Notification";
-import { getNotification, getNotificationCount } from "./Api/notification_utils";
+import { getNotification } from "./Api/notification_utils";
 import { changeProfileImage } from "./Api/profile";
 
 axios.defaults.withCredentials = true;
@@ -88,24 +101,33 @@ const router = createBrowserRouter(
       <Route path="/news" element={<News />} errorElement={<ErrorHandler />} />
 
       <Route path="/question/page/:id" loader={getQuestion} element={<Questions />} />
-      <Route
-        path="/mydiscussion/page/:id"
-        loader={getMyQuestion}
-        element={<Questions />}
-        errorElement={<NotLoggedIn />}
-      />
-      <Route
-        path="/question/tag/:tname/page/:id"
-        loader={getTaggedQuestion}
-        element={<Questions />}
-      />
 
-      <Route
-        path=":id/answer/:answerId/update"
-        action={updateAnswer}
-        errorElement={<h1>Cannot upvote</h1>}
-      />
+      <Route path="/events" loader={getEvents} element={<Events />} />
+      <Route path="/events/upcomming/:id" loader={getUpCommingEvent} element={<PastEvents />} />
+      {/* <Route path="/events/past/:id" loader={getPastEvent} element={<Events />} /> */}
+
+      <Route path="/about" element={<About />} />
+      <Route path="/notification" loader={getNotification} element={<Notification />} />
+
+      {/* protected routes for login */}
       <Route element={<RequireLogin />}>
+        <Route
+          path="/mydiscussion/page/:id"
+          loader={getMyQuestion}
+          element={<Questions />}
+          errorElement={<NotLoggedIn />}
+        />
+        <Route
+          path="/question/tag/:tname/page/:id"
+          loader={getTaggedQuestion}
+          element={<Questions />}
+        />
+
+        <Route
+          path=":id/answer/:answerId/update"
+          action={updateAnswer}
+          errorElement={<h1>Cannot upvote</h1>}
+        />
         <Route
           path="/course"
           loader={getRecommend}
@@ -122,31 +144,12 @@ const router = createBrowserRouter(
           action={commentQuestion}
           errorElement={<ErrorHandler />}
         />
-        <Route
-          path="/question/:id/delete"
-          action={deleteQuestion}
-          errorElement={<h1>Cannot delete</h1>}
-        />
-        <Route
-          path="/question/:id/report"
-          action={reportQuestion}
-          errorElement={<h1>Cannot delete</h1>}
-        />
-        <Route
-          path="/question/:id/upvote"
-          action={upvoteQuestion}
-          errorElement={<h1>Cannot upvote</h1>}
-        />
-        <Route
-          path=":id/answer/:answerId/delete"
-          action={deleteAnswer}
-          errorElement={<h1>Cannot delete</h1>}
-        />
-        <Route
-          path=":id/answer/:answerId/upvote"
-          action={upvoteAnswer}
-          errorElement={<h1>Cannot upvote</h1>}
-        />
+        <Route path="/question/:id/delete" action={deleteQuestion} />
+        <Route path="/question/:id/report" action={reportQuestion} />
+        <Route path="/question/:id/upvote" action={upvoteQuestion} />
+        <Route path=":id/answer/:answerId/delete" action={deleteAnswer} />
+        <Route path=":id/answer/:answerId/upvote" action={upvoteAnswer} />
+
         <Route
           path="/profile/:id"
           loader={fetchProfile}
@@ -156,16 +159,7 @@ const router = createBrowserRouter(
         <Route path="/profile" action={changeProfileImage} element={<StudentProfile />} />
       </Route>
 
-      <Route path="/events" loader={getEvents} element={<Events />} />
-      {/* <Route path="/events" element={<Events />} /> */}
-      <Route path="/about" element={<About />} />
-      <Route
-        path="/notification"
-        loader={getNotification}
-        element={<Notification />}
-        errorElement={<ErrorHandler />}
-      />
-
+      {/* routes for auth */}
       <Route
         path="/login"
         element={<Login />}
@@ -187,6 +181,7 @@ const router = createBrowserRouter(
         errorElement={<ErrorHandler />}
       />
 
+      {/* protected routes for admin */}
       <Route element={<RequireAdmin />}>
         <Route
           // Here sidebar is the parent component who is child of navbar
@@ -196,7 +191,6 @@ const router = createBrowserRouter(
           <Route index element={<MainAdmin />} />
           <Route path="createpoll" element={<CreatePoll />} />
 
-          {/* <Route path="editcontent" element={<EditContent />} /> */}
           <Route
             path="editEvent"
             loader={getEvents}

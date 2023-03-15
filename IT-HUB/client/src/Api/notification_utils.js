@@ -19,7 +19,6 @@ export const getNotification = async () => {
 export const getNotificationCount = async () => {
   try {
     const notification = await axios.get(`/api/notification/count`);
-    console.log(notification.data);
 
     return notification.data;
   } catch (error) {

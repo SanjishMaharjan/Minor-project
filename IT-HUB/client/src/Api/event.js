@@ -14,6 +14,21 @@ export const getEvents = async () => {
   return client.fetchQuery(["events"], queryFn);
 };
 
+export const getUpCommingEvent = async ({ params }) => {
+  const { id } = params;
+
+  const queryFn = async () => {
+    try {
+      const { data } = await axios.get(`/api/event/${id}`);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return client.fetchQuery(["upcommingEvents", id], queryFn);
+};
+
 export const editEvent = async ({ request, params }) => {
   const { id } = params;
 
@@ -61,6 +76,10 @@ export const addEvent = async ({ request }) => {
     startDate: formData.get("startDate"),
     endDate: formData.get("endDate"),
     location: formData.get("location"),
+    name1: formData.get("name1"),
+    name2: formData.get("name2"),
+    phone1: formData.get("phone1"),
+    phone2: formData.get("phone2"),
   };
 
   // const res = await validator(post, galleryUpdateSchema);
