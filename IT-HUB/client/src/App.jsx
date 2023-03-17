@@ -87,17 +87,14 @@ import { changeProfileImage } from "./Api/profile";
 
 axios.defaults.withCredentials = true;
 
-if (process.env.VITE_VERCEL_ENV === "production")
-  axios.defaults.baseURL = "https://ithub-server1.onrender.com";
-else axios.defaults.baseURL = "http://localhost:5000";
-
-console.log(process.env.VITE_VERCEL_ENV);
+if (import.meta.env.VITE_ENV === "development") axios.defaults.baseURL = "http://localhost:5000";
+else axios.defaults.baseURL = "https://ithub-server1.onrender.com";
 
 export const customAxios = axios.create({
   baseURL:
-    process.env.VITE_VERCEL_ENV === "production"
-      ? "https://server2-fastapi.onrender.com"
-      : "http://localhost:8000",
+    import.meta.env.VITE_ENV === "development"
+      ? "http://localhost:8000"
+      : "https://server2-fastapi.onrender.com",
   withCredentials: true,
 });
 
