@@ -97,7 +97,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "https://ithub-server1.onrender.com";
 
 export const customAxios = axios.create({
-  baseURL: "https://ithub-server1.onrender.com",
+  baseURL: "https://server2-fastapi.onrender.com",
   withCredentials: true,
 });
 
