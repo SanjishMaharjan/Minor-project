@@ -86,10 +86,10 @@ import { getNotification } from "./Api/notification_utils";
 import { changeProfileImage } from "./Api/profile";
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "https://ithub-server1.onrender.com";
 
 export const customAxios = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: "https://server2-fastapi.onrender.com",
 });
 customAxios.defaults.withCredentials = true;
 
