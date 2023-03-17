@@ -5,19 +5,23 @@ from models.course_model import Course_Out
 from dependancy.user_dependancy import get_user,logged_in
 import random
 from pydantic import Field
+from typing import List
+
 
 
 
 course = APIRouter(
      prefix="/course",
-    dependencies=[Depends(logged_in)],
+    dependencies=[Depends(logged_in)],      
 )
 
 
 
+    
+
 
 @course.get("/all")
-async def get_course()->list[Course_Out]:
+async def get_course()->List[Course_Out]:
    try:
       rand=random.randint(0,3523)
       course = list( Course.find({}).limit(20).skip(rand))
@@ -28,7 +32,7 @@ async def get_course()->list[Course_Out]:
 
 
 @course.get("/search/")
-async def get_course(search:str,user: User = Depends(get_user))->list[Course_Out]:
+async def get_course(search:str,user: User = Depends(get_user))->List[Course_Out]:
    try:
       if(not search):
          raise HTTPException("cannot search empty items")
@@ -52,7 +56,7 @@ async def get_course(search:str,user: User = Depends(get_user))->list[Course_Out
                interested_course.pop(0)
    
             User.update_one({'_id': user['_id']}, {'$set': {'interested_course': interested_course}})
-  
+
          except Exception as e:
             raise HTTPException(status_code=404, detail=str(e))         
 
@@ -78,7 +82,7 @@ async def get_course(search:str,user: User = Depends(get_user))->list[Course_Out
 
 
 @course.get("/pages/{id}")
-async def get_course(id:int=Field(le=50))->list[Course_Out]:
+async def get_course(id:int=Field(le=50))->List[Course_Out]:
    try:
       size=12
       page=(id-1)*size
@@ -89,7 +93,7 @@ async def get_course(id:int=Field(le=50))->list[Course_Out]:
       raise HTTPException(status_code=404,detail=str(e))
 
 @course.get("/recommend")
-async def get_course(user:User=Depends(get_user))->list[Course_Out]:
+async def get_course(user:User=Depends(get_user))->List[Course_Out]:
    try:
       course = get_recommended_course(user)
       course = list( Course.find({"index":{ "$in":course}}))
@@ -97,7 +101,7 @@ async def get_course(user:User=Depends(get_user))->list[Course_Out]:
       return course
    except Exception as e:
       raise HTTPException(status_code=404,detail=str(e))
-       
+      
 
 
 
@@ -113,7 +117,7 @@ def recomend(c_name: str, user: User = Depends(get_user)):
          interested_course.pop(0)
    
       User.update_one({'_id': user['_id']}, {'$set': {'interested_course': interested_course}})
-  
+
    except Exception as e:
-        raise HTTPException(status_code=404, detail=str(e))
+      raise HTTPException(status_code=404, detail=str(e))
 

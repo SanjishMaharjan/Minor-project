@@ -5,7 +5,7 @@ from decouple import config
 import uvicorn
 import os
 
-CLIENT_URL = config("CLIENT_URL")
+CLIENT_URL = os.getenv("CLIENT_URL",config("CLIENT_URL"))
 
 
 
@@ -13,6 +13,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
     CLIENT_URL, 
+    "https://www.lec-ithub.tech",
+    "https://lec-ithub.tech",
 ]
 
 
@@ -30,7 +32,7 @@ app.add_middleware(
 app.include_router(course)
 app.include_router(news)
 
-PORT = os.environ.get("PORT", 8000)
+PORT = os.getenv("PORT",8000)
 
 
 if __name__ == "__main__":

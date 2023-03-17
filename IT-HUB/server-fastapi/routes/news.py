@@ -1,6 +1,7 @@
 from fastapi import APIRouter,HTTPException
 from config.db import News
 from models.news_model import News_Out
+from typing import List
 
 news= APIRouter()
 
@@ -8,7 +9,7 @@ news= APIRouter()
 
 
 @news.get("/news/pages/{id}")
-async def get_course(id:int)->list[News_Out]:
+async def get_course(id:int)->List[News_Out]:
    if id<=0:
       id=1
    

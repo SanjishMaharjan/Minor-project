@@ -1,6 +1,7 @@
 import random
 from pymongo import MongoClient
 from decouple import config
+import os
 
 from developers_redhat import scrape_from_developers_redhat
 from mojo_auth import scrape_from_mojo_auth
@@ -13,7 +14,9 @@ from new_stack import scrape_from_news_stack
 
 
 # Connect to the MongoDB server
-mongoURI=config("MONGO_URI")
+
+
+mongoURI = os.getenv("MONGO_URI")
 client = MongoClient(mongoURI)
 db = client["discussion"]
 News = db['news']
