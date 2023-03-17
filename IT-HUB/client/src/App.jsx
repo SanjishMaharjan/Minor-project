@@ -88,13 +88,13 @@ import { changeProfileImage } from "./Api/profile";
 axios.defaults.withCredentials = true;
 
 if (import.meta.env.VITE_ENV === "development") axios.defaults.baseURL = "http://localhost:5000";
-else axios.defaults.baseURL = "https://ithub-server1.onrender.com";
+else axios.defaults.baseURL = import.meta.env.VITE_SERVER_1;
 
 export const customAxios = axios.create({
   baseURL:
     import.meta.env.VITE_ENV === "development"
       ? "http://localhost:8000"
-      : "https://server2-fastapi.onrender.com",
+      : import.meta.env.VITE_SERVER_2,
   withCredentials: true,
 });
 
