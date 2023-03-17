@@ -17,7 +17,7 @@ const Navbar = () => {
   return (
     <div className="menu-icon">
       <a href="/" className="logo">
-        <img className="logo-image" src="../../src/assets/Images/Itlogo2.png" alt="image" />
+        <img className="logo-image" src="/Itlogo2.png" alt="image" />
       </a>
       <div className="menu-toggle" onClick={toggleMenu}>
         <div className={`hamburger ${isMenuOpen ? "active" : ""}`}>
