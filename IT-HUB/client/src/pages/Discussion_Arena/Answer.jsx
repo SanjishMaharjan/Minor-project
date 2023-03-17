@@ -50,7 +50,6 @@ const Answer = () => {
 
   if (res && res.status === 200) {
     // document.querySelector(".answer-input").value = "";
-    console.log("here");
   }
 
   const serverError = res?.message === "Network Error" && "long comment cannot be posted";

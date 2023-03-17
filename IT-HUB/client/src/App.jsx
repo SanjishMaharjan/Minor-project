@@ -98,13 +98,6 @@ export const customAxios = axios.create({
   withCredentials: true,
 });
 
-// axios.defaults.baseURL = "https://ithub-server1.onrender.com";
-
-// export const customAxios = axios.create({
-//   baseURL: "https://server2-fastapi.onrender.com",
-//   withCredentials: true,
-// });
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={<ErrorHandler />}>

@@ -21,9 +21,7 @@ export const getUpCommingEvent = async ({ params }) => {
     try {
       const { data } = await axios.get(`/api/event/${id}`);
       return data;
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   return client.fetchQuery(["upcommingEvents", id], queryFn);
@@ -46,7 +44,6 @@ export const editEvent = async ({ request, params }) => {
 
   // if (res.status === 403) return res;
   // /event/:eventId/images
-  console.log(post);
 
   try {
     const response = await axios.patch(`/api/admin/event/${id}/images`, post, {
@@ -55,13 +52,11 @@ export const editEvent = async ({ request, params }) => {
       },
     });
 
-    console.log(response);
     // if (!response.status === 200) throw Error("cannot post data");
 
     // client.invalidateQueries(["events"]);
     return redirect("/events");
   } catch (error) {
-    console.log(error);
     return error.response;
   }
   // return redirect("/events");

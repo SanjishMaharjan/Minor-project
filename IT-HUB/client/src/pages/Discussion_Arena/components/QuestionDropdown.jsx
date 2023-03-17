@@ -12,7 +12,6 @@ const QuestionDropdown = ({ question }) => {
   const { user, isAdmin } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
   const fetcher = useFetcher();
-  console.log(question);
 
   const dropdownRef = useRef(null);
   useEffect(() => {

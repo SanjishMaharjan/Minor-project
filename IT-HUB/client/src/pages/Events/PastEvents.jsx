@@ -8,8 +8,6 @@ const PastEvents = () => {
     enabled: false,
   });
 
-  console.log(event);
-
   return (
     <div className="past-event-container">
       <div className="past-event">

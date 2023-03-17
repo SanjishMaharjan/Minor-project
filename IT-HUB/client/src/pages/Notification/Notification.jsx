@@ -8,7 +8,6 @@ import { MdClose, MdNotificationsActive } from "react-icons/md";
 const Notification = () => {
   const notices = useLoaderData();
 
-  console.log(notices);
   return (
     <div className="notification-container">
       <p>

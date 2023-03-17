@@ -7,7 +7,6 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
   const res = useActionData();
   // if (res && res.status === 200) {
-  //     console.log(res);
   //     return navigate("/login", { replace: true });
   // }
 

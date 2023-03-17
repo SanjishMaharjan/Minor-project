@@ -24,7 +24,6 @@ const StudentProfile = () => {
 
   // const profile = useLoaderData();
   const res = useActionData();
-  // console.log(user);
   const fetcher = useFetcher();
 
   if (id) user = profile;

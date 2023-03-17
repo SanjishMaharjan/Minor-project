@@ -12,7 +12,6 @@ jwt_secret= os.getenv("JWT_SECRET",config("JWT_SECRET"))
 
 async def get_user(token: str = Cookie(default=None)):
     token=jwt.decode(token,jwt_secret,algorithms='HS256')
-    print(token)
     id=ObjectId(token.get("id"))            
     user=User.find_one({"_id":id})         
     return user

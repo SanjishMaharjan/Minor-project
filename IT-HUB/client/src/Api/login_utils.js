@@ -37,15 +37,10 @@ export const validateRegister = async ({ request }) => {
   const res = await validator(registerData, RegisterSchema);
   if (res.status === 403) return res;
 
-  // console.log(registerData);
   try {
     const response = await axios.post("api/users/register", registerData);
     return response;
-
-    // const data = await response;
-    // console.log(data)
   } catch (error) {
-    console.log(error);
     return error.response;
   }
 };
@@ -61,21 +56,17 @@ export const forgotPassword = async ({ request }) => {
     const response = await axios.post("api/users/forgotpassword", forgotData);
     return response;
   } catch (error) {
-    console.log(error);
     return error.response;
   }
 };
 
 export const verifyUser = async ({ params }) => {
- const {id} = params;
- console.log(id
-  );
-  redirect("/login")
+  const { id } = params;
+  redirect("/login");
   try {
     const response = await axios.post(`api/users/verification/${id}`);
     return redirect("/login");
   } catch (error) {
-    console.log(error);
     return error.response;
   }
 };

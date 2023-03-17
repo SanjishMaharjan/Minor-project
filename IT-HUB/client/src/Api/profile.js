@@ -20,10 +20,8 @@ export const changeProfileImage = async ({ request }) => {
   const post = {
     image: formData.get("image"),
   };
-  console.log(post);
 
   // const res = await validator(post, profileUpdateSchema);
-  // console.log(res);
   // if (res.status === 403) return res;
   try {
     const response = await axios.patch("/api/users/updateuser", post, {
@@ -32,12 +30,10 @@ export const changeProfileImage = async ({ request }) => {
       },
     });
 
-    console.log(response);
     if (!response.status === 200) throw Error("cannot post data");
 
     return response;
   } catch (error) {
-    console.log(error);
     return error.response;
   }
 };

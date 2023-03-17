@@ -33,7 +33,6 @@ const Questions = () => {
     questions = useQuery(["myquestion", id], { enabled: false }).data;
   } else if (params.tname) {
     questions = useQuery(["tag", params.tname, id], { enabled: false }).data;
-    console.log(questions);
     currentPage = `question/tag/${params.tname}`;
   } else {
     questions = useQuery(["question", id], { enabled: false }).data;

@@ -10,7 +10,6 @@ import { client } from "./queryClient";
 // get all the questions
 export const getQuestion = async ({ params }) => {
   const { id } = params;
-  console.log(id);
   const queryFn = async () => {
     const { data } = await axios.get(`/api/question/page/${id}`);
     return data;
@@ -24,7 +23,6 @@ export const getMyQuestion = async ({ params }) => {
   const { id } = params;
   const queryFn = async () => {
     const { data } = await axios.get(`/api/question/mydiscussion/page/${id}`);
-    console.log(data);
     return data;
   };
   return client.fetchQuery(["myquestion", id], queryFn);
@@ -51,7 +49,6 @@ export const deleteQuestion = async ({ params }) => {
 
     return redirect("/question/page/1");
   } catch (error) {
-    console.log(error);
     throw new Error("Cannot delete", { status: 404 });
   }
 };
@@ -61,12 +58,10 @@ export const reportQuestion = async ({ params }) => {
   const { id } = params;
 
   try {
-    console.log("reporting");
     await axios.post(`/api/report/${id}`);
     client.invalidateQueries(["reportedPost"]);
     return redirect(`/question/${id}`);
   } catch (error) {
-    console.log(error);
     throw new Error("Cannot report", { status: 404 });
   }
 };
@@ -137,8 +132,6 @@ export const postQuestion = async ({ request }) => {
     post.tag = post.tag.slice(0, 5);
   }
 
-  console.log(post);
-
   post.question = post.question.replace(
     /background-color:[^;]*;/g,
     "background-color:transparent;"
@@ -160,7 +153,6 @@ export const postQuestion = async ({ request }) => {
 
     return response;
   } catch (error) {
-    console.log(error);
     client.setQueryData(queryKey, OldQuestions);
     return error.response;
   }

@@ -29,8 +29,6 @@ export const commentQuestion = async ({ params, request }) => {
     answer: formData.get("answer"),
   };
 
-  console.log(data);
-
   // get the question from cache
 
   const OldAnswers = client.getQueryData(["answer", id]);
@@ -63,7 +61,6 @@ export const commentQuestion = async ({ params, request }) => {
     client.invalidateQueries(["answer", id]);
     return response;
   } catch (error) {
-    console.log(error);
     client.setQueryData(["answer", id], OldAnswers);
     return error;
   }
@@ -128,7 +125,6 @@ export const deleteAnswer = async ({ params }) => {
   // get the answer from cache
 
   const OldAnswers = client.getQueryData(["answer", id]);
-  console.log(OldAnswers);
 
   const OldQuestion = OldAnswers.questionInfo;
   const oldUnanswered = OldAnswers.unAnswered;
@@ -151,7 +147,6 @@ export const deleteAnswer = async ({ params }) => {
     client.invalidateQueries(["answer", id]);
     return redirect(`/question/${id}`);
   } catch (error) {
-    console.log(error);
     client.invalidateQueries(["answer", id]);
   }
 };
