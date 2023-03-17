@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigation } from "react-router-dom";
 import Loader from "../../components/Loader";
 import hero from "../../assets/hero.svg";
-import CourseObject from "./components/courseObject";
+import CourseObject from "./components/CourseObject";
 import NewsObject from "./components/NewsObject";
 import ChatObject from "./components/ChatObject";
 import EventObject from "./components/EventObject";

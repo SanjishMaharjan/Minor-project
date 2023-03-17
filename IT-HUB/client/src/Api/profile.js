@@ -1,6 +1,6 @@
 import axios from "axios";
 import { validator } from "../validation/validator";
-import { profileUpdateSchema } from "../validation/profileupdateSchema";
+import { profileUpdateSchema } from "../validation/profileUpdateSchema";
 import { client } from "./queryClient";
 
 export const fetchProfile = async ({ params }) => {

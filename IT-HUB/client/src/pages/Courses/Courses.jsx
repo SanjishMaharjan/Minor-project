@@ -1,9 +1,9 @@
-import Pagination from "../../components/pagination";
+import Pagination from "../../components/Pagination";
 import images from "./images.json";
 import { useNavigation, useLoaderData, Link, useParams, Form } from "react-router-dom";
 import Loader from "../../components/Loader";
 import { HiMagnifyingGlass } from "react-icons/hi2";
-import { shuffle } from "../../utils/suffle.js";
+import { shuffle } from "../../Utils/suffle.js";
 import "./course.scss";
 import { client } from "../../Api/queryClient";
 

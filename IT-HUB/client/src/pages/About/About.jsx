@@ -10,7 +10,7 @@ const About = () => {
   return (
     <div className="about-container">
       <h1>About SOCE</h1>
-      <img src="../src/assets/images/SOCE_logo.png" alt="club-logo" />
+      <img src="/SOCE_logo.png" alt="club-logo" />
       <section>
         <p>
           Society Of Computer Enthusiasts-Lalitpur Engineering College (SOCE-LEC) is an active
