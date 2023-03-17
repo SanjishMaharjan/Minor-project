@@ -87,14 +87,19 @@ import { changeProfileImage } from "./Api/profile";
 
 axios.defaults.withCredentials = true;
 
-if (process.env.NODE_ENV === "production") axios.defaults.baseURL = process.env.API_URL_1;
-else axios.defaults.baseURL = "http://localhost:5000";
+// if (process.env.NODE_ENV === "production") axios.defaults.baseURL = process.env.API_URL_1;
+// else axios.defaults.baseURL = "http://localhost:5000";
+
+// export const customAxios = axios.create({
+//   baseURL: process.env.NODE_ENV === "production" ? process.env.API_URL_2 : "http://localhost:8000",
+// });
+
+axios.defaults.baseURL = "https://ithub-server1.onrender.com";
 
 export const customAxios = axios.create({
-  baseURL: process.env.NODE_ENV === "production" ? process.env.API_URL_2 : "http://localhost:8000",
+  baseURL: "https://ithub-server1.onrender.com",
+  withCredentials: true,
 });
-
-customAxios.defaults.withCredentials = true;
 
 const router = createBrowserRouter(
   createRoutesFromElements(
