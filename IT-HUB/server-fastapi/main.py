@@ -12,7 +12,7 @@ CLIENT_URL = os.getenv("CLIENT_URL",config("CLIENT_URL"))
 from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
-    CLIENT_URL, 
+    "http://localhost:5173", 
     "https://www.lec-ithub.tech",
     "https://lec-ithub.tech",
 ]

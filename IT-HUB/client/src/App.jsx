@@ -86,11 +86,14 @@ import { getNotification } from "./Api/notification_utils";
 import { changeProfileImage } from "./Api/profile";
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "https://ithub-server1.onrender.com";
+
+if (process.env.NODE_ENV === "production") axios.defaults.baseURL = process.env.API_URL_1;
+else axios.defaults.baseURL = "http://localhost:5000";
 
 export const customAxios = axios.create({
-  baseURL: "https://server2-fastapi.onrender.com",
+  baseURL: process.env.NODE_ENV === "production" ? process.env.API_URL_2 : "http://localhost:8000",
 });
+
 customAxios.defaults.withCredentials = true;
 
 const router = createBrowserRouter(
@@ -101,6 +104,11 @@ const router = createBrowserRouter(
       <Route path="/news" element={<News />} errorElement={<ErrorHandler />} />
 
       <Route path="/question/page/:id" loader={getQuestion} element={<Questions />} />
+      <Route
+        path="/question/tag/:tname/page/:id"
+        loader={getTaggedQuestion}
+        element={<Questions />}
+      />
 
       <Route path="/events" loader={getEvents} element={<Events />} />
       <Route path="/events/upcomming/:id" loader={getUpCommingEvent} element={<PastEvents />} />
@@ -116,11 +124,6 @@ const router = createBrowserRouter(
           loader={getMyQuestion}
           element={<Questions />}
           errorElement={<NotLoggedIn />}
-        />
-        <Route
-          path="/question/tag/:tname/page/:id"
-          loader={getTaggedQuestion}
-          element={<Questions />}
         />
 
         <Route
