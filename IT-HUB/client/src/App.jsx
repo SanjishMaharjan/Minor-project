@@ -87,19 +87,26 @@ import { changeProfileImage } from "./Api/profile";
 
 axios.defaults.withCredentials = true;
 
-// if (process.env.NODE_ENV === "production") axios.defaults.baseURL = process.env.API_URL_1;
-// else axios.defaults.baseURL = "http://localhost:5000";
+if (process.env.VITE_VERCEL_ENV === "production")
+  axios.defaults.baseURL = "https://ithub-server1.onrender.com";
+else axios.defaults.baseURL = "http://localhost:5000";
 
-// export const customAxios = axios.create({
-//   baseURL: process.env.NODE_ENV === "production" ? process.env.API_URL_2 : "http://localhost:8000",
-// });
-
-axios.defaults.baseURL = "https://ithub-server1.onrender.com";
+console.log(process.env.VITE_VERCEL_ENV);
 
 export const customAxios = axios.create({
-  baseURL: "https://server2-fastapi.onrender.com",
+  baseURL:
+    process.env.VITE_VERCEL_ENV === "production"
+      ? "https://server2-fastapi.onrender.com"
+      : "http://localhost:8000",
   withCredentials: true,
 });
+
+// axios.defaults.baseURL = "https://ithub-server1.onrender.com";
+
+// export const customAxios = axios.create({
+//   baseURL: "https://server2-fastapi.onrender.com",
+//   withCredentials: true,
+// });
 
 const router = createBrowserRouter(
   createRoutesFromElements(
