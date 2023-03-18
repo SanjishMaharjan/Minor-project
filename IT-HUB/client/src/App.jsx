@@ -140,7 +140,12 @@ const router = createBrowserRouter(
           errorElement={<NotLoggedIn />}
         />
         <Route path="/search" loader={searchCourse} element={<Courses />} />
-        <Route path="/course/pages/:id" loader={getPage} element={<Courses />} />
+        <Route
+          path="/course/pages/:id"
+          loader={getPage}
+          element={<Courses />}
+          errorElement={<NotLoggedIn />}
+        />
         <Route path="/question/new" action={postQuestion} element={<PostQuestion />} />
         <Route
           path="/question/:id"
