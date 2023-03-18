@@ -34,7 +34,7 @@ export const getPage = async ({ params }) => {
     const data = await customAxios.get(`/course/pages/${id}`);
     return data.data;
   } catch (error) {
-    if (error.response.status === 401) return redirect("/login", { message: "Please login first" });
+    if (error.response.status === 401) throw new Error();
     else throw new Error({ message: "Something went wrong" });
   }
 };
