@@ -30,7 +30,6 @@ export const validateRegister = async ({ request }) => {
     email: formData.get("email"),
     password: formData.get("password"),
     name: formData.get("name"),
-    DOB: formData.get("DOB"),
     level: formData.get("level"),
   };
 

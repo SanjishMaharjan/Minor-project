@@ -23,7 +23,16 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cors({ credentials: true, origin: ["http://localhost:5173"] }));
+
+const clientUrl = process.env.CLIENT_URL;
+
+app.use(
+  cors({
+    credentials: true,
+    origin: [clientUrl],
+  })
+);
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/question", questionRoute);
