@@ -19,9 +19,9 @@ const generateToken = (id) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, DOB, level } = req.body;
+  const { name, email, password, level } = req.body;
   //* Validation
-  if (!name || !email || !password || !DOB || !level) {
+  if (!name || !email || !password || !level) {
     res.status(400);
     throw new Error("please fill in all required fields");
   }
@@ -37,29 +37,34 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const isRegistered = await User.findOne({ email });
-  const expireDate = new Date(
-    isRegistered.createdAt.getTime() + 7 * 24 * 60 * 60 * 1000
-  );
-
-  //* check if user email already exists
-  if (isRegistered.isVerified || new Date() < expireDate) {
+  if (isRegistered && isRegistered.isVerified) {
     res.status(400);
-    throw new Error("Email has already been registered");
+    throw new Error("user already exists");
   }
-  await User.findByIdAndDelete(isRegistered._id);
+  if (isRegistered && !isRegistered.isVerified) {
+    const expireDate = new Date(
+      isRegistered.createdAt.getTime() + 7 * 24 * 60 * 60 * 1000
+    );
+    //* check if user email already exists
+    if (new Date() > expireDate) {
+      await User.findByIdAndDelete(isRegistered._id);
+    } else {
+      res.status(400);
+      throw new Error("email already exist ! please try after 1 week!");
+    }
+  }
 
   //* Create new user
   const user = await User.create({
     name,
     email,
     password,
-    DOB,
     level,
   });
 
   if (user) {
     //* destructure user
-    const { _id, name, email, image, DOB, level } = user;
+    const { _id, name, email, image, level } = user;
 
     //* create verify token
     let verifyToken = crypto.randomBytes(32).toString("hex") + _id;
@@ -100,7 +105,6 @@ const registerUser = asyncHandler(async (req, res) => {
         _id,
         name,
         email,
-        DOB,
         image,
         level,
       });
@@ -518,6 +522,12 @@ const getProfile = asyncHandler(async (req, res) => {
   });
 });
 
+//* reset contribution every week
+const resetContribution = asyncHandler(async () => {
+  console.log("I am called!!");
+  await User.updateMany({}, { contribution: 0 });
+});
+
 //*                                                  Export Modules
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 module.exports = {
@@ -532,4 +542,5 @@ module.exports = {
   forgotPassword,
   resetPassword,
   getProfile,
+  resetContribution,
 };

@@ -29,7 +29,6 @@ const userSchema = mongoose.Schema(
     },
     DOB: {
       type: Date,
-      required: true,
     },
     isAdmin: {
       type: Boolean,
