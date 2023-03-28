@@ -48,7 +48,7 @@ const registerUser = asyncHandler(async (req, res) => {
       await User.findByIdAndDelete(isRegistered._id);
     } else {
       res.status(400);
-      throw new Error("email already exist ! please try after 1 week!");
+      throw new Error("already registered, verify your email in outlook ");
     }
   }
 
@@ -75,7 +75,7 @@ const registerUser = asyncHandler(async (req, res) => {
       userId: _id,
       token: hashedToken,
       createdAt: Date.now(),
-      expiresAt: Date.now() + 24 * 60 * 60 * 1000, //* 24 hrs
+      expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000, //* expires in 7 days
     }).save();
 
     //* construct verification url
@@ -191,7 +191,7 @@ const loginUser = asyncHandler(async (req, res) => {
   res.cookie("token", token, {
     path: "/",
     httpOnly: true,
-    expires: new Date(Date.now() + 1000 * 86400), //* 1 day
+    expires: new Date(Date.now() + 7 * 1000 * 86400), //* expires in 7 days
     sameSite: "none",
     secure: true,
     domain: ".lec-ithub.tech",
