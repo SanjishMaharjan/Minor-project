@@ -51,16 +51,7 @@ const Register = () => {
             className={nameError ? "error" : ""}
           />
           {<p className="input-box"> {nameError ?? null} </p>}
-          <label htmlFor="DOB">DOB</label>
-          <input
-            type="date"
-            placeholder="Date of Birth"
-            name="DOB"
-            id="DOB"
-            autoComplete="off"
-            className={DOBError ? "error" : ""}
-          />
-          {<p className="input-box"> {DOBError ?? null} </p>}
+
           <label htmlFor="password">Password</label>
           <input
             type="password"

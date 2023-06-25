@@ -19,9 +19,9 @@ const generateToken = (id) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, DOB, level } = req.body;
+  const { name, email, password, level } = req.body;
   //* Validation
-  if (!name || !email || !password || !DOB || !level) {
+  if (!name || !email || !password || !level) {
     res.status(400);
     throw new Error("please fill in all required fields");
   }
@@ -37,45 +37,45 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const isRegistered = await User.findOne({ email });
-  const expireDate = new Date(
-    isRegistered.createdAt.getTime() + 7 * 24 * 60 * 60 * 1000
-  );
-
-  //* check if user email already exists
-  if (isRegistered.isVerified || new Date() < expireDate) {
+  if (isRegistered && isRegistered.isVerified) {
     res.status(400);
-    throw new Error("Email has already been registered");
+    throw new Error("user already exists");
   }
-  await User.findByIdAndDelete(isRegistered._id);
+  if (isRegistered && !isRegistered.isVerified) {
+    const expireDate = new Date(isRegistered.createdAt.getTime() + 7 * 24 * 60 * 60 * 1000);
+    //* check if user email already exists
+    if (new Date() > expireDate) {
+      await User.findByIdAndDelete(isRegistered._id);
+    } else {
+      res.status(400);
+      throw new Error("already registered, verify your email in outlook ");
+    }
+  }
 
   //* Create new user
   const user = await User.create({
     name,
     email,
     password,
-    DOB,
     level,
   });
 
   if (user) {
     //* destructure user
-    const { _id, name, email, image, DOB, level } = user;
+    const { _id, name, email, image, level } = user;
 
     //* create verify token
     let verifyToken = crypto.randomBytes(32).toString("hex") + _id;
     console.log(verifyToken);
     //* hash token before saving
-    const hashedToken = crypto
-      .createHash("sha256")
-      .update(verifyToken)
-      .digest("hex");
+    const hashedToken = crypto.createHash("sha256").update(verifyToken).digest("hex");
 
     //* save token to database
     await new Token({
       userId: _id,
       token: hashedToken,
       createdAt: Date.now(),
-      expiresAt: Date.now() + 24 * 60 * 60 * 1000, //* 24 hrs
+      expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000, //* expires in 7 days
     }).save();
 
     //* construct verification url
@@ -91,7 +91,7 @@ const registerUser = asyncHandler(async (req, res) => {
   `;
     const subject = "Account Verification";
     const send_to = email;
-    const sent_from = process.env.EMAIL_USER;
+    const sent_from = `LEC-ITHUB <mailgun@${process.env.MAILGUN_DOMAIN}>`;
     try {
       await sendEmail(subject, message, send_to, sent_from);
       res.status(200).json({
@@ -100,7 +100,6 @@ const registerUser = asyncHandler(async (req, res) => {
         _id,
         name,
         email,
-        DOB,
         image,
         level,
       });
@@ -120,10 +119,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const verifyUser = asyncHandler(async (req, res) => {
   const { verifyToken } = req.params;
   //* hash token to compare
-  const hashedToken = crypto
-    .createHash("sha256")
-    .update(verifyToken)
-    .digest("hex");
+  const hashedToken = crypto.createHash("sha256").update(verifyToken).digest("hex");
 
   //* find token in database
   const userToken = await Token.findOne({
@@ -153,13 +149,7 @@ const verifyUser = asyncHandler(async (req, res) => {
   const token = generateToken(userToken.userId);
 
   //* send HTTP-only cookie
-  res.cookie("token", token, {
-    path: "/",
-    httpOnly: true,
-    expires: new Date(Date.now() + 1000 * 86400), //* 1 day
-    sameSite: "none",
-    secure: true,
-  });
+
   res.status(200).json({ msg: "Verification Succesfull" });
 });
 
@@ -201,9 +191,10 @@ const loginUser = asyncHandler(async (req, res) => {
   res.cookie("token", token, {
     path: "/",
     httpOnly: true,
-    expires: new Date(Date.now() + 1000 * 86400), //* 1 day
+    expires: new Date(Date.now() + 7 * 1000 * 86400), //* expires in 7 days
     sameSite: "none",
     secure: true,
+    domain: ".lec-ithub.tech",
   });
 
   if (user && passwordIsCorrect) {
@@ -245,13 +236,18 @@ const loginUser = asyncHandler(async (req, res) => {
 
 const logout = asyncHandler(async (req, res) => {
   //* send HTTP-only cookie
-  res.cookie("token", "", {
+
+  // clear cookie
+
+  res.clearCookie("token", {
     path: "/",
     httpOnly: true,
-    expires: new Date(0),
+    expires: new Date(Date.now() + 1000 * 86400), //* 1 day
     sameSite: "none",
     secure: true,
+    domain: ".lec-ithub.tech",
   });
+  S;
   return res.status(200).json({ message: "successfully logged out" });
 });
 
@@ -412,10 +408,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
   let resetToken = crypto.randomBytes(32).toString("hex") + user._id;
   console.log(resetToken);
   //* hash token before saving to DB
-  const hashedToken = crypto
-    .createHash("sha256")
-    .update(resetToken)
-    .digest("hex");
+  const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
 
   //* save token to database
   await new Token({
@@ -450,10 +443,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   const { password } = req.body;
   const { resetToken } = req.params;
   //* hash token to compare
-  const hashedToken = crypto
-    .createHash("sha256")
-    .update(resetToken)
-    .digest("hex");
+  const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
 
   //* find token in database
   const userToken = await Token.findOne({
@@ -518,6 +508,12 @@ const getProfile = asyncHandler(async (req, res) => {
   });
 });
 
+//* reset contribution every week
+const resetContribution = asyncHandler(async () => {
+  console.log("I am called!!");
+  await User.updateMany({}, { contribution: 0 });
+});
+
 //*                                                  Export Modules
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 module.exports = {
@@ -532,4 +528,5 @@ module.exports = {
   forgotPassword,
   resetPassword,
   getProfile,
+  resetContribution,
 };
