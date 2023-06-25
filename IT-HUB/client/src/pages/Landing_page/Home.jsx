@@ -50,10 +50,10 @@ const Home = () => {
         </div>
 
         <div className="objects">
-          {/* {active === 0 && <CourseObject />}
+          {active === 0 && <CourseObject />}
           {active === 1 && <NewsObject />}
           {active === 2 && <ChatObject />}
-          {active === 3 && <EventObject />} */}
+          {active === 3 && <EventObject />}
         </div>
       </div>
       <Faq />
