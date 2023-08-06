@@ -150,3 +150,5 @@ archive.zip
 # vim temporary files
 *~
 .*.sw?
+*.csv
+*.ipynb

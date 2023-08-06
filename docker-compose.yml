@@ -1,0 +1,47 @@
+version: "1.0"
+
+services:
+  server-nodejs:
+    container_name: server_nodejs
+    restart: unless-stopped
+    env_file:
+      - .env
+    image: server1:1.0.0
+    build:
+      context: IT-HUB/server
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    networks:
+      - shared-network
+
+  server-fastapi:
+    container_name: server_fastApi
+    restart: unless-stopped
+    env_file:
+      - .env
+    image: server2:1.0.0
+    build:
+      context: IT-HUB/server-fastapi
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    networks:
+      - shared-network
+
+  client-react:
+    container_name: client_React
+    restart: unless-stopped
+    env_file:
+      - .env
+    image: client:1.0.0
+    build:
+      context: IT-HUB/client
+      dockerfile: Dockerfile
+    ports:
+      - 5173:5173
+    networks:
+      - shared-network
+
+networks:
+  shared-network:

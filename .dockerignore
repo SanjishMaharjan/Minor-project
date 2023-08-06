@@ -1,0 +1,8 @@
+.venv
+*.ipynb
+*.csv
+node_modules
+npm-debug.log
+__pycache__
+ignore
+api.rest
